@@ -6,25 +6,18 @@ import cl.niclabs.android.data.Persistent;
 
 public class TelephonyObservationWrapper extends Persistent<TelephonyObservationWrapper>{
 
+    @SerializedName("mcc")
+    public int mcc;
+    @SerializedName("mnc")
+    public int mnc;
     @SerializedName("network_type")
     public int networkType;
-    @SerializedName("rx_bytes")
-    public long rxBytes;
-    @SerializedName("rx_packets")
-    public Long rxPackets;
 
-    @SerializedName("tcp_rx_bytes")
-    public Long tcpRxBytes;
-    @SerializedName("tcp_tx_bytes")
-    public Long tcpTxBytes;
+    @SerializedName("telephony_standard")
+    public int telephonyStandard;
 
-    @SerializedName("tx_bytes")
-    public long txBytes;
-    @SerializedName("tx_packets")
-    public Long txPackets;
-
-    @SerializedName("uid")
-    public Integer uid;
+    @SerializedName("signal_strength")
+    public SampleWrapper signalStrength;
 
     @SerializedName("event_type")
     public int eventType;
@@ -32,5 +25,12 @@ public class TelephonyObservationWrapper extends Persistent<TelephonyObservation
     public long timestamp;
 
     public TelephonyObservationWrapper() {
+    }
+
+    @Override
+    public void save() {
+        if(this.signalStrength != null)
+            this.signalStrength.save();
+        super.save();
     }
 }
