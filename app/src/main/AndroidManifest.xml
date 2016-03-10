@@ -46,6 +46,9 @@
             android:name="DOMAIN_PACKAGE_NAME"
             android:value="cl.niclabs.adkintunmobile.data.persistent" />
 
+        <!-- Our Services -->
+        <service android:name=".services.monitors.ConnectivityMonitor" />
+
     </application>
 
 </manifest>
