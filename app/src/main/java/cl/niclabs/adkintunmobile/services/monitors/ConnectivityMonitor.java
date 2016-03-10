@@ -49,12 +49,12 @@ public class ConnectivityMonitor extends Service implements ConnectivityListener
 
     private void startMonitor(){
         this.connController = Connectivity.bind(Connectivity.class, this);
-        connController.listen(this, true);
-        connController.activate(Monitor.CONNECTIVITY);
+        this.connController.listen(this, true);
+        this.connController.activate(Monitor.CONNECTIVITY);
     }
 
     private void stopMonitor(){
-        connController.unbind();
+        this.connController.unbind();
     }
 
     @Override
