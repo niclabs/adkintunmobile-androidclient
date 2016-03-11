@@ -7,11 +7,14 @@ import android.os.IBinder;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import cl.niclabs.adkintunmobile.data.persistent.CdmaObservationWrapper;
 import cl.niclabs.adkintunmobile.data.persistent.GsmObservationWrapper;
 import cl.niclabs.adkintunmobile.data.persistent.StateChangeWrapper;
 import cl.niclabs.adkintunmobile.data.persistent.TelephonyObservationWrapper;
 import cl.niclabs.adkmobile.monitor.Monitor;
 import cl.niclabs.adkmobile.monitor.Telephony;
+import cl.niclabs.adkmobile.monitor.data.CdmaObservation;
+import cl.niclabs.adkmobile.monitor.data.GsmObservation;
 import cl.niclabs.adkmobile.monitor.data.StateChange;
 import cl.niclabs.adkmobile.monitor.data.TelephonyObservation;
 import cl.niclabs.adkmobile.monitor.listeners.TelephonyListener;
@@ -68,11 +71,19 @@ public class TelephonyMonitor extends Service implements TelephonyListener {
     /*
      *  Implementation of event reporting methods provided by the monitoring library
      */
-    // TODO: El evento recibido podría no ser un GSM, sino un CDMA. Se debe verificar
     @Override
     public void onMobileTelephonyChange(TelephonyObservation<?> telephonyState) {
-        GsmObservationWrapper sample = this.gson.fromJson(telephonyState.toString(), GsmObservationWrapper.class);
-        sample.save();
+        if(telephonyState instanceof GsmObservation) {
+            GsmObservationWrapper sample = this.gson.fromJson(telephonyState.toString(), GsmObservationWrapper.class);
+            sample.save();
+        }else if(telephonyState instanceof CdmaObservation){
+            CdmaObservationWrapper sample = this.gson.fromJson(telephonyState.toString(), CdmaObservationWrapper.class);
+            sample.save();
+        }else{
+            TelephonyObservationWrapper sample = this.gson.fromJson(telephonyState.toString(), TelephonyObservationWrapper.class);
+            sample.save();
+        }
+
     }
 
     @Override
