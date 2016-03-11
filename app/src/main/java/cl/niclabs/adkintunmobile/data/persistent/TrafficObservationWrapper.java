@@ -31,6 +31,11 @@ public class TrafficObservationWrapper extends Persistent<TrafficObservationWrap
     @SerializedName("timestamp")
     public long timestamp;
 
+
+    // Our attribute for save the package name
+    @SerializedName("package_name")
+    public String packageName;
+
     public TrafficObservationWrapper() {
     }
 }
