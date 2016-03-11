@@ -50,10 +50,7 @@
         <!-- Our Services -->
         <service android:name=".services.monitors.ConnectivityMonitor" />
         <service android:name=".services.monitors.TelephonyMonitor" />
-        <service
-            android:name=".services.monitors.TrafficMonitor"
-            android:enabled="true"
-            android:exported="true"></service>
+        <service android:name=".services.monitors.TrafficMonitor" />
     </application>
 
 </manifest>
