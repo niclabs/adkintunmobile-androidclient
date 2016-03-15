@@ -1,4 +1,4 @@
-package cl.niclabs.adkintunmobile.utils;
+package cl.niclabs.adkintunmobile.utils.volley;
 
 import android.content.Context;
 import android.graphics.Bitmap;

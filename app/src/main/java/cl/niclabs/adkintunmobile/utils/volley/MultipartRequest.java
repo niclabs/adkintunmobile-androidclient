@@ -1,4 +1,4 @@
-package cl.niclabs.adkintunmobile.utils;
+package cl.niclabs.adkintunmobile.utils.volley;
 import com.android.volley.AuthFailureError;
 import com.android.volley.NetworkResponse;
 import com.android.volley.ParseError;
