@@ -1,15 +1,15 @@
 package cl.niclabs.adkintunmobile.data;
 
+import android.content.Context;
+
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
 import cl.niclabs.adkintunmobile.data.persistent.CdmaObservationWrapper;
 import cl.niclabs.adkintunmobile.data.persistent.ConnectivityObservationWrapper;
-import cl.niclabs.adkintunmobile.data.persistent.DeviceSingleton;
 import cl.niclabs.adkintunmobile.data.persistent.GsmObservationWrapper;
 import cl.niclabs.adkintunmobile.data.persistent.SampleWrapper;
-import cl.niclabs.adkintunmobile.data.persistent.SimSingleton;
 import cl.niclabs.adkintunmobile.data.persistent.StateChangeWrapper;
 import cl.niclabs.adkintunmobile.data.persistent.TelephonyObservationWrapper;
 import cl.niclabs.adkintunmobile.data.persistent.TrafficObservationWrapper;
@@ -20,9 +20,9 @@ public class EventsReport {
     // TODO: Modificar Nombres de los campos Serializados
 
     @SerializedName("sim_records")
-    public List <SimSingleton> simRecords;
+    SimSingleton simRecord;
     @SerializedName("device_records")
-    public List <DeviceSingleton> deviceRecords;
+    DeviceSingleton deviceRecord;
     @SerializedName("cdma_records")
     public List <CdmaObservationWrapper> cdmaRecords;
     @SerializedName("connectivity_records")
@@ -36,9 +36,9 @@ public class EventsReport {
     @SerializedName("traffic_records")
     public List <TrafficObservationWrapper> trafficRecords;
 
-    public EventsReport() {
-        this.simRecords = SimSingleton.listAll(SimSingleton.class);
-        this.deviceRecords = DeviceSingleton.listAll(DeviceSingleton.class);
+    public EventsReport(Context context) {
+        this.simRecord = SimSingleton.getInstance(context);
+        this.deviceRecord = DeviceSingleton.getInstance(context);
         this.cdmaRecords = CdmaObservationWrapper.listAll(CdmaObservationWrapper.class);
         this.connectivityRecords = ConnectivityObservationWrapper.listAll(ConnectivityObservationWrapper.class);
         this.gsmRecords = GsmObservationWrapper.listAll(GsmObservationWrapper.class);

@@ -1,11 +1,10 @@
-package cl.niclabs.adkintunmobile.data.persistent;
+package cl.niclabs.adkintunmobile.data;
 
 import android.content.Context;
 import android.telephony.TelephonyManager;
 import com.google.gson.annotations.SerializedName;
-import cl.niclabs.android.data.Persistent;
 
-public class SimSingleton extends Persistent<SimSingleton> {
+public class SimSingleton {
     private static SimSingleton mInstance;
 
     @SerializedName("carrier_id")

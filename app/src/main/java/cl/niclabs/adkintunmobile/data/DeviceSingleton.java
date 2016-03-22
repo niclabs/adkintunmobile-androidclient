@@ -1,12 +1,11 @@
-package cl.niclabs.adkintunmobile.data.persistent;
+package cl.niclabs.adkintunmobile.data;
 
 import android.content.Context;
 import android.os.Build;
 import android.telephony.TelephonyManager;
 import com.google.gson.annotations.SerializedName;
-import cl.niclabs.android.data.Persistent;
 
-public class DeviceSingleton extends Persistent<DeviceSingleton> {
+public class DeviceSingleton {
     private static DeviceSingleton mInstance;
 
     @SerializedName("device_id")
