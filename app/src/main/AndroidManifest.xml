@@ -51,6 +51,11 @@
         <service android:name=".services.monitors.ConnectivityMonitor" />
         <service android:name=".services.monitors.TelephonyMonitor" />
         <service android:name=".services.monitors.TrafficMonitor" />
+        <service android:name=".services.sync.Synchronization" />
+
+        <!-- Our Receivers -->
+        <receiver android:name=".services.sync.SynchronizationBroadcastReceiver" />
+
     </application>
 
 </manifest>
