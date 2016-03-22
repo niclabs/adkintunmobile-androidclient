@@ -6,8 +6,10 @@ import java.util.List;
 
 import cl.niclabs.adkintunmobile.data.persistent.CdmaObservationWrapper;
 import cl.niclabs.adkintunmobile.data.persistent.ConnectivityObservationWrapper;
+import cl.niclabs.adkintunmobile.data.persistent.DeviceSingleton;
 import cl.niclabs.adkintunmobile.data.persistent.GsmObservationWrapper;
 import cl.niclabs.adkintunmobile.data.persistent.SampleWrapper;
+import cl.niclabs.adkintunmobile.data.persistent.SimSingleton;
 import cl.niclabs.adkintunmobile.data.persistent.StateChangeWrapper;
 import cl.niclabs.adkintunmobile.data.persistent.TelephonyObservationWrapper;
 import cl.niclabs.adkintunmobile.data.persistent.TrafficObservationWrapper;
@@ -17,6 +19,10 @@ public class EventsReport {
     // TODO: Agregar Campos para datos del dispositivo
     // TODO: Modificar Nombres de los campos Serializados
 
+    @SerializedName("sim_records")
+    public List <SimSingleton> simRecords;
+    @SerializedName("device_records")
+    public List <DeviceSingleton> deviceRecords;
     @SerializedName("cdma_records")
     public List <CdmaObservationWrapper> cdmaRecords;
     @SerializedName("connectivity_records")
@@ -31,6 +37,8 @@ public class EventsReport {
     public List <TrafficObservationWrapper> trafficRecords;
 
     public EventsReport() {
+        this.simRecords = SimSingleton.listAll(SimSingleton.class);
+        this.deviceRecords = DeviceSingleton.listAll(DeviceSingleton.class);
         this.cdmaRecords = CdmaObservationWrapper.listAll(CdmaObservationWrapper.class);
         this.connectivityRecords = ConnectivityObservationWrapper.listAll(ConnectivityObservationWrapper.class);
         this.gsmRecords = GsmObservationWrapper.listAll(GsmObservationWrapper.class);
