@@ -13,13 +13,13 @@ import java.io.IOException;
 import java.util.Map;
 
 
-public class MultipartRequest extends Request<NetworkResponse> {
+public class HttpMultipartRequest extends Request<NetworkResponse> {
     private final Response.Listener<NetworkResponse> mListener;
     private final Response.ErrorListener mErrorListener;
     private final Map<String, String> mHeaders;
     private final byte[] mMultipartBody;
 
-    public MultipartRequest(String url, Map<String, String> headers, byte[] multipartBody, Response.Listener<NetworkResponse> listener, Response.ErrorListener errorListener) {
+    public HttpMultipartRequest(String url, Map<String, String> headers, byte[] multipartBody, Response.Listener<NetworkResponse> listener, Response.ErrorListener errorListener) {
         super(Method.POST, url, errorListener);
         this.mListener = listener;
         this.mErrorListener = errorListener;

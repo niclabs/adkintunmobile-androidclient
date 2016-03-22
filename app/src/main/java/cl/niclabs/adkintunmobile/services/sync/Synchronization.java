@@ -20,7 +20,7 @@ import java.io.IOException;
 
 import cl.niclabs.adkintunmobile.Constants;
 import cl.niclabs.adkintunmobile.data.EventsReport;
-import cl.niclabs.adkintunmobile.utils.volley.MultipartRequest;
+import cl.niclabs.adkintunmobile.utils.volley.HttpMultipartRequest;
 import cl.niclabs.adkintunmobile.utils.volley.VolleySingleton;
 
 public class Synchronization extends Service {
@@ -33,7 +33,7 @@ public class Synchronization extends Service {
         Log.d("Sync", "Creado El servicio de sincronización");
 
         // 0.- Build a report
-        EventsReport report = new EventsReport();
+        EventsReport report = new EventsReport(getApplicationContext());
         // 1.- Prepare data
         byte[] data = collectStoredData(report);
         // 2.- Prepare request
@@ -111,9 +111,9 @@ public class Synchronization extends Service {
         DataOutputStream dos = new DataOutputStream(bos);
         try {
             //primer archivo adjuntado al DataOutputStream
-            MultipartRequest.buildPart(dos, data, "report.JSON");
+            HttpMultipartRequest.buildPart(dos, data, "report.JSON");
             //agregar "multipart form data" después de los archivos
-            MultipartRequest.writeBytes(dos);
+            HttpMultipartRequest.writeBytes(dos);
             //crear multipart body
             multipartBody = bos.toByteArray();
         } catch (IOException e) {
@@ -121,7 +121,7 @@ public class Synchronization extends Service {
         }
 
         //creación multipart request
-        MultipartRequest multipartRequest = new MultipartRequest(Constants.URL_REPORTS, null, multipartBody, new Response.Listener<NetworkResponse>() {
+        HttpMultipartRequest multipartRequest = new HttpMultipartRequest(Constants.URL_REPORTS, null, multipartBody, new Response.Listener<NetworkResponse>() {
             @Override
             public void onResponse(NetworkResponse response) {
                 Toast.makeText(getApplicationContext(), "Upload successfully!", Toast.LENGTH_SHORT).show();
@@ -133,7 +133,16 @@ public class Synchronization extends Service {
                 Toast.makeText(getApplicationContext(), "Upload failed!\r\n" + error.toString(), Toast.LENGTH_SHORT).show();
 
             }
-        });
+        }){
+
+            @Override
+            public void deliverError(VolleyError error) {
+                VolleySingleton.getInstance(getApplicationContext()).addToRequestQueue(this);
+                VolleySingleton.getInstance(getApplicationContext()).getRequestQueue().stop();
+                //mErrorListener.onErrorResponse(error);
+
+            }
+        };
 
         //agregar multipartrequest a la cola de peticiones
         VolleySingleton.getInstance(getApplicationContext()).addToRequestQueue(multipartRequest);
