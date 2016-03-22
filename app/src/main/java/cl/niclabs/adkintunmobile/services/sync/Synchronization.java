@@ -18,6 +18,7 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
+import cl.niclabs.adkintunmobile.Constants;
 import cl.niclabs.adkintunmobile.data.EventsReport;
 import cl.niclabs.adkintunmobile.utils.volley.MultipartRequest;
 import cl.niclabs.adkintunmobile.utils.volley.VolleySingleton;
@@ -29,7 +30,7 @@ public class Synchronization extends Service {
     @Override
     public void onCreate() {
         super.onCreate();
-        Log.d("Sync", "Creado El servicio");
+        Log.d("Sync", "Creado El servicio de sincronización");
 
         // 0.- Build a report
         EventsReport report = new EventsReport();
@@ -46,7 +47,7 @@ public class Synchronization extends Service {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        Log.d("Sync", "Detenido El servicio");
+        Log.d("Sync", "Detenido El servicio de sincronización");
     }
 
     @Override
@@ -60,7 +61,6 @@ public class Synchronization extends Service {
      */
 
     public byte[] collectStoredData(EventsReport report){
-
         // The output object
         byte[] data = null;
 
@@ -119,11 +119,9 @@ public class Synchronization extends Service {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        //url
-        String url = "http://172.30.65.207:5000/";
 
         //creación multipart request
-        MultipartRequest multipartRequest = new MultipartRequest(url, null, multipartBody, new Response.Listener<NetworkResponse>() {
+        MultipartRequest multipartRequest = new MultipartRequest(Constants.URL_REPORTS, null, multipartBody, new Response.Listener<NetworkResponse>() {
             @Override
             public void onResponse(NetworkResponse response) {
                 Toast.makeText(getApplicationContext(), "Upload successfully!", Toast.LENGTH_SHORT).show();
