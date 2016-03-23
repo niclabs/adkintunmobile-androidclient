@@ -19,7 +19,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 
 import cl.niclabs.adkintunmobile.Constants;
-import cl.niclabs.adkintunmobile.data.EventsReport;
+import cl.niclabs.adkintunmobile.data.Report;
 import cl.niclabs.adkintunmobile.utils.volley.HttpMultipartRequest;
 import cl.niclabs.adkintunmobile.utils.volley.VolleySingleton;
 
@@ -36,7 +36,7 @@ public class Synchronization extends Service {
         Log.d(this.TAG, "Creado El servicio de sincronización");
 
         // 0.- Build a report
-        EventsReport report = new EventsReport(getApplicationContext());
+        Report report = new Report(getApplicationContext());
         // 1.- Prepare data
         byte[] data = collectStoredData(report);
         // 2.- Prepare request
@@ -63,7 +63,7 @@ public class Synchronization extends Service {
      *  Utility Methods
      */
 
-    public byte[] collectStoredData(EventsReport report){
+    public byte[] collectStoredData(Report report){
         // The output object
         byte[] data = null;
 

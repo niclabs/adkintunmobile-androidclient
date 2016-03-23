@@ -14,15 +14,22 @@ import cl.niclabs.adkintunmobile.data.persistent.StateChangeWrapper;
 import cl.niclabs.adkintunmobile.data.persistent.TelephonyObservationWrapper;
 import cl.niclabs.adkintunmobile.data.persistent.TrafficObservationWrapper;
 
-public class EventsReport {
+/**
+ * Clase para manipular los datos de eventos persistidos en el telefono.
+ *
+ * La creación de un objeto Report rescata todos los valores persistidos en Sugar en el dispositivo
+ * de manera que al serializarlo, se genera un JSON con el reporte listo para el servidor.
+ * 
+ */
+public class Report {
 
-    // TODO: Agregar Campos para datos del dispositivo
     // TODO: Modificar Nombres de los campos Serializados
 
     @SerializedName("sim_records")
     SimSingleton simRecord;
     @SerializedName("device_records")
     DeviceSingleton deviceRecord;
+
     @SerializedName("cdma_records")
     public List <CdmaObservationWrapper> cdmaRecords;
     @SerializedName("connectivity_records")
@@ -36,9 +43,10 @@ public class EventsReport {
     @SerializedName("traffic_records")
     public List <TrafficObservationWrapper> trafficRecords;
 
-    public EventsReport(Context context) {
+    public Report(Context context) {
         this.simRecord = SimSingleton.getInstance(context);
         this.deviceRecord = DeviceSingleton.getInstance(context);
+
         this.cdmaRecords = CdmaObservationWrapper.listAll(CdmaObservationWrapper.class);
         this.connectivityRecords = ConnectivityObservationWrapper.listAll(ConnectivityObservationWrapper.class);
         this.gsmRecords = GsmObservationWrapper.listAll(GsmObservationWrapper.class);
