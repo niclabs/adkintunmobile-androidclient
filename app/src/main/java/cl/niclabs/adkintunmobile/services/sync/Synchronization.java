@@ -121,28 +121,32 @@ public class Synchronization extends Service {
         }
 
         //creación multipart request
-        HttpMultipartRequest multipartRequest = new HttpMultipartRequest(Constants.URL_REPORTS, null, multipartBody, new Response.Listener<NetworkResponse>() {
-            @Override
-            public void onResponse(NetworkResponse response) {
-                Toast.makeText(getApplicationContext(), "Upload successfully!", Toast.LENGTH_SHORT).show();
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                // TODO: Re-encolar peticiones en caso de no conseguir el envío correcto
-                Toast.makeText(getApplicationContext(), "Upload failed!\r\n" + error.toString(), Toast.LENGTH_SHORT).show();
+        HttpMultipartRequest multipartRequest =
+                new HttpMultipartRequest(
+                        Constants.URL_REPORTS,
+                        null,
+                        multipartBody,
+                        new Response.Listener<NetworkResponse>() {
+                            @Override
+                            public void onResponse(NetworkResponse response) {
+                                Toast.makeText(getApplicationContext(), "Upload successfully!", Toast.LENGTH_SHORT).show();
+                            }},
+                        new Response.ErrorListener() {
+                            @Override
+                            public void onErrorResponse(VolleyError error) {
+                                Toast.makeText(getApplicationContext(), "Upload failed!\r\n" + error.toString(), Toast.LENGTH_SHORT).show();
+                            }
+                        })
+                {
+                    @Override
+                    public void deliverError(VolleyError error) {
+                        Toast.makeText(getApplicationContext(), "Deliver Error, Queued!\r\n" + error.toString(), Toast.LENGTH_SHORT).show();
+                        VolleySingleton.getInstance(getApplicationContext()).addToRequestQueue(this);
+                        VolleySingleton.getInstance(getApplicationContext()).getRequestQueue().stop();
+                        //mErrorListener.onErrorResponse(error);
 
-            }
-        }){
-
-            @Override
-            public void deliverError(VolleyError error) {
-                VolleySingleton.getInstance(getApplicationContext()).addToRequestQueue(this);
-                VolleySingleton.getInstance(getApplicationContext()).getRequestQueue().stop();
-                //mErrorListener.onErrorResponse(error);
-
-            }
-        };
+                    }
+                };
 
         //agregar multipartrequest a la cola de peticiones
         VolleySingleton.getInstance(getApplicationContext()).addToRequestQueue(multipartRequest);
