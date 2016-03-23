@@ -24,13 +24,16 @@ import cl.niclabs.adkintunmobile.utils.volley.HttpMultipartRequest;
 import cl.niclabs.adkintunmobile.utils.volley.VolleySingleton;
 
 public class Synchronization extends Service {
+
+    private final String TAG = "Sync";
+
     public Synchronization() {
     }
 
     @Override
     public void onCreate() {
         super.onCreate();
-        Log.d("Sync", "Creado El servicio de sincronización");
+        Log.d(this.TAG, "Creado El servicio de sincronización");
 
         // 0.- Build a report
         EventsReport report = new EventsReport(getApplicationContext());
@@ -47,7 +50,7 @@ public class Synchronization extends Service {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        Log.d("Sync", "Detenido El servicio de sincronización");
+        Log.d(this.TAG, "Detenido El servicio de sincronización");
     }
 
     @Override
@@ -130,19 +133,22 @@ public class Synchronization extends Service {
                             @Override
                             public void onResponse(NetworkResponse response) {
                                 Toast.makeText(getApplicationContext(), "Upload successfully!", Toast.LENGTH_SHORT).show();
+                                Log.d(TAG, "Upload successfully!");
                             }},
                         new Response.ErrorListener() {
                             @Override
                             public void onErrorResponse(VolleyError error) {
-                                Toast.makeText(getApplicationContext(), "Upload failed!\r\n" + error.toString(), Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getApplicationContext(), "Upload failed!" + error.toString(), Toast.LENGTH_SHORT).show();
+                                Log.d(TAG, "Upload failed!");
                             }
                         })
                 {
                     @Override
                     public void deliverError(VolleyError error) {
-                        Toast.makeText(getApplicationContext(), "Deliver Error, Queued!\r\n" + error.toString(), Toast.LENGTH_SHORT).show();
                         VolleySingleton.getInstance(getApplicationContext()).addToRequestQueue(this);
                         VolleySingleton.getInstance(getApplicationContext()).getRequestQueue().stop();
+                        Toast.makeText(getApplicationContext(), "Deliver Error, Queued!" + error.toString(), Toast.LENGTH_SHORT).show();
+                        Log.d(TAG, "Deliver Error, Queued!");
                         //mErrorListener.onErrorResponse(error);
 
                     }
