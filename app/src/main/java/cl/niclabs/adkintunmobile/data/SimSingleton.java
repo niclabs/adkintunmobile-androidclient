@@ -7,11 +7,14 @@ import com.google.gson.annotations.SerializedName;
 public class SimSingleton {
     private static SimSingleton mInstance;
 
+    @SerializedName("mcc")
+    private String mMcc;
+    @SerializedName("mnc")
+    private String mMnc;
     @SerializedName("carrier_id")
     private String mCarrier;
     @SerializedName("serial_number")
     private String mSerialNumber;
-
 
     public static SimSingleton getInstance(Context context) {
         if (mInstance == null) {
@@ -22,24 +25,12 @@ public class SimSingleton {
 
     private SimSingleton(Context context) {
         TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
-        mCarrier = telephonyManager.getSimOperator();
-        mSerialNumber = telephonyManager.getSimSerialNumber();
-    }
 
-    public String getmSerialNumber() {
-        return mSerialNumber;
-    }
+        this.mCarrier = telephonyManager.getSimOperator();
+        this.mSerialNumber = telephonyManager.getSimSerialNumber();
 
-    public void setmSerialNumber(String mSerialNumber) {
-        this.mSerialNumber = mSerialNumber;
-    }
-
-    public String getmCarrier() {
-        return mCarrier;
-    }
-
-    public void setmCarrier(String mCarrier) {
-        this.mCarrier = mCarrier;
+        this.mMcc = this.mCarrier.substring(0, 3);
+        this.mMnc = this.mCarrier.substring(3);
     }
 
     public SimSingleton() {
