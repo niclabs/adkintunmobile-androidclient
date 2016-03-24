@@ -26,11 +26,13 @@ public class SimSingleton {
     private SimSingleton(Context context) {
         TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
 
-        this.mCarrier = telephonyManager.getSimOperator();
         this.mSerialNumber = telephonyManager.getSimSerialNumber();
 
-        this.mMcc = this.mCarrier.substring(0, 3);
-        this.mMnc = this.mCarrier.substring(3);
+        if(telephonyManager.getSimState() == TelephonyManager.SIM_STATE_READY){
+            this.mCarrier = telephonyManager.getSimOperator();
+            this.mMcc = this.mCarrier.substring(0, 3);
+            this.mMnc = this.mCarrier.substring(3);
+        }
     }
 
     public SimSingleton() {
