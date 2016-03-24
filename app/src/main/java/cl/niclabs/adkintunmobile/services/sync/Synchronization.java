@@ -25,7 +25,7 @@ import cl.niclabs.adkintunmobile.utils.volley.VolleySingleton;
 
 public class Synchronization extends Service {
 
-    private final String TAG = "Sync";
+    private final String TAG = "Synchronization";
 
     public Synchronization() {
     }
@@ -62,8 +62,7 @@ public class Synchronization extends Service {
     /*
      *  Utility Methods
      */
-
-    public byte[] collectStoredData(Report report){
+    private byte[] collectStoredData(Report report){
         // The output object
         byte[] data = null;
 
