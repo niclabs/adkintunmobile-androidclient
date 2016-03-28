@@ -19,9 +19,50 @@ public class HttpMultipartRequest extends Request<NetworkResponse> {
     private final Map<String, String> mHeaders;
     private final byte[] mMultipartBody;
 
-    public HttpMultipartRequest(String url, Map<String, String> headers, byte[] multipartBody, Response.Listener<NetworkResponse> listener, Response.ErrorListener errorListener) {
+    /**
+     * Creates a new POST Request to send files and data over to a HTTP Server.
+     *
+     * HttpMultipartRequest structure:
+
+          We need the corresponding byte-array of the file "example.zip" to be sent to de URL "example.com"
+               byte[] file;
+
+          ByteArrayOutputStream bos = new ByteArrayOutputStream();
+          DataOutputStream dos = new DataOutputStream(bos);
+          try{
+              MultipartRequest.buildPart(dos, file, "example.zip");   //If you need to add another file to the Request, you can do:
+                                                                      //    MultipartRequest.buildPart(dos, file2, "file2.zip");
+              MultipartRequest.writeBytes(dos);
+              byte[] multipartBody = bos.toByteArray();               //Create multipart body
+          }
+          catch (IOException e){
+              e.printStackTrace();
+          }
+
+          MultipartRequest request = new MultipartRequest( "example.com", null, multipartBody, new Response.Listener<NetworkResponse>(){
+              @Override
+              public void onResponse(NetworkResponse response) {
+                  //Method to handle the response
+              }
+          }, new Response.ErrorListener(){
+              @Override
+              public void onErrorResponse(VolleyError error) {
+                  //Method to handle the error
+              }
+          });
+
+          //Add the request to the Request Queue
+          VolleySingleton.getInstance(context).addToRequestQueue(request);
+
+     * @param url               URL to fetch the file at
+     * @param headers           Request headers
+     * @param multipartBody     Body of multipart request to be sent
+     * @param responseListener  Listener to receive the response
+     * @param errorListener     Error listener, or null to ignore errors
+     */
+    public HttpMultipartRequest(String url, Map<String, String> headers, byte[] multipartBody, Response.Listener<NetworkResponse> responseListener, Response.ErrorListener errorListener) {
         super(Method.POST, url, errorListener);
-        this.mListener = listener;
+        this.mListener = responseListener;
         this.mErrorListener = errorListener;
         this.mHeaders = headers;
         this.mMultipartBody = multipartBody;

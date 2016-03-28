@@ -16,6 +16,36 @@ public class HttpPostRequest extends Request<JSONObject>{
     private Response.Listener<JSONObject> listener;
     private Map<String, String> params;
 
+    /**
+     * Creates a new POST Request based on a Map object.
+     *
+     * HttpPostRequest structure:
+
+          We need a Map<String,String> object to create the request, each pair in the map will be considered
+          as a name/value pair in the JSON request.
+              Map<String, String> params;
+
+
+          HttpPostRequest request = new HttpPostRequest( "example.com", params, new Response.Listener<JSONObject>(){
+              @Override
+              public void onResponse(JSONObject response) {
+                  //Method to handle the response
+              }
+          }, new Response.ErrorListener(){
+              @Override
+              public void onErrorResponse(VolleyError error) {
+                  //Method to handle the error
+              }
+          });
+
+          //Add the request to the Request Queue
+          VolleySingleton.getInstance(context).addToRequestQueue(multipartRequest);
+
+     * @param url               URL to fetch the file at
+     * @param params            Request parameters and values
+     * @param responseListener  Listener to receive the response
+     * @param errorListener     Error listener, or null to ignore errors
+     */
     public HttpPostRequest(String url, Map<String, String> params,
                            Response.Listener<JSONObject> responseListener, Response.ErrorListener errorListener) {
         super(Method.POST, url, errorListener);
