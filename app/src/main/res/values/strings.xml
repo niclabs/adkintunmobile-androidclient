@@ -1,3 +1,18 @@
 <resources>
-    <string name="app_name">AdkintunMobile</string>
+    <string name="app_name">Adkintun Mobile</string>
+
+    <!-- Titles By View -->
+    <string name="view_status">Tu Estado</string>
+    <string name="view_connection_type">Tipo de Conexión</string>
+    <string name="view_signal_type">Tipo de Señal</string>
+    <string name="view_carrier_ranking">Ranking de Operadores</string>
+    <string name="view_applications_traffic">Tráfico por Aplicación</string>
+    <string name="view_active_connections">Conexiones Activas</string>
+    <string name="view_about_us">Acerca de</string>
+    <string name="view_settings">Preferencias</string>
+    <string name="view_notifications_log">Notificaciones</string>
+
+    <!-- Navigation Drawer texts -->
+    <string name="drawer_open">Open navigation drawer</string>
+    <string name="drawer_close">Close navigation drawer</string>
 </resources>
