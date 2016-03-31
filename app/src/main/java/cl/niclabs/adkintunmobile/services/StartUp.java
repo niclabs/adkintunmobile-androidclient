@@ -2,7 +2,12 @@ package cl.niclabs.adkintunmobile.services;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
+import android.util.Log;
+import android.widget.Toast;
 
+import cl.niclabs.adkintunmobile.R;
 import cl.niclabs.adkintunmobile.services.monitors.ConnectivityMonitor;
 import cl.niclabs.adkintunmobile.services.monitors.TelephonyMonitor;
 import cl.niclabs.adkintunmobile.services.monitors.TrafficMonitor;
@@ -54,8 +59,11 @@ public class StartUp extends Device{
     }
 
     static public void schedulleBroadcastReceivers(Context context) {
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
+        long sampleRepeatTime = Long.parseLong(sharedPreferences.getString(context.getString(R.string.settings_sampling_frequency_key), "1"));
+
         SynchronizationBroadcastReceiver sync = new SynchronizationBroadcastReceiver();
-        sync.setSchedulle(context);
+        sync.setSchedulle(context, sampleRepeatTime);
     }
 
 
