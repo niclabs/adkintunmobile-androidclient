@@ -1,8 +1,11 @@
 package cl.niclabs.adkintunmobile.services.sync;
 
 import android.app.Service;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.IBinder;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -19,6 +22,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 
 import cl.niclabs.adkintunmobile.Constants;
+import cl.niclabs.adkintunmobile.R;
 import cl.niclabs.adkintunmobile.data.Report;
 import cl.niclabs.adkintunmobile.utils.volley.HttpMultipartRequest;
 import cl.niclabs.adkintunmobile.utils.volley.VolleySingleton;
@@ -26,6 +30,7 @@ import cl.niclabs.adkintunmobile.utils.volley.VolleySingleton;
 public class Synchronization extends Service {
 
     private final String TAG = "Synchronization";
+    private Context context;
 
     public Synchronization() {
     }
@@ -33,6 +38,7 @@ public class Synchronization extends Service {
     @Override
     public void onCreate() {
         super.onCreate();
+        this.context = this;
         Log.d(this.TAG, "Creado El servicio de sincronización");
 
         // 0.- Build a report
@@ -123,9 +129,10 @@ public class Synchronization extends Service {
         }
 
         //creación multipart request
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this.context);
         HttpMultipartRequest multipartRequest =
                 new HttpMultipartRequest(
-                        Constants.URL_REPORTS,
+                        sharedPreferences.getString(this.context.getString(R.string.settings_sampling_hostname_key), ""),
                         null,
                         multipartBody,
                         new Response.Listener<NetworkResponse>() {

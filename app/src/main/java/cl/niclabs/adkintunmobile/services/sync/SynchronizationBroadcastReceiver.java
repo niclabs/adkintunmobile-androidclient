@@ -19,11 +19,22 @@ public class SynchronizationBroadcastReceiver extends BroadcastReceiver {
         context.startService(new Intent(context, Synchronization.class));
     }
 
-    public void setSchedulle(Context context){
+    public void setSchedulle(Context context, long samplingMinutes){
+
+        cancelScheculle(context);
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         Intent intent = new Intent(context, SynchronizationBroadcastReceiver.class);
         PendingIntent pIntent = PendingIntent.getBroadcast(context, 1, intent, PendingIntent.FLAG_CANCEL_CURRENT);
-        //am.set(AlarmManager.RTC, System.currentTimeMillis() + 5000, pIntent);
-        alarmManager.setRepeating(AlarmManager.RTC, System.currentTimeMillis(), Constants.MILIS_REPEATING_SYNC, pIntent);
+        long samplingTime = samplingMinutes * 60 * 1000;
+        alarmManager.setRepeating(AlarmManager.RTC, System.currentTimeMillis(), samplingTime, pIntent);
+
+        Toast.makeText(context, "alarma seteada en " + samplingMinutes + " minutos", Toast.LENGTH_SHORT).show();
+    }
+
+    private void cancelScheculle(Context context){
+        AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+        Intent intent = new Intent(context, SynchronizationBroadcastReceiver.class);
+        PendingIntent pIntent = PendingIntent.getBroadcast(context, 1, intent, PendingIntent.FLAG_CANCEL_CURRENT);
+        alarmManager.cancel(pIntent);
     }
 }
