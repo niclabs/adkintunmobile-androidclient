@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="sync_sampling_frequency">
+        <item>Cada 1 Minuto</item>
+        <item>Cada 2 Minutos</item>
+        <item>Cada 5 Minutos</item>
+        <item>Cada 60 Minutos</item>
+    </string-array>
+    <string-array name="sync_sampling_frequency_values">
+        <item>1</item>
+        <item>2</item>
+        <item>5</item>
+        <item>60</item>
+    </string-array>
+</resources>
