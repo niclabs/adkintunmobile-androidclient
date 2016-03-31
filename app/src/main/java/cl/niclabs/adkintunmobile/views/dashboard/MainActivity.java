@@ -18,6 +18,7 @@ import android.widget.Toast;
 import cl.niclabs.adkintunmobile.R;
 import cl.niclabs.adkintunmobile.services.StartUp;
 import cl.niclabs.adkintunmobile.views.aboutus.AboutUsActivity;
+import cl.niclabs.adkintunmobile.views.settings.SettingsActivity;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -38,6 +39,13 @@ public class MainActivity extends AppCompatActivity {
 
         setupToolBar();
         setupNavigationDrawer();
+    }
+
+
+    // TODO: Ajustar la programación del broadcast receiver en otro momento, no en el onResume
+    @Override
+    protected void onResume() {
+        super.onResume();
 
         // Start System
         StartUp.bootOnSystem(this.context);
@@ -71,6 +79,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public boolean onNavigationItemSelected(MenuItem item) {
 
+                Intent myIntent;
+                Fragment myFragment;
                 switch (item.getItemId()) {
                     case R.id.nav_notifications_log:
                         break;
@@ -93,10 +103,12 @@ public class MainActivity extends AppCompatActivity {
                     case R.id.nav_applications_traffic:
                         break;
                     case R.id.nav_settings:
+                        myIntent = new Intent(getApplicationContext(), SettingsActivity.class);
+                        startActivity(myIntent);
                         break;
                     case R.id.nav_about_us:
-                        Intent intent = new Intent(getApplicationContext(), AboutUsActivity.class);
-                        startActivity(intent);
+                        myIntent = new Intent(getApplicationContext(), AboutUsActivity.class);
+                        startActivity(myIntent);
                         break;
                 }
                 mDrawer.closeDrawers();
