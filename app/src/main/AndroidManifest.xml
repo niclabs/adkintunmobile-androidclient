@@ -30,8 +30,17 @@
         <activity android:name=".views.dashboard.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name=".views.settings.SettingsActivity"
+            android:parentActivityName=".views.dashboard.MainActivity"
+            android:windowSoftInputMode="adjustPan">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".views.dashboard.MainActivity" />
         </activity>
         <activity
             android:name=".views.aboutus.AboutUsActivity"
@@ -39,8 +48,7 @@
             android:theme="@style/FullScreen">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".views.dashboard.MainActivity"
-                />
+                android:value=".views.dashboard.MainActivity" />
         </activity>
 
         <!-- Database configuration -->
@@ -80,7 +88,6 @@
                 <action android:name="android.net.wifi.STATE_CHANGE" />
             </intent-filter>
         </receiver>
-
     </application>
 
 </manifest>
