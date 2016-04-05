@@ -15,6 +15,7 @@ import android.widget.Toast;
 import cl.niclabs.adkintunmobile.R;
 import cl.niclabs.adkintunmobile.services.sync.SynchronizationBroadcastReceiver;
 
+//TODO: Implementar el listener de cambio de preferencia para actualizar los valores de inmediato.
 public class SettingsFragment extends PreferenceFragment {
 
 

@@ -3,6 +3,7 @@
 
     <!-- Titles By View -->
     <string name="view_status">Tu Estado</string>
+    <string name="view_dashboard">Dashboard</string>
     <string name="view_connection_type">Tipo de Conexión</string>
     <string name="view_signal_type">Tipo de Señal</string>
     <string name="view_carrier_ranking">Ranking de Operadores</string>
@@ -17,25 +18,24 @@
     <string name="drawer_close">Close navigation drawer</string>
 
     <!-- Preferences Strings -->
-    <string name="settings_sampling_category">Sincronización de Datos</string>
-
-    <string name="settings_sampling_status_key">sync_status</string>
-    <string name="settings_sampling_status_title">Envío de datos</string>
-    <string name="settings_sampling_status_summary">Activar o desactivar sincronización</string>
+    <string name="settings_sampling_category">Ajustes de sincronización</string>
 
     <string name="settings_sampling_hostname_key">sync_hostname</string>
-    <string name="settings_sampling_hostname_title">Dirección del Servidor</string>
+    <string name="settings_sampling_hostname_title">Dirección del servidor</string>
     <string name="settings_sampling_hostname_summary">Especificar dirección de servidor de datos</string>
-    <string name="settings_sampling_hostname_default">http://172.30.65.207:5000/</string>
+    <string name="settings_sampling_hostname_default">http://172.30.65.207:5000/send_file</string>
 
     <string name="settings_sampling_frequency_key">sync_frequency</string>
-    <string name="settings_sampling_frequency_title">Frencuencia de Envío</string>
+    <string name="settings_sampling_frequency_title">Frencuencia de envío</string>
 
     <string name="settings_app_category">Aplicación</string>
 
     <string name="settings_app_version_key">app_version</string>
     <string name="settings_app_version_title">Versión de la aplicación</string>
     <string name="settings_app_version_default">0.1a</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 
 </resources>
