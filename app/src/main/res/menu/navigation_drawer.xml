@@ -4,6 +4,10 @@
         android:id="@+id/drawer_menu_sec1"
         android:checkableBehavior="single">
         <item
+            android:id="@+id/nav_dashboard"
+            android:checked="true"
+            android:title="@string/view_dashboard" />
+        <item
             android:id="@+id/nav_notifications_log"
             android:title="@string/view_notifications_log" />
         <item
