@@ -12,13 +12,26 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.Observable;
+import java.util.Observer;
+
 import cl.niclabs.adkintunmobile.R;
-import cl.niclabs.adkintunmobile.services.StartUp;
+import cl.niclabs.adkintunmobile.data.MobileConnectionSingleton;
+import cl.niclabs.adkintunmobile.services.SetupSystem;
 import cl.niclabs.adkintunmobile.views.aboutus.AboutUsActivity;
+import cl.niclabs.adkintunmobile.views.applicationstraffic.ApplicationsTrafficFragment;
+import cl.niclabs.adkintunmobile.views.connectiontype.ConnectionTypeFragment;
+import cl.niclabs.adkintunmobile.views.notificationlog.NotificationLogFragment;
+import cl.niclabs.adkintunmobile.views.rankings.RankingFragment;
 import cl.niclabs.adkintunmobile.views.settings.SettingsActivity;
+import cl.niclabs.adkintunmobile.views.signaltype.SignalTypeFragment;
+import cl.niclabs.adkintunmobile.views.status.StatusFragment;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -37,18 +50,14 @@ public class MainActivity extends AppCompatActivity {
 
         this.context = this;
 
+        // Start System
+        SetupSystem.startUpSystem(this.context);
+
         setupToolBar();
         setupNavigationDrawer();
-    }
 
-
-    // TODO: Ajustar la programación del broadcast receiver en otro momento, no en el onResume
-    @Override
-    protected void onResume() {
-        super.onResume();
-
-        // Start System
-        StartUp.bootOnSystem(this.context);
+        // Initial Fragment: DashboardFragment
+        updateMainFragment(new DashboardFragment());
     }
 
     private void setupToolBar() {
@@ -82,25 +91,26 @@ public class MainActivity extends AppCompatActivity {
                 Intent myIntent;
                 Fragment myFragment;
                 switch (item.getItemId()) {
+                    case R.id.nav_dashboard:
+                        updateMainFragment(new DashboardFragment());
+                        break;
                     case R.id.nav_notifications_log:
+                        updateMainFragment(new NotificationLogFragment());
                         break;
                     case R.id.nav_status:
-                        item.setChecked(true);
-                        setTitle(item.getTitle());
-                        Toast.makeText(getApplicationContext(), item.getTitle(), Toast.LENGTH_SHORT).show();
-                        updateMainFragment(new Fragment());
+                        updateMainFragment(new StatusFragment());
                         break;
                     case R.id.nav_connection_type:
+                        updateMainFragment(new ConnectionTypeFragment());
                         break;
                     case R.id.nav_signal_type:
-                        item.setChecked(true);
-                        setTitle(item.getTitle());
-                        Toast.makeText(getApplicationContext(), item.getTitle(), Toast.LENGTH_SHORT).show();
-                        updateMainFragment(new Fragment());
+                        updateMainFragment(new SignalTypeFragment());
                         break;
                     case R.id.nav_carrier_ranking:
+                        updateMainFragment(new RankingFragment());
                         break;
                     case R.id.nav_applications_traffic:
+                        updateMainFragment(new ApplicationsTrafficFragment());
                         break;
                     case R.id.nav_settings:
                         myIntent = new Intent(getApplicationContext(), SettingsActivity.class);
