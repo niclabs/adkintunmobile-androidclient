@@ -74,7 +74,7 @@
         <!-- Our Receivers -->
         <receiver android:name=".services.sync.SynchronizationBroadcastReceiver" />
         <receiver
-            android:name=".services.StartUp"
+            android:name=".services.SetupSystem"
             android:permission="android.permission.RECEIVE_BOOT_COMPLETED">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
@@ -88,6 +88,14 @@
                 <action android:name="android.net.wifi.STATE_CHANGE" />
             </intent-filter>
         </receiver>
+        <!--
+        // TODO: REMOVER SI NO SE AGREGA EL BROADCASTER
+        <receiver android:name=".services.sync.ConnectivityBradcasterReceiver">
+            <intent-filter>
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+            </intent-filter>
+        </receiver>
+        -->
     </application>
 
 </manifest>
