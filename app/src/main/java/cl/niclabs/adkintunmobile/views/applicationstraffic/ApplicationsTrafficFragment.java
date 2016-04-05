@@ -18,7 +18,7 @@ public class ApplicationsTrafficFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        this.title = getActivity().getString(R.string.view_carrier_ranking);
+        this.title = getActivity().getString(R.string.view_applications_traffic);
         this.context = getActivity();
     }
 
