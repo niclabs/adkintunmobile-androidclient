@@ -4,8 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
-import android.util.Log;
-import android.widget.Toast;
 
 import cl.niclabs.adkintunmobile.R;
 import cl.niclabs.adkintunmobile.services.monitors.ConnectivityMonitor;
@@ -14,11 +12,11 @@ import cl.niclabs.adkintunmobile.services.monitors.TrafficMonitor;
 import cl.niclabs.adkintunmobile.services.sync.SynchronizationBroadcastReceiver;
 import cl.niclabs.adkmobile.monitor.Device;
 
-public class StartUp extends Device{
+public class SetupSystem extends Device{
     @Override
     public void onBootCompleted(Context context) {
         super.onBootCompleted(context);
-        bootOnSystem(context);
+        startUpSystem(context);
     }
 
     @Override
@@ -31,13 +29,13 @@ public class StartUp extends Device{
      * Static methods for service settings and timers
      */
 
-    static public void bootOnSystem(Context context){
+    static public void startUpSystem(Context context){
 
         // Start Monitoring Services
-        StartUp.startMonitoringServices(context);
+        SetupSystem.startMonitoringServices(context);
 
         // Start Broadcast Receivers
-        StartUp.schedulleBroadcastReceivers(context);
+        SetupSystem.schedulleBroadcastReceivers(context);
     }
 
     static public void startMonitoringServices(Context context){
@@ -63,7 +61,7 @@ public class StartUp extends Device{
         long sampleRepeatTime = Long.parseLong(sharedPreferences.getString(context.getString(R.string.settings_sampling_frequency_key), "1"));
 
         SynchronizationBroadcastReceiver sync = new SynchronizationBroadcastReceiver();
-        sync.setSchedulle(context, sampleRepeatTime);
+        sync.setSchedule(context, sampleRepeatTime);
     }
 
 
