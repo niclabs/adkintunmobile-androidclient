@@ -1,6 +1,7 @@
 package cl.niclabs.adkintunmobile.views.settings;
 
 
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceFragment;
@@ -13,11 +14,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import cl.niclabs.adkintunmobile.R;
+import cl.niclabs.adkintunmobile.services.SetupSystem;
 import cl.niclabs.adkintunmobile.services.sync.SynchronizationBroadcastReceiver;
 
-//TODO: Implementar el listener de cambio de preferencia para actualizar los valores de inmediato.
-public class SettingsFragment extends PreferenceFragment {
+public class SettingsFragment extends PreferenceFragment implements SharedPreferences.OnSharedPreferenceChangeListener{
 
+    private final String TAG = "AdkM:Settings";
+    private Context context;
 
     public SettingsFragment() {
         // Required empty public constructor
@@ -27,7 +30,17 @@ public class SettingsFragment extends PreferenceFragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        this.context = getActivity();
+
         // Load the preferences from xml
         addPreferencesFromResource(R.xml.preferences);
+
+        getPreferenceManager().getSharedPreferences().registerOnSharedPreferenceChangeListener(this);
+    }
+
+    @Override
+    public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+        SetupSystem.startUpSystem(this.context);
+        Log.d(TAG, "Cambiadas las preferencias");
     }
 }
