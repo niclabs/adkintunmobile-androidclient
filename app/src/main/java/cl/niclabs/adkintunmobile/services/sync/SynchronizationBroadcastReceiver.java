@@ -9,7 +9,7 @@ import android.util.Log;
 
 public class SynchronizationBroadcastReceiver extends BroadcastReceiver {
 
-    private final String TAG = "SynchronizationBR";
+    private final String TAG = "AdkM:SynchronizationBR";
 
     public SynchronizationBroadcastReceiver() {
     }
@@ -25,7 +25,7 @@ public class SynchronizationBroadcastReceiver extends BroadcastReceiver {
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         Intent intent = new Intent(context, SynchronizationBroadcastReceiver.class);
         PendingIntent pIntent = PendingIntent.getBroadcast(context, 1, intent, PendingIntent.FLAG_CANCEL_CURRENT);
-        long samplingTime = samplingMinutes *  1000;
+        long samplingTime = samplingMinutes * 60 *  1000;
         alarmManager.setRepeating(AlarmManager.RTC, System.currentTimeMillis(), samplingTime, pIntent);
         Log.d(TAG, "alarma seteada en " + samplingMinutes + " minutos");
     }

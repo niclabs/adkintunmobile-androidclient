@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
+import android.util.Log;
 
 import cl.niclabs.adkintunmobile.R;
 import cl.niclabs.adkintunmobile.services.monitors.ConnectivityMonitor;
@@ -13,6 +14,9 @@ import cl.niclabs.adkintunmobile.services.sync.SynchronizationBroadcastReceiver;
 import cl.niclabs.adkmobile.monitor.Device;
 
 public class SetupSystem extends Device{
+
+    static private final String TAG = "AdkM:SetupSystem";
+
     @Override
     public void onBootCompleted(Context context) {
         super.onBootCompleted(context);
@@ -36,6 +40,8 @@ public class SetupSystem extends Device{
 
         // Start Broadcast Receivers
         SetupSystem.schedulleBroadcastReceivers(context);
+
+        Log.d(TAG, "Sistemas reconfigurados");
     }
 
     static public void startMonitoringServices(Context context){

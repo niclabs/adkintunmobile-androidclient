@@ -29,7 +29,7 @@ import cl.niclabs.adkintunmobile.utils.volley.VolleySingleton;
 
 public class Synchronization extends Service {
 
-    private final String TAG = "Synchronization";
+    private final String TAG = "AdkM:Synchronization";
     private Context context;
 
     public Synchronization() {
