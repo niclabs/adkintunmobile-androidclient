@@ -21,7 +21,6 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
-import cl.niclabs.adkintunmobile.Constants;
 import cl.niclabs.adkintunmobile.R;
 import cl.niclabs.adkintunmobile.data.Report;
 import cl.niclabs.adkintunmobile.utils.volley.HttpMultipartRequest;
