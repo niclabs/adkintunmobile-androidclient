@@ -28,6 +28,9 @@
     <string name="settings_sampling_frequency_key">sync_frequency</string>
     <string name="settings_sampling_frequency_title">Frencuencia de envío</string>
 
+    <string name="settings_sampling_lastsync_key">sync_lastsync</string>
+    <string name="settings_sampling_lastsync_title">Última Sincronización</string>
+
     <string name="settings_app_category">Aplicación</string>
 
     <string name="settings_app_version_key">app_version</string>

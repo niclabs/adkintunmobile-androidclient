@@ -6,7 +6,6 @@
         <EditTextPreference
             android:key="@string/settings_sampling_hostname_key"
             android:title="@string/settings_sampling_hostname_title"
-            android:summary="@string/settings_sampling_hostname_summary"
             android:defaultValue="@string/settings_sampling_hostname_default"
             />
         <ListPreference
@@ -14,9 +13,13 @@
             android:title="@string/settings_sampling_frequency_title"
             android:dialogTitle="@string/settings_sampling_frequency_title"
             android:defaultValue="1"
+            android:summary="%s"
             android:entries="@array/sync_sampling_frequency"
             android:entryValues="@array/sync_sampling_frequency_values"
-            android:summary="%s"
+            />
+        <Preference
+            android:key="@string/settings_sampling_lastsync_key"
+            android:title="@string/settings_sampling_lastsync_title"
             />
     </PreferenceCategory>
     <PreferenceCategory
