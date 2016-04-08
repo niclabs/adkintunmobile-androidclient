@@ -1,9 +1,14 @@
 package cl.niclabs.adkintunmobile.data;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Build;
+import android.preference.PreferenceManager;
 import android.telephony.TelephonyManager;
+
 import com.google.gson.annotations.SerializedName;
+
+import cl.niclabs.adkintunmobile.R;
 
 public class DeviceSingleton {
     private static DeviceSingleton mInstance;
@@ -32,9 +37,11 @@ public class DeviceSingleton {
     private String mReleaseType;
     @SerializedName("sdk")
     private Integer mSdk;
+    @SerializedName("app_version_code")
+    private String mAppVersionCode;
 
     public static DeviceSingleton getInstance(Context context) {
-        if (mInstance == null){
+        if (mInstance == null) {
             mInstance = new DeviceSingleton(context);
         }
         return mInstance;
@@ -54,6 +61,9 @@ public class DeviceSingleton {
         mRelease = Build.VERSION.RELEASE;
         mReleaseType = Build.TYPE;
         mSdk = Build.VERSION.SDK_INT;
+
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
+        mAppVersionCode = sharedPreferences.getString(context.getString(R.string.settings_app_version_key), "");
     }
 
     public DeviceSingleton() {
