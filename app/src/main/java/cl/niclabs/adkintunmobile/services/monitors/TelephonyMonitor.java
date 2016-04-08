@@ -53,13 +53,13 @@ public class TelephonyMonitor extends Service implements TelephonyListener {
         return START_STICKY;
     }
 
-    private void startMonitor(){
+    private void startMonitor() {
         this.phoneController = Telephony.bind(Telephony.class, this);
         this.phoneController.listen(this, true);
         this.phoneController.activate(Monitor.TELEPHONY);
     }
 
-    private void stopMonitor(){
+    private void stopMonitor() {
         this.phoneController.unbind();
     }
 
@@ -73,13 +73,13 @@ public class TelephonyMonitor extends Service implements TelephonyListener {
      */
     @Override
     public void onMobileTelephonyChange(TelephonyObservation<?> telephonyState) {
-        if(telephonyState instanceof GsmObservation) {
+        if (telephonyState instanceof GsmObservation) {
             GsmObservationWrapper sample = this.gson.fromJson(telephonyState.toString(), GsmObservationWrapper.class);
             sample.save();
-        }else if(telephonyState instanceof CdmaObservation){
+        } else if (telephonyState instanceof CdmaObservation) {
             CdmaObservationWrapper sample = this.gson.fromJson(telephonyState.toString(), CdmaObservationWrapper.class);
             sample.save();
-        }else{
+        } else {
             TelephonyObservationWrapper sample = this.gson.fromJson(telephonyState.toString(), TelephonyObservationWrapper.class);
             sample.save();
         }

@@ -13,7 +13,7 @@ import cl.niclabs.adkmobile.monitor.Monitor;
 import cl.niclabs.adkmobile.monitor.data.ConnectivityObservation;
 import cl.niclabs.adkmobile.monitor.listeners.ConnectivityListener;
 
-public class ConnectivityMonitor extends Service implements ConnectivityListener{
+public class ConnectivityMonitor extends Service implements ConnectivityListener {
 
     private static boolean running = false;
     private Monitor.Controller<ConnectivityListener> connController;
@@ -47,13 +47,13 @@ public class ConnectivityMonitor extends Service implements ConnectivityListener
         return START_STICKY;
     }
 
-    private void startMonitor(){
+    private void startMonitor() {
         this.connController = Connectivity.bind(Connectivity.class, this);
         this.connController.listen(this, true);
         this.connController.activate(Monitor.CONNECTIVITY);
     }
 
-    private void stopMonitor(){
+    private void stopMonitor() {
         this.connController.unbind();
     }
 
