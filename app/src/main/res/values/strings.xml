@@ -37,6 +37,11 @@
     <string name="settings_app_version_title">Versión de la aplicación</string>
     <string name="settings_app_version_default">0.1a</string>
 
+
+    <!-- App Traffic -->
+    <string name="view_applications_traffic_wifi">Tráfico WiFi</string>
+    <string name="view_applications_traffic_mobile">Tráfico Móvil</string>
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 

@@ -21,5 +21,26 @@
         <item name="android:windowContentOverlay">@null</item>
     </style>
 
+    <style name="CustomProgressBarHorizontal" parent="@android:style/Widget.SeekBar">
+        <item name="android:minHeight">30dip</item>
+        <item name="android:maxHeight">30dip</item>
+        <item name="android:progressDrawable">@drawable/custom_progress_bar_horizontal</item>
+    </style>
+
+    <style name="labelsFloatingBox">
+        <item name="android:layout_marginTop">@dimen/separation_little</item>
+        <item name="android:paddingLeft">@dimen/separation_little</item>
+        <item name="android:paddingRight">@dimen/separation_little</item>
+        <item name="android:paddingBottom">@dimen/separation_min</item>
+        <item name="android:paddingTop">@dimen/separation_min</item>
+        <item name="android:background">@color/colorSoftCard</item>
+    </style>
+
+    <style name="floatingBox">
+        <item name="android:layout_margin">@dimen/separation_little</item>
+        <item name="android:background">@color/colorSoftCard</item>
+        <item name="android:elevation">@dimen/abc_control_inset_material</item>
+    </style>
+
 
 </resources>
