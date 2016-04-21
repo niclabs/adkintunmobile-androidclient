@@ -8,6 +8,8 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
@@ -46,7 +48,7 @@ public class ApplicationsTrafficFragment extends Fragment {
 
         this.mViewPagerAdapter = new ApplicationsTrafficViewPagerAdapter(getActivity().getSupportFragmentManager());
 
-
+        setHasOptionsMenu(true);
     }
 
     @Override
@@ -83,6 +85,12 @@ public class ApplicationsTrafficFragment extends Fragment {
         return view;
     }
 
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.application_traffic, menu);
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
     private void setupViewPager(View view){
         ViewPager mViewPager = (ViewPager) view.findViewById(R.id.viewpager);
         TabLayout tabLayout = (TabLayout) view.findViewById(R.id.tabs);
@@ -107,7 +115,7 @@ public class ApplicationsTrafficFragment extends Fragment {
         // Obtener aplicaciones con actividad desde initTime
         Iterator<ApplicationTraffic> apps = ApplicationTraffic.findWithQueryAsIterator(
                 ApplicationTraffic.class,
-                "SELECT DISTINCT uid, network_type from APPLICATION_TX where timestamp > ?",
+                "SELECT DISTINCT uid, network_type from APPLICATION_TRAFFIC where timestamp > ?",
                 Long.toString(initTime));
 
         // Recuperar datos de cada aplicación
