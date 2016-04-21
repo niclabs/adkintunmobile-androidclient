@@ -1,18 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!--
-    <color name="colorPrimary">#1976D2</color>
-    <color name="colorPrimaryDark">#2196F3</color>
-    color name="colorAccent">#FFD740</color>
-    -->
     <color name="colorPrimaryLight">#BBDEFB</color>
     <color name="colorPrimaryText">#FFE57F</color>
     <color name="colorSecondaryText">#FFE57F</color>
+    -->
 
     <color name="colorSoftCard">#91bbdefb</color>
-
-
-
+    <color name="colorLoadingPane">#964c718f</color>
 
     <color name="colorPrimary">#125688</color>
     <color name="colorPrimaryDark">#125688</color>
