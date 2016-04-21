@@ -23,9 +23,12 @@ import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Iterator;
 
 import cl.niclabs.adkintunmobile.R;
 import cl.niclabs.adkintunmobile.data.Report;
+import cl.niclabs.adkintunmobile.data.persistent.ApplicationTx;
+import cl.niclabs.adkintunmobile.data.persistent.TrafficObservationWrapper;
 import cl.niclabs.adkintunmobile.utils.volley.HttpMultipartRequest;
 import cl.niclabs.adkintunmobile.utils.volley.VolleySingleton;
 
@@ -49,6 +52,8 @@ public class Synchronization extends Service {
         byte[] data = collectStoredData(report);
         // 2.- Prepare request
         sendData(data);
+        // 2,5.- Backup data
+        backupData();
         // 3.- Clean DB
         report.cleanDBRecords();
         // 4.- StopService
@@ -70,6 +75,16 @@ public class Synchronization extends Service {
     /*
      *  Utility Methods
      */
+
+    private void backupData(){
+        Iterator<TrafficObservationWrapper> iterator = TrafficObservationWrapper.findAsIterator(TrafficObservationWrapper.class, "uid > 0");
+
+        while(iterator.hasNext()){
+            ApplicationTx value = new ApplicationTx(iterator.next());
+            value.save();
+        }
+    }
+
     private byte[] collectStoredData(Report report) {
         // The output object
         byte[] data = null;
