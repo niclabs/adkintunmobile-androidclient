@@ -27,7 +27,9 @@
             android:value="false" />
 
         <!-- Our Activities -->
-        <activity android:name=".views.dashboard.MainActivity">
+        <activity
+            android:name=".views.dashboard.MainActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -37,7 +39,8 @@
         <activity
             android:name=".views.settings.SettingsActivity"
             android:parentActivityName=".views.dashboard.MainActivity"
-            android:windowSoftInputMode="adjustPan">
+            android:windowSoftInputMode="adjustPan"
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".views.dashboard.MainActivity" />
@@ -45,6 +48,7 @@
         <activity
             android:name=".views.aboutus.AboutUsActivity"
             android:parentActivityName=".views.dashboard.MainActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/FullScreen">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -88,14 +92,6 @@
                 <action android:name="android.net.wifi.STATE_CHANGE" />
             </intent-filter>
         </receiver>
-        <!--
-        // TODO: REMOVER SI NO SE AGREGA EL BROADCASTER
-        <receiver android:name=".services.sync.ConnectivityBradcasterReceiver">
-            <intent-filter>
-                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
-            </intent-filter>
-        </receiver>
-        -->
     </application>
 
 </manifest>
