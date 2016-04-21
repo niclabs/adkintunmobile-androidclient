@@ -27,7 +27,7 @@ import java.util.Iterator;
 
 import cl.niclabs.adkintunmobile.R;
 import cl.niclabs.adkintunmobile.data.Report;
-import cl.niclabs.adkintunmobile.data.persistent.ApplicationTx;
+import cl.niclabs.adkintunmobile.data.persistent.ApplicationTraffic;
 import cl.niclabs.adkintunmobile.data.persistent.TrafficObservationWrapper;
 import cl.niclabs.adkintunmobile.utils.volley.HttpMultipartRequest;
 import cl.niclabs.adkintunmobile.utils.volley.VolleySingleton;
@@ -80,7 +80,7 @@ public class Synchronization extends Service {
         Iterator<TrafficObservationWrapper> iterator = TrafficObservationWrapper.findAsIterator(TrafficObservationWrapper.class, "uid > 0");
 
         while(iterator.hasNext()){
-            ApplicationTx value = new ApplicationTx(iterator.next());
+            ApplicationTraffic value = new ApplicationTraffic(iterator.next());
             value.save();
         }
     }
