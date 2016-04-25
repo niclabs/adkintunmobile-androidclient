@@ -49,8 +49,8 @@ public class DailyConnectionTypeInformation extends StatisticInformation {
         ConnectionTimeSample sample;
         long accumulatedTime;
 
-        //values.add(2f);
-        //colors.add(startColor);
+        values.add(2f);
+        colors.add(startColor);
 
 
         if (todaySamples.hasNext()){

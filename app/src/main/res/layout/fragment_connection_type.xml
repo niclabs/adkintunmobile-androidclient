@@ -8,7 +8,7 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="cl.niclabs.adkintunmobile.views.connectiontype.ConnectionTypeFragment">
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
@@ -16,15 +16,32 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:text="Este es el fragment de tipo de conexiones"
-            style="@style/Base.TextAppearance.AppCompat.Large" />
+            style="@style/Base.TextAppearance.AppCompat.Large"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="0dp"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="0dp" />
+
+        <ImageView
+            android:id="@+id/image_clock"
+            android:layout_width="@dimen/connected_time_clock"
+            android:layout_height="@dimen/connected_time_clock"
+            android:layout_gravity="center_horizontal|center_vertical"
+            android:visibility="visible"
+            android:background="@drawable/connected_time_clock"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true" />
+
         <cl.niclabs.adkintunmobile.utils.chart.DoughnutChart
             android:id="@+id/doughnut"
             android:layout_width="@dimen/connected_time_doughnut"
             android:layout_height="@dimen/connected_time_doughnut"
-            android:layout_centerInParent="true"
-            android:layout_gravity="center_horizontal"
-            android:visibility="invisible"/>
+            android:layout_gravity="center_horizontal|center_vertical"
+            android:visibility="invisible"
+            android:rotation="180"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true" />
 
-    </LinearLayout>
+    </RelativeLayout>
 
 </FrameLayout>

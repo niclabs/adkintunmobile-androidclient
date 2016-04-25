@@ -1,6 +1,8 @@
 package cl.niclabs.adkintunmobile.views.connectiontype;
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.PictureDrawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
@@ -9,11 +11,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.ImageView;
 
 import cl.niclabs.adkintunmobile.R;
 import cl.niclabs.adkintunmobile.utils.chart.DoughnutChart;
 import cl.niclabs.adkintunmobile.utils.chart.DoughnutChartBuilder;
 import cl.niclabs.adkintunmobile.data.chart.StatisticInformation;
+
 
 public class ConnectionTypeFragment extends Fragment {
 
@@ -34,7 +38,12 @@ public class ConnectionTypeFragment extends Fragment {
                              Bundle savedInstanceState) {
         ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle(this.title);
         view = inflater.inflate(R.layout.fragment_connection_type, container, false);
+
         DoughnutChart chartAux = (DoughnutChart) view.findViewById(R.id.doughnut);
+        Drawable drawableClock = null;
+
+        ImageView imageClock = (ImageView) view.findViewById(R.id.image_clock);
+
         float chartDiameter = getResources().getDimension(
                 R.dimen.connected_time_doughnut);
 					/* create a Builder for our doughnut chart */
@@ -52,7 +61,7 @@ public class ConnectionTypeFragment extends Fragment {
         doughnut.setVisibility(View.GONE);
         Animation animationIn = AnimationUtils.loadAnimation(context,
                 R.anim.fade_in);
-        chart.setRotation(180);
+        chart.setRotation(0);
         chart.draw();
         doughnut.setAnimation(animationIn);
         doughnut.setVisibility(View.VISIBLE);
