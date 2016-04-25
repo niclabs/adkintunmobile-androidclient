@@ -12,6 +12,7 @@ import cl.niclabs.adkintunmobile.R;
 import cl.niclabs.adkintunmobile.data.chart.StatisticInformation;
 import cl.niclabs.adkintunmobile.data.persistent.visualization.ConnectionTimeSample;
 import cl.niclabs.adkintunmobile.data.persistent.visualization.DailyConnectedTimeSummary;
+import cl.niclabs.adkintunmobile.services.sync.Synchronization;
 
 public class DailyConnectionTypeInformation extends StatisticInformation {
 
@@ -58,8 +59,11 @@ public class DailyConnectionTypeInformation extends StatisticInformation {
             lastColor = connectionTypeColors[sample.getType()];
 
         }
-        else
-            return; //manejo si no hay valores
+        else {                                      //manejo si no hay valores
+            sample = null;                          //Se podría detectar acá el valor o ejecutar la sincronización
+            lastColor = noInfoColor;
+            lastTime = todaySummary.getDateMillis();
+        }
 
         //Si Primer reporte del día no parte de las 0 AM
         if (lastTime > todaySummary.getDateMillis()) {
