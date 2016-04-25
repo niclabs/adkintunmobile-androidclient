@@ -54,6 +54,7 @@ public class Synchronization extends Service {
         sendData(data);
         // 2,5.- Backup data
         backupData();
+        report.saveVisualSamples();
         // 3.- Clean DB
         report.cleanDBRecords();
         // 4.- StopService

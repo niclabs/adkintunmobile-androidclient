@@ -15,4 +15,12 @@
     <color name="windowBackground">#FFFFFF</color>
     <color name="navigationBarColor">#000000</color>
     <color name="colorAccent">#c8e8ff</color>
+
+    <!-- Connection Time -->
+    <color name="doughnut_wifi">#cc3b8fb5</color>
+    <color name="doughnut_mobile">#22b573</color>
+    <color name="doughnut_no_connection">#cce84643</color>
+    <color name="doughnut_no_info">#4ddadada</color>
+    <color name="doughnut_start">#ccffffff</color>
+
 </resources>

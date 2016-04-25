@@ -1,9 +1,11 @@
 package cl.niclabs.adkintunmobile.data;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.Iterator;
 import java.util.List;
 
 import cl.niclabs.adkintunmobile.data.persistent.CdmaObservationWrapper;
@@ -13,6 +15,7 @@ import cl.niclabs.adkintunmobile.data.persistent.SampleWrapper;
 import cl.niclabs.adkintunmobile.data.persistent.StateChangeWrapper;
 import cl.niclabs.adkintunmobile.data.persistent.TelephonyObservationWrapper;
 import cl.niclabs.adkintunmobile.data.persistent.TrafficObservationWrapper;
+import cl.niclabs.adkintunmobile.data.persistent.visualization.ConnectionTimeSample;
 
 /**
  * Clase para manipular los datos de eventos persistidos en el telefono.
@@ -46,7 +49,6 @@ public class Report {
     public Report(Context context) {
         this.simRecord = SimSingleton.getInstance(context);
         this.deviceRecord = DeviceSingleton.getInstance(context);
-
         this.cdmaRecords = CdmaObservationWrapper.listAll(CdmaObservationWrapper.class);
         this.connectivityRecords = ConnectivityObservationWrapper.listAll(ConnectivityObservationWrapper.class);
         this.gsmRecords = GsmObservationWrapper.listAll(GsmObservationWrapper.class);
@@ -59,10 +61,15 @@ public class Report {
         CdmaObservationWrapper.deleteAll(CdmaObservationWrapper.class);
         GsmObservationWrapper.deleteAll(GsmObservationWrapper.class);
         SampleWrapper.deleteAll(SampleWrapper.class);
-
         ConnectivityObservationWrapper.deleteAll(ConnectivityObservationWrapper.class);
         StateChangeWrapper.deleteAll(StateChangeWrapper.class);
         TelephonyObservationWrapper.deleteAll(TelephonyObservationWrapper.class);
         TrafficObservationWrapper.deleteAll(TrafficObservationWrapper.class);
+    }
+
+    public void saveVisualSamples(){
+        for (ConnectivityObservationWrapper observation : connectivityRecords){
+            new ConnectionTimeSample(observation).save();
+        }
     }
 }
