@@ -11,5 +11,5 @@
     <dimen name="separation_little">8dp</dimen>
     <dimen name="separation_min">2dp</dimen>
 
-
+    <dimen name="connected_time_doughnut">230dp</dimen>
 </resources>

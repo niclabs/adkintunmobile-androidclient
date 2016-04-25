@@ -17,6 +17,13 @@
             android:layout_height="match_parent"
             android:text="Este es el fragment de tipo de conexiones"
             style="@style/Base.TextAppearance.AppCompat.Large" />
+        <cl.niclabs.adkintunmobile.utils.chart.DoughnutChart
+            android:id="@+id/doughnut"
+            android:layout_width="@dimen/connected_time_doughnut"
+            android:layout_height="@dimen/connected_time_doughnut"
+            android:layout_centerInParent="true"
+            android:layout_gravity="center_horizontal"
+            android:visibility="invisible"/>
 
     </LinearLayout>
 
