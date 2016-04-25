@@ -1,5 +1,6 @@
 package cl.niclabs.adkintunmobile.views.applicationstraffic;
 
+import android.app.DatePickerDialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
@@ -10,21 +11,24 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.DatePicker;
 import android.widget.RelativeLayout;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Iterator;
+import java.util.TimeZone;
 
 import cl.niclabs.adkintunmobile.R;
 import cl.niclabs.adkintunmobile.data.persistent.ApplicationTraffic;
 
-public class ApplicationsTrafficFragment extends Fragment {
+public class ApplicationsTrafficFragment extends Fragment implements DatePickerDialog.OnDateSetListener {
 
     private final String TAG = "AdkM:AppTrafficFragment";
 
@@ -32,8 +36,10 @@ public class ApplicationsTrafficFragment extends Fragment {
     private Context context;
 
     private ApplicationsTrafficViewPagerAdapter mViewPagerAdapter;
-
     private ArrayList<ApplicationsTrafficListElement> wifiTrafficArray, mobileTrafficArray;
+    private ApplicationsTrafficListFragment wifiListFragment, mobileListFragment;
+
+    private RelativeLayout loadingPanel;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -42,9 +48,6 @@ public class ApplicationsTrafficFragment extends Fragment {
 
         this.title = getActivity().getString(R.string.view_applications_traffic);
         this.context = getActivity();
-
-        this.wifiTrafficArray = new ArrayList<ApplicationsTrafficListElement>();
-        this.mobileTrafficArray = new ArrayList<ApplicationsTrafficListElement>();
 
         this.mViewPagerAdapter = new ApplicationsTrafficViewPagerAdapter(getActivity().getSupportFragmentManager());
 
@@ -57,25 +60,25 @@ public class ApplicationsTrafficFragment extends Fragment {
         Log.d(TAG, "onCreateView");
         ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle(this.title);
         final View view = inflater.inflate(R.layout.fragment_applications_traffic, container, false);
+        this.loadingPanel = (RelativeLayout) view.findViewById(R.id.loading_panel);
 
         // Cargar datos de tráfico de apps de las últimas 24 horas
         (new Thread(){
             @Override
             public void run() {
-
                 Date today = new Date(System.currentTimeMillis());
                 Calendar calendar = Calendar.getInstance();
                 calendar.setTime(today);
                 calendar.add(Calendar.DAY_OF_MONTH, -1);
                 long yesterday = calendar.getTimeInMillis();
 
-                loadAppTrafficEvents(yesterday);
+                loadAppTrafficEventsData(yesterday);
 
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
                         setupViewPager(view);
-                        dismissLoadingPane(view);
+                        dismissLoadingPane();
                     }
                 });
 
@@ -91,26 +94,43 @@ public class ApplicationsTrafficFragment extends Fragment {
         super.onCreateOptionsMenu(menu, inflater);
     }
 
-    private void setupViewPager(View view){
-        ViewPager mViewPager = (ViewPager) view.findViewById(R.id.viewpager);
-        TabLayout tabLayout = (TabLayout) view.findViewById(R.id.tabs);
-
-        ApplicationsTrafficListFragment wifiList = new ApplicationsTrafficListFragment();
-        wifiList.setTitle(this.context.getString(R.string.view_applications_traffic_wifi));
-        wifiList.setDataArray(this.wifiTrafficArray);
-
-        ApplicationsTrafficListFragment mobileList = new ApplicationsTrafficListFragment();
-        mobileList.setTitle(this.context.getString(R.string.view_applications_traffic_mobile));
-        mobileList.setDataArray(this.mobileTrafficArray);
-
-        this.mViewPagerAdapter.addFragment(mobileList);
-        this.mViewPagerAdapter.addFragment(wifiList);
-
-        mViewPager.setAdapter(this.mViewPagerAdapter);
-        tabLayout.setupWithViewPager(mViewPager);
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.menu_date_picker_btn:
+                makeDateDialog();
+                break;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
-    private void loadAppTrafficEvents(long initTime) {
+    private void setupViewPager(View view){
+
+        this.wifiListFragment = new ApplicationsTrafficListFragment();
+        this.wifiListFragment.setTitle(this.context.getString(R.string.view_applications_traffic_wifi));
+        this.wifiListFragment.setDataArray(this.wifiTrafficArray);
+
+        this.mobileListFragment = new ApplicationsTrafficListFragment();
+        this.mobileListFragment.setTitle(this.context.getString(R.string.view_applications_traffic_mobile));
+        this.mobileListFragment.setDataArray(this.mobileTrafficArray);
+
+        this.mViewPagerAdapter.addFragment(this.mobileListFragment);
+        this.mViewPagerAdapter.addFragment(this.wifiListFragment);
+
+        ViewPager mViewPager = (ViewPager) view.findViewById(R.id.viewpager);
+        TabLayout mTabLayout = (TabLayout) view.findViewById(R.id.tabs);
+        mViewPager.setAdapter(this.mViewPagerAdapter);
+        mTabLayout.setupWithViewPager(mViewPager);
+    }
+
+    private void trafficListsUpdate(){
+        this.mobileListFragment.updateData(this.mobileTrafficArray);
+        this.wifiListFragment.updateData(this.wifiTrafficArray);
+    }
+
+    private void loadAppTrafficEventsData(long initTime) {
+        this.wifiTrafficArray = new ArrayList<ApplicationsTrafficListElement>();
+        this.mobileTrafficArray = new ArrayList<ApplicationsTrafficListElement>();
 
         // Obtener aplicaciones con actividad desde initTime
         Iterator<ApplicationTraffic> apps = ApplicationTraffic.findWithQueryAsIterator(
@@ -155,11 +175,53 @@ public class ApplicationsTrafficFragment extends Fragment {
         return mApplicationTrafficListElement;
     }
 
-    private void dismissLoadingPane(View view) {
-        Animation fadeOut = AnimationUtils.loadAnimation(context, R.anim.fade_out);
-        RelativeLayout loadingPane = (RelativeLayout) view.findViewById(R.id.loading_panel);
-        loadingPane.startAnimation(fadeOut);
-        view.findViewById(R.id.loading_panel).setVisibility(View.GONE);
+
+    private void enableLoadingPane() {
+        loadingPanel.setVisibility(View.VISIBLE);
     }
 
+    private void dismissLoadingPane() {
+        Animation fadeOut = AnimationUtils.loadAnimation(context, R.anim.fade_out);
+        loadingPanel.startAnimation(fadeOut);
+        loadingPanel.setVisibility(View.GONE);
+    }
+
+    private void makeDateDialog(){
+        Calendar cal = Calendar.getInstance(TimeZone.getDefault());
+        DatePickerDialog datePickerDialog = new DatePickerDialog(
+                this.context,
+                this,
+                cal.get(Calendar.YEAR),
+                cal.get(Calendar.MONTH),
+                cal.get(Calendar.DAY_OF_MONTH));
+        datePickerDialog.setCancelable(false);
+        datePickerDialog.show();
+    }
+
+    @Override
+    public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+        Calendar c = Calendar.getInstance();
+        c.set(Calendar.YEAR, year);
+        c.set(Calendar.MONTH, monthOfYear);
+        c.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+        final long initTime = c.getTimeInMillis();
+
+        enableLoadingPane();
+        (new Thread(){
+            @Override
+            public void run() {
+                loadAppTrafficEventsData(initTime);
+
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        trafficListsUpdate();
+                        dismissLoadingPane();
+                    }
+                });
+            }
+        }).start();
+
+
+    }
 }

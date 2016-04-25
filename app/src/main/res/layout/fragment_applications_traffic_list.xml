@@ -18,4 +18,14 @@
 
     </LinearLayout>
 
+    <TextView
+        android:id="@+id/empty"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
+        style="@style/TextAppearance.AppCompat.Large"
+        android:text="@string/view_applications_traffic_item_no_data"
+        android:textColor="@color/textColorPrimary" />
+
 </FrameLayout>

@@ -16,16 +16,16 @@ import cl.niclabs.adkintunmobile.R;
 
 public class ApplicationsTrafficListFragment extends Fragment {
 
-    private final String TAG = "AdkM:AppTrafficFragmentMobile";
+    private final String TAG = "AdkM:AppTrafficListFragmentMobile";
 
     private Context context;
     private String title;
     private ArrayList<ApplicationsTrafficListElement> dataArray;
+    private ApplicationsTrafficListAdapter listAdapter;
 
     public ApplicationsTrafficListFragment() {
         // Required empty public constructor
     }
-
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -40,9 +40,10 @@ public class ApplicationsTrafficListFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_applications_traffic_list, container, false);
 
         ListView listView = (ListView) view.findViewById(R.id.list_view_traffic);
-        ApplicationsTrafficListAdapter listAdapter = new ApplicationsTrafficListAdapter(this.context, this.dataArray);
+        this.listAdapter = new ApplicationsTrafficListAdapter(this.context, this.dataArray);
         listView.setAdapter(listAdapter);
-        listAdapter.sort();
+        listView.setEmptyView(view.findViewById(R.id.empty));
+        this.listAdapter.sort();
 
         return view;
     }
@@ -57,5 +58,11 @@ public class ApplicationsTrafficListFragment extends Fragment {
 
     public void setDataArray(ArrayList<ApplicationsTrafficListElement> dataArray) {
         this.dataArray = dataArray;
+    }
+
+    public void updateData(ArrayList<ApplicationsTrafficListElement> dataArray){
+        this.listAdapter.clear();
+        this.listAdapter.addAll(dataArray);
+        this.listAdapter.sort();
     }
 }
