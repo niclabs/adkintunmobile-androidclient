@@ -27,7 +27,7 @@ public class SynchronizationBroadcastReceiver extends BroadcastReceiver {
         PendingIntent pIntent = PendingIntent.getBroadcast(context, 1, intent, PendingIntent.FLAG_CANCEL_CURRENT);
         long samplingTime = samplingMinutes * 60 *  1000;
         alarmManager.setRepeating(AlarmManager.RTC, System.currentTimeMillis(), samplingTime, pIntent);
-        Log.d(TAG, "alarma seteada en " + samplingMinutes + " minutos");
+        Log.d(TAG, "Alarma seteada en " + samplingMinutes + " minutos");
     }
 
     private void cancelSchedule(Context context){
