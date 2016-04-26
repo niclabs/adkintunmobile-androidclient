@@ -8,16 +8,169 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="cl.niclabs.adkintunmobile.views.status.StatusFragment">
 
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="false"
+        android:focusable="false"
+        android:focusableInTouchMode="false"
+        android:nestedScrollingEnabled="false"
+        android:measureAllChildren="false"
+        android:longClickable="false"
+        android:transitionGroup="false"
+        android:touchscreenBlocksFocus="false"
+        android:contextClickable="false"
+        android:clickable="false">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
-        <TextView
+
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="Este es el fragment de estado"
-            style="@style/Base.TextAppearance.AppCompat.Large" />
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            style="@style/floatingBox">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Tu Señal"
+                style="@style/labelsFloatingBox"/>
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="@dimen/abc_text_size_medium_material">
+
+                <TextView
+                    android:id="@+id/tv_signal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/TextAppearance.AppCompat.Display1"
+                    android:layout_gravity="center" />
+
+                <TextView
+                    android:id="@+id/tv_signal2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/TextAppearance.AppCompat.Headline"
+                    android:layout_gravity="center" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+
+
+        <!-- Segunda fila -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1.00"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.50"
+                android:orientation="vertical"
+                style="@style/floatingBox">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/labelsFloatingBox"
+                    android:text="Tu SIM"/>
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="@dimen/abc_action_bar_subtitle_bottom_margin_material">
+
+                    <ImageView
+                        android:id="@+id/iv_sim"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/abc_action_bar_icon_vertical_padding_material"
+                        android:layout_gravity="center" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:id="@+id/tv_sim"
+                        android:layout_gravity="center" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.50"
+                android:orientation="vertical"
+                style="@style/floatingBox">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/labelsFloatingBox"
+                    android:text="Tu Red"/>
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="@dimen/abc_action_bar_subtitle_bottom_margin_material">
+
+                    <ImageView
+                        android:id="@+id/iv_red"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="@dimen/abc_action_bar_icon_vertical_padding_material"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:id="@+id/tv_antenna"
+                        android:layout_gravity="center" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+
+
+        <!-- Tercera Fila -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            style="@style/floatingBox">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/labelsFloatingBox"
+                android:text="Tu consumo de datos"/>
+
+            <ProgressBar
+                style="@style/CustomProgressBarHorizontal"
+                android:layout_margin="@dimen/notification_subtext_size"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/progressBar"
+                android:progress="41"
+                android:max="100"/>
+
+        </LinearLayout>
+
 
     </LinearLayout>
+    </ScrollView>
 
 </FrameLayout>
