@@ -38,6 +38,14 @@
     <string name="settings_app_version_default">0.1a</string>
 
 
+    <!-- Conn Type -->
+    <string name="view_connection_type_symbology">Leyenda</string>
+    <string name="view_connection_type_mobile">Conectado a red móvil</string>
+    <string name="view_connection_type_wifi">Conectado a red wifi</string>
+    <string name="view_connection_type_start">Inicio de datos registrados</string>
+    <string name="view_connection_type_no_info">Sin información</string>
+    <string name="view_connection_type_disconnected">Sin Conexión</string>
+
     <!-- App Traffic -->
     <string name="view_applications_traffic_wifi">Tráfico WiFi</string>
     <string name="view_applications_traffic_mobile">Tráfico Móvil</string>
