@@ -205,6 +205,7 @@ public class ApplicationsTrafficFragment extends Fragment implements DatePickerD
         c.set(Calendar.MONTH, monthOfYear);
         c.set(Calendar.DAY_OF_MONTH, dayOfMonth);
         final long initTime = c.getTimeInMillis();
+        Log.d(TAG, initTime+"");
 
         enableLoadingPane();
         (new Thread(){
