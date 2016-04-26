@@ -38,6 +38,7 @@
 
     <style name="floatingBox">
         <item name="android:layout_margin">@dimen/separation_little</item>
+        <item name="android:paddingBottom">@dimen/separation_little</item>
         <item name="android:background">@color/colorSoftCard</item>
         <item name="android:elevation">@dimen/abc_control_inset_material</item>
     </style>
