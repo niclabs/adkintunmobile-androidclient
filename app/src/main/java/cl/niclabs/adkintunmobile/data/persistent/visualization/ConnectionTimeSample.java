@@ -1,10 +1,8 @@
 package cl.niclabs.adkintunmobile.data.persistent.visualization;
 
-import android.graphics.Color;
 import android.util.Log;
 
 import cl.niclabs.adkintunmobile.data.persistent.ConnectivityObservationWrapper;
-import cl.niclabs.adkmobile.monitor.data.ConnectivityObservation;
 import cl.niclabs.adkmobile.monitor.data.constants.ConnectionType;
 import cl.niclabs.android.data.Persistent;
 

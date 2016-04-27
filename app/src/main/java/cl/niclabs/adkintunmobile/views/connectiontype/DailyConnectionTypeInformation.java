@@ -59,7 +59,7 @@ public class DailyConnectionTypeInformation extends StatisticInformation {
         values.add(initialBar);
         colors.add(startColor);
 
-
+        //Info del primer sample del día
         if (todaySamples.hasNext()){
             sample = todaySamples.next();
             lastTime = sample.getInitialTime();
@@ -69,11 +69,12 @@ public class DailyConnectionTypeInformation extends StatisticInformation {
         else {                                      //manejo si no hay valores
             sample = null;                          //Se podría detectar acá el valor o ejecutar la sincronización
             lastColor = noInfoColor;
-            lastTime = todaySummary.getDateMillis();
+            lastTime = initialTime;
+
         }
 
-        //Si Primer reporte del día no parte de las 0 AM
-        if (lastTime > todaySummary.getDateMillis()) {
+        //Si primer reporte del día no parte de las 0 AM, buscar último del día anterior
+        if (lastTime > initialTime) {
             DailyConnectedTimeSummary yesterdaySummary = DailyConnectedTimeSummary.getSummary(initialTime - period);
             Iterator<ConnectionTimeSample> yesterdaySamples = yesterdaySummary.getSamples();
             if (yesterdaySamples.hasNext()){
@@ -85,12 +86,12 @@ public class DailyConnectionTypeInformation extends StatisticInformation {
             else {
                 colors.add(noInfoColor);
             }
-            Log.d("Color", lastTime + " " + todaySummary.getDateMillis());
-            values.add((lastTime - todaySummary.getDateMillis()) * anglePerMillisecond);
+            values.add((lastTime - initialTime) * anglePerMillisecond);
         }
 
-        accumulatedTime = lastTime;
         Float angle;
+
+        //Samples del día
         while (todaySamples.hasNext()){
             sample = todaySamples.next();
             if (lastColor == connectionTypeColors[sample.getType()])
@@ -101,22 +102,25 @@ public class DailyConnectionTypeInformation extends StatisticInformation {
             values.add(angle);
             lastTime = sample.getInitialTime();
         }
+
+        //Si es un día anterior a la fecha
         if (currentTime >= initialTime + period){
             angle = (initialTime + period - lastTime) * anglePerMillisecond;
-            Log.d("tag",((initialTime + period - lastTime) * anglePerMillisecond)+"");
-            Log.d("tag",initialTime +"");
-
             values.add(angle - initialBar);
             colors.add(lastColor);
         }
-        //Día anterior
+        //Si es un día posterior a la fecha
+        else if(initialTime > currentTime){
+            colors.add(noInfoColor);
+            values.add((initialTime + period - lastTime - initialBar) * anglePerMillisecond);
+        }
+        //Día actual
         else {
             angle = (currentTime - lastTime) * anglePerMillisecond;
             values.add(angle);
             colors.add(lastColor);
-            accumulatedTime = currentTime - accumulatedTime;
             colors.add(noInfoColor);
-            values.add((todaySummary.getDateMillis() + period - currentTime - initialBar) * anglePerMillisecond);
+            values.add((initialTime + period - currentTime - initialBar) * anglePerMillisecond);
         }
 
         ArrayList<Object> results = new ArrayList<Object>();
