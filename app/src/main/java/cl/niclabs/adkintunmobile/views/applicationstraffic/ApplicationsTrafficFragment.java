@@ -62,14 +62,17 @@ public class ApplicationsTrafficFragment extends Fragment implements DatePickerD
         final View view = inflater.inflate(R.layout.fragment_applications_traffic, container, false);
         this.loadingPanel = (RelativeLayout) view.findViewById(R.id.loading_panel);
 
-        // Cargar datos de tráfico de apps de las últimas 24 horas
+        // Cargar datos de tráfico de apps del día actual
         (new Thread(){
             @Override
             public void run() {
                 Date today = new Date(System.currentTimeMillis());
                 Calendar calendar = Calendar.getInstance();
                 calendar.setTime(today);
-                calendar.add(Calendar.DAY_OF_MONTH, -1);
+                calendar.set(Calendar.HOUR_OF_DAY, 0);
+                calendar.set(Calendar.MINUTE, 0);
+                calendar.set(Calendar.SECOND, 0);
+                calendar.set(Calendar.MILLISECOND, 0);
                 long yesterday = calendar.getTimeInMillis();
 
                 loadAppTrafficEventsData(yesterday);
@@ -200,11 +203,15 @@ public class ApplicationsTrafficFragment extends Fragment implements DatePickerD
 
     @Override
     public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-        Calendar c = Calendar.getInstance();
-        c.set(Calendar.YEAR, year);
-        c.set(Calendar.MONTH, monthOfYear);
-        c.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-        final long initTime = c.getTimeInMillis();
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.YEAR, year);
+        calendar.set(Calendar.MONTH, monthOfYear);
+        calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+        calendar.set(Calendar.HOUR_OF_DAY, 0);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.SECOND, 0);
+        calendar.set(Calendar.MILLISECOND, 0);
+        final long initTime = calendar.getTimeInMillis();
         Log.d(TAG, initTime+"");
 
         enableLoadingPane();
