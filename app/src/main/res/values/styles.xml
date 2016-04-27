@@ -34,6 +34,7 @@
         <item name="android:paddingBottom">@dimen/separation_min</item>
         <item name="android:paddingTop">@dimen/separation_min</item>
         <item name="android:background">@color/colorSoftCard</item>
+        <item name="android:textStyle">italic</item>
     </style>
 
     <style name="floatingBox">
