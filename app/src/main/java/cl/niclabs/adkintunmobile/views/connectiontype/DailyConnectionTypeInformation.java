@@ -6,27 +6,34 @@ import android.util.Log;
 import android.widget.ArrayAdapter;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Iterator;
+import java.util.Locale;
 
 import cl.niclabs.adkintunmobile.R;
 import cl.niclabs.adkintunmobile.data.chart.StatisticInformation;
 import cl.niclabs.adkintunmobile.data.persistent.visualization.ConnectionTimeSample;
 import cl.niclabs.adkintunmobile.data.persistent.visualization.DailyConnectedTimeSummary;
-import cl.niclabs.adkintunmobile.services.sync.Synchronization;
 
 public class DailyConnectionTypeInformation extends StatisticInformation {
 
     private final long period = 3600L * 24L * 1000L;
     private final float anglePerMillisecond = 360f/period;
-    private long timestamp;
+    private long initialTime;
     private long currentTime;
     private Context context;
 
 
-    public DailyConnectionTypeInformation(Context context, long timestamp, long currentTime) {
+    public DailyConnectionTypeInformation(Context context, long initialTime, long currentTime) {
         this.context = context;
-        this.timestamp = timestamp;
         this.currentTime = currentTime;
+        Calendar calendar = Calendar.getInstance(Locale.getDefault());
+        calendar.setTimeInMillis(initialTime);
+        calendar.set(Calendar.HOUR_OF_DAY, 0);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.SECOND, 0);
+        calendar.set(Calendar.MILLISECOND, 0);
+        this.initialTime = calendar.getTimeInMillis();
     }
 
     @Override
@@ -38,7 +45,7 @@ public class DailyConnectionTypeInformation extends StatisticInformation {
         int noInfoColor = ContextCompat.getColor(context, R.color.doughnut_no_info);
         int startColor = ContextCompat.getColor(context, R.color.doughnut_start);
 
-        DailyConnectedTimeSummary todaySummary = DailyConnectedTimeSummary.getSummary(timestamp);
+        DailyConnectedTimeSummary todaySummary = DailyConnectedTimeSummary.getSummary(initialTime);
 
 
         Iterator<ConnectionTimeSample> todaySamples = todaySummary.getSamples();
@@ -48,8 +55,8 @@ public class DailyConnectionTypeInformation extends StatisticInformation {
         Integer lastColor;
         ConnectionTimeSample sample;
         long accumulatedTime;
-
-        values.add(2f);
+        float initialBar = 1f;
+        values.add(initialBar);
         colors.add(startColor);
 
 
@@ -67,7 +74,7 @@ public class DailyConnectionTypeInformation extends StatisticInformation {
 
         //Si Primer reporte del día no parte de las 0 AM
         if (lastTime > todaySummary.getDateMillis()) {
-            DailyConnectedTimeSummary yesterdaySummary = DailyConnectedTimeSummary.getSummary(timestamp - period);
+            DailyConnectedTimeSummary yesterdaySummary = DailyConnectedTimeSummary.getSummary(initialTime - period);
             Iterator<ConnectionTimeSample> yesterdaySamples = yesterdaySummary.getSamples();
             if (yesterdaySamples.hasNext()){
                 while (yesterdaySamples.hasNext()) {
@@ -94,12 +101,24 @@ public class DailyConnectionTypeInformation extends StatisticInformation {
             values.add(angle);
             lastTime = sample.getInitialTime();
         }
-        angle = (timestamp - lastTime) * anglePerMillisecond;
-        values.add(angle);
-        colors.add(lastColor);
-        accumulatedTime = timestamp - accumulatedTime;
-        colors.add(noInfoColor);
-        values.add((todaySummary.getDateMillis() + period - timestamp)*anglePerMillisecond);
+        if (currentTime >= initialTime + period){
+            angle = (initialTime + period - lastTime) * anglePerMillisecond;
+            Log.d("tag",((initialTime + period - lastTime) * anglePerMillisecond)+"");
+            Log.d("tag",initialTime +"");
+
+            values.add(angle - initialBar);
+            colors.add(lastColor);
+        }
+        //Día anterior
+        else {
+            angle = (currentTime - lastTime) * anglePerMillisecond;
+            values.add(angle);
+            colors.add(lastColor);
+            accumulatedTime = currentTime - accumulatedTime;
+            colors.add(noInfoColor);
+            values.add((todaySummary.getDateMillis() + period - currentTime - initialBar) * anglePerMillisecond);
+        }
+
         ArrayList<Object> results = new ArrayList<Object>();
         results.add(colors);
         results.add(values);

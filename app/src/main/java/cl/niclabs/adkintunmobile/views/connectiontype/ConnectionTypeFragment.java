@@ -86,8 +86,9 @@ public class ConnectionTypeFragment extends Fragment implements DatePickerDialog
         return view;
     }
 
-    private void loadConnectionTypeData(long currentTime) {
-        this.statistic = new DailyConnectionTypeInformation(context, currentTime, currentTime);
+    private void loadConnectionTypeData(long initialTime) {
+        long currentTime = System.currentTimeMillis();
+        this.statistic = new DailyConnectionTypeInformation(context, initialTime, currentTime);
         this.chart = (DoughnutChart) this.chartBuilder.createGraphicStatistic(statistic);
     }
 
