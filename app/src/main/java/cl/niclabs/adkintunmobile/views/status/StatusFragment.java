@@ -66,7 +66,7 @@ public class StatusFragment extends Fragment {
 
         Iterator<ApplicationTraffic> iterator = ApplicationTraffic.findAsIterator(
                 ApplicationTraffic.class, "network_type = ?",
-                Integer.toString(ApplicationTraffic.EventType.MOBILE.getValue()));
+                Integer.toString(ApplicationTraffic.MOBILE));
 
         Long rx = 0L, tx = 0L;
 
