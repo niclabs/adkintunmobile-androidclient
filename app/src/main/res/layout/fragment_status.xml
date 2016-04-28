@@ -125,7 +125,7 @@
                     android:layout_marginBottom="@dimen/abc_action_bar_subtitle_bottom_margin_material">
 
                     <ImageView
-                        android:id="@+id/iv_red"
+                        android:id="@+id/iv_antenna"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
@@ -163,9 +163,19 @@
                 android:layout_margin="@dimen/notification_subtext_size"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/progressBar"
+                android:id="@+id/pb_mobile_data_consumption"
                 android:progress="41"
                 android:max="100"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:id="@+id/tv_mobile_data_consumption_"
+                android:text="Periodo: "
+                android:textSize="10sp"
+                android:visibility="visible"
+                android:layout_gravity="center" />
 
         </LinearLayout>
 

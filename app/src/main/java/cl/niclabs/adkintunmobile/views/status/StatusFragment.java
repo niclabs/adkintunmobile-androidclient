@@ -4,16 +4,22 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.util.Iterator;
+
 import cl.niclabs.adkintunmobile.R;
+import cl.niclabs.adkintunmobile.data.persistent.visualization.ApplicationTraffic;
 import cl.niclabs.adkintunmobile.utils.information.Network;
 
 public class StatusFragment extends Fragment {
+
+    private final String TAG = "AdkM:StatusFragment";
 
     private String title;
     private Context context;
@@ -31,25 +37,7 @@ public class StatusFragment extends Fragment {
         ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle(this.title);
         View view = inflater.inflate(R.layout.fragment_status, container, false);
 
-
-
-        /*
-        new AlertDialog.Builder(context)
-                .setTitle("Delete entry")
-                .setMessage("Are you sure you want to delete this entry?")
-                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        // continue with delete
-                    }
-                })
-                .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        // do nothing
-                    }
-                })
-                .setIcon(android.R.drawable.ic_dialog_alert)
-                .show();
-                */
+        getCurrentMonthDownloadedData();
 
         return view;
     }
@@ -67,10 +55,29 @@ public class StatusFragment extends Fragment {
 
         ((ImageView) getView().findViewById(R.id.iv_sim)).setImageResource(Network.getConnectedCarrrierIntRes(context));
         ((TextView) getView().findViewById(R.id.tv_sim)).setText(Network.getSimCarrier(context));
-        ((ImageView) getView().findViewById(R.id.iv_red)).setImageResource(Network.getConnectedCarrrierIntRes(context));
+        ((ImageView) getView().findViewById(R.id.iv_antenna)).setImageResource(Network.getConnectedCarrrierIntRes(context));
         ((TextView) getView().findViewById(R.id.tv_antenna)).setText(Network.getConnectedCarrrier(context));
 
-
-
     }
+
+    public void getCurrentMonthDownloadedData(){
+
+
+
+        Iterator<ApplicationTraffic> iterator = ApplicationTraffic.findAsIterator(
+                ApplicationTraffic.class, "network_type = ?",
+                Integer.toString(ApplicationTraffic.EventType.MOBILE.getValue()));
+
+        Long rx = 0L, tx = 0L;
+
+        while (iterator.hasNext()){
+            ApplicationTraffic current = iterator.next();
+            rx += current.rxBytes;
+            tx += current.txBytes;
+        }
+
+        Log.d(TAG, "rx: "+ Network.formatBytes(rx));
+        Log.d(TAG, "tx: "+ Network.formatBytes(tx));
+    }
+
 }

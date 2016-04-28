@@ -38,6 +38,10 @@
     <string name="settings_app_version_default">0.1a</string>
 
 
+    <!-- Status -->
+    <string name="view_status_no_sim">Sin tarjeta SIM</string>
+    <string name="view_status_no_antenna">Red no disponible</string>
+
     <!-- Conn Type -->
     <string name="view_connection_type_symbology">Leyenda</string>
     <string name="view_connection_type_mobile">Conectado a red móvil</string>
