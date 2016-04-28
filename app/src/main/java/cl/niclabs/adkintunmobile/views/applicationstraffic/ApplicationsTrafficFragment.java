@@ -149,9 +149,9 @@ public class ApplicationsTrafficFragment extends Fragment implements DatePickerD
                             current.uid,
                             current.networkType);
 
-            if (current.networkType == ApplicationTraffic.EventType.WIFI.getValue())
+            if (current.networkType == ApplicationTraffic.WIFI)
                 this.wifiTrafficArray.add(currentApp);
-            if (current.networkType == ApplicationTraffic.EventType.MOBILE.getValue())
+            if (current.networkType == ApplicationTraffic.MOBILE)
                 this.mobileTrafficArray.add(currentApp);
 
         }

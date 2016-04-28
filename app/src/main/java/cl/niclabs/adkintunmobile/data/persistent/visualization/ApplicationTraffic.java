@@ -7,19 +7,8 @@ import cl.niclabs.android.data.Persistent;
 
 public class ApplicationTraffic extends Persistent<ApplicationTraffic>{
 
-    public enum EventType {
-        MOBILE(1), WIFI(6);
-
-        private int value;
-
-        EventType(int i) {
-            this.value = i;
-        }
-
-        public int getValue() {
-            return value;
-        }
-    }
+    public final static int MOBILE = 1;
+    public final static int WIFI = 6;
 
     @SerializedName("uid")
     public Integer uid;
