@@ -11,9 +11,9 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.Comparator;
-import java.util.Locale;
 
 import cl.niclabs.adkintunmobile.R;
+import cl.niclabs.adkintunmobile.utils.information.Network;
 
 
 /**
@@ -57,8 +57,8 @@ public class ApplicationsTrafficListAdapter extends ArrayAdapter<ApplicationsTra
         // Populate the data into the template view using the data object
         viewHolder.tvAppName.setText(element.getLabel());
         viewHolder.ivLogo.setImageDrawable(element.getLogo());
-        viewHolder.tvRxBytes.setText(formatBytes(element.getRxBytes()));
-        viewHolder.tvTxBytes.setText(formatBytes(element.getTxBytes()));
+        viewHolder.tvRxBytes.setText(Network.formatBytes(element.getRxBytes()));
+        viewHolder.tvTxBytes.setText(Network.formatBytes(element.getTxBytes()));
 
         int txPercentage = Math.round( (element.getTxBytes() * 100) / countTotalData());
         int rxPercentage = Math.round( (element.getRxBytes() * 100) / countTotalData());
@@ -99,13 +99,4 @@ public class ApplicationsTrafficListAdapter extends ArrayAdapter<ApplicationsTra
         return total;
     }
 
-    private String formatBytes(long bytes) {
-        int unit = 1000;
-        if (bytes < unit)
-            return bytes + " B";
-        int exp = (int) (Math.log(bytes) / Math.log(unit));
-        String pre = ("kMGTPE").charAt(exp - 1) + "";
-        return String.format(Locale.getDefault(), "%.1f %sB",
-                bytes / Math.pow(unit, exp), pre);
-    }
 }

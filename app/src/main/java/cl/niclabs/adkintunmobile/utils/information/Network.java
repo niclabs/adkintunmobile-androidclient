@@ -5,6 +5,8 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.telephony.TelephonyManager;
 
+import java.util.Locale;
+
 import cl.niclabs.adkintunmobile.R;
 
 public class Network {
@@ -78,16 +80,6 @@ public class Network {
     }
 
     /**
-     * nombre de operador al que estamos conectados
-     * @param context
-     * @return
-     */
-    static public String getConnectedCarrrier(Context context) {
-        TelephonyManager mTelephonyManager = (TelephonyManager)
-                context.getSystemService(Context.TELEPHONY_SERVICE);
-        return mTelephonyManager.getNetworkOperatorName();
-    }
-    /**
      * int resource de operador al que estamos conectados
      * @param context
      * @return
@@ -119,7 +111,6 @@ public class Network {
     }
 
 
-
     /**
      * nombre del operador de nuestra SIM
      * @param context
@@ -128,7 +119,34 @@ public class Network {
     static public String getSimCarrier(Context context) {
         TelephonyManager mTelephonyManager = (TelephonyManager)
                 context.getSystemService(Context.TELEPHONY_SERVICE);
-        return mTelephonyManager.getSimOperatorName();
+        String res = mTelephonyManager.getSimOperatorName();
+        return res.isEmpty() ? context.getString(R.string.view_status_no_sim) : res;
     }
 
+    /**
+     * nombre de operador al que estamos conectados
+     * @param context
+     * @return
+     */
+    static public String getConnectedCarrrier(Context context) {
+        TelephonyManager mTelephonyManager = (TelephonyManager)
+                context.getSystemService(Context.TELEPHONY_SERVICE);
+        String res = mTelephonyManager.getNetworkOperatorName();
+        return res.isEmpty() ? context.getString(R.string.view_status_no_antenna) : res;
+    }
+
+    /**
+     * entrega string con tamaño de bytes formateado en human readable
+     * @param bytes
+     * @return
+     */
+    static public String formatBytes(long bytes) {
+        int unit = 1000;
+        if (bytes < unit)
+            return bytes + " B";
+        int exp = (int) (Math.log(bytes) / Math.log(unit));
+        String pre = ("kMGTPE").charAt(exp - 1) + "";
+        return String.format(Locale.getDefault(), "%.1f %sB",
+                bytes / Math.pow(unit, exp), pre);
+    }
 }
