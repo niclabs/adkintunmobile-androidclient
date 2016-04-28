@@ -17,8 +17,8 @@
             android:id="@+id/nav_connection_type"
             android:title="@string/view_connection_type" />
         <item
-            android:id="@+id/nav_signal_type"
-            android:title="@string/view_signal_type" />
+            android:id="@+id/nav_network_type"
+            android:title="@string/view_network_type" />
         <item
             android:id="@+id/nav_carrier_ranking"
             android:title="@string/view_carrier_ranking" />

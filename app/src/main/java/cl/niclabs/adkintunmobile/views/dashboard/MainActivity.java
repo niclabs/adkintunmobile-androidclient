@@ -22,7 +22,7 @@ import cl.niclabs.adkintunmobile.views.connectiontype.ConnectionTypeFragment;
 import cl.niclabs.adkintunmobile.views.notificationlog.NotificationLogFragment;
 import cl.niclabs.adkintunmobile.views.rankings.RankingFragment;
 import cl.niclabs.adkintunmobile.views.settings.SettingsActivity;
-import cl.niclabs.adkintunmobile.views.signaltype.SignalTypeFragment;
+import cl.niclabs.adkintunmobile.views.networktype.NetworkTypeFragment;
 import cl.niclabs.adkintunmobile.views.status.StatusFragment;
 
 public class MainActivity extends AppCompatActivity {
@@ -95,8 +95,8 @@ public class MainActivity extends AppCompatActivity {
                     case R.id.nav_connection_type:
                         updateMainFragment(new ConnectionTypeFragment());
                         break;
-                    case R.id.nav_signal_type:
-                        updateMainFragment(new SignalTypeFragment());
+                    case R.id.nav_network_type:
+                        updateMainFragment(new NetworkTypeFragment());
                         break;
                     case R.id.nav_carrier_ranking:
                         updateMainFragment(new RankingFragment());

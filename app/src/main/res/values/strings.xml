@@ -5,7 +5,7 @@
     <string name="view_status">Tu Estado</string>
     <string name="view_dashboard">Dashboard</string>
     <string name="view_connection_type">Tipo de Conexión</string>
-    <string name="view_signal_type">Tipo de Señal</string>
+    <string name="view_network_type">Tipo de Señal</string>
     <string name="view_carrier_ranking">Ranking de Operadores</string>
     <string name="view_applications_traffic">Tráfico por Aplicación</string>
     <string name="view_active_connections">Conexiones Activas</string>

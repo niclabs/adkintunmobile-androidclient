@@ -2,7 +2,6 @@ package cl.niclabs.adkintunmobile.views.connectiontype;
 
 import android.content.Context;
 import android.support.v4.content.ContextCompat;
-import android.util.Log;
 import android.widget.ArrayAdapter;
 
 import java.util.ArrayList;
@@ -12,8 +11,8 @@ import java.util.Locale;
 
 import cl.niclabs.adkintunmobile.R;
 import cl.niclabs.adkintunmobile.data.chart.StatisticInformation;
-import cl.niclabs.adkintunmobile.data.persistent.visualization.ConnectionTimeSample;
-import cl.niclabs.adkintunmobile.data.persistent.visualization.DailyConnectedTimeSummary;
+import cl.niclabs.adkintunmobile.data.persistent.visualization.ConnectionTypeSample;
+import cl.niclabs.adkintunmobile.data.persistent.visualization.DailyConnectionTypeSummary;
 
 public class DailyConnectionTypeInformation extends StatisticInformation {
 
@@ -45,15 +44,15 @@ public class DailyConnectionTypeInformation extends StatisticInformation {
         int noInfoColor = ContextCompat.getColor(context, R.color.doughnut_no_info);
         int startColor = ContextCompat.getColor(context, R.color.doughnut_start);
 
-        DailyConnectedTimeSummary todaySummary = DailyConnectedTimeSummary.getSummary(initialTime);
+        DailyConnectionTypeSummary todaySummary = DailyConnectionTypeSummary.getSummary(initialTime);
 
 
-        Iterator<ConnectionTimeSample> todaySamples = todaySummary.getSamples();
+        Iterator<ConnectionTypeSample> todaySamples = todaySummary.getSamples();
         final ArrayList<Integer> colors = new ArrayList<Integer>();
         final ArrayList<Float> values = new ArrayList<Float>();
         long lastTime;
         Integer lastColor;
-        ConnectionTimeSample sample;
+        ConnectionTypeSample sample;
         long accumulatedTime;
         float initialBar = 1f;
         values.add(initialBar);
@@ -75,8 +74,8 @@ public class DailyConnectionTypeInformation extends StatisticInformation {
 
         //Si primer reporte del día no parte de las 0 AM, buscar último del día anterior
         if (lastTime > initialTime) {
-            DailyConnectedTimeSummary yesterdaySummary = DailyConnectedTimeSummary.getSummary(initialTime - period);
-            Iterator<ConnectionTimeSample> yesterdaySamples = yesterdaySummary.getSamples();
+            DailyConnectionTypeSummary yesterdaySummary = DailyConnectionTypeSummary.getSummary(initialTime - period);
+            Iterator<ConnectionTypeSample> yesterdaySamples = yesterdaySummary.getSamples();
             if (yesterdaySamples.hasNext()){
                 while (yesterdaySamples.hasNext()) {
                     sample = yesterdaySamples.next();
