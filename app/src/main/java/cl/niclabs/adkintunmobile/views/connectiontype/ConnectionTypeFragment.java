@@ -11,8 +11,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.DatePicker;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -22,6 +20,7 @@ import java.util.TimeZone;
 
 import cl.niclabs.adkintunmobile.R;
 import cl.niclabs.adkintunmobile.data.chart.StatisticInformation;
+import cl.niclabs.adkintunmobile.utils.display.DisplayManager;
 import cl.niclabs.adkintunmobile.utils.display.DoughnutChart;
 import cl.niclabs.adkintunmobile.utils.display.DoughnutChartBuilder;
 
@@ -77,7 +76,7 @@ public class ConnectionTypeFragment extends Fragment implements DatePickerDialog
                     public void run() {
 
                         setChartVisible(chart);
-                        dismissLoadingPane();
+                        DisplayManager.dismissLoadingPanel(loadingPanel, context);
                     }
                 });
 
@@ -139,7 +138,7 @@ public class ConnectionTypeFragment extends Fragment implements DatePickerDialog
         c.set(Calendar.DAY_OF_MONTH, dayOfMonth);
         final long initTime = c.getTimeInMillis();
 
-        enableLoadingPane();
+        DisplayManager.enableLoadingPanel(this.loadingPanel);
         (new Thread(){
             @Override
             public void run() {
@@ -151,23 +150,13 @@ public class ConnectionTypeFragment extends Fragment implements DatePickerDialog
                     public void run() {
                         //Acá la lógica para modificar el donutchart con los nuevos datos
                         setChartVisible(chart);
-                        dismissLoadingPane();
+                        DisplayManager.dismissLoadingPanel(loadingPanel, context);
                     }
                 });
             }
         }).start();
 
 
-    }
-
-    private void enableLoadingPane() {
-        loadingPanel.setVisibility(View.VISIBLE);
-    }
-
-    private void dismissLoadingPane() {
-        Animation fadeOut = AnimationUtils.loadAnimation(context, R.anim.fade_out);
-        loadingPanel.startAnimation(fadeOut);
-        loadingPanel.setVisibility(View.GONE);
     }
 
 }

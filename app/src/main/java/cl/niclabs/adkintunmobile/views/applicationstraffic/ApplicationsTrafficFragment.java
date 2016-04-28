@@ -14,8 +14,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.DatePicker;
 import android.widget.RelativeLayout;
 
@@ -27,6 +25,7 @@ import java.util.TimeZone;
 
 import cl.niclabs.adkintunmobile.R;
 import cl.niclabs.adkintunmobile.data.persistent.visualization.ApplicationTraffic;
+import cl.niclabs.adkintunmobile.utils.display.DisplayManager;
 
 public class ApplicationsTrafficFragment extends Fragment implements DatePickerDialog.OnDateSetListener {
 
@@ -81,7 +80,7 @@ public class ApplicationsTrafficFragment extends Fragment implements DatePickerD
                     @Override
                     public void run() {
                         setupViewPager(view);
-                        dismissLoadingPane();
+                        DisplayManager.dismissLoadingPanel(loadingPanel, context);
                     }
                 });
 
@@ -178,17 +177,6 @@ public class ApplicationsTrafficFragment extends Fragment implements DatePickerD
         return mApplicationTrafficListElement;
     }
 
-
-    private void enableLoadingPane() {
-        loadingPanel.setVisibility(View.VISIBLE);
-    }
-
-    private void dismissLoadingPane() {
-        Animation fadeOut = AnimationUtils.loadAnimation(context, R.anim.fade_out);
-        loadingPanel.startAnimation(fadeOut);
-        loadingPanel.setVisibility(View.GONE);
-    }
-
     private void makeDateDialog(){
         Calendar cal = Calendar.getInstance(TimeZone.getDefault());
         DatePickerDialog datePickerDialog = new DatePickerDialog(
@@ -214,7 +202,7 @@ public class ApplicationsTrafficFragment extends Fragment implements DatePickerD
         final long initTime = calendar.getTimeInMillis();
         Log.d(TAG, initTime+"");
 
-        enableLoadingPane();
+        DisplayManager.enableLoadingPanel(this.loadingPanel);
         (new Thread(){
             @Override
             public void run() {
@@ -224,7 +212,7 @@ public class ApplicationsTrafficFragment extends Fragment implements DatePickerD
                     @Override
                     public void run() {
                         trafficListsUpdate();
-                        dismissLoadingPane();
+                        DisplayManager.dismissLoadingPanel(loadingPanel, context);
                     }
                 });
             }
