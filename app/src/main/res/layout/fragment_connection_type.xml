@@ -47,7 +47,7 @@
                     android:layout_centerVertical="true"
                     android:layout_centerHorizontal="true" />
 
-                <cl.niclabs.adkintunmobile.utils.chart.DoughnutChart
+                <cl.niclabs.adkintunmobile.utils.display.DoughnutChart
                     android:id="@+id/doughnut"
                     android:layout_width="@dimen/connected_time_doughnut"
                     android:layout_height="@dimen/connected_time_doughnut"

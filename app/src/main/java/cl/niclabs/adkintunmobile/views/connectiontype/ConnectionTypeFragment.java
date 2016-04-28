@@ -22,8 +22,8 @@ import java.util.TimeZone;
 
 import cl.niclabs.adkintunmobile.R;
 import cl.niclabs.adkintunmobile.data.chart.StatisticInformation;
-import cl.niclabs.adkintunmobile.utils.chart.DoughnutChart;
-import cl.niclabs.adkintunmobile.utils.chart.DoughnutChartBuilder;
+import cl.niclabs.adkintunmobile.utils.display.DoughnutChart;
+import cl.niclabs.adkintunmobile.utils.display.DoughnutChartBuilder;
 
 
 public class ConnectionTypeFragment extends Fragment implements DatePickerDialog.OnDateSetListener{

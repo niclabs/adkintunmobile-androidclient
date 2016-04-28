@@ -1,4 +1,4 @@
-package cl.niclabs.adkintunmobile.utils.chart;
+package cl.niclabs.adkintunmobile.utils.display;
 
 import android.content.Context;
 import android.graphics.Bitmap;
