@@ -27,8 +27,8 @@ import java.util.Iterator;
 
 import cl.niclabs.adkintunmobile.R;
 import cl.niclabs.adkintunmobile.data.Report;
-import cl.niclabs.adkintunmobile.data.persistent.ApplicationTraffic;
 import cl.niclabs.adkintunmobile.data.persistent.TrafficObservationWrapper;
+import cl.niclabs.adkintunmobile.data.persistent.visualization.ApplicationTraffic;
 import cl.niclabs.adkintunmobile.utils.volley.HttpMultipartRequest;
 import cl.niclabs.adkintunmobile.utils.volley.VolleySingleton;
 
@@ -51,7 +51,7 @@ public class Synchronization extends Service {
         // 1.- Prepare data
         byte[] data = collectStoredData(report);
         // 2.- Prepare request
-        sendData(data);
+        //sendData(data);
         // 2,5.- Backup data
         backupData();
         report.saveVisualSamples();
