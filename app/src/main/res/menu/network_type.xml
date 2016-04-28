@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <!--TODO: Agregar textos a strings.xml -->
+    <item
+        android:id="@+id/menu_date_picker_btn"
+        android:icon="@android:drawable/ic_menu_week"
+        app:showAsAction="always"
+        android:title="Seleccionar rango de fechas">
+    </item>
+
+</menu>
