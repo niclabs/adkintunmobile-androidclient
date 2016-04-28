@@ -30,7 +30,6 @@
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="@string/app_name"
             android:id="@+id/textView"
-            android:background="@color/colorSoftCard"
             android:padding="@dimen/abc_action_bar_overflow_padding_end_material" />
 
 
