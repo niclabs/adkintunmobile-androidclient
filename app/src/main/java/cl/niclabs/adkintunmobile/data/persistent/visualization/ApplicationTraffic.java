@@ -1,7 +1,8 @@
-package cl.niclabs.adkintunmobile.data.persistent;
+package cl.niclabs.adkintunmobile.data.persistent.visualization;
 
 import com.google.gson.annotations.SerializedName;
 
+import cl.niclabs.adkintunmobile.data.persistent.TrafficObservationWrapper;
 import cl.niclabs.android.data.Persistent;
 
 public class ApplicationTraffic extends Persistent<ApplicationTraffic>{

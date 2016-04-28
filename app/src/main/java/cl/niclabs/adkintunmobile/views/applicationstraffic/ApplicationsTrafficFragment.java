@@ -26,7 +26,7 @@ import java.util.Iterator;
 import java.util.TimeZone;
 
 import cl.niclabs.adkintunmobile.R;
-import cl.niclabs.adkintunmobile.data.persistent.ApplicationTraffic;
+import cl.niclabs.adkintunmobile.data.persistent.visualization.ApplicationTraffic;
 
 public class ApplicationsTrafficFragment extends Fragment implements DatePickerDialog.OnDateSetListener {
 
