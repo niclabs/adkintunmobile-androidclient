@@ -2,6 +2,7 @@ package cl.niclabs.adkintunmobile.data;
 
 import android.content.Context;
 import android.telephony.TelephonyManager;
+
 import com.google.gson.annotations.SerializedName;
 
 public class SimSingleton {

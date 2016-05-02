@@ -57,7 +57,29 @@
                     android:layout_centerVertical="true"
                     android:layout_centerHorizontal="true" />
 
+                <LinearLayout
+                    android:id="@+id/layout_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:visibility="visible" >
 
+                    <cl.niclabs.adkintunmobile.utils.display.DigitalClock
+                        android:id="@+id/digital_clock"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@android:color/white"
+                        android:textSize="50sp" />
+
+                    <TextView
+                        android:id="@+id/text_day"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@android:color/white"
+                        android:textSize="25sp" />
+                </LinearLayout>
 
             </RelativeLayout>
 
@@ -81,7 +103,185 @@
                         android:text="@string/view_connection_type_symbology"
                         style="@style/labelsFloatingBox"/>
 
+                    <LinearLayout
+                        android:id="@+id/linearLayout2"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal" >
 
+                        <TableLayout
+                            android:layout_height="wrap_content"
+                            android:layout_centerHorizontal="true"
+                            android:layout_weight="1"
+                            android:layout_gravity="left"
+                            android:gravity="center"
+                            android:layout_width="0dp">
+
+
+                            <TableRow
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:gravity="center" >
+                                <TextView
+                                    android:layout_width="@dimen/abc_action_button_min_width_overflow_material"
+                                    android:layout_height="@dimen/abc_floating_window_z"
+                                    android:background="@color/network_type_G"
+                                    android:layout_margin="@dimen/abc_button_inset_vertical_material" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textAppearance="?android:attr/textAppearanceSmall"
+                                    android:text="@string/view_network_type_g" />
+                            </TableRow>
+
+
+                            <TableRow
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:gravity="center" >
+
+                                <TextView
+                                    android:layout_width="@dimen/abc_floating_window_z"
+                                    android:layout_height="@dimen/abc_floating_window_z"
+                                    android:background="@color/network_type_E"
+                                    android:layout_margin="@dimen/abc_button_inset_vertical_material" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textAppearance="?android:attr/textAppearanceSmall"
+                                    android:text="@string/view_network_type_e" />
+
+                            </TableRow>
+
+                            <TableRow
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:gravity="center" >
+                                <TextView
+                                    android:layout_width="@dimen/abc_floating_window_z"
+                                    android:layout_height="@dimen/abc_floating_window_z"
+                                    android:background="@color/network_type_3G"
+                                    android:layout_margin="@dimen/abc_button_inset_vertical_material" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textAppearance="?android:attr/textAppearanceSmall"
+                                    android:text="@string/view_network_type_3g" />
+
+                            </TableRow>
+
+                            <TableRow
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:gravity="center" >
+
+
+
+                                <TextView
+                                    android:layout_width="@dimen/abc_floating_window_z"
+                                    android:layout_height="@dimen/abc_floating_window_z"
+                                    android:background="@color/doughnut_start"
+                                    android:layout_margin="@dimen/abc_button_inset_vertical_material" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textAppearance="?android:attr/textAppearanceSmall"
+                                    android:text="@string/view_network_type_start" />
+
+                            </TableRow>
+                        </TableLayout>
+
+                        <TableLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_centerHorizontal="true"
+                            android:layout_weight="1"
+                            android:layout_gravity="left"
+                            android:gravity="center">
+
+
+                            <TableRow
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:gravity="center" >
+                                <TextView
+                                    android:layout_width="@dimen/abc_action_button_min_width_overflow_material"
+                                    android:layout_height="@dimen/abc_floating_window_z"
+                                    android:background="@color/network_type_H"
+                                    android:layout_margin="@dimen/abc_button_inset_vertical_material" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textAppearance="?android:attr/textAppearanceSmall"
+                                    android:text="@string/view_network_type_h" />
+                            </TableRow>
+
+
+                            <TableRow
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:gravity="center" >
+
+                                <TextView
+                                    android:layout_width="@dimen/abc_floating_window_z"
+                                    android:layout_height="@dimen/abc_floating_window_z"
+                                    android:background="@color/network_type_Hp"
+                                    android:layout_margin="@dimen/abc_button_inset_vertical_material" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textAppearance="?android:attr/textAppearanceSmall"
+                                    android:text="@string/view_network_type_hp" />
+
+                            </TableRow>
+
+                            <TableRow
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:gravity="center" >
+                                <TextView
+                                    android:layout_width="@dimen/abc_floating_window_z"
+                                    android:layout_height="@dimen/abc_floating_window_z"
+                                    android:background="@color/network_type_4G"
+                                    android:layout_margin="@dimen/abc_button_inset_vertical_material" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textAppearance="?android:attr/textAppearanceSmall"
+                                    android:text="@string/view_network_type_4g" />
+
+                            </TableRow>
+
+                            <TableRow
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:gravity="center" >
+
+
+
+                                <TextView
+                                    android:layout_width="@dimen/abc_floating_window_z"
+                                    android:layout_height="@dimen/abc_floating_window_z"
+                                    android:background="@color/network_type_unknown"
+                                    android:layout_margin="@dimen/abc_button_inset_vertical_material" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textAppearance="?android:attr/textAppearanceSmall"
+                                    android:text="@string/view_network_type_disconnected" />
+
+                            </TableRow>
+                        </TableLayout>
+
+                    </LinearLayout>
                 </LinearLayout>
             </LinearLayout>
 

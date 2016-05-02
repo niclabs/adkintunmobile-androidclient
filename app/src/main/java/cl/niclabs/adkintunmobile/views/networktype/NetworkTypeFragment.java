@@ -2,10 +2,10 @@ package cl.niclabs.adkintunmobile.views.networktype;
 
 import android.app.DatePickerDialog;
 import android.content.Context;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -15,18 +15,18 @@ import android.view.ViewGroup;
 import android.widget.DatePicker;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import java.util.Calendar;
-import java.util.Iterator;
+import java.util.Locale;
 import java.util.TimeZone;
 
 import cl.niclabs.adkintunmobile.R;
 import cl.niclabs.adkintunmobile.data.chart.StatisticInformation;
-import cl.niclabs.adkintunmobile.data.persistent.visualization.NetworkTypeSample;
+import cl.niclabs.adkintunmobile.utils.display.DigitalClock;
 import cl.niclabs.adkintunmobile.utils.display.DisplayManager;
 import cl.niclabs.adkintunmobile.utils.display.DoughnutChart;
 import cl.niclabs.adkintunmobile.utils.display.DoughnutChartBuilder;
-import cl.niclabs.adkintunmobile.views.connectiontype.DailyConnectionTypeInformation;
 
 public class NetworkTypeFragment extends Fragment implements DatePickerDialog.OnDateSetListener{
 
@@ -53,6 +53,20 @@ public class NetworkTypeFragment extends Fragment implements DatePickerDialog.On
         ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle(this.title);
         final View view = inflater.inflate(R.layout.fragment_network_type, container, false);
         this.loadingPanel = (RelativeLayout) view.findViewById(R.id.loading_panel);
+
+        DigitalClock digitalClock = (DigitalClock) view.findViewById(R.id.digital_clock);
+        TextView dayText = (TextView) view.findViewById(R.id.text_day);
+        Typeface tf1 = Typeface.createFromAsset(context.getAssets(),
+                getString(R.string.font_text_view));
+        digitalClock.setTypeface(tf1);
+        dayText.setTypeface(tf1);
+
+        final Calendar calendar = Calendar.getInstance(Locale.getDefault());
+        String[] dayOfWeek = getResources().getStringArray(R.array.day_of_week);
+
+		/* set text view to show the name of the day of week */
+        dayText.setText(dayOfWeek[calendar.get(Calendar.DAY_OF_WEEK) - 1]);
+
 
         setHasOptionsMenu(true);
 
