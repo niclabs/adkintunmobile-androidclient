@@ -4,9 +4,13 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -37,6 +41,8 @@ public class StatusFragment extends Fragment {
         super.onCreate(savedInstanceState);
         this.title = getActivity().getString(R.string.view_status);
         this.context = getActivity();
+
+        setHasOptionsMenu(true);
     }
 
     @Override
@@ -108,6 +114,29 @@ public class StatusFragment extends Fragment {
 
         this.ret = Network.formatBytes(rx) + "   " + Network.formatBytes(tx);
 
+    }
+
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.application_traffic, menu);
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.menu_date_picker_btn:
+                showDialogPref();
+                break;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    private void showDialogPref() {
+        FragmentManager fm = getFragmentManager();
+        StatusSettingsDialog dialogFragment = new StatusSettingsDialog ();
+        dialogFragment.show(fm, "Sample Fragment");
     }
 
 }
