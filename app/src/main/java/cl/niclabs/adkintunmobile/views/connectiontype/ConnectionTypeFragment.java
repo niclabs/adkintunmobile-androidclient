@@ -18,6 +18,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.Calendar;
+import java.util.Locale;
 import java.util.TimeZone;
 
 import cl.niclabs.adkintunmobile.R;
@@ -60,6 +61,12 @@ public class ConnectionTypeFragment extends Fragment implements DatePickerDialog
                 getString(R.string.font_text_view));
         digitalClock.setTypeface(tf1);
         dayText.setTypeface(tf1);
+
+        final Calendar calendar = Calendar.getInstance(Locale.getDefault());
+        String[] dayOfWeek = getResources().getStringArray(R.array.day_of_week);
+
+		/* set text view to show the name of the day of week */
+        dayText.setText(dayOfWeek[calendar.get(Calendar.DAY_OF_WEEK) - 1]);
 
         setHasOptionsMenu(true);
 

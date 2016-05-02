@@ -1,7 +1,5 @@
 package cl.niclabs.adkintunmobile.data.persistent.visualization;
 
-import android.util.Log;
-
 import cl.niclabs.adkintunmobile.data.persistent.GsmObservationWrapper;
 import cl.niclabs.adkmobile.monitor.data.constants.NetworkType;
 import cl.niclabs.android.data.Persistent;

@@ -19,10 +19,10 @@ import cl.niclabs.adkintunmobile.services.SetupSystem;
 import cl.niclabs.adkintunmobile.views.aboutus.AboutUsActivity;
 import cl.niclabs.adkintunmobile.views.applicationstraffic.ApplicationsTrafficFragment;
 import cl.niclabs.adkintunmobile.views.connectiontype.ConnectionTypeFragment;
+import cl.niclabs.adkintunmobile.views.networktype.NetworkTypeFragment;
 import cl.niclabs.adkintunmobile.views.notificationlog.NotificationLogFragment;
 import cl.niclabs.adkintunmobile.views.rankings.RankingFragment;
 import cl.niclabs.adkintunmobile.views.settings.SettingsActivity;
-import cl.niclabs.adkintunmobile.views.networktype.NetworkTypeFragment;
 import cl.niclabs.adkintunmobile.views.status.StatusFragment;
 
 public class MainActivity extends AppCompatActivity {
