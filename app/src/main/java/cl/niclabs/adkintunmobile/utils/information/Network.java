@@ -79,14 +79,29 @@ public class Network {
         return mobile.isConnected();
     }
 
+
     /**
      * int resource de operador al que estamos conectados
      * @param context
      * @return
      */
-    static public int getConnectedCarrrierIntRes(Context context) {
+    static public int getConnectedCarrierIntRes(Context context){
         String operator = Network.getConnectedCarrrier(context).toLowerCase();
-        switch (operator){
+        return Network.getIntRes(operator);
+    }
+
+    /**
+     * int resource de la sim actual
+     * @param context
+     * @return
+     */
+    static public int getSIMIntRes(Context context){
+        String operator = Network.getSimCarrier(context).toLowerCase();
+        return Network.getIntRes(operator);
+    }
+
+    static public int getIntRes(String operator) {
+        switch (operator.toLowerCase()){
             case "claro":
                 return R.mipmap.operator_claro;
             case "entel":
