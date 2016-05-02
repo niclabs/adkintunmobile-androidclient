@@ -6,11 +6,14 @@ import java.util.Locale;
 
 import cl.niclabs.android.data.Persistent;
 
-public class DailyConnectedTimeSummary extends Persistent<DailyConnectedTimeSummary> {
+/**
+ * Created by diego on 28-04-16.
+ */
+public class DailyNetworkTypeSummary extends Persistent<DailyNetworkTypeSummary>{
 
     public long date;
 
-    public DailyConnectedTimeSummary(long timestamp){
+    public DailyNetworkTypeSummary(long timestamp){
         Calendar calendar = Calendar.getInstance(Locale.getDefault());
         calendar.setTimeInMillis(timestamp);
         calendar.set(Calendar.HOUR_OF_DAY, 0);
@@ -21,17 +24,16 @@ public class DailyConnectedTimeSummary extends Persistent<DailyConnectedTimeSumm
 
     }
 
+    public DailyNetworkTypeSummary(){}
 
-    public DailyConnectedTimeSummary(){}
-
-    public Iterator<ConnectionTimeSample> getSamples(){
+    public Iterator<NetworkTypeSample> getSamples(){
         String[] whereArgs = new String[1];
         whereArgs[0] =  Long.toString(getId());
-        Iterator<ConnectionTimeSample> samples = find(ConnectionTimeSample.class, "date = ?", whereArgs, "initial_time");
+        Iterator<NetworkTypeSample> samples = find(NetworkTypeSample.class, "date = ?", whereArgs, "initial_time");
         return samples;
     }
 
-    public static DailyConnectedTimeSummary getSummary(long timestamp){
+    public static DailyNetworkTypeSummary getSummary(long timestamp){
         Calendar calendar = Calendar.getInstance(Locale.getDefault());
         calendar.setTimeInMillis(timestamp);
         calendar.set(Calendar.HOUR_OF_DAY, 0);
@@ -42,14 +44,14 @@ public class DailyConnectedTimeSummary extends Persistent<DailyConnectedTimeSumm
         String[] todayWhereArgs = new String[1];
         todayWhereArgs[0] = Long.toString(calendar.getTimeInMillis());
 
-        long count = DailyConnectedTimeSummary.count(DailyConnectedTimeSummary.class, "date = ?", todayWhereArgs);
+        long count = DailyNetworkTypeSummary.count(DailyNetworkTypeSummary.class, "date = ?", todayWhereArgs);
 
         if (count < 1){
-            DailyConnectedTimeSummary todaySummary = new DailyConnectedTimeSummary(timestamp);
+            DailyNetworkTypeSummary todaySummary = new DailyNetworkTypeSummary(timestamp);
             todaySummary.save();
             return todaySummary;
         }
-        return DailyConnectedTimeSummary.find(DailyConnectedTimeSummary.class, "date = ?", todayWhereArgs, "date").next();
+        return DailyNetworkTypeSummary.find(DailyNetworkTypeSummary.class, "date = ?", todayWhereArgs, "date").next();
     }
 
     public long getDateMillis(){

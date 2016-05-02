@@ -1,11 +1,9 @@
 package cl.niclabs.adkintunmobile.data;
 
 import android.content.Context;
-import android.util.Log;
 
 import com.google.gson.annotations.SerializedName;
 
-import java.util.Iterator;
 import java.util.List;
 
 import cl.niclabs.adkintunmobile.data.persistent.CdmaObservationWrapper;
@@ -15,7 +13,8 @@ import cl.niclabs.adkintunmobile.data.persistent.SampleWrapper;
 import cl.niclabs.adkintunmobile.data.persistent.StateChangeWrapper;
 import cl.niclabs.adkintunmobile.data.persistent.TelephonyObservationWrapper;
 import cl.niclabs.adkintunmobile.data.persistent.TrafficObservationWrapper;
-import cl.niclabs.adkintunmobile.data.persistent.visualization.ConnectionTimeSample;
+import cl.niclabs.adkintunmobile.data.persistent.visualization.ConnectionTypeSample;
+import cl.niclabs.adkintunmobile.data.persistent.visualization.NetworkTypeSample;
 
 /**
  * Clase para manipular los datos de eventos persistidos en el telefono.
@@ -68,8 +67,26 @@ public class Report {
     }
 
     public void saveVisualSamples(){
+        int lastType = -1;
         for (ConnectivityObservationWrapper observation : connectivityRecords){
-            new ConnectionTimeSample(observation).save();
+            ConnectionTypeSample sample = new ConnectionTypeSample(observation);
+            if (sample.getType() == lastType)
+                continue;
+            else {
+                sample.save();
+                lastType = sample.getType();
+            }
+        }
+
+        lastType = -1;
+        for (GsmObservationWrapper observation : gsmRecords){
+            NetworkTypeSample sample = new NetworkTypeSample(observation);
+            if (sample.getType() == lastType)
+                continue;
+            else {
+                sample.save();
+                lastType = sample.getType();
+            }
         }
     }
 }

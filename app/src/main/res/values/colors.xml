@@ -23,4 +23,12 @@
     <color name="doughnut_no_info">#4ddadada</color>
     <color name="doughnut_start">#ccffffff</color>
 
+    <!-- Network Type -->
+    <color name="network_type_G">#e5e588</color>
+    <color name="network_type_E">#b968e0</color>
+    <color name="network_type_3G">#1a8ec1</color>
+    <color name="network_type_H">#33d3a1</color>
+    <color name="network_type_Hp">#b1d057</color>
+    <color name="network_type_4G">#f6ac42</color>
+    <color name="network_type_unknown">#f96a51</color>
 </resources>
