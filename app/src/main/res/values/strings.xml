@@ -65,6 +65,9 @@
     <string name="view_network_type_disconnected">Sin Conexión</string>
     <string name="view_network_type_start">Inicio</string>
 
+    <!-- Fonts -->
+    <string name="font_text_view">fonts/caviar_dreams.ttf</string>
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 

@@ -57,7 +57,29 @@
                     android:layout_centerVertical="true"
                     android:layout_centerHorizontal="true" />
 
+                <LinearLayout
+                    android:id="@+id/layout_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:visibility="visible" >
 
+                    <cl.niclabs.adkintunmobile.utils.display.DigitalClock
+                        android:id="@+id/digital_clock"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@android:color/white"
+                        android:textSize="50sp" />
+
+                    <TextView
+                        android:id="@+id/text_day"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@android:color/white"
+                        android:textSize="25sp" />
+                </LinearLayout>
 
             </RelativeLayout>
 

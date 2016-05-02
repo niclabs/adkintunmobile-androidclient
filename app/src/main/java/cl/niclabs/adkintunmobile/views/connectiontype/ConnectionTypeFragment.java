@@ -2,6 +2,7 @@ package cl.niclabs.adkintunmobile.views.connectiontype;
 
 import android.app.DatePickerDialog;
 import android.content.Context;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
@@ -14,12 +15,14 @@ import android.view.ViewGroup;
 import android.widget.DatePicker;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import java.util.Calendar;
 import java.util.TimeZone;
 
 import cl.niclabs.adkintunmobile.R;
 import cl.niclabs.adkintunmobile.data.chart.StatisticInformation;
+import cl.niclabs.adkintunmobile.utils.display.DigitalClock;
 import cl.niclabs.adkintunmobile.utils.display.DisplayManager;
 import cl.niclabs.adkintunmobile.utils.display.DoughnutChart;
 import cl.niclabs.adkintunmobile.utils.display.DoughnutChartBuilder;
@@ -50,6 +53,13 @@ public class ConnectionTypeFragment extends Fragment implements DatePickerDialog
         ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle(this.title);
         final View view = inflater.inflate(R.layout.fragment_connection_type, container, false);
         this.loadingPanel = (RelativeLayout) view.findViewById(R.id.loading_panel);
+
+        DigitalClock digitalClock = (DigitalClock) view.findViewById(R.id.digital_clock);
+        TextView dayText = (TextView) view.findViewById(R.id.text_day);
+        Typeface tf1 = Typeface.createFromAsset(context.getAssets(),
+                getString(R.string.font_text_view));
+        digitalClock.setTypeface(tf1);
+        dayText.setTypeface(tf1);
 
         setHasOptionsMenu(true);
 

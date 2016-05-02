@@ -12,4 +12,14 @@
         <item>5</item>
         <item>10</item>
     </string-array>
+    <!-- Connected Time Chart -->
+    <string-array name="day_of_week">
+        <item>DOMINGO</item>
+        <item>LUNES</item>
+        <item>MARTES</item>
+        <item>MIÉRCOLES</item>
+        <item>JUEVES</item>
+        <item>VIERNES</item>
+        <item>SÁBADO</item>
+    </string-array>
 </resources>
