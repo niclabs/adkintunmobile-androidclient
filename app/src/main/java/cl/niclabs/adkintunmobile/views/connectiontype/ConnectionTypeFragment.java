@@ -13,12 +13,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.DatePicker;
-import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.Calendar;
-import java.util.TimeZone;
 
 import cl.niclabs.adkintunmobile.R;
 import cl.niclabs.adkintunmobile.data.chart.StatisticInformation;
@@ -36,7 +34,6 @@ public class ConnectionTypeFragment extends Fragment implements DatePickerDialog
 
     private DoughnutChart chart;
     private RelativeLayout loadingPanel;
-    private StatisticInformation statistic;
     private DoughnutChartBuilder chartBuilder;
     private TextView dayText;
     private TextView dateText;
@@ -69,8 +66,6 @@ public class ConnectionTypeFragment extends Fragment implements DatePickerDialog
 
         DoughnutChart chartElement = (DoughnutChart) view.findViewById(R.id.doughnut);
 
-        ImageView imageClock = (ImageView) view.findViewById(R.id.image_clock);
-
         float chartDiameter = getResources().getDimension(
                 R.dimen.connected_time_doughnut);
 					/* create a Builder for our doughnut chart */
@@ -83,27 +78,25 @@ public class ConnectionTypeFragment extends Fragment implements DatePickerDialog
             public void run() {
                 final long currentTime = System.currentTimeMillis();
 
-                loadConnectionTypeData(currentTime);
+                loadData(currentTime);
 
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-
-                        setChartVisible(chart);
+                        chart.draw();
                         DisplayManager.dismissLoadingPanel(loadingPanel, context);
                     }
                 });
-
             }
         }).start();
         return view;
     }
 
-    private void loadConnectionTypeData(long initialTime) {
+    private void loadData(long initialTime) {
         long currentTime = System.currentTimeMillis();
 		/* set text view to show the name of the day of week */
         dateManager.refreshDate(dayText, dateText, initialTime);
-        this.statistic = new DailyConnectionTypeInformation(context, initialTime, currentTime);
+        StatisticInformation statistic = new DailyConnectionTypeInformation(context, initialTime, currentTime);
         this.chart = (DoughnutChart) this.chartBuilder.createGraphicStatistic(statistic);
     }
 
@@ -123,17 +116,6 @@ public class ConnectionTypeFragment extends Fragment implements DatePickerDialog
         return super.onOptionsItemSelected(item);
     }
 
-    private void setChartVisible(DoughnutChart chart) {
-        //DoughnutChart doughnut = ((DoughnutChart) view.findViewById(R.id.doughnut));
-        //doughnut.setVisibility(View.GONE);
-        //Animation animationIn = AnimationUtils.loadAnimation(context,
-        //        R.anim.fade_in);
-        chart.setRotation(0);
-        chart.draw();
-        //doughnut.setAnimation(animationIn);
-        //doughnut.setVisibility(View.VISIBLE);
-    }
-
     @Override
     public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
         Calendar c = Calendar.getInstance();
@@ -147,20 +129,18 @@ public class ConnectionTypeFragment extends Fragment implements DatePickerDialog
             @Override
             public void run() {
                 // Acá la lógica de recuperar datos para el día seleccionado en initTime
-                loadConnectionTypeData(initTime);
+                loadData(initTime);
 
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
                         //Acá la lógica para modificar el donutchart con los nuevos datos
-                        setChartVisible(chart);
+                        chart.draw();
                         DisplayManager.dismissLoadingPanel(loadingPanel, context);
                     }
                 });
             }
         }).start();
-
-
     }
 
 }
