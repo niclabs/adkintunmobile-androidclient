@@ -1,8 +1,11 @@
 package cl.niclabs.adkintunmobile.views.networktype;
 
 import android.app.DatePickerDialog;
+import android.content.Context;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -11,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.DatePicker;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.Calendar;
@@ -22,13 +26,16 @@ import cl.niclabs.adkintunmobile.utils.display.DisplayDateManager;
 import cl.niclabs.adkintunmobile.utils.display.DisplayManager;
 import cl.niclabs.adkintunmobile.utils.display.DoughnutChart;
 import cl.niclabs.adkintunmobile.utils.display.DoughnutChartBuilder;
-import cl.niclabs.adkintunmobile.views.BaseToolbarFragment;
 
-public class NetworkTypeFragment extends BaseToolbarFragment implements DatePickerDialog.OnDateSetListener{
+public class NetworkTypeFragment extends Fragment implements DatePickerDialog.OnDateSetListener{
 
     private final String TAG = "AdkM:AppNetwTypeFragment";
 
+    private String title;
+    private Context context;
+
     private DoughnutChart chart;
+    private RelativeLayout loadingPanel;
     private StatisticInformation statistic;
     private DoughnutChartBuilder chartBuilder;
     private TextView dayText;
@@ -46,11 +53,9 @@ public class NetworkTypeFragment extends BaseToolbarFragment implements DatePick
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.toolbar_simple, container, false);
-        View localFragmentView = view.findViewById(R.id.main_fragment);
-        inflater.inflate(R.layout.fragment_network_type, (ViewGroup) localFragmentView, true);
-        setupToolbar(view);
-
+        ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle(this.title);
+        final View view = inflater.inflate(R.layout.fragment_network_type, container, false);
+        this.loadingPanel = (RelativeLayout) view.findViewById(R.id.loading_panel);
 
         dayText = (TextView) view.findViewById(R.id.text_day);
         dateText = (TextView) view.findViewById(R.id.text_date);
@@ -60,6 +65,8 @@ public class NetworkTypeFragment extends BaseToolbarFragment implements DatePick
                 getString(R.string.font_text_view));
         dayText.setTypeface(tf1);
         dateText.setTypeface(tf1);
+
+        setHasOptionsMenu(true);
 
         DoughnutChart chartElement = (DoughnutChart) view.findViewById(R.id.doughnut);
 
