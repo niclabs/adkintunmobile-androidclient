@@ -118,7 +118,7 @@ public class NetworkTypeFragment extends Fragment implements DatePickerDialog.On
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
             case R.id.menu_date_picker_btn:
-                makeDateDialog();
+                DisplayManager.makeDateDialog(context, this);
                 break;
         }
         return super.onOptionsItemSelected(item);
@@ -133,18 +133,6 @@ public class NetworkTypeFragment extends Fragment implements DatePickerDialog.On
         chart.draw();
         //doughnut.setAnimation(animationIn);
         //doughnut.setVisibility(View.VISIBLE);
-    }
-
-    private void makeDateDialog(){
-        Calendar cal = Calendar.getInstance(TimeZone.getDefault());
-        DatePickerDialog datePickerDialog = new DatePickerDialog(
-                this.context,
-                this,
-                cal.get(Calendar.YEAR),
-                cal.get(Calendar.MONTH),
-                cal.get(Calendar.DAY_OF_MONTH));
-        datePickerDialog.setCancelable(false);
-        datePickerDialog.show();
     }
 
     @Override
