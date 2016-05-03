@@ -135,7 +135,7 @@ public class Network {
         TelephonyManager mTelephonyManager = (TelephonyManager)
                 context.getSystemService(Context.TELEPHONY_SERVICE);
         String res = mTelephonyManager.getSimOperatorName();
-        return res.isEmpty() ? context.getString(R.string.view_status_no_sim) : res;
+        return res.isEmpty() ? context.getString(R.string.view_status_no_sim) : res.toLowerCase();
     }
 
     /**
@@ -147,7 +147,7 @@ public class Network {
         TelephonyManager mTelephonyManager = (TelephonyManager)
                 context.getSystemService(Context.TELEPHONY_SERVICE);
         String res = mTelephonyManager.getNetworkOperatorName();
-        return res.isEmpty() ? context.getString(R.string.view_status_no_antenna) : res;
+        return res.isEmpty() ? context.getString(R.string.view_status_no_antenna) : res.toLowerCase();
     }
 
     /**
