@@ -13,12 +13,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.DatePicker;
-import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.Calendar;
-import java.util.TimeZone;
 
 import cl.niclabs.adkintunmobile.R;
 import cl.niclabs.adkintunmobile.data.chart.StatisticInformation;
@@ -36,7 +34,6 @@ public class NetworkTypeFragment extends Fragment implements DatePickerDialog.On
 
     private DoughnutChart chart;
     private RelativeLayout loadingPanel;
-    private StatisticInformation statistic;
     private DoughnutChartBuilder chartBuilder;
     private TextView dayText;
     private TextView dateText;
@@ -70,8 +67,6 @@ public class NetworkTypeFragment extends Fragment implements DatePickerDialog.On
 
         DoughnutChart chartElement = (DoughnutChart) view.findViewById(R.id.doughnut);
 
-        ImageView imageClock = (ImageView) view.findViewById(R.id.image_clock);
-
         float chartDiameter = getResources().getDimension(
                 R.dimen.connected_time_doughnut);
 					/* create a Builder for our doughnut chart */
@@ -84,27 +79,26 @@ public class NetworkTypeFragment extends Fragment implements DatePickerDialog.On
             public void run() {
                 final long currentTime = System.currentTimeMillis();
 
-                loadConnectionTypeData(currentTime);
+                loadData(currentTime);
 
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
 
-                        setChartVisible(chart);
+                        chart.draw();
                         DisplayManager.dismissLoadingPanel(loadingPanel, context);
                     }
                 });
-
             }
         }).start();
         return view;
     }
 
-    private void loadConnectionTypeData(long initialTime) {
+    private void loadData(long initialTime) {
         long currentTime = System.currentTimeMillis();
         /* set text view to show the name of the day of week */
         dateManager.refreshDate(dayText, dateText, initialTime);
-        this.statistic = new DailyNetworkTypeInformation(context, initialTime, currentTime);
+        StatisticInformation statistic = new DailyNetworkTypeInformation(context, initialTime, currentTime);
         this.chart = (DoughnutChart) this.chartBuilder.createGraphicStatistic(statistic);
     }
 
@@ -118,33 +112,10 @@ public class NetworkTypeFragment extends Fragment implements DatePickerDialog.On
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
             case R.id.menu_date_picker_btn:
-                makeDateDialog();
+                DisplayManager.makeDateDialog(context, this);
                 break;
         }
         return super.onOptionsItemSelected(item);
-    }
-
-    private void setChartVisible(DoughnutChart chart) {
-        //DoughnutChart doughnut = ((DoughnutChart) view.findViewById(R.id.doughnut));
-        //doughnut.setVisibility(View.GONE);
-        //Animation animationIn = AnimationUtils.loadAnimation(context,
-        //        R.anim.fade_in);
-        chart.setRotation(0);
-        chart.draw();
-        //doughnut.setAnimation(animationIn);
-        //doughnut.setVisibility(View.VISIBLE);
-    }
-
-    private void makeDateDialog(){
-        Calendar cal = Calendar.getInstance(TimeZone.getDefault());
-        DatePickerDialog datePickerDialog = new DatePickerDialog(
-                this.context,
-                this,
-                cal.get(Calendar.YEAR),
-                cal.get(Calendar.MONTH),
-                cal.get(Calendar.DAY_OF_MONTH));
-        datePickerDialog.setCancelable(false);
-        datePickerDialog.show();
     }
 
     @Override
@@ -160,20 +131,18 @@ public class NetworkTypeFragment extends Fragment implements DatePickerDialog.On
             @Override
             public void run() {
                 // Acá la lógica de recuperar datos para el día seleccionado en initTime
-                loadConnectionTypeData(initTime);
+                loadData(initTime);
 
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
                         //Acá la lógica para modificar el donutchart con los nuevos datos
-                        setChartVisible(chart);
+                        chart.draw();
                         DisplayManager.dismissLoadingPanel(loadingPanel, context);
                     }
                 });
             }
         }).start();
-
-
     }
 
 }

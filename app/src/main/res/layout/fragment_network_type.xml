@@ -53,7 +53,6 @@
                     android:layout_height="@dimen/connected_time_doughnut"
                     android:layout_gravity="center_horizontal|center_vertical"
                     android:visibility="visible"
-                    android:rotation="180"
                     android:layout_centerVertical="true"
                     android:layout_centerHorizontal="true" />
 
