@@ -1,11 +1,8 @@
 package cl.niclabs.adkintunmobile.views.connectiontype;
 
 import android.app.DatePickerDialog;
-import android.content.Context;
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -14,7 +11,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.DatePicker;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.Calendar;
@@ -27,17 +23,15 @@ import cl.niclabs.adkintunmobile.utils.display.DigitalClock;
 import cl.niclabs.adkintunmobile.utils.display.DisplayManager;
 import cl.niclabs.adkintunmobile.utils.display.DoughnutChart;
 import cl.niclabs.adkintunmobile.utils.display.DoughnutChartBuilder;
+import cl.niclabs.adkintunmobile.views.BaseToolbarFragment;
+import cl.niclabs.adkintunmobile.views.applicationstraffic.ApplicationsTrafficViewPagerAdapter;
 
 
-public class ConnectionTypeFragment extends Fragment implements DatePickerDialog.OnDateSetListener{
+public class ConnectionTypeFragment extends BaseToolbarFragment implements DatePickerDialog.OnDateSetListener{
 
     private final String TAG = "AdkM:AppConnTypeFragment";
 
-    private String title;
-    private Context context;
-
     private DoughnutChart chart;
-    private RelativeLayout loadingPanel;
     private StatisticInformation statistic;
     private DoughnutChartBuilder chartBuilder;
 
@@ -51,9 +45,11 @@ public class ConnectionTypeFragment extends Fragment implements DatePickerDialog
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle(this.title);
-        final View view = inflater.inflate(R.layout.fragment_connection_type, container, false);
-        this.loadingPanel = (RelativeLayout) view.findViewById(R.id.loading_panel);
+        View view = inflater.inflate(R.layout.toolbar_simple, container, false);
+        View localFragmentView = view.findViewById(R.id.main_fragment);
+        inflater.inflate(R.layout.fragment_network_type, (ViewGroup) localFragmentView, true);
+        setupToolbar(view);
+
 
         DigitalClock digitalClock = (DigitalClock) view.findViewById(R.id.digital_clock);
         TextView dayText = (TextView) view.findViewById(R.id.text_day);
@@ -67,8 +63,6 @@ public class ConnectionTypeFragment extends Fragment implements DatePickerDialog
 
 		/* set text view to show the name of the day of week */
         dayText.setText(dayOfWeek[calendar.get(Calendar.DAY_OF_WEEK) - 1]);
-
-        setHasOptionsMenu(true);
 
         DoughnutChart chartElement = (DoughnutChart) view.findViewById(R.id.doughnut);
 

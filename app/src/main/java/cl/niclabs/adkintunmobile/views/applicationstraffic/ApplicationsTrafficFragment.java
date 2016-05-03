@@ -7,6 +7,7 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -26,40 +27,30 @@ import java.util.TimeZone;
 import cl.niclabs.adkintunmobile.R;
 import cl.niclabs.adkintunmobile.data.persistent.visualization.ApplicationTraffic;
 import cl.niclabs.adkintunmobile.utils.display.DisplayManager;
+import cl.niclabs.adkintunmobile.views.BaseToolbarFragment;
 
-public class ApplicationsTrafficFragment extends Fragment implements DatePickerDialog.OnDateSetListener {
+public class ApplicationsTrafficFragment extends BaseToolbarFragment implements DatePickerDialog.OnDateSetListener {
 
     private final String TAG = "AdkM:AppTrafficFragment";
-
-    private String title;
-    private Context context;
 
     private ApplicationsTrafficViewPagerAdapter mViewPagerAdapter;
     private ArrayList<ApplicationsTrafficListElement> wifiTrafficArray, mobileTrafficArray;
     private ApplicationsTrafficListFragment wifiListFragment, mobileListFragment;
 
-    private RelativeLayout loadingPanel;
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.d(TAG, "onCreate");
-
         this.title = getActivity().getString(R.string.view_applications_traffic);
         this.context = getActivity();
 
         this.mViewPagerAdapter = new ApplicationsTrafficViewPagerAdapter(getActivity().getSupportFragmentManager());
-
-        setHasOptionsMenu(true);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        Log.d(TAG, "onCreateView");
-        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle(this.title);
         final View view = inflater.inflate(R.layout.fragment_applications_traffic, container, false);
-        this.loadingPanel = (RelativeLayout) view.findViewById(R.id.loading_panel);
+        setupToolbar(view);
 
         // Cargar datos de tráfico de apps del día actual
         (new Thread(){

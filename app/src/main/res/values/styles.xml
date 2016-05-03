@@ -1,20 +1,17 @@
 <resources>
 
+    <style name="AdkintunTheme" parent="AdkintunThemeBase">
+    </style>
+
     <!-- Base application theme. -->
-    <style name="AppBase" parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="AdkintunThemeBase" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:windowBackground">@color/window_background</item>
     </style>
 
-
-
-    <style name="AppTheme" parent="AppBase">
-        <item name="android:windowTranslucentStatus">true</item>
-        <item name="android:windowTranslucentNavigation">true</item>
-    </style>
-
-    <style name="FullScreen" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="AdkintunFullScreenTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <item name="windowNoTitle">true</item>
         <item name="windowActionBar">false</item>
         <item name="android:windowFullscreen">true</item>
@@ -41,7 +38,6 @@
         <item name="android:layout_margin">@dimen/separation_little</item>
         <item name="android:paddingBottom">@dimen/separation_little</item>
         <item name="android:background">@color/colorSoftCard</item>
-        <item name="android:elevation">@dimen/abc_control_inset_material</item>
     </style>
 
 

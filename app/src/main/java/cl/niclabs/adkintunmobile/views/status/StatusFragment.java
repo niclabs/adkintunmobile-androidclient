@@ -3,9 +3,6 @@ package cl.niclabs.adkintunmobile.views.status;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -14,7 +11,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.Calendar;
@@ -25,32 +21,29 @@ import cl.niclabs.adkintunmobile.R;
 import cl.niclabs.adkintunmobile.data.persistent.visualization.ApplicationTraffic;
 import cl.niclabs.adkintunmobile.utils.display.DisplayManager;
 import cl.niclabs.adkintunmobile.utils.information.Network;
+import cl.niclabs.adkintunmobile.views.BaseToolbarFragment;
 
-public class StatusFragment extends Fragment {
+public class StatusFragment extends BaseToolbarFragment {
 
     private final String TAG = "AdkM:StatusFragment";
 
-    private String title;
-    private Context context;
-    private RelativeLayout loadingPanel;
     private String ret;
-
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        this.title = getActivity().getString(R.string.view_status);
+        this.title = getActivity().getString(R.string.view_connection_type);
         this.context = getActivity();
-
-        setHasOptionsMenu(true);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle(this.title);
-        View view = inflater.inflate(R.layout.fragment_status, container, false);
-        this.loadingPanel = (RelativeLayout) view.findViewById(R.id.loading_panel);
+        View view = inflater.inflate(R.layout.toolbar_simple, container, false);
+        View localFragmentView = view.findViewById(R.id.main_fragment);
+        inflater.inflate(R.layout.fragment_status, (ViewGroup) localFragmentView, true);
+        setupToolbar(view);
+
 
         (new Thread(){
             @Override
@@ -67,6 +60,7 @@ public class StatusFragment extends Fragment {
 
             }
         }).start();
+
 
         return view;
     }
@@ -134,9 +128,7 @@ public class StatusFragment extends Fragment {
     }
 
     private void showDialogPref() {
-        FragmentManager fm = getFragmentManager();
-        StatusSettingsDialog dialogFragment = new StatusSettingsDialog ();
-        dialogFragment.show(fm, "Sample Fragment");
+
     }
 
 }

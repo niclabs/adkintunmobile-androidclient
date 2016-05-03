@@ -8,6 +8,7 @@ import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
@@ -31,9 +32,9 @@ public class MainActivity extends AppCompatActivity {
 
     // Navigation drawer components
     private DrawerLayout mDrawer;
-    private Toolbar toolbar;
+    //private Toolbar toolbar;
     private NavigationView nvDrawer;
-    private ActionBarDrawerToggle drawerToggle;
+    //private ActionBarDrawerToggle drawerToggle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,35 +46,49 @@ public class MainActivity extends AppCompatActivity {
         // Start System
         SetupSystem.startUpSystem(this.context);
 
-        setupToolBar();
+        //setupToolBar();
         setupNavigationDrawer();
 
         // Initial Fragment: DashboardFragment
         updateMainFragment(new DashboardFragment());
     }
 
+    /*
     private void setupToolBar() {
         // Setup toolbar as an actionbar
         this.toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
     }
+    */
 
     private void setupNavigationDrawer() {
         // Setup general Layout: actionbar + main view + navigation drawer
         this.mDrawer = (DrawerLayout) findViewById(R.id.drawer_layout);
 
         // Setup animation of fade in/out nv_drawer
-        this.drawerToggle = setupDrawerToggle();
-        this.mDrawer.setDrawerListener(this.drawerToggle);
+        //this.drawerToggle = setupDrawerToggle();
+        //this.mDrawer.setDrawerListener(this.drawerToggle);
 
         // Setup Navigation Drawer
-        this.nvDrawer = (NavigationView) findViewById(R.id.nvView);
+        this.nvDrawer = (NavigationView) findViewById(R.id.navigationView);
         setupDrawerContent(nvDrawer);
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                mDrawer.openDrawer(GravityCompat.START);
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    /*
     private ActionBarDrawerToggle setupDrawerToggle() {
         return new ActionBarDrawerToggle(this, this.mDrawer, this.toolbar, R.string.drawer_open,  R.string.drawer_close);
     }
+    */
 
     public void setupDrawerContent(NavigationView nv) {
         nv.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
@@ -122,6 +137,7 @@ public class MainActivity extends AppCompatActivity {
     /*
      * Navigation Drawer Synchronization methods
      */
+    /*
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
@@ -132,6 +148,7 @@ public class MainActivity extends AppCompatActivity {
         super.onConfigurationChanged(newConfig);
         this.drawerToggle.onConfigurationChanged(newConfig);
     }
+    */
 
     /*
      * changeCurrentFragment Methods
@@ -140,7 +157,7 @@ public class MainActivity extends AppCompatActivity {
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
-        fragmentTransaction.replace(R.id.main_fragment, newFragment);
+        fragmentTransaction.replace(R.id.main_content, newFragment);
         fragmentTransaction.commit();
     }
 }
