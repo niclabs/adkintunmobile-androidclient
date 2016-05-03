@@ -14,6 +14,10 @@ import cl.niclabs.adkintunmobile.data.chart.StatisticInformation;
 import cl.niclabs.adkintunmobile.data.persistent.visualization.DailyNetworkTypeSummary;
 import cl.niclabs.adkintunmobile.data.persistent.visualization.NetworkTypeSample;
 
+/**
+ * Information about Network Type Events of an specific day, according to
+ * "initialTime" parameter (UNIX timestamp of that day)
+ */
 public class DailyNetworkTypeInformation extends StatisticInformation{
     private final long period = 3600L * 24L * 1000L;
     private final float anglePerMillisecond = 360f/period;
@@ -34,6 +38,10 @@ public class DailyNetworkTypeInformation extends StatisticInformation{
         this.initialTime = calendar.getTimeInMillis();
     }
 
+    /**
+     * Get all NetworkTypeSample's of the day represented with "initialTime" parameter.
+     * Then, save ColorsArray and ValuesArray generated to build the DoughnutChart.
+     */
     @Override
     public void setStatisticsInformation() {
         int unknownColor = ContextCompat.getColor(context, R.color.network_type_unknown);
@@ -50,10 +58,10 @@ public class DailyNetworkTypeInformation extends StatisticInformation{
         int noInfoColor = ContextCompat.getColor(context, R.color.doughnut_no_info);
         int startColor = ContextCompat.getColor(context, R.color.doughnut_start);
 
+        //Samples del día representado por initialTime
         DailyNetworkTypeSummary todaySummary = DailyNetworkTypeSummary.getSummary(initialTime);
-
-
         Iterator<NetworkTypeSample> todaySamples = todaySummary.getSamples();
+
         final ArrayList<Integer> colors = new ArrayList<Integer>();
         final ArrayList<Float> values = new ArrayList<Float>();
         long lastTime;
@@ -77,7 +85,7 @@ public class DailyNetworkTypeInformation extends StatisticInformation{
 
         }
 
-        //Si primer reporte del día no parte de las 0 AM, buscar último del día anterior
+        //Si primer reporte del día no parte de las 0 AM, completar con último del día anterior
         if (lastTime > initialTime) {
             DailyNetworkTypeSummary yesterdaySummary = DailyNetworkTypeSummary.getSummary(initialTime - period);
             Iterator<NetworkTypeSample> yesterdaySamples = yesterdaySummary.getSamples();
@@ -107,18 +115,18 @@ public class DailyNetworkTypeInformation extends StatisticInformation{
             lastTime = sample.getInitialTime();
         }
 
-        //Si es un día anterior a la fecha
+        //Si es un día anterior a la fecha actual
         if (currentTime >= initialTime + period){
             angle = (initialTime + period - lastTime) * anglePerMillisecond;
             values.add(angle - initialBar);
             colors.add(lastColor);
         }
-        //Si es un día posterior a la fecha
+        //Si es un día posterior a la fecha actual
         else if(initialTime > currentTime){
             colors.add(noInfoColor);
             values.add((initialTime + period - lastTime - initialBar) * anglePerMillisecond);
         }
-        //Día actual
+        //Si es el día actual
         else {
             angle = (currentTime - lastTime) * anglePerMillisecond;
             values.add(angle);
