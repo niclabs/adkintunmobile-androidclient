@@ -66,15 +66,15 @@
                     android:orientation="vertical"
                     android:visibility="visible" >
 
-                    <cl.niclabs.adkintunmobile.utils.display.DigitalClock
-                        android:id="@+id/digital_clock"
+                    <TextView
+                        android:id="@+id/text_day"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="@android:color/white"
-                        android:textSize="50sp" />
+                        android:textSize="25sp" />
 
                     <TextView
-                        android:id="@+id/text_day"
+                        android:id="@+id/text_date"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="@android:color/white"

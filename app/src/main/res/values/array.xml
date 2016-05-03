@@ -12,7 +12,8 @@
         <item>5</item>
         <item>10</item>
     </string-array>
-    <!-- Connected Time Chart -->
+
+    <!-- Doughnut Chart -->
     <string-array name="day_of_week">
         <item>DOMINGO</item>
         <item>LUNES</item>
@@ -21,5 +22,19 @@
         <item>JUEVES</item>
         <item>VIERNES</item>
         <item>SÁBADO</item>
+    </string-array>
+    <string-array name="month_of_year">
+        <item>ENE</item>
+        <item>FEB</item>
+        <item>MAR</item>
+        <item>ABR</item>
+        <item>MAY</item>
+        <item>JUN</item>
+        <item>JUL</item>
+        <item>AGO</item>
+        <item>SEP</item>
+        <item>OCT</item>
+        <item>NOV</item>
+        <item>DIC</item>
     </string-array>
 </resources>

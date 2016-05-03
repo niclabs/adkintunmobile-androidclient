@@ -18,12 +18,11 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.Calendar;
-import java.util.Locale;
 import java.util.TimeZone;
 
 import cl.niclabs.adkintunmobile.R;
 import cl.niclabs.adkintunmobile.data.chart.StatisticInformation;
-import cl.niclabs.adkintunmobile.utils.display.DigitalClock;
+import cl.niclabs.adkintunmobile.utils.display.DisplayDateManager;
 import cl.niclabs.adkintunmobile.utils.display.DisplayManager;
 import cl.niclabs.adkintunmobile.utils.display.DoughnutChart;
 import cl.niclabs.adkintunmobile.utils.display.DoughnutChartBuilder;
@@ -39,6 +38,10 @@ public class NetworkTypeFragment extends Fragment implements DatePickerDialog.On
     private RelativeLayout loadingPanel;
     private StatisticInformation statistic;
     private DoughnutChartBuilder chartBuilder;
+    private TextView dayText;
+    private TextView dateText;
+    private DisplayDateManager dateManager;
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -54,19 +57,14 @@ public class NetworkTypeFragment extends Fragment implements DatePickerDialog.On
         final View view = inflater.inflate(R.layout.fragment_network_type, container, false);
         this.loadingPanel = (RelativeLayout) view.findViewById(R.id.loading_panel);
 
-        DigitalClock digitalClock = (DigitalClock) view.findViewById(R.id.digital_clock);
-        TextView dayText = (TextView) view.findViewById(R.id.text_day);
+        dayText = (TextView) view.findViewById(R.id.text_day);
+        dateText = (TextView) view.findViewById(R.id.text_date);
+        dateManager = new DisplayDateManager(context);
+
         Typeface tf1 = Typeface.createFromAsset(context.getAssets(),
                 getString(R.string.font_text_view));
-        digitalClock.setTypeface(tf1);
         dayText.setTypeface(tf1);
-
-        final Calendar calendar = Calendar.getInstance(Locale.getDefault());
-        String[] dayOfWeek = getResources().getStringArray(R.array.day_of_week);
-
-		/* set text view to show the name of the day of week */
-        dayText.setText(dayOfWeek[calendar.get(Calendar.DAY_OF_WEEK) - 1]);
-
+        dateText.setTypeface(tf1);
 
         setHasOptionsMenu(true);
 
@@ -104,6 +102,8 @@ public class NetworkTypeFragment extends Fragment implements DatePickerDialog.On
 
     private void loadConnectionTypeData(long initialTime) {
         long currentTime = System.currentTimeMillis();
+        /* set text view to show the name of the day of week */
+        dateManager.refreshDate(dayText, dateText, initialTime);
         this.statistic = new DailyNetworkTypeInformation(context, initialTime, currentTime);
         this.chart = (DoughnutChart) this.chartBuilder.createGraphicStatistic(statistic);
     }
