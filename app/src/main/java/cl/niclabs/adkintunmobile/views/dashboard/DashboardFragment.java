@@ -5,11 +5,15 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import cl.niclabs.adkintunmobile.R;
 import cl.niclabs.adkintunmobile.utils.information.Network;
 import cl.niclabs.adkintunmobile.views.BaseToolbarFragment;
+import pl.pawelkleczkowski.customgauge.CustomGauge;
 
 public class DashboardFragment extends BaseToolbarFragment {
 
@@ -29,6 +33,11 @@ public class DashboardFragment extends BaseToolbarFragment {
 
         updateStatusBanner(view);
 
+        ((CustomGauge)view.findViewById(R.id.gauge1)).setValue(76);
+        ((TextView)view.findViewById(R.id.tvgauge1)).setText("76");
+        ((CustomGauge)view.findViewById(R.id.gauge2)).setValue(37);
+        ((TextView)view.findViewById(R.id.tvgauge2)).setText("37");
+
         return view;
     }
 
@@ -42,5 +51,27 @@ public class DashboardFragment extends BaseToolbarFragment {
         tvSim.setText(Network.getSimCarrier(context));
         tvAntenna.setText(Network.getConnectedCarrrier(context));
         tvSignal.setText(Network.getNetworkType(context));
+
+        final ImageView ivBackdrop = (ImageView) view.findViewById(R.id.backdrop);
+        Animation zoomin = AnimationUtils.loadAnimation(this.context, R.anim.zoom_toolbar);
+        zoomin.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                Animation anim = AnimationUtils.loadAnimation(context, R.anim.zoom_toolbar);
+                anim.setAnimationListener(this);
+                ivBackdrop.setAnimation(anim);
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+
+            }
+        });
+        ivBackdrop.setAnimation(zoomin);
+
     }
 }
