@@ -15,4 +15,6 @@
     <dimen name="connected_time_clock">300dp</dimen>
     <dimen name="connected_time_doughnut">230dp</dimen>
 
+    <dimen name="extended_toolbar_dashboard_height">200dp</dimen>
+
 </resources>
