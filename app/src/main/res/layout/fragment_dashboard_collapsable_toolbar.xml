@@ -21,7 +21,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:expandedTitleTextAppearance="@style/TransparentText"
-            android:background="@drawable/wear"
             app:layout_scrollFlags="scroll|exitUntilCollapsed"
             android:elevation="4dp"
             app:contentScrim="?attr/colorPrimary"
@@ -39,7 +38,8 @@
                     android:scaleType="centerCrop"
                     android:fitsSystemWindows="true"
                     app:layout_collapseMode="parallax"
-                    app:layout_collapseParallaxMultiplier="0.5"/>
+                    app:layout_collapseParallaxMultiplier="0.5"
+                    android:src="@drawable/wear" />
 
 
                 <LinearLayout
