@@ -35,7 +35,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Lorem Ipsum is simply dummy text of the printing and typesetting industry." />
+                    android:text="Novedades principales de la aplicación Adkintun Mobile. NIC Chile Research Labs" />
 
             </LinearLayout>
 
@@ -61,7 +61,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Consumo aproximado de datos en el mes actual" />
+                    android:text="Consumo aproximado de datos móviles en el mes actual:" />
 
                 <LinearLayout
                     android:orientation="horizontal"
@@ -69,50 +69,40 @@
                     android:layout_height="match_parent"
                     android:weightSum="1">
 
-                    <LinearLayout
-                        android:orientation="horizontal"
-                        android:layout_width="wrap_content"
-                        android:layout_weight="0.5"
-                        android:layout_height="wrap_content">
+                    <TableLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:stretchColumns="0,1">
 
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="fill_parent"
-                            android:id="@+id/imageView5"
-                            android:src="@mipmap/ic_symbology_traffic_download" />
+                        <TableRow
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textAppearance="?android:attr/textAppearanceLarge"
-                            android:text="54.3 MB"
-                            android:textSize="30sp"
-                            android:layout_gravity="center_horizontal"
-                            android:textStyle="bold" />
-                    </LinearLayout>
+                            <TextView
+                                android:id="@+id/tv_download_data"
+                                android:layout_column="0"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:textAppearance="?android:attr/textAppearanceLarge"
+                                android:text="54.3 MB"
+                                android:textSize="26sp"
+                                android:layout_gravity="center_horizontal"
+                                android:textStyle="bold"
+                                android:drawableLeft="@mipmap/ic_symbology_traffic_download"/>
 
-                    <LinearLayout
-                        android:orientation="horizontal"
-                        android:layout_width="wrap_content"
-                        android:layout_weight="0.5"
-                        android:layout_height="wrap_content">
-
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="fill_parent"
-                            android:id="@+id/imageView6"
-                            android:src="@mipmap/ic_symbology_traffic_upload" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textAppearance="?android:attr/textAppearanceLarge"
-                            android:text="123.2 KB"
-                            android:textSize="30sp"
-                            android:layout_gravity="center_horizontal"
-                            android:textStyle="bold"
-                            android:id="@+id/textView3" />
-                    </LinearLayout>
+                            <TextView
+                                android:id="@+id/tv_upload_data"
+                                android:layout_column="1"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:textAppearance="?android:attr/textAppearanceLarge"
+                                android:text="123.2 KB"
+                                android:textSize="26sp"
+                                android:layout_gravity="center_horizontal"
+                                android:textStyle="bold"
+                                android:drawableLeft="@mipmap/ic_symbology_traffic_upload"/>
+                        </TableRow>
+                    </TableLayout>
 
                 </LinearLayout>
 
@@ -120,6 +110,103 @@
 
         </android.support.v7.widget.CardView>
 
+
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="@dimen/abc_dialog_padding_top_material"
+            android:stretchColumns="0,1">
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_column="0"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginRight="9dp">
+
+                    <android.support.v7.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <LinearLayout
+                            style="@style/Widget.CardContent"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="Datos"
+                                android:textAppearance="@style/TextAppearance.AppCompat.Title" />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="Hoy has estado conectado principalmente a:" />
+
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="fill_parent"
+                                android:textAppearance="?android:attr/textAppearanceLarge"
+                                android:text="Wi-Fi"
+                                android:id="@+id/tv_primary_conn"
+                                android:layout_gravity="center_horizontal"
+                                android:textStyle="bold"
+                                android:gravity="center" />
+
+
+                        </LinearLayout>
+
+                    </android.support.v7.widget.CardView>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_column="1"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="9dp">
+
+                    <android.support.v7.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <LinearLayout
+                            style="@style/Widget.CardContent"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="Red"
+                                android:textAppearance="@style/TextAppearance.AppCompat.Title" />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="La mayor parte del día has tenido señal:" />
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:layout_margin="@dimen/separation_min"
+                                android:id="@+id/iv_network"
+                                android:src="@mipmap/operator_other"
+                                android:layout_gravity="center" />
+
+                        </LinearLayout>
+
+                    </android.support.v7.widget.CardView>
+                </LinearLayout>
+
+            </TableRow>
+        </TableLayout>
 
         <android.support.v7.widget.CardView
             android:layout_width="match_parent"
@@ -134,76 +221,74 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Tiempo Conectado"
+                    android:text="Principales Aplicaciones"
                     android:textAppearance="@style/TextAppearance.AppCompat.Title" />
 
-                <LinearLayout
-                    android:orientation="horizontal"
-                    android:layout_width="wrap_content"
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Las siguientes aplicaciones son las que más han usado tu internet móvil hoy:" />
+
+                <TableLayout
+                    android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_gravity="center_horizontal">
+                    android:stretchColumns="0,1,2">
 
-                    <RelativeLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content">
+                    <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
 
-                        <pl.pawelkleczkowski.customgauge.CustomGauge
-                            android:id="@+id/gauge1"
-                            android:layout_width="100dp"
-                            android:layout_height="100dp"
-                            android:padding="10dp"
-                            gauge:pointEndColor="@color/colorAccent"
-                            gauge:pointStartColor="@color/colorAccent"
-                            gauge:startAngel="135"
-                            gauge:startValue="0"
-                            gauge:endValue="100"
-                            gauge:strokeCap="ROUND"
-                            gauge:strokeWidth="10dp"
-                            gauge:sweepAngel="270" />
-
-                        <TextView
-                            android:id="@+id/tvgauge1"
+                        <ImageView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_alignBottom="@+id/gauge1"
-                            android:layout_centerInParent="true"
-                            android:layout_marginBottom="48dp"
-                            android:text="20"
-                            android:textSize="30dp"
-                            android:textStyle="bold" />
-                    </RelativeLayout>
+                            android:id="@+id/iv_app1"
+                            android:layout_column="0"
+                            android:src="@mipmap/operator_other"/>
 
-                    <RelativeLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content">
-
-                        <pl.pawelkleczkowski.customgauge.CustomGauge
-                            android:id="@+id/gauge2"
-                            android:layout_width="100dp"
-                            android:layout_height="100dp"
-                            android:padding="10dp"
-                            gauge:pointEndColor="@color/colorAccent"
-                            gauge:pointStartColor="@color/colorAccent"
-                            gauge:startAngel="135"
-                            gauge:startValue="0"
-                            gauge:endValue="100"
-                            gauge:strokeCap="ROUND"
-                            gauge:strokeWidth="10dp"
-                            gauge:sweepAngel="270" />
-
-                        <TextView
-                            android:id="@+id/tvgauge2"
+                        <ImageView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_alignBottom="@+id/gauge2"
-                            android:layout_centerInParent="true"
-                            android:layout_marginBottom="48dp"
-                            android:text="20"
-                            android:textSize="30dp"
-                            android:textStyle="bold" />
-                    </RelativeLayout>
-                </LinearLayout>
+                            android:id="@+id/iv_app2"
+                            android:layout_column="1"
+                            android:src="@mipmap/operator_other"/>
 
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/iv_app3"
+                            android:layout_column="2"
+                            android:src="@mipmap/operator_other"/>
+                    </TableRow>
+
+                    <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:textAppearance="?android:attr/textAppearanceSmall"
+                            android:text="App1"
+                            android:id="@+id/tv_app1" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:textAppearance="?android:attr/textAppearanceSmall"
+                            android:text="App2"
+                            android:id="@+id/tv_app2" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:textAppearance="?android:attr/textAppearanceSmall"
+                            android:text="App3"
+                            android:id="@+id/tv_app3" />
+                    </TableRow>
+                </TableLayout>
 
             </LinearLayout>
 

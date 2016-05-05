@@ -33,11 +33,6 @@ public class DashboardFragment extends BaseToolbarFragment {
 
         updateStatusBanner(view);
 
-        ((CustomGauge)view.findViewById(R.id.gauge1)).setValue(76);
-        ((TextView)view.findViewById(R.id.tvgauge1)).setText("76");
-        ((CustomGauge)view.findViewById(R.id.gauge2)).setValue(37);
-        ((TextView)view.findViewById(R.id.tvgauge2)).setText("37");
-
         return view;
     }
 
