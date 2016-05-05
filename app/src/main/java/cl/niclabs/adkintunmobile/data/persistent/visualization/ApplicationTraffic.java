@@ -1,6 +1,10 @@
 package cl.niclabs.adkintunmobile.data.persistent.visualization;
 
+import android.util.Log;
+
 import com.google.gson.annotations.SerializedName;
+
+import java.util.Calendar;
 
 import cl.niclabs.adkintunmobile.data.persistent.TrafficObservationWrapper;
 import cl.niclabs.android.data.Persistent;
@@ -30,8 +34,19 @@ public class ApplicationTraffic extends Persistent<ApplicationTraffic>{
     }
 
     public ApplicationTraffic(TrafficObservationWrapper trafficObservationWrapper){
+        // Actualiza forma de guardar, ahora los timestamp serán diarios
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(trafficObservationWrapper.timestamp);
+        calendar.set(Calendar.HOUR_OF_DAY, 0);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.SECOND, 0);
+        calendar.set(Calendar.MILLISECOND, 0);
+
+        Log.d("KEP", trafficObservationWrapper.uid+"");
+
         this.uid = trafficObservationWrapper.uid;
-        this.timestamp = trafficObservationWrapper.timestamp;
+        //this.timestamp = trafficObservationWrapper.timestamp;
+        this.timestamp = calendar.getTimeInMillis();
         this.networkType = trafficObservationWrapper.networkType;
         this.rxBytes = trafficObservationWrapper.rxBytes;
         this.txBytes = trafficObservationWrapper.txBytes;

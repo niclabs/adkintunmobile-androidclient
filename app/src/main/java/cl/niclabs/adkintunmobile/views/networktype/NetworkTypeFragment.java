@@ -77,7 +77,7 @@ public class NetworkTypeFragment extends BaseToolbarFragment implements DatePick
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-
+                        dateManager.refreshDate(dayText, dateText, currentTime);
                         chart.draw();
                         DisplayManager.dismissLoadingPanel(loadingPanel, context);
                     }
@@ -90,7 +90,7 @@ public class NetworkTypeFragment extends BaseToolbarFragment implements DatePick
     private void loadData(long initialTime) {
         long currentTime = System.currentTimeMillis();
         /* set text view to show the name of the day of week */
-        dateManager.refreshDate(dayText, dateText, initialTime);
+        //dateManager.refreshDate(dayText, dateText, initialTime);
         StatisticInformation statistic = new DailyNetworkTypeInformation(context, initialTime, currentTime);
         this.chart = (DoughnutChart) this.chartBuilder.createGraphicStatistic(statistic);
     }

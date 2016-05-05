@@ -75,6 +75,7 @@ public class ConnectionTypeFragment extends BaseToolbarFragment implements DateP
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
+                        dateManager.refreshDate(dayText, dateText, currentTime);
                         chart.draw();
                         DisplayManager.dismissLoadingPanel(loadingPanel, context);
                     }
@@ -87,7 +88,7 @@ public class ConnectionTypeFragment extends BaseToolbarFragment implements DateP
     private void loadData(long initialTime) {
         long currentTime = System.currentTimeMillis();
 		/* set text view to show the name of the day of week */
-        dateManager.refreshDate(dayText, dateText, initialTime);
+        //dateManager.refreshDate(dayText, dateText, initialTime);
         StatisticInformation statistic = new DailyConnectionTypeInformation(context, initialTime, currentTime);
         this.chart = (DoughnutChart) this.chartBuilder.createGraphicStatistic(statistic);
     }

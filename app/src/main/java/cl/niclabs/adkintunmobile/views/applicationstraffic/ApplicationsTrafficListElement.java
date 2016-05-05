@@ -6,6 +6,8 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
 
+import cl.niclabs.adkintunmobile.data.persistent.visualization.ApplicationTraffic;
+
 public class ApplicationsTrafficListElement {
 
     private String packageName;
@@ -38,6 +40,12 @@ public class ApplicationsTrafficListElement {
 
         this.rxBytes = 0L;
         this.txBytes = 0L;
+    }
+
+    public ApplicationsTrafficListElement(Context context, ApplicationTraffic applicationTraffic) {
+        this(context, applicationTraffic.uid);
+        this.updateRxBytes(applicationTraffic.rxBytes);
+        this.updateTxBytes(applicationTraffic.txBytes);
     }
 
     public void updateRxBytes(Long rxBytes) {

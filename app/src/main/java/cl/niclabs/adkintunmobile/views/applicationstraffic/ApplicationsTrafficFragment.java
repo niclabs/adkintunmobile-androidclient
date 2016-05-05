@@ -1,13 +1,9 @@
 package cl.niclabs.adkintunmobile.views.applicationstraffic;
 
 import android.app.DatePickerDialog;
-import android.content.Context;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
-import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -16,7 +12,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.DatePicker;
-import android.widget.RelativeLayout;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -128,7 +123,7 @@ public class ApplicationsTrafficFragment extends BaseToolbarFragment implements 
         // Obtener aplicaciones con actividad desde initTime
         Iterator<ApplicationTraffic> apps = ApplicationTraffic.findWithQueryAsIterator(
                 ApplicationTraffic.class,
-                "SELECT DISTINCT uid, network_type from APPLICATION_TRAFFIC where timestamp > ?",
+                "SELECT DISTINCT uid, network_type from APPLICATION_TRAFFIC where timestamp >= ?",
                 Long.toString(initTime));
 
         // Recuperar datos de cada aplicación
@@ -154,7 +149,7 @@ public class ApplicationsTrafficFragment extends BaseToolbarFragment implements 
                 new ApplicationsTrafficListElement(this.context, uid);
         Iterator<ApplicationTraffic> iterator =
                 ApplicationTraffic.findAsIterator(
-                        ApplicationTraffic.class, "timestamp > ? and uid = ? and network_type = ?",
+                        ApplicationTraffic.class, "timestamp >= ? and uid = ? and network_type = ?",
                         Long.toString(initTime),
                         Integer.toString(uid),
                         Integer.toString(networkType));

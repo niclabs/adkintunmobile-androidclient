@@ -157,5 +157,6 @@ public class MainActivity extends AppCompatActivity {
         fragmentTransaction.replace(R.id.main_content, newFragment);
         fragmentTransaction.commit();
     }
+
 }
 

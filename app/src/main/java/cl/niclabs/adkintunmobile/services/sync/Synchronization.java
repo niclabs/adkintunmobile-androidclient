@@ -82,7 +82,20 @@ public class Synchronization extends Service {
 
         while(iterator.hasNext()){
             ApplicationTraffic value = new ApplicationTraffic(iterator.next());
-            value.save();
+            ApplicationTraffic refValue = ApplicationTraffic.findFirst(ApplicationTraffic.class,
+                    "uid = ? and timestamp = ?",
+                    Integer.toString(value.uid),
+                    Long.toString(value.timestamp));
+            if(refValue == null)
+                value.save();
+            else{
+                refValue.txBytes += value.txBytes;
+                refValue.rxBytes += value.rxBytes;
+                //refValue.tcpRxBytes += value.tcpRxBytes;
+                //refValue.tcpTxBytes += value.tcpTxBytes;
+                refValue.save();
+            }
+
         }
     }
 
