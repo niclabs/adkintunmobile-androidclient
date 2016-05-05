@@ -19,8 +19,8 @@
     </style>
 
     <style name="CustomProgressBarHorizontal" parent="@android:style/Widget.SeekBar">
-        <item name="android:minHeight">30dip</item>
-        <item name="android:maxHeight">30dip</item>
+        <item name="android:minHeight">20dip</item>
+        <item name="android:maxHeight">20dip</item>
         <item name="android:progressDrawable">@drawable/custom_progress_bar_horizontal</item>
     </style>
 

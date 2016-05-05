@@ -1,6 +1,7 @@
 package cl.niclabs.adkintunmobile.views.status;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.util.Log;
@@ -22,12 +23,14 @@ import cl.niclabs.adkintunmobile.data.persistent.visualization.ApplicationTraffi
 import cl.niclabs.adkintunmobile.utils.display.DisplayManager;
 import cl.niclabs.adkintunmobile.utils.information.Network;
 import cl.niclabs.adkintunmobile.views.BaseToolbarFragment;
+import pl.pawelkleczkowski.customgauge.CustomGauge;
 
 public class StatusFragment extends BaseToolbarFragment {
 
     private final String TAG = "AdkM:StatusFragment";
 
-    private String ret;
+    private long rxMobile, txMobile;
+    private String rxMobileData, txMobileData;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -75,12 +78,20 @@ public class StatusFragment extends BaseToolbarFragment {
         ((ImageView) getView().findViewById(R.id.iv_antenna)).setImageResource(Network.getConnectedCarrierIntRes(context));
         ((TextView) getView().findViewById(R.id.tv_antenna)).setText(Network.getConnectedCarrrier(context));
 
-        Snackbar.make(getView(), this.ret, Snackbar.LENGTH_SHORT)
-                .show();
+        long totalData = (this.rxMobile+this.txMobile) == 0 ? 1: (this.rxMobile+this.txMobile);
+        ((CustomGauge) getView().findViewById(R.id.gauge1)).setValue((int)(100*this.rxMobile/totalData));
+        ((TextView) getView().findViewById(R.id.tvgauge1)).setText(this.rxMobileData);
+        ((CustomGauge) getView().findViewById(R.id.gauge2)).setValue((int)(100*this.txMobile/totalData));
+        ((TextView) getView().findViewById(R.id.tvgauge2)).setText(this.txMobileData);
+
+        //Snackbar.make(getView(), this.ret, Snackbar.LENGTH_SHORT).show();
+
 
     }
 
     public void getCurrentDayTransferedData(){
+
+        this.rxMobile = this.txMobile = 0;
 
         Date today = new Date(System.currentTimeMillis());
         Calendar calendar = Calendar.getInstance();
@@ -95,18 +106,14 @@ public class StatusFragment extends BaseToolbarFragment {
                 Integer.toString(ApplicationTraffic.MOBILE),
                 Long.toString(calendar.getTimeInMillis()));
 
-        Long rx = 0L, tx = 0L;
-
         while (iterator.hasNext()){
             ApplicationTraffic current = iterator.next();
-            rx += current.rxBytes;
-            tx += current.txBytes;
+            this.rxMobile += current.rxBytes;
+            this.txMobile += current.txBytes;
         }
 
-        Log.d(TAG, "rx: " + Network.formatBytes(rx));
-        Log.d(TAG, "tx: " + Network.formatBytes(tx));
-
-        this.ret = Network.formatBytes(rx) + "   " + Network.formatBytes(tx);
+        this.rxMobileData = Network.formatBytes(this.rxMobile);
+        this.txMobileData = Network.formatBytes(this.txMobile);
 
     }
 
