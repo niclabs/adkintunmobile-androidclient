@@ -37,7 +37,7 @@
     <string name="settings_app_version_title">Versión de la aplicación</string>
     <string name="settings_app_version_default">0.1a</string>
 
-    <string name="settings_app_data_quota_total">0</string>
+    <string name="settings_app_data_quota_total_key">plan_data_quota</string>
 
 
     <!-- Status -->
