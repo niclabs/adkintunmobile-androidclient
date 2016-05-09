@@ -77,6 +77,8 @@ public class Synchronization extends Service {
      *  Utility Methods
      */
 
+
+    // TODO: Mover metodo a clase Report.java
     private void backupData(){
         Iterator<TrafficObservationWrapper> iterator = TrafficObservationWrapper.findAsIterator(TrafficObservationWrapper.class, "uid > 0");
 

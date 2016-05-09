@@ -153,6 +153,7 @@ public class MainActivity extends AppCompatActivity {
     public void updateMainFragment(Fragment newFragment){
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        //fragmentTransaction.setCustomAnimations(R.anim.enter, R.anim.exit);
 
         fragmentTransaction.replace(R.id.main_content, newFragment);
         fragmentTransaction.commit();
