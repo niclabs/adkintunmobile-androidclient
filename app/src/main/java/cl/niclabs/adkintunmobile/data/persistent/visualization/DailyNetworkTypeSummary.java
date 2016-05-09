@@ -54,10 +54,16 @@ public class DailyNetworkTypeSummary extends Persistent<DailyNetworkTypeSummary>
         return DailyNetworkTypeSummary.find(DailyNetworkTypeSummary.class, "date = ?", todayWhereArgs, "date").next();
     }
 
-    public static int[] getTimeByTypeSummary(long currentTime) {
+    /**
+     * Return the time using each network type por an specific day.
+     * @param currentTime   in milliseconds (to represent an specific day)
+     * @return long array with the time in milliseconds using each network type. Index are specified in NetworkTypeSample class.
+     */
+    public static long[] getTimeByTypeSummary(long currentTime) {
+        long period = 3600L * 24L * 1000L;
         DailyNetworkTypeSummary todaySummary = DailyNetworkTypeSummary.getSummary(currentTime);
         Iterator<NetworkTypeSample> todaySamples = todaySummary.getSamples();
-        int[] timeByType = new int[7];
+        long[] timeByType = new long[7];
         long lastTime;
 
         int lastType;
@@ -77,7 +83,7 @@ public class DailyNetworkTypeSummary extends Persistent<DailyNetworkTypeSummary>
 
         //Si primer reporte del día no parte de las 0 AM, completar con último del día anterior
         if (lastTime > currentTime) {
-            DailyNetworkTypeSummary yesterdaySummary = DailyNetworkTypeSummary.getSummary(currentTime - 3600L * 24L * 1000L);
+            DailyNetworkTypeSummary yesterdaySummary = DailyNetworkTypeSummary.getSummary(currentTime - period);
             Iterator<NetworkTypeSample> yesterdaySamples = yesterdaySummary.getSamples();
             if (yesterdaySamples.hasNext()){
                 while (yesterdaySamples.hasNext()) {

@@ -52,10 +52,16 @@ public class DailyConnectionTypeSummary extends Persistent<DailyConnectionTypeSu
         return DailyConnectionTypeSummary.find(DailyConnectionTypeSummary.class, "date = ?", todayWhereArgs, "date").next();
     }
 
-    public static int[] getTimeByTypeSummary(long currentTime){
+    /**
+     * Return the time using each connection type por an specific day.
+     * @param currentTime   in milliseconds (to represent an specific day)
+     * @return long array with the time in milliseconds using each connection type. Index are specified in ConnectionTypeSample class.
+     */
+    public static long[] getTimeByTypeSummary(long currentTime){
+        long period = 3600L * 24L * 1000L;
         DailyConnectionTypeSummary todaySummary = DailyConnectionTypeSummary.getSummary(currentTime);
         Iterator<ConnectionTypeSample> todaySamples = todaySummary.getSamples();
-        int[] timeByType = new int[3];
+        long[] timeByType = new long[3];
         long lastTime;
 
         int lastType;
@@ -75,7 +81,7 @@ public class DailyConnectionTypeSummary extends Persistent<DailyConnectionTypeSu
 
         //Si primer reporte del día no parte de las 0 AM, completar con último del día anterior
         if (lastTime > currentTime) {
-            DailyConnectionTypeSummary yesterdaySummary = DailyConnectionTypeSummary.getSummary(currentTime - 3600L * 24L * 1000L);
+            DailyConnectionTypeSummary yesterdaySummary = DailyConnectionTypeSummary.getSummary(currentTime - period);
             Iterator<ConnectionTypeSample> yesterdaySamples = yesterdaySummary.getSamples();
             if (yesterdaySamples.hasNext()){
                 while (yesterdaySamples.hasNext()) {
