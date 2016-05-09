@@ -25,12 +25,21 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center">
 
+        <!--
         <EditText
             android:id="@+id/txt_your_name"
             android:layout_width="@dimen/abc_action_bar_stacked_tab_max_width"
             android:layout_height="wrap_content"
-            android:inputType="text"
-            android:imeOptions="actionDone" />
+            android:inputType="number"/>
+-->
+
+        <NumberPicker
+            android:id="@+id/txt_your_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            >
+
+        </NumberPicker>
 
         <TextView
             android:layout_width="wrap_content"
@@ -38,11 +47,14 @@
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="@string/view_status_settings_dialog_example_MB"
             android:id="@+id/textView2"
-            android:textStyle="italic" />
+            android:textStyle="italic"
+            android:layout_gravity="center" />
     </LinearLayout>
 
+
+
     <Button
-        android:id="@+id/dismiss"
+        android:id="@+id/bt_save_data_quota"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@android:string/ok" />

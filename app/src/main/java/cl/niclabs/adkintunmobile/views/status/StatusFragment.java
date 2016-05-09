@@ -31,7 +31,7 @@ public class StatusFragment extends BaseToolbarFragment {
     private long rxMonthlyMobile, txMonthlyMobile;
     private String rxDailyMobileData, txDailyMobileData;
     private String rxMonthlyMobileData, txMonthlyMobileData;
-    private String currentMonth;
+    private String currentMonth, currentDay;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -86,9 +86,8 @@ public class StatusFragment extends BaseToolbarFragment {
         ((CustomGauge) getView().findViewById(R.id.gauge2)).setValue((int) (100 * this.txDailyMobile / totalData));
         ((TextView) getView().findViewById(R.id.tvgauge2)).setText(this.txDailyMobileData);
 
+        ((TextView) getView().findViewById(R.id.tv_daily_sample_period)).setText(this.currentDay);
         ((TextView) getView().findViewById(R.id.tv_monthly_sample_period)).setText(this.currentMonth);
-
-
 
         //Snackbar.make(getView(), this.ret, Snackbar.LENGTH_SHORT).show();
 
@@ -110,6 +109,10 @@ public class StatusFragment extends BaseToolbarFragment {
         this.txDailyMobile = dailyData[1];
         this.rxDailyMobileData = Network.formatBytes(this.rxDailyMobile);
         this.txDailyMobileData = Network.formatBytes(this.txDailyMobile);
+
+        this.currentDay = DisplayManager.dayNames[calendar.get(Calendar.DAY_OF_WEEK)];
+        this.currentDay += " " + calendar.get(Calendar.DAY_OF_MONTH);
+        this.currentDay += " de " + DisplayManager.monthNames[calendar.get(Calendar.MONTH)];
     }
 
     public void setCurrentMonthMobileData(){

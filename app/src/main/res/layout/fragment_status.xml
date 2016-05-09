@@ -59,7 +59,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         style="@style/TextAppearance.AppCompat.Display1"
-                        android:layout_gravity="center" />
+                        android:layout_gravity="center"
+                        android:layout_marginTop="@dimen/abc_action_bar_subtitle_top_margin_material" />
 
                     <TextView
                         android:id="@+id/tv_signal2"
@@ -173,7 +174,8 @@
                 <TableLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:stretchColumns="0,1,2">
+                    android:stretchColumns="0,1,2"
+                    android:layout_marginTop="@dimen/separation_little">
 
                     <TableRow
                         android:layout_width="match_parent"
@@ -263,10 +265,35 @@
 
                     </TableRow>
                 </TableLayout>
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="fill_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center_horizontal" >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:text="@string/sample_period"
+                        android:textSize="10sp"
+                        android:visibility="visible"
+                        android:layout_gravity="center" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:text="DIA"
+                        android:id="@+id/tv_daily_sample_period"
+                        android:layout_marginLeft="@dimen/separation_little" />
+                </LinearLayout>
             </LinearLayout>
 
 
             <!-- Cuarta Fila -->
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
