@@ -24,7 +24,7 @@
         <item name="android:progressDrawable">@drawable/custom_progress_bar_horizontal</item>
     </style>
 
-    <style name="labelsFloatingBox">
+    <style name="floatingBoxLabel">
         <item name="android:layout_marginTop">@dimen/separation_little</item>
         <item name="android:paddingLeft">@dimen/separation_little</item>
         <item name="android:paddingRight">@dimen/separation_little</item>
@@ -37,7 +37,7 @@
     <style name="floatingBox">
         <item name="android:layout_margin">@dimen/separation_little</item>
         <item name="android:paddingBottom">@dimen/separation_little</item>
-        <item name="android:background">@color/colorSoftCard</item>
+        <item name="android:background">@color/doughnut_no_info</item>
     </style>
 
     <style name="TransparentText" parent="@android:style/TextAppearance">

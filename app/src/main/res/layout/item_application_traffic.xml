@@ -15,7 +15,7 @@
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:id="@+id/tv_appname"
         android:text="AppName"
-        style="@style/labelsFloatingBox"/>
+        style="@style/floatingBoxLabel"/>
 
     <LinearLayout
         android:orientation="horizontal"
