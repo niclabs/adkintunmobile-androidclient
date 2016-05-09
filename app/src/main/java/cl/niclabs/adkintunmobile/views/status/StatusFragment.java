@@ -1,10 +1,8 @@
 package cl.niclabs.adkintunmobile.views.status;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.Snackbar;
-import android.util.Log;
+import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -29,13 +27,16 @@ public class StatusFragment extends BaseToolbarFragment {
 
     private final String TAG = "AdkM:StatusFragment";
 
-    private long rxMobile, txMobile;
-    private String rxMobileData, txMobileData;
+    private long rxDailyMobile, txDailyMobile;
+    private long rxMonthlyMobile, txMonthlyMobile;
+    private String rxDailyMobileData, txDailyMobileData;
+    private String rxMonthlyMobileData, txMonthlyMobileData;
+    private String currentMonth;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        this.title = getActivity().getString(R.string.view_connection_type);
+        this.title = getActivity().getString(R.string.view_status);
         this.context = getActivity();
     }
 
@@ -51,7 +52,8 @@ public class StatusFragment extends BaseToolbarFragment {
         (new Thread(){
             @Override
             public void run() {
-                getCurrentDayTransferedData();
+                setCurrentDayMobileData();
+                setCurrentMonthMobileData();
 
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
@@ -78,21 +80,22 @@ public class StatusFragment extends BaseToolbarFragment {
         ((ImageView) getView().findViewById(R.id.iv_antenna)).setImageResource(Network.getConnectedCarrierIntRes(context));
         ((TextView) getView().findViewById(R.id.tv_antenna)).setText(Network.getConnectedCarrrier(context));
 
-        long totalData = (this.rxMobile+this.txMobile) == 0 ? 1: (this.rxMobile+this.txMobile);
-        ((CustomGauge) getView().findViewById(R.id.gauge1)).setValue((int)(100*this.rxMobile/totalData));
-        ((TextView) getView().findViewById(R.id.tvgauge1)).setText(this.rxMobileData);
-        ((CustomGauge) getView().findViewById(R.id.gauge2)).setValue((int)(100*this.txMobile/totalData));
-        ((TextView) getView().findViewById(R.id.tvgauge2)).setText(this.txMobileData);
+        long totalData = (this.rxDailyMobile +this.txDailyMobile) == 0 ? 1: (this.rxDailyMobile +this.txDailyMobile);
+        ((CustomGauge) getView().findViewById(R.id.gauge1)).setValue((int)(100*this.rxDailyMobile /totalData));
+        ((TextView) getView().findViewById(R.id.tvgauge1)).setText(this.rxDailyMobileData);
+        ((CustomGauge) getView().findViewById(R.id.gauge2)).setValue((int) (100 * this.txDailyMobile / totalData));
+        ((TextView) getView().findViewById(R.id.tvgauge2)).setText(this.txDailyMobileData);
+
+        ((TextView) getView().findViewById(R.id.tv_monthly_sample_period)).setText(this.currentMonth);
+
+
 
         //Snackbar.make(getView(), this.ret, Snackbar.LENGTH_SHORT).show();
 
 
     }
 
-    public void getCurrentDayTransferedData(){
-
-        this.rxMobile = this.txMobile = 0;
-
+    public void setCurrentDayMobileData(){
         Date today = new Date(System.currentTimeMillis());
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(today);
@@ -101,26 +104,67 @@ public class StatusFragment extends BaseToolbarFragment {
         calendar.set(Calendar.SECOND, 0);
         calendar.set(Calendar.MILLISECOND, 0);
 
+        long[] dailyData = getTransferedData(ApplicationTraffic.MOBILE, calendar.getTimeInMillis());
+
+        this.rxDailyMobile = dailyData[0];
+        this.txDailyMobile = dailyData[1];
+        this.rxDailyMobileData = Network.formatBytes(this.rxDailyMobile);
+        this.txDailyMobileData = Network.formatBytes(this.txDailyMobile);
+    }
+
+    public void setCurrentMonthMobileData(){
+        Date today = new Date(System.currentTimeMillis());
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(today);
+        calendar.set(Calendar.DAY_OF_MONTH, 1);
+        calendar.set(Calendar.HOUR_OF_DAY, 0);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.SECOND, 0);
+        calendar.set(Calendar.MILLISECOND, 0);
+
+        long[] dailyData = getTransferedData(ApplicationTraffic.MOBILE, calendar.getTimeInMillis());
+
+        this.rxMonthlyMobile = dailyData[0];
+        this.txMonthlyMobile = dailyData[1];
+        this.rxMonthlyMobileData = Network.formatBytes(this.rxMonthlyMobile);
+        this.txMonthlyMobileData = Network.formatBytes(this.txMonthlyMobile);
+
+        this.currentMonth = DisplayManager.monthNames[calendar.get(Calendar.MONTH)];
+    }
+
+
+
+    /**
+     *
+     * @param appTrafficType Seleccionar ApplicationTraffic.MOBILE o ApplicationTraffic.WIFI
+     * @param initialTimestamp Tiempo desde el cual recuperar datos
+     * @return Arreglo con [DownloadedBytes, UploadedBytes]
+     */
+    public long[] getTransferedData(int appTrafficType, long initialTimestamp){
+
+        long rxData = 0, txData = 0;
+
         Iterator<ApplicationTraffic> iterator = ApplicationTraffic.findAsIterator(
                 ApplicationTraffic.class, "network_type = ? and timestamp >= ?",
-                Integer.toString(ApplicationTraffic.MOBILE),
-                Long.toString(calendar.getTimeInMillis()));
+                Integer.toString(appTrafficType),
+                Long.toString(initialTimestamp));
 
         while (iterator.hasNext()){
             ApplicationTraffic current = iterator.next();
-            this.rxMobile += current.rxBytes;
-            this.txMobile += current.txBytes;
+            rxData += current.rxBytes;
+            txData += current.txBytes;
         }
 
-        this.rxMobileData = Network.formatBytes(this.rxMobile);
-        this.txMobileData = Network.formatBytes(this.txMobile);
-
+        long[] ret = new long[2];
+        ret[0] = rxData;
+        ret[1] = txData;
+        return ret;
     }
 
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.application_traffic, menu);
+        inflater.inflate(R.menu.status, menu);
         super.onCreateOptionsMenu(menu, inflater);
     }
 
@@ -135,7 +179,9 @@ public class StatusFragment extends BaseToolbarFragment {
     }
 
     private void showDialogPref() {
-
+        FragmentManager fm = getActivity().getSupportFragmentManager();
+        StatusSettingsDialog editNameDialog = new StatusSettingsDialog();
+        editNameDialog.show(fm, "fragment_edit_name");
     }
 
 }
