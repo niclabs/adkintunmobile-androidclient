@@ -9,7 +9,8 @@
             android:title="@string/view_dashboard" />
         <item
             android:id="@+id/nav_notifications_log"
-            android:title="@string/view_notifications_log" />
+            android:title="@string/view_notifications_log"
+            android:visible="false"/>
         <item
             android:id="@+id/nav_status"
             android:title="@string/view_status" />
@@ -21,7 +22,8 @@
             android:title="@string/view_network_type" />
         <item
             android:id="@+id/nav_carrier_ranking"
-            android:title="@string/view_carrier_ranking" />
+            android:title="@string/view_carrier_ranking"
+            android:visible="false"/>
         <item
             android:id="@+id/nav_applications_traffic"
             android:title="@string/view_applications_traffic" />
