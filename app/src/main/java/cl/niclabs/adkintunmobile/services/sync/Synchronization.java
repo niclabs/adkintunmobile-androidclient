@@ -83,9 +83,10 @@ public class Synchronization extends Service {
         while(iterator.hasNext()){
             ApplicationTraffic value = new ApplicationTraffic(iterator.next());
             ApplicationTraffic refValue = ApplicationTraffic.findFirst(ApplicationTraffic.class,
-                    "uid = ? and timestamp = ?",
+                    "uid = ? and timestamp = ? and network_type = ?",
                     Integer.toString(value.uid),
-                    Long.toString(value.timestamp));
+                    Long.toString(value.timestamp),
+                    Integer.toString(value.networkType));
             if(refValue == null)
                 value.save();
             else{

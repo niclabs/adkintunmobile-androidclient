@@ -14,12 +14,17 @@ import android.widget.TextView;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Iterator;
+import java.util.List;
 
 import cl.niclabs.adkintunmobile.R;
+import cl.niclabs.adkintunmobile.data.chart.StatisticInformation;
 import cl.niclabs.adkintunmobile.data.persistent.visualization.ApplicationTraffic;
+import cl.niclabs.adkintunmobile.data.persistent.visualization.DailyNetworkTypeSummary;
+import cl.niclabs.adkintunmobile.data.persistent.visualization.NetworkTypeSample;
 import cl.niclabs.adkintunmobile.utils.information.Network;
 import cl.niclabs.adkintunmobile.views.BaseToolbarFragment;
 import cl.niclabs.adkintunmobile.views.applicationstraffic.ApplicationsTrafficListElement;
+import cl.niclabs.adkintunmobile.views.networktype.DailyNetworkTypeInformation;
 
 public class DashboardFragment extends BaseToolbarFragment {
 
@@ -28,6 +33,8 @@ public class DashboardFragment extends BaseToolbarFragment {
         super.onCreate(savedInstanceState);
         this.title = getActivity().getString(R.string.app_name);
         this.context = getActivity();
+
+        prueba3();
     }
 
     @Override
@@ -40,6 +47,7 @@ public class DashboardFragment extends BaseToolbarFragment {
         updateStatusBanner(view);
 
         setTopApps(view);
+        setMobileConsumption(view);
 
         return view;
     }
@@ -99,6 +107,12 @@ public class DashboardFragment extends BaseToolbarFragment {
 
     }
 
+    public void setMobileConsumption(View view){
+        prueba2();
+        ((TextView) view.findViewById(R.id.tv_download_data)).setText(Network.formatBytes(this.rxMobile));
+        ((TextView) view.findViewById(R.id.tv_upload_data)).setText(Network.formatBytes(this.txMobile));
+    }
+
     public ApplicationsTrafficListElement[] prueba(){
         ApplicationsTrafficListElement[] ret = new ApplicationsTrafficListElement[3];
 
@@ -135,5 +149,40 @@ public class DashboardFragment extends BaseToolbarFragment {
 
         return ret;
 
+    }
+
+
+    public long rxMobile, txMobile;
+
+    public void prueba2(){
+
+        this.rxMobile = this.txMobile = 0;
+
+        Date today = new Date(System.currentTimeMillis());
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(today);
+        calendar.set(Calendar.HOUR_OF_DAY, 0);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.SECOND, 0);
+        calendar.set(Calendar.MILLISECOND, 0);
+
+        Iterator<ApplicationTraffic> iterator = ApplicationTraffic.findAsIterator(
+                ApplicationTraffic.class, "network_type = ? and timestamp >= ?",
+                Integer.toString(ApplicationTraffic.MOBILE),
+                Long.toString(calendar.getTimeInMillis()));
+
+        while (iterator.hasNext()){
+            ApplicationTraffic current = iterator.next();
+            this.rxMobile += current.rxBytes;
+            this.txMobile += current.txBytes;
+        }
+
+    }
+
+    public void prueba3(){
+        DailyNetworkTypeSummary a = DailyNetworkTypeSummary.getSummary(System.currentTimeMillis());
+        StatisticInformation statistic = new DailyNetworkTypeInformation(context, System.currentTimeMillis(), System.currentTimeMillis());
+        List<NetworkTypeSample> samples = NetworkTypeSample.listAll(NetworkTypeSample.class);
+        int b = 0;
     }
 }
