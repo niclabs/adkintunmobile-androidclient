@@ -37,10 +37,22 @@
     <string name="settings_app_version_title">Versión de la aplicación</string>
     <string name="settings_app_version_default">0.1a</string>
 
+    <string name="settings_app_data_quota_total">0</string>
+
 
     <!-- Status -->
+    <string name="view_status_your_signal">Tu Señal</string>
+    <string name="view_status_your_SIM">Tu SIM</string>
+    <string name="view_status_your_network">Tu Red</string>
+    <string name="view_status_your_daily_data_usage">Tu consumo diario de datos móviles</string>
+    <string name="view_status_your_monthly_data_usage">Tu consumo mensual de datos móviles</string>
     <string name="view_status_no_sim">Sin tarjeta SIM</string>
     <string name="view_status_no_antenna">Red no disponible</string>
+    <string name="view_status_settings_dialog_title">Tu Plan de Datos</string>
+    <string name="view_status_settings_dialog_description">Establece la cuota de navegación provista en tu plan de datos de tu proveedor de telefonía.</string>
+    <string name="view_status_settings_dialog_example">100</string>
+    <string name="view_status_settings_dialog_example_MB">MB</string>
+
 
     <!-- Conn Type -->
     <string name="view_connection_type_symbology">Leyenda</string>
@@ -70,6 +82,7 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="sample_period">Periodo de muestreo:</string>
 
 
 </resources>
