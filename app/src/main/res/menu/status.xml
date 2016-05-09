@@ -6,9 +6,9 @@
     <!--TODO: Agregar textos a strings.xml -->
     <item
         android:id="@+id/menu_date_picker_btn"
-        android:icon="@drawable/ic_date_range_white"
+        android:icon="@drawable/ic_settings_white"
         app:showAsAction="always"
-        android:title="Seleccionar rango de fechas">
+        android:title="Configurar datos móviles">
     </item>
 
 </menu>
