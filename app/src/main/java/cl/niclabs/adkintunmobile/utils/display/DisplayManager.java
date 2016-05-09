@@ -14,6 +14,8 @@ import cl.niclabs.adkintunmobile.R;
 
 public class DisplayManager {
 
+    static public String[] monthNames = {"Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"};
+
     static public void enableLoadingPanel(RelativeLayout loadingPanel) {
         loadingPanel.setVisibility(View.VISIBLE);
     }
