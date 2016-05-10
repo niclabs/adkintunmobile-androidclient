@@ -32,15 +32,32 @@
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
+            android:name=".views.status.StatusActivity"
+            android:parentActivityName=".views.dashboard.MainActivity"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".views.dashboard.MainActivity" />
+        </activity>
+        <activity
+            android:name=".views.applicationstraffic.ApplicationsTrafficActivity"
+            android:parentActivityName=".views.dashboard.MainActivity"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".views.dashboard.MainActivity" />
+        </activity>
+        <activity
             android:name=".views.settings.SettingsActivity"
             android:parentActivityName=".views.dashboard.MainActivity"
-            android:windowSoftInputMode="adjustPan"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".views.dashboard.MainActivity" />

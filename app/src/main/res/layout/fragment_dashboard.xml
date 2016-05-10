@@ -51,7 +51,8 @@
             <LinearLayout
                 style="@style/Widget.CardContent"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:onClick="openStatusView">
 
                 <TextView
                     android:layout_width="match_parent"
@@ -217,7 +218,8 @@
             <LinearLayout
                 style="@style/Widget.CardContent"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:onClick="openApplicationTrafficView">
 
                 <TextView
                     android:layout_width="match_parent"

@@ -11,16 +11,19 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
+import android.view.View;
 
 import cl.niclabs.adkintunmobile.R;
 import cl.niclabs.adkintunmobile.services.SetupSystem;
 import cl.niclabs.adkintunmobile.views.aboutus.AboutUsActivity;
+import cl.niclabs.adkintunmobile.views.applicationstraffic.ApplicationsTrafficActivity;
 import cl.niclabs.adkintunmobile.views.applicationstraffic.ApplicationsTrafficFragment;
 import cl.niclabs.adkintunmobile.views.connectiontype.ConnectionTypeFragment;
 import cl.niclabs.adkintunmobile.views.networktype.NetworkTypeFragment;
 import cl.niclabs.adkintunmobile.views.notificationlog.NotificationLogFragment;
 import cl.niclabs.adkintunmobile.views.rankings.RankingFragment;
 import cl.niclabs.adkintunmobile.views.settings.SettingsActivity;
+import cl.niclabs.adkintunmobile.views.status.StatusActivity;
 import cl.niclabs.adkintunmobile.views.status.StatusFragment;
 
 public class MainActivity extends AppCompatActivity {
@@ -102,7 +105,8 @@ public class MainActivity extends AppCompatActivity {
                         updateMainFragment(new NotificationLogFragment());
                         break;
                     case R.id.nav_status:
-                        updateMainFragment(new StatusFragment());
+                        //updateMainFragment(new StatusFragment());
+                        openStatusView(null);
                         break;
                     case R.id.nav_connection_type:
                         updateMainFragment(new ConnectionTypeFragment());
@@ -114,7 +118,8 @@ public class MainActivity extends AppCompatActivity {
                         updateMainFragment(new RankingFragment());
                         break;
                     case R.id.nav_applications_traffic:
-                        updateMainFragment(new ApplicationsTrafficFragment());
+                        //updateMainFragment(new ApplicationsTrafficFragment());
+                        openApplicationTrafficView(null);
                         break;
                     case R.id.nav_settings:
                         myIntent = new Intent(getApplicationContext(), SettingsActivity.class);
@@ -131,6 +136,15 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    public void openStatusView(View view){
+        Intent myIntent = new Intent(getApplicationContext(), StatusActivity.class);
+        startActivity(myIntent);
+    }
+
+    public void openApplicationTrafficView(View view){
+        Intent myIntent = new Intent(getApplicationContext(), ApplicationsTrafficActivity.class);
+        startActivity(myIntent);
+    }
     /*
      * Navigation Drawer Synchronization methods
      */
