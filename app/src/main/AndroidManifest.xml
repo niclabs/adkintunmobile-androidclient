@@ -54,6 +54,14 @@
                 android:value=".views.dashboard.MainActivity" />
         </activity>
         <activity
+            android:name=".views.connectiontype.connectionmode.ConnectionModeActivity"
+            android:parentActivityName=".views.dashboard.MainActivity"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".views.dashboard.MainActivity" />
+        </activity>
+        <activity
             android:name=".views.settings.SettingsActivity"
             android:parentActivityName=".views.dashboard.MainActivity"
             android:screenOrientation="portrait"
@@ -109,6 +117,7 @@
                 <action android:name="android.net.wifi.STATE_CHANGE" />
             </intent-filter>
         </receiver>
+
     </application>
 
 </manifest>

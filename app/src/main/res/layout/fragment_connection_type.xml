@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="cl.niclabs.adkintunmobile.views.connectiontype.ConnectionTypeFragment">
+    tools:context=".views.connectiontype.connectionmode.ConnectionTypeFragment">
 
     <RelativeLayout
         android:id="@+id/loading_panel"
@@ -99,7 +99,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/view_connection_type_symbology"
+                        android:text="@string/view_connection_mode_symbology"
                         android:gravity="center"
                         android:drawableLeft="@drawable/ic_info_outline_white"
                         style="@style/floatingBoxLabel"/>
@@ -130,7 +130,7 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:textAppearance="?android:attr/textAppearanceSmall"
-                                    android:text="@string/view_connection_type_mobile" />
+                                    android:text="@string/view_connection_mode_mobile" />
                                 </TableRow>
 
 
@@ -149,7 +149,7 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:textAppearance="?android:attr/textAppearanceSmall"
-                                    android:text="@string/view_connection_type_wifi" />
+                                    android:text="@string/view_connection_mode_wifi" />
 
                             </TableRow>
 
@@ -167,7 +167,7 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:textAppearance="?android:attr/textAppearanceSmall"
-                                    android:text="@string/view_connection_type_start" />
+                                    android:text="@string/view_connection_mode_start" />
 
                             </TableRow>
 
@@ -188,7 +188,7 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:textAppearance="?android:attr/textAppearanceSmall"
-                                    android:text="@string/view_connection_type_disconnected" />
+                                    android:text="@string/view_connection_mode_disconnected" />
 
                             </TableRow>
                         </TableLayout>

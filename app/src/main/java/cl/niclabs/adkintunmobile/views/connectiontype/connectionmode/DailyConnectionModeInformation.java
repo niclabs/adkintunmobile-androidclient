@@ -1,4 +1,4 @@
-package cl.niclabs.adkintunmobile.views.networktype;
+package cl.niclabs.adkintunmobile.views.connectiontype.connectionmode;
 
 import android.content.Context;
 import android.support.v4.content.ContextCompat;
@@ -11,22 +11,22 @@ import java.util.Locale;
 
 import cl.niclabs.adkintunmobile.R;
 import cl.niclabs.adkintunmobile.data.chart.StatisticInformation;
-import cl.niclabs.adkintunmobile.data.persistent.visualization.DailyNetworkTypeSummary;
-import cl.niclabs.adkintunmobile.data.persistent.visualization.NetworkTypeSample;
+import cl.niclabs.adkintunmobile.data.persistent.visualization.ConnectionModeSample;
+import cl.niclabs.adkintunmobile.data.persistent.visualization.DailyConnectionModeSummary;
 
 /**
- * Information about Network Type Events of an specific day, according to
+ * Information about Connection Type Events of an specific day, according to
  * "initialTime" parameter (UNIX timestamp of that day)
  */
-public class DailyNetworkTypeInformation extends StatisticInformation{
+public class DailyConnectionModeInformation extends StatisticInformation {
+
     private final long period = 3600L * 24L * 1000L;
     private final float anglePerMillisecond = 360f/period;
     private long initialTime;
     private long currentTime;
     private Context context;
 
-
-    public DailyNetworkTypeInformation(Context context, long initialTime, long currentTime) {
+    public DailyConnectionModeInformation(Context context, long initialTime, long currentTime) {
         this.context = context;
         this.currentTime = currentTime;
         Calendar calendar = Calendar.getInstance(Locale.getDefault());
@@ -39,34 +39,29 @@ public class DailyNetworkTypeInformation extends StatisticInformation{
     }
 
     /**
-     * Get all NetworkTypeSample's of the day represented with "initialTime" parameter.
+     * Get all ConnectionModeSample's of the day represented with "initialTime" parameter.
      * Then, save ColorsArray and ValuesArray generated to build the DoughnutChart.
      */
     @Override
     public void setStatisticsInformation() {
-        int unknownColor = ContextCompat.getColor(context, R.color.network_type_unknown);
-        int NetworkTypeGColor = ContextCompat.getColor(context, R.color.network_type_G);
-        int NetworkTypeEColor = ContextCompat.getColor(context, R.color.network_type_E);
-        int NetworkType3GColor = ContextCompat.getColor(context, R.color.network_type_3G);
-        int NetworkTypeHColor = ContextCompat.getColor(context, R.color.network_type_H);
-        int NetworkTypeHPColor = ContextCompat.getColor(context, R.color.network_type_Hp);
-        int NetworkType4GColor = ContextCompat.getColor(context, R.color.network_type_4G);
+        int mobileColor = ContextCompat.getColor(context, R.color.doughnut_mobile);
+        int disconnectedColor = ContextCompat.getColor(context, R.color.doughnut_no_connection);
+        int wifiColor = ContextCompat.getColor(context, R.color.doughnut_wifi);
 
-        int[] networkTypeColors = {unknownColor, NetworkTypeGColor, NetworkTypeEColor,
-                NetworkType3GColor, NetworkTypeHColor, NetworkTypeHPColor, NetworkType4GColor};
+        int[] connectionTypeColors = {disconnectedColor, mobileColor, wifiColor};
 
         int noInfoColor = ContextCompat.getColor(context, R.color.doughnut_no_info);
         int startColor = ContextCompat.getColor(context, R.color.doughnut_start);
 
         //Samples del día representado por initialTime
-        DailyNetworkTypeSummary todaySummary = DailyNetworkTypeSummary.getSummary(initialTime);
-        Iterator<NetworkTypeSample> todaySamples = todaySummary.getSamples();
+        DailyConnectionModeSummary todaySummary = DailyConnectionModeSummary.getSummary(initialTime);
+        Iterator<ConnectionModeSample> todaySamples = todaySummary.getSamples();
 
         final ArrayList<Integer> colors = new ArrayList<Integer>();
         final ArrayList<Float> values = new ArrayList<Float>();
         long lastTime;
         Integer lastColor;
-        NetworkTypeSample sample;
+        ConnectionModeSample sample;
         float initialBar = 1f;
         values.add(initialBar);
         colors.add(startColor);
@@ -75,7 +70,7 @@ public class DailyNetworkTypeInformation extends StatisticInformation{
         if (todaySamples.hasNext()){
             sample = todaySamples.next();
             lastTime = sample.getInitialTime();
-            lastColor = networkTypeColors[sample.getType()];
+            lastColor = connectionTypeColors[sample.getType()];
 
         }
         else {                                      //manejo si no hay valores
@@ -87,13 +82,13 @@ public class DailyNetworkTypeInformation extends StatisticInformation{
 
         //Si primer reporte del día no parte de las 0 AM, completar con último del día anterior
         if (lastTime > initialTime) {
-            DailyNetworkTypeSummary yesterdaySummary = DailyNetworkTypeSummary.getSummary(initialTime - period);
-            Iterator<NetworkTypeSample> yesterdaySamples = yesterdaySummary.getSamples();
+            DailyConnectionModeSummary yesterdaySummary = DailyConnectionModeSummary.getSummary(initialTime - period);
+            Iterator<ConnectionModeSample> yesterdaySamples = yesterdaySummary.getSamples();
             if (yesterdaySamples.hasNext()){
                 while (yesterdaySamples.hasNext()) {
                     sample = yesterdaySamples.next();
                 }
-                colors.add( networkTypeColors[sample.getType()] );
+                colors.add( connectionTypeColors[sample.getType()] );
             }
             else {
                 colors.add(noInfoColor);
@@ -103,13 +98,13 @@ public class DailyNetworkTypeInformation extends StatisticInformation{
 
         Float angle;
 
-        //Samples del día
+        //Samples del día seleccionado
         while (todaySamples.hasNext()){
             sample = todaySamples.next();
-            if (lastColor == networkTypeColors[sample.getType()])
+            if (lastColor == connectionTypeColors[sample.getType()])
                 continue;
             colors.add( lastColor );
-            lastColor = networkTypeColors[sample.getType()];
+            lastColor = connectionTypeColors[sample.getType()];
             angle = (sample.getInitialTime() - lastTime) * anglePerMillisecond;
             values.add(angle);
             lastTime = sample.getInitialTime();

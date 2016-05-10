@@ -15,8 +15,8 @@
             android:id="@+id/nav_status"
             android:title="@string/view_status" />
         <item
-            android:id="@+id/nav_connection_type"
-            android:title="@string/view_connection_type" />
+            android:id="@+id/nav_connection_mode"
+            android:title="@string/view_connection_mode" />
         <item
             android:id="@+id/nav_network_type"
             android:title="@string/view_network_type" />

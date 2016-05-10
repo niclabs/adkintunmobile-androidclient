@@ -17,14 +17,13 @@ import cl.niclabs.adkintunmobile.R;
 import cl.niclabs.adkintunmobile.services.SetupSystem;
 import cl.niclabs.adkintunmobile.views.aboutus.AboutUsActivity;
 import cl.niclabs.adkintunmobile.views.applicationstraffic.ApplicationsTrafficActivity;
-import cl.niclabs.adkintunmobile.views.applicationstraffic.ApplicationsTrafficFragment;
-import cl.niclabs.adkintunmobile.views.connectiontype.ConnectionTypeFragment;
-import cl.niclabs.adkintunmobile.views.networktype.NetworkTypeFragment;
+import cl.niclabs.adkintunmobile.views.connectiontype.connectionmode.ConnectionModeActivity;
+import cl.niclabs.adkintunmobile.views.connectiontype.connectionmode.ConnectionTypeFragment;
+import cl.niclabs.adkintunmobile.views.connectiontype.networktype.NetworkTypeFragment;
 import cl.niclabs.adkintunmobile.views.notificationlog.NotificationLogFragment;
 import cl.niclabs.adkintunmobile.views.rankings.RankingFragment;
 import cl.niclabs.adkintunmobile.views.settings.SettingsActivity;
 import cl.niclabs.adkintunmobile.views.status.StatusActivity;
-import cl.niclabs.adkintunmobile.views.status.StatusFragment;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -108,8 +107,8 @@ public class MainActivity extends AppCompatActivity {
                         //updateMainFragment(new StatusFragment());
                         openStatusView(null);
                         break;
-                    case R.id.nav_connection_type:
-                        updateMainFragment(new ConnectionTypeFragment());
+                    case R.id.nav_connection_mode:
+                        openConnectionModeView(null);
                         break;
                     case R.id.nav_network_type:
                         updateMainFragment(new NetworkTypeFragment());
@@ -143,6 +142,11 @@ public class MainActivity extends AppCompatActivity {
 
     public void openApplicationTrafficView(View view){
         Intent myIntent = new Intent(getApplicationContext(), ApplicationsTrafficActivity.class);
+        startActivity(myIntent);
+    }
+
+    public void openConnectionModeView(View view){
+        Intent myIntent = new Intent(getApplicationContext(), ConnectionModeActivity.class);
         startActivity(myIntent);
     }
     /*

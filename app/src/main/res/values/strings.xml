@@ -4,7 +4,7 @@
     <!-- Titles By View -->
     <string name="view_status">Tu Estado</string>
     <string name="view_dashboard">Dashboard</string>
-    <string name="view_connection_type">Tipo de Conexión</string>
+    <string name="view_connection_mode">Tipo de Conexión</string>
     <string name="view_network_type">Tipo de Señal</string>
     <string name="view_carrier_ranking">Ranking de Operadores</string>
     <string name="view_applications_traffic">Tráfico por Aplicación</string>
@@ -59,12 +59,12 @@
 
 
     <!-- Conn Type -->
-    <string name="view_connection_type_symbology">Leyenda</string>
-    <string name="view_connection_type_mobile">Conectado a red móvil</string>
-    <string name="view_connection_type_wifi">Conectado a red wifi</string>
-    <string name="view_connection_type_start">Inicio de datos registrados</string>
-    <string name="view_connection_type_no_info">Sin información</string>
-    <string name="view_connection_type_disconnected">Sin Conexión</string>
+    <string name="view_connection_mode_symbology">Leyenda</string>
+    <string name="view_connection_mode_mobile">Conectado a red móvil</string>
+    <string name="view_connection_mode_wifi">Conectado a red wifi</string>
+    <string name="view_connection_mode_start">Inicio de datos registrados</string>
+    <string name="view_connection_mode_no_info">Sin información</string>
+    <string name="view_connection_mode_disconnected">Sin Conexión</string>
 
     <!-- App Traffic -->
     <string name="view_applications_traffic_wifi">Tráfico WiFi</string>

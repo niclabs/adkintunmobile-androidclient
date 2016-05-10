@@ -13,7 +13,7 @@ import cl.niclabs.adkintunmobile.data.persistent.SampleWrapper;
 import cl.niclabs.adkintunmobile.data.persistent.StateChangeWrapper;
 import cl.niclabs.adkintunmobile.data.persistent.TelephonyObservationWrapper;
 import cl.niclabs.adkintunmobile.data.persistent.TrafficObservationWrapper;
-import cl.niclabs.adkintunmobile.data.persistent.visualization.ConnectionTypeSample;
+import cl.niclabs.adkintunmobile.data.persistent.visualization.ConnectionModeSample;
 import cl.niclabs.adkintunmobile.data.persistent.visualization.NetworkTypeSample;
 
 /**
@@ -69,7 +69,7 @@ public class Report {
     public void saveVisualSamples(){
         int lastType = -1;
         for (ConnectivityObservationWrapper observation : connectivityRecords){
-            ConnectionTypeSample sample = new ConnectionTypeSample(observation);
+            ConnectionModeSample sample = new ConnectionModeSample(observation);
             if (sample.getType() == lastType)
                 continue;
             else {

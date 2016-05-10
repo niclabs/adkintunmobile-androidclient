@@ -1,4 +1,4 @@
-package cl.niclabs.adkintunmobile.views.connectiontype;
+package cl.niclabs.adkintunmobile.views.connectiontype.connectionmode;
 
 import android.app.DatePickerDialog;
 import android.graphics.Typeface;
@@ -35,7 +35,7 @@ public class ConnectionTypeFragment extends BaseToolbarFragment implements DateP
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        this.title = getActivity().getString(R.string.view_connection_type);
+        this.title = getActivity().getString(R.string.view_connection_mode);
         this.context = getActivity();
     }
 
@@ -88,8 +88,8 @@ public class ConnectionTypeFragment extends BaseToolbarFragment implements DateP
     private void loadData(long initialTime) {
         long currentTime = System.currentTimeMillis();
 		/* set text view to show the name of the day of week */
-        //dateManager.refreshDate(dayText, dateText, initialTime);
-        StatisticInformation statistic = new DailyConnectionTypeInformation(context, initialTime, currentTime);
+        dateManager.refreshDate(dayText, dateText, initialTime);
+        StatisticInformation statistic = new DailyConnectionModeInformation(context, initialTime, currentTime);
         this.chart = (DoughnutChart) this.chartBuilder.createGraphicStatistic(statistic);
     }
 

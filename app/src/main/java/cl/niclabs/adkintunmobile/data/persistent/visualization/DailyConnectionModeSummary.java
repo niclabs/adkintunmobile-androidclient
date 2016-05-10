@@ -6,11 +6,11 @@ import java.util.Locale;
 
 import cl.niclabs.android.data.Persistent;
 
-public class DailyConnectionTypeSummary extends Persistent<DailyConnectionTypeSummary> {
+public class DailyConnectionModeSummary extends Persistent<DailyConnectionModeSummary> {
 
     public long date;
 
-    public DailyConnectionTypeSummary(long timestamp){
+    public DailyConnectionModeSummary(long timestamp){
         Calendar calendar = Calendar.getInstance(Locale.getDefault());
         calendar.setTimeInMillis(timestamp);
         calendar.set(Calendar.HOUR_OF_DAY, 0);
@@ -22,16 +22,16 @@ public class DailyConnectionTypeSummary extends Persistent<DailyConnectionTypeSu
     }
 
 
-    public DailyConnectionTypeSummary(){}
+    public DailyConnectionModeSummary(){}
 
-    public Iterator<ConnectionTypeSample> getSamples(){
+    public Iterator<ConnectionModeSample> getSamples(){
         String[] whereArgs = new String[1];
         whereArgs[0] =  Long.toString(getId());
-        Iterator<ConnectionTypeSample> samples = find(ConnectionTypeSample.class, "date = ?", whereArgs, "initial_time");
+        Iterator<ConnectionModeSample> samples = find(ConnectionModeSample.class, "date = ?", whereArgs, "initial_time");
         return samples;
     }
 
-    public static DailyConnectionTypeSummary getSummary(long timestamp){
+    public static DailyConnectionModeSummary getSummary(long timestamp){
         Calendar calendar = Calendar.getInstance(Locale.getDefault());
         calendar.setTimeInMillis(timestamp);
         calendar.set(Calendar.HOUR_OF_DAY, 0);
@@ -42,30 +42,30 @@ public class DailyConnectionTypeSummary extends Persistent<DailyConnectionTypeSu
         String[] todayWhereArgs = new String[1];
         todayWhereArgs[0] = Long.toString(calendar.getTimeInMillis());
 
-        long count = DailyConnectionTypeSummary.count(DailyConnectionTypeSummary.class, "date = ?", todayWhereArgs);
+        long count = DailyConnectionModeSummary.count(DailyConnectionModeSummary.class, "date = ?", todayWhereArgs);
 
         if (count < 1){
-            DailyConnectionTypeSummary todaySummary = new DailyConnectionTypeSummary(timestamp);
+            DailyConnectionModeSummary todaySummary = new DailyConnectionModeSummary(timestamp);
             todaySummary.save();
             return todaySummary;
         }
-        return DailyConnectionTypeSummary.find(DailyConnectionTypeSummary.class, "date = ?", todayWhereArgs, "date").next();
+        return DailyConnectionModeSummary.find(DailyConnectionModeSummary.class, "date = ?", todayWhereArgs, "date").next();
     }
 
     /**
      * Return the time using each connection type por an specific day.
      * @param currentTime   in milliseconds (to represent an specific day)
-     * @return long array with the time in milliseconds using each connection type. Index are specified in ConnectionTypeSample class.
+     * @return long array with the time in milliseconds using each connection type. Index are specified in ConnectionModeSample class.
      */
     public static long[] getTimeByTypeSummary(long currentTime){
         long period = 3600L * 24L * 1000L;
-        DailyConnectionTypeSummary todaySummary = DailyConnectionTypeSummary.getSummary(currentTime);
-        Iterator<ConnectionTypeSample> todaySamples = todaySummary.getSamples();
+        DailyConnectionModeSummary todaySummary = DailyConnectionModeSummary.getSummary(currentTime);
+        Iterator<ConnectionModeSample> todaySamples = todaySummary.getSamples();
         long[] timeByType = new long[3];
         long lastTime;
 
         int lastType;
-        ConnectionTypeSample sample;
+        ConnectionModeSample sample;
 
         //Info del primer sample del día
         if (todaySamples.hasNext()){
@@ -81,8 +81,8 @@ public class DailyConnectionTypeSummary extends Persistent<DailyConnectionTypeSu
 
         //Si primer reporte del día no parte de las 0 AM, completar con último del día anterior
         if (lastTime > currentTime) {
-            DailyConnectionTypeSummary yesterdaySummary = DailyConnectionTypeSummary.getSummary(currentTime - period);
-            Iterator<ConnectionTypeSample> yesterdaySamples = yesterdaySummary.getSamples();
+            DailyConnectionModeSummary yesterdaySummary = DailyConnectionModeSummary.getSummary(currentTime - period);
+            Iterator<ConnectionModeSample> yesterdaySamples = yesterdaySummary.getSamples();
             if (yesterdaySamples.hasNext()){
                 while (yesterdaySamples.hasNext()) {
                     sample = yesterdaySamples.next();

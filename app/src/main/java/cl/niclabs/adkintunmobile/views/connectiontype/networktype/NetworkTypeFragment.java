@@ -1,4 +1,4 @@
-package cl.niclabs.adkintunmobile.views.networktype;
+package cl.niclabs.adkintunmobile.views.connectiontype.networktype;
 
 import android.app.DatePickerDialog;
 import android.graphics.Typeface;
@@ -90,14 +90,14 @@ public class NetworkTypeFragment extends BaseToolbarFragment implements DatePick
     private void loadData(long initialTime) {
         long currentTime = System.currentTimeMillis();
         /* set text view to show the name of the day of week */
-        //dateManager.refreshDate(dayText, dateText, initialTime);
+        dateManager.refreshDate(dayText, dateText, initialTime);
         StatisticInformation statistic = new DailyNetworkTypeInformation(context, initialTime, currentTime);
         this.chart = (DoughnutChart) this.chartBuilder.createGraphicStatistic(statistic);
     }
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.network_type, menu);
+        //inflater.inflate(R.menu.network_type, menu);
         super.onCreateOptionsMenu(menu, inflater);
     }
 

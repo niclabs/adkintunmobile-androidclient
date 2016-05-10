@@ -24,7 +24,7 @@ import cl.niclabs.adkintunmobile.data.persistent.visualization.NetworkTypeSample
 import cl.niclabs.adkintunmobile.utils.information.Network;
 import cl.niclabs.adkintunmobile.views.BaseToolbarFragment;
 import cl.niclabs.adkintunmobile.views.applicationstraffic.ApplicationsTrafficListElement;
-import cl.niclabs.adkintunmobile.views.networktype.DailyNetworkTypeInformation;
+import cl.niclabs.adkintunmobile.views.connectiontype.networktype.DailyNetworkTypeInformation;
 
 public class DashboardFragment extends BaseToolbarFragment {
 
@@ -34,7 +34,7 @@ public class DashboardFragment extends BaseToolbarFragment {
         this.title = getActivity().getString(R.string.app_name);
         this.context = getActivity();
 
-        prueba3();
+        //prueba3();
     }
 
     @Override
