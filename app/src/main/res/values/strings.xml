@@ -23,7 +23,8 @@
     <string name="settings_sampling_hostname_key">sync_hostname</string>
     <string name="settings_sampling_hostname_title">Dirección del servidor</string>
     <string name="settings_sampling_hostname_summary">Especificar dirección de servidor de datos</string>
-    <string name="settings_sampling_hostname_default">http://172.30.65.207:5000/send_file</string>
+    <string name="settings_sampling_hostname_default">http://172.30.65.50:5000/events</string>
+    <string name="settings_sampling_hostname_token">token dm89ivf57mjo7hj9zvzi0fkpd5v8t4dfgleqm08fqdridz8ror</string>
 
     <string name="settings_sampling_frequency_key">sync_frequency</string>
     <string name="settings_sampling_frequency_title">Frencuencia de envío</string>

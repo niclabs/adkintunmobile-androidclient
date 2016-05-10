@@ -23,7 +23,9 @@ import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Map;
 
 import cl.niclabs.adkintunmobile.R;
 import cl.niclabs.adkintunmobile.data.Report;
@@ -51,7 +53,7 @@ public class Synchronization extends Service {
         // 1.- Prepare data
         byte[] data = collectStoredData(report);
         // 2.- Prepare request
-        //sendData(data);
+        sendData(data);
         // 2,5.- Backup data
         backupData();
         report.saveVisualSamples();
@@ -162,12 +164,14 @@ public class Synchronization extends Service {
             e.printStackTrace();
         }
 
+        Map<String,String> headers = new HashMap<String, String>();
+        headers.put("Authorization", getResources().getString(R.string.settings_sampling_hostname_token));
         // Creación multipart request
         final SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this.context);
         HttpMultipartRequest multipartRequest =
                 new HttpMultipartRequest(
                         sharedPreferences.getString(this.context.getString(R.string.settings_sampling_hostname_key), ""),
-                        null,
+                        headers,
                         multipartBody,
                         new Response.Listener<NetworkResponse>() {
                             @Override
