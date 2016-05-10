@@ -37,7 +37,11 @@
     <string name="settings_app_version_title">Versión de la aplicación</string>
     <string name="settings_app_version_default">0.1a</string>
 
+
+    <string name="settings_app_data_category">Ajustes de la aplicación</string>
+
     <string name="settings_app_data_quota_total_key">plan_data_quota</string>
+    <string name="settings_app_data_quota_total_title">Cuota de navegación de tu plan de datos</string>
 
 
     <!-- Status -->

@@ -110,9 +110,11 @@ public class StatusFragment extends BaseToolbarFragment {
         this.rxDailyMobileData = Network.formatBytes(this.rxDailyMobile);
         this.txDailyMobileData = Network.formatBytes(this.txDailyMobile);
 
+        /*
         this.currentDay = DisplayManager.dayNames[calendar.get(Calendar.DAY_OF_WEEK)];
         this.currentDay += " " + calendar.get(Calendar.DAY_OF_MONTH);
         this.currentDay += " de " + DisplayManager.monthNames[calendar.get(Calendar.MONTH)];
+        */
     }
 
     public void setCurrentMonthMobileData(){
@@ -131,8 +133,9 @@ public class StatusFragment extends BaseToolbarFragment {
         this.txMonthlyMobile = dailyData[1];
         this.rxMonthlyMobileData = Network.formatBytes(this.rxMonthlyMobile);
         this.txMonthlyMobileData = Network.formatBytes(this.txMonthlyMobile);
-
+/*
         this.currentMonth = DisplayManager.monthNames[calendar.get(Calendar.MONTH)];
+        */
     }
 
 

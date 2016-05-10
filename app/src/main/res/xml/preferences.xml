@@ -1,5 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <PreferenceCategory
+        android:title="@string/settings_app_data_category"
+        >
+        <Preference
+            android:key="@string/settings_app_data_quota_total_key"
+            android:title="@string/settings_app_data_quota_total_title"
+            />
+    </PreferenceCategory>
+
     <PreferenceCategory
         android:title="@string/settings_sampling_category"
         >

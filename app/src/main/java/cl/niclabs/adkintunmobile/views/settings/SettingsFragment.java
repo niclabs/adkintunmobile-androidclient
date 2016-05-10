@@ -51,7 +51,7 @@ public class SettingsFragment extends PreferenceFragment implements SharedPrefer
     private void updateSummaries(){
         Map<String, ?> prefs = getPreferenceManager().getSharedPreferences().getAll();
         for (Map.Entry<String, ?> entry : prefs.entrySet()) {
-            // Log.d(TAG,entry.getKey() + ": " + entry.getValue().toString() + " ___ ");
+            Log.d(TAG,entry.getKey() + ": " + entry.getValue().toString() + " ___ ");
             updateSummary(entry.getKey());
         }
     }

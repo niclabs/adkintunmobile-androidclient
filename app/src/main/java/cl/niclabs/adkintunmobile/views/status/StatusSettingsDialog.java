@@ -34,7 +34,8 @@ public class StatusSettingsDialog extends DialogFragment {
         getDialog().setTitle("HOLA!!");
 
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
-        dataQuotaTotalValue = sharedPreferences.getInt(getActivity().getString(R.string.settings_app_data_quota_total_key), 0);
+        String value = sharedPreferences.getString(getActivity().getString(R.string.settings_app_data_quota_total_key), "0");
+        dataQuotaTotalValue = Integer.parseInt(value);
         Log.d("OK", dataQuotaTotalValue+" "+getActivity().getString(R.string.settings_app_data_quota_total_key));
         Log.d("OK", sharedPreferences.getAll().toString());
 
@@ -43,9 +44,11 @@ public class StatusSettingsDialog extends DialogFragment {
         mButton = (Button) v.findViewById(R.id.bt_save_data_quota);
 
 
-        mNumberPicker.setMaxValue(14);
+        String[] dataQuotaOptions = getResources().getStringArray(R.array.data_quotas);
+
+        mNumberPicker.setMaxValue(dataQuotaOptions.length - 1);
         mNumberPicker.setMinValue(0);
-        mNumberPicker.setDisplayedValues(new String[]{"100", "200", "300", "400", "500", "600", "700", "800", "900", "1000", "1500", "2000", "3000", "4000", "5000"});
+        mNumberPicker.setDisplayedValues(dataQuotaOptions);
 
         mNumberPicker.setWrapSelectorWheel(true);
         mNumberPicker.setValue(dataQuotaTotalValue);
@@ -65,7 +68,7 @@ public class StatusSettingsDialog extends DialogFragment {
     public void updateDataQuota(int mbDataPlan){
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putInt(getActivity().getString(R.string.settings_app_data_quota_total_key), mbDataPlan);
+        editor.putString(getActivity().getString(R.string.settings_app_data_quota_total_key), Integer.toString(mbDataPlan));
         editor.apply();
     }
 
