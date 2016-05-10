@@ -19,6 +19,7 @@ import cl.niclabs.adkintunmobile.views.aboutus.AboutUsActivity;
 import cl.niclabs.adkintunmobile.views.applicationstraffic.ApplicationsTrafficActivity;
 import cl.niclabs.adkintunmobile.views.connectiontype.connectionmode.ConnectionModeActivity;
 import cl.niclabs.adkintunmobile.views.connectiontype.connectionmode.ConnectionTypeFragment;
+import cl.niclabs.adkintunmobile.views.connectiontype.networktype.NetworkTypeActivity;
 import cl.niclabs.adkintunmobile.views.connectiontype.networktype.NetworkTypeFragment;
 import cl.niclabs.adkintunmobile.views.notificationlog.NotificationLogFragment;
 import cl.niclabs.adkintunmobile.views.rankings.RankingFragment;
@@ -111,7 +112,7 @@ public class MainActivity extends AppCompatActivity {
                         openConnectionModeView(null);
                         break;
                     case R.id.nav_network_type:
-                        updateMainFragment(new NetworkTypeFragment());
+                        openNetworkTypeView(null);
                         break;
                     case R.id.nav_carrier_ranking:
                         updateMainFragment(new RankingFragment());
@@ -147,6 +148,11 @@ public class MainActivity extends AppCompatActivity {
 
     public void openConnectionModeView(View view){
         Intent myIntent = new Intent(getApplicationContext(), ConnectionModeActivity.class);
+        startActivity(myIntent);
+    }
+
+    public void openNetworkTypeView(View view){
+        Intent myIntent = new Intent(getApplicationContext(), NetworkTypeActivity.class);
         startActivity(myIntent);
     }
     /*

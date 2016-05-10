@@ -182,7 +182,8 @@
                         <LinearLayout
                             style="@style/Widget.CardContent"
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent">
+                            android:layout_height="match_parent"
+                            android:onClick="openNetworkTypeView">
 
                             <TextView
                                 android:layout_width="match_parent"
