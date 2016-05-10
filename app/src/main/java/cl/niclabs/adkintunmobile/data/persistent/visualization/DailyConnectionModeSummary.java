@@ -1,5 +1,7 @@
 package cl.niclabs.adkintunmobile.data.persistent.visualization;
 
+import android.util.Log;
+
 import java.util.Calendar;
 import java.util.Iterator;
 import java.util.Locale;
@@ -107,6 +109,17 @@ public class DailyConnectionModeSummary extends Persistent<DailyConnectionModeSu
         timeByType[lastType] += (currentTime - lastTime);
 
         return timeByType;
+    }
+
+    public static String getPrimaryType(long currentTime){
+        long[] timeByType = getTimeByTypeSummary(currentTime);
+        String primaryType = "Sin Conexión";
+        Log.d("AAAA", timeByType[0]+" "+timeByType[1]+" "+timeByType[2]);
+        if (timeByType[1]>timeByType[0])
+            primaryType = "Mobile";
+        if (timeByType[2]>timeByType[1])
+            primaryType = "Wi-Fi";
+        return  primaryType;
     }
 
     public long getDateMillis(){

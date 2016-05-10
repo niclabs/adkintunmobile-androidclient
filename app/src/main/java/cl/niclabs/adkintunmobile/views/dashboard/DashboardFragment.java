@@ -19,6 +19,7 @@ import java.util.List;
 import cl.niclabs.adkintunmobile.R;
 import cl.niclabs.adkintunmobile.data.chart.StatisticInformation;
 import cl.niclabs.adkintunmobile.data.persistent.visualization.ApplicationTraffic;
+import cl.niclabs.adkintunmobile.data.persistent.visualization.DailyConnectionModeSummary;
 import cl.niclabs.adkintunmobile.data.persistent.visualization.DailyNetworkTypeSummary;
 import cl.niclabs.adkintunmobile.data.persistent.visualization.NetworkTypeSample;
 import cl.niclabs.adkintunmobile.utils.information.Network;
@@ -45,7 +46,7 @@ public class DashboardFragment extends BaseToolbarFragment {
         setupToolbar(view);
 
         updateStatusBanner(view);
-
+        setConnectionMode(view);
         setTopApps(view);
         setMobileConsumption(view);
 
@@ -111,6 +112,10 @@ public class DashboardFragment extends BaseToolbarFragment {
         prueba2();
         ((TextView) view.findViewById(R.id.tv_download_data)).setText(Network.formatBytes(this.rxMobile));
         ((TextView) view.findViewById(R.id.tv_upload_data)).setText(Network.formatBytes(this.txMobile));
+    }
+
+    public void setConnectionMode(View view){
+        ((TextView) view.findViewById(R.id.tv_primary_conn)).setText(DailyConnectionModeSummary.getPrimaryType(System.currentTimeMillis()));
     }
 
     public ApplicationsTrafficListElement[] prueba(){
