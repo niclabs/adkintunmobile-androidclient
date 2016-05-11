@@ -13,6 +13,11 @@ public class WifiBroadcastReceiver extends BroadcastReceiver{
         NetworkInfo netInfo = intent.getParcelableExtra(WifiManager.EXTRA_NETWORK_INFO);
 
         if (netInfo != null && netInfo.isConnected()) {
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
             VolleySingleton.getInstance(context).getRequestQueue().start();
         }
     }
