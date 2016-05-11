@@ -7,7 +7,6 @@ import android.content.SharedPreferences;
 import android.os.IBinder;
 import android.preference.PreferenceManager;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.android.volley.NetworkResponse;
 import com.android.volley.Response;
@@ -176,7 +175,7 @@ public class Synchronization extends Service {
                         new Response.Listener<NetworkResponse>() {
                             @Override
                             public void onResponse(NetworkResponse response) {
-                                Toast.makeText(getApplicationContext(), "Upload successfully!", Toast.LENGTH_SHORT).show();
+                                //Toast.makeText(getApplicationContext(), "Upload successfully!", Toast.LENGTH_SHORT).show();
                                 Log.d(TAG, "Upload successfully!");
 
                                 // Registro de la última sincronización exitosa
@@ -191,7 +190,7 @@ public class Synchronization extends Service {
                         new Response.ErrorListener() {
                             @Override
                             public void onErrorResponse(VolleyError error) {
-                                Toast.makeText(getApplicationContext(), "Upload failed!" + error.toString(), Toast.LENGTH_SHORT).show();
+                                //Toast.makeText(getApplicationContext(), "Upload failed!" + error.toString(), Toast.LENGTH_SHORT).show();
                                 Log.d(TAG, "Upload failed! " + error.toString());
                             }
                         }) {
@@ -199,7 +198,7 @@ public class Synchronization extends Service {
                     public void deliverError(VolleyError error) {
                         VolleySingleton.getInstance(getApplicationContext()).addToRequestQueue(this);
                         VolleySingleton.getInstance(getApplicationContext()).getRequestQueue().stop();
-                        Toast.makeText(getApplicationContext(), "Deliver Error, Queued!" + error.toString(), Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(getApplicationContext(), "Deliver Error, Queued!" + error.toString(), Toast.LENGTH_SHORT).show();
                         Log.d(TAG, "Deliver Error, Queued! " + error.toString());
                         // mErrorListener.onErrorResponse(error);
 
