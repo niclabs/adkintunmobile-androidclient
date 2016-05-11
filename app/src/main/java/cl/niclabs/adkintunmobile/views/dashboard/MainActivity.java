@@ -117,7 +117,6 @@ public class MainActivity extends AppCompatActivity {
                         updateMainFragment(new RankingFragment());
                         break;
                     case R.id.nav_applications_traffic:
-                        //updateMainFragment(new ApplicationsTrafficFragment());
                         openApplicationTrafficView(null);
                         break;
                     case R.id.nav_settings:
