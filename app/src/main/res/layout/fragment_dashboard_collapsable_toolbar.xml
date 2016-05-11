@@ -25,6 +25,7 @@
             app:expandedTitleTextAppearance="@style/TransparentText"
             app:layout_scrollFlags="scroll|exitUntilCollapsed"
             android:elevation="4dp"
+            android:fitsSystemWindows="true"
             app:contentScrim="?attr/colorPrimary"
             app:expandedTitleMarginStart="48dp"
             app:expandedTitleMarginEnd="64dp">
