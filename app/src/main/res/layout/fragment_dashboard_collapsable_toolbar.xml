@@ -35,7 +35,7 @@
                 android:layout_height="match_parent">
 
                 <ImageView
-                    android:id="@+id/backdrop"
+                    android:id="@+id/iv_backdrop_toolbar"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:scaleType="centerCrop"

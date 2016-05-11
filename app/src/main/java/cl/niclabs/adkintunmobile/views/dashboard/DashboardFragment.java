@@ -34,8 +34,6 @@ public class DashboardFragment extends BaseToolbarFragment {
         super.onCreate(savedInstanceState);
         this.title = getActivity().getString(R.string.app_name);
         this.context = getActivity();
-
-        //prueba3();
     }
 
     @Override
@@ -45,29 +43,30 @@ public class DashboardFragment extends BaseToolbarFragment {
         inflater.inflate(R.layout.fragment_dashboard, (ViewGroup) localFragmentView, true);
         setupToolbar(view);
 
-        updateStatusBanner(view);
-        setConnectionMode(view);
-        setTopApps(view);
-        setMobileConsumption(view);
+        updateStatusToolbar(view);
+        updateMobileConsumption(view);
+        updateConnectionMode(view);
+        updateTopApps(view);
 
         return view;
     }
 
 
-    public void updateStatusBanner(View view){
-        TextView tvSim,tvAntenna, tvSignal;
+    public void updateStatusToolbar(View view){
+
+        TextView tvSim, tvAntenna, tvSignal;
+
         tvSim = (TextView) view.findViewById(R.id.tv_sim);
         tvAntenna = (TextView) view.findViewById(R.id.tv_antenna);
         tvSignal = (TextView) view.findViewById(R.id.tv_signal);
-
 
         tvSim.setText(Network.getSimCarrier(context));
         tvAntenna.setText(Network.getConnectedCarrrier(context));
         tvSignal.setText(Network.getNetworkType(context));
 
-        final ImageView ivBackdrop = (ImageView) view.findViewById(R.id.backdrop);
-        Animation zoomin = AnimationUtils.loadAnimation(this.context, R.anim.zoom_toolbar);
-        zoomin.setAnimationListener(new Animation.AnimationListener() {
+        final ImageView ivBackdrop = (ImageView) view.findViewById(R.id.iv_backdrop_toolbar);
+        Animation zoomIn = AnimationUtils.loadAnimation(this.context, R.anim.zoom_toolbar);
+        zoomIn.setAnimationListener(new Animation.AnimationListener() {
             @Override
             public void onAnimationStart(Animation animation) {
             }
@@ -84,11 +83,11 @@ public class DashboardFragment extends BaseToolbarFragment {
 
             }
         });
-        ivBackdrop.setAnimation(zoomin);
+        ivBackdrop.setAnimation(zoomIn);
 
     }
 
-    public void setTopApps(View view){
+    public void updateTopApps(View view){
         ApplicationsTrafficListElement[] topApps = prueba();
 
         if(topApps[0] != null) {
@@ -108,13 +107,13 @@ public class DashboardFragment extends BaseToolbarFragment {
 
     }
 
-    public void setMobileConsumption(View view){
+    public void updateMobileConsumption(View view){
         prueba2();
         ((TextView) view.findViewById(R.id.tv_download_data)).setText(Network.formatBytes(this.rxMobile));
         ((TextView) view.findViewById(R.id.tv_upload_data)).setText(Network.formatBytes(this.txMobile));
     }
 
-    public void setConnectionMode(View view){
+    public void updateConnectionMode(View view){
         ((TextView) view.findViewById(R.id.tv_primary_conn)).setText(DailyConnectionModeSummary.getPrimaryType(System.currentTimeMillis()));
     }
 
