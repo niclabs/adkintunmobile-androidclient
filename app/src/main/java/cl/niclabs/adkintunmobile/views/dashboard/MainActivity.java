@@ -105,7 +105,6 @@ public class MainActivity extends AppCompatActivity {
                         updateMainFragment(new NotificationLogFragment());
                         break;
                     case R.id.nav_status:
-                        //updateMainFragment(new StatusFragment());
                         openStatusView(null);
                         break;
                     case R.id.nav_connection_mode:
