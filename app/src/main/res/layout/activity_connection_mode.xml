@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
     android:fitsSystemWindows="true"
-    android:background="@mipmap/background"
+    android:background="@mipmap/background3"
     tools:context="cl.niclabs.adkintunmobile.views.connectiontype.connectionmode.ConnectionModeActivity">
 
 

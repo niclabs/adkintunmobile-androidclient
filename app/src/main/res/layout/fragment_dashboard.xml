@@ -8,7 +8,7 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/separation_little"
     tools:context="cl.niclabs.adkintunmobile.views.dashboard.DashboardFragment"
-    android:background="@mipmap/background">
+    android:background="@mipmap/background2">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -36,7 +36,8 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Novedades principales de la aplicación Adkintun Mobile. NIC Chile Research Labs" />
+                    android:text="Novedades principales de la aplicación Adkintun Mobile. NIC Chile Research Labs"
+                    android:id="@+id/tv_news" />
 
             </LinearLayout>
 
@@ -252,7 +253,6 @@
                             android:src="@mipmap/operator_other"/>
 
                         <ImageView
-                            android:alpha="0.75"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:id="@+id/iv_app2"
@@ -260,7 +260,6 @@
                             android:src="@mipmap/operator_other"/>
 
                         <ImageView
-                            android:alpha="0.5"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:id="@+id/iv_app3"
@@ -283,7 +282,6 @@
                             android:id="@+id/tv_app1" />
 
                         <TextView
-                            android:alpha="0.75"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:gravity="center"
@@ -293,7 +291,6 @@
                             android:id="@+id/tv_app2" />
 
                         <TextView
-                            android:alpha="0.5"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:gravity="center"
