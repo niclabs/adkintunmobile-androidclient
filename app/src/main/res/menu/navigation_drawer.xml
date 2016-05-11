@@ -6,27 +6,32 @@
         <item
             android:id="@+id/nav_dashboard"
             android:checked="true"
-            android:title="@string/view_dashboard" />
+            android:title="@string/view_dashboard"
+            android:icon="@drawable/ic_dashboard_black"/>
         <item
             android:id="@+id/nav_notifications_log"
             android:title="@string/view_notifications_log"
             android:visible="false"/>
         <item
             android:id="@+id/nav_status"
-            android:title="@string/view_status" />
+            android:title="@string/view_status"
+            android:icon="@drawable/ic_perm_device_information_black"/>
         <item
             android:id="@+id/nav_connection_mode"
-            android:title="@string/view_connection_mode" />
+            android:title="@string/view_connection_mode"
+            android:icon="@drawable/ic_import_export_black"/>
         <item
             android:id="@+id/nav_network_type"
-            android:title="@string/view_network_type" />
+            android:title="@string/view_network_type"
+            android:icon="@drawable/ic_settings_input_antenna_black"/>
         <item
             android:id="@+id/nav_carrier_ranking"
             android:title="@string/view_carrier_ranking"
             android:visible="false"/>
         <item
             android:id="@+id/nav_applications_traffic"
-            android:title="@string/view_applications_traffic" />
+            android:title="@string/view_applications_traffic"
+            android:icon="@drawable/ic_apps_black"/>
 
     </group>
 
@@ -35,9 +40,11 @@
         android:checkableBehavior="none">
         <item
             android:id="@+id/nav_settings"
-            android:title="@string/view_settings"/>
+            android:title="@string/view_settings"
+            android:icon="@drawable/ic_settings_applications_black"/>
         <item
             android:id="@+id/nav_about_us"
-            android:title="@string/view_about_us" />
+            android:title="@string/view_about_us"
+            android:icon="@drawable/ic_info_black"/>
     </group>
 </menu>
