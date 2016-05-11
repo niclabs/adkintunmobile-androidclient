@@ -117,6 +117,7 @@ public abstract class ConnectionTypeActivity extends AppCompatActivity implement
                     @Override
                     public void run() {
                         //Acá la lógica para modificar el donutchart con los nuevos datos
+                        dateManager.refreshDate(dayText, dateText, initTime);
                         chart.draw();
                         DisplayManager.dismissLoadingPanel(loadingPanel, context);
                     }

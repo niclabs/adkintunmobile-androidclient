@@ -1,6 +1,5 @@
 package cl.niclabs.adkintunmobile.views.connectiontype.networktype;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.RelativeLayout;
 
@@ -8,7 +7,6 @@ import cl.niclabs.adkintunmobile.R;
 import cl.niclabs.adkintunmobile.data.chart.StatisticInformation;
 import cl.niclabs.adkintunmobile.utils.display.DoughnutChart;
 import cl.niclabs.adkintunmobile.views.connectiontype.ConnectionTypeActivity;
-import cl.niclabs.adkintunmobile.views.connectiontype.connectionmode.DailyConnectionModeInformation;
 
 public class NetworkTypeActivity extends ConnectionTypeActivity {
 
@@ -33,7 +31,6 @@ public class NetworkTypeActivity extends ConnectionTypeActivity {
     @Override
     public void loadData(long initialTime) {
         long currentTime = System.currentTimeMillis();
-        dateManager.refreshDate(dayText, dateText, initialTime);
         StatisticInformation statistic = new DailyNetworkTypeInformation(context, initialTime, currentTime);
         this.chart = (DoughnutChart) this.chartBuilder.createGraphicStatistic(statistic);
     }

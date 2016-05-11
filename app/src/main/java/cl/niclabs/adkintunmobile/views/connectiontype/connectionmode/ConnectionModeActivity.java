@@ -31,7 +31,6 @@ public class ConnectionModeActivity extends ConnectionTypeActivity {
     @Override
     public void loadData(long initialTime) {
         long currentTime = System.currentTimeMillis();
-        dateManager.refreshDate(dayText, dateText, initialTime);
         StatisticInformation statistic = new DailyConnectionModeInformation(context, initialTime, currentTime);
         this.chart = (DoughnutChart) this.chartBuilder.createGraphicStatistic(statistic);
     }
