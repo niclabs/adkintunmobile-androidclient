@@ -1,15 +1,19 @@
 package cl.niclabs.adkintunmobile.views.status;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -34,6 +38,7 @@ public class StatusActivity extends AppCompatActivity {
 
     private long rxDailyMobile, txDailyMobile;
     private long rxMonthlyMobile, txMonthlyMobile;
+    private long monthlyDataQuota;
     private String rxDailyMobileData, txDailyMobileData;
     private String rxMonthlyMobileData, txMonthlyMobileData;
     private String currentMonth, currentDay;
@@ -52,6 +57,7 @@ public class StatusActivity extends AppCompatActivity {
             public void run() {
                 setCurrentDayMobileData();
                 setCurrentMonthMobileData();
+                setMonthlyDataQuota();
 
                 runOnUiThread(new Runnable() {
                     @Override
@@ -115,13 +121,30 @@ public class StatusActivity extends AppCompatActivity {
         ((ImageView)findViewById(R.id.iv_antenna)).setImageResource(Network.getConnectedCarrierIntRes(context));
         ((TextView)findViewById(R.id.tv_antenna)).setText(Network.getConnectedCarrrier(context));
 
-        long totalData = (this.rxDailyMobile +this.txDailyMobile) == 0 ? 1: (this.rxDailyMobile +this.txDailyMobile);
-        ((CustomGauge)findViewById(R.id.gauge1)).setValue((int)(100*this.rxDailyMobile /totalData));
-        ((TextView)findViewById(R.id.tvgauge1)).setText(this.rxDailyMobileData);
-        ((CustomGauge)findViewById(R.id.gauge2)).setValue((int) (100 * this.txDailyMobile / totalData));
-        ((TextView)findViewById(R.id.tvgauge2)).setText(this.txDailyMobileData);
-
+        long totalDailyData = (this.rxDailyMobile +this.txDailyMobile) == 0 ? 1: (this.rxDailyMobile +this.txDailyMobile);
+        ((CustomGauge)findViewById(R.id.gauge_daily_rx)).setValue((int) (100 * this.rxDailyMobile / totalDailyData));
+        ((TextView)findViewById(R.id.tv_gauge_daily_rx)).setText(this.rxDailyMobileData);
+        ((CustomGauge)findViewById(R.id.gauge_daily_tx)).setValue((int) (100 * this.txDailyMobile / totalDailyData));
+        ((TextView)findViewById(R.id.tv_gauge_daily_tx)).setText(this.txDailyMobileData);
         ((TextView)findViewById(R.id.tv_daily_sample_period)).setText(this.currentDay);
+
+
+        long totalMonthlyData = (this.rxMonthlyMobile +this.txMonthlyMobile) == 0 ? 1: (this.rxMonthlyMobile +this.txMonthlyMobile);
+        ((CustomGauge)findViewById(R.id.gauge_monthly_rx)).setValue((int) (100 * this.rxMonthlyMobile / totalMonthlyData));
+        ((TextView)findViewById(R.id.tv_gauge_monthly_rx)).setText(this.rxMonthlyMobileData);
+        ((CustomGauge)findViewById(R.id.gauge_monthly_tx)).setValue((int) (100 * this.txMonthlyMobile / totalMonthlyData));
+        ((TextView)findViewById(R.id.tv_gauge_monthly_tx)).setText(this.txMonthlyMobileData);
+
+
+        long totalMonthlyQuota = this.monthlyDataQuota * 1000000;
+        int monthlyQuotaPercentage = (int) (100 * this.rxMonthlyMobile /totalMonthlyQuota);
+        ((ProgressBar)findViewById(R.id.pb_mobile_data_consumption)).setProgress(monthlyQuotaPercentage);
+        ((TextView)findViewById(R.id.tv_data_quota_percentage)).setText(monthlyQuotaPercentage + "%");
+
+        ((TextView)findViewById(R.id.tv_used_data_quota)).setText(Network.formatBytes(this.rxMonthlyMobile));
+        ((TextView)findViewById(R.id.tv_available_data_quota)).setText(Network.formatBytes(totalMonthlyQuota));
+
+
         ((TextView)findViewById(R.id.tv_monthly_sample_period)).setText(this.currentMonth);
 
         //Snackbar.make(getView(), this.ret, Snackbar.LENGTH_SHORT).show();
@@ -147,6 +170,9 @@ public class StatusActivity extends AppCompatActivity {
         this.currentDay = getResources().getStringArray(R.array.day_of_week)[calendar.get(Calendar.DAY_OF_WEEK)];
         this.currentDay += " " + calendar.get(Calendar.DAY_OF_MONTH);
         this.currentDay += " de " + getResources().getStringArray(R.array.month_of_year)[calendar.get(Calendar.MONTH)];
+
+        Log.d(TAG, "Daily: rx:"+this.rxDailyMobile+" tx:"+this.txDailyMobile);
+        Log.d(TAG, "Daily: rx:"+this.rxDailyMobileData+" tx:"+this.txDailyMobileData);
     }
 
     public void setCurrentMonthMobileData(){
@@ -168,6 +194,15 @@ public class StatusActivity extends AppCompatActivity {
 
         this.currentMonth = getResources().getStringArray(R.array.month_of_year)[calendar.get(Calendar.MONTH)];
         this.currentMonth += " " + calendar.get(Calendar.YEAR);
+
+        Log.d(TAG, "Monthly: rx:"+this.rxMonthlyMobile+" tx:"+this.txMonthlyMobile);
+        Log.d(TAG, "Monthly: rx:"+this.rxMonthlyMobileData+" tx:"+this.txMonthlyMobileData);
+    }
+
+    public void setMonthlyDataQuota(){
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        int optionSelected = Integer.parseInt(sharedPreferences.getString(getString(R.string.settings_app_data_quota_total_key), "0"));
+        this.monthlyDataQuota = Long.parseLong(getResources().getStringArray(R.array.data_quotas)[optionSelected]);
     }
 
     /**

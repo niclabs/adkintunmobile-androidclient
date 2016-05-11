@@ -18,6 +18,7 @@
     <string name="drawer_close">Close navigation drawer</string>
 
     <!-- Preferences Strings -->
+    <string name="settings_updated">Preferencias actualizadas</string>
     <string name="settings_sampling_category">Ajustes de sincronización</string>
 
     <string name="settings_sampling_hostname_key">sync_hostname</string>
@@ -53,10 +54,11 @@
     <string name="view_status_your_monthly_data_usage">Tu consumo mensual de datos móviles</string>
     <string name="view_status_no_sim">Sin tarjeta SIM</string>
     <string name="view_status_no_antenna">Red no disponible</string>
+
     <string name="view_status_settings_dialog_title">Tu Plan de Datos</string>
     <string name="view_status_settings_dialog_description">Establece la cuota de navegación provista en tu plan de datos de tu proveedor de telefonía.</string>
     <string name="view_status_settings_dialog_example">100</string>
-    <string name="view_status_settings_dialog_example_MB">MB</string>
+    <string name="view_status_settings_dialog_example_MB">MegaBytes</string>
 
 
     <!-- Conn Type -->
