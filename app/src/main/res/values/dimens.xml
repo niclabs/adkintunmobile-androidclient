@@ -24,4 +24,8 @@
 
     <!-- About us -->
     <dimen name="institutions_logo_height">50dp</dimen>
+
+    <!-- Status -->
+    <dimen name="text_info_data_quota">14sp</dimen>
+    <dimen name="margin_horizontal_info_data_quota">14dp</dimen>
 </resources>
