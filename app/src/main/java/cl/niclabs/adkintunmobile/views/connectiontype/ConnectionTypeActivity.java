@@ -68,7 +68,7 @@ public abstract class ConnectionTypeActivity extends AppCompatActivity implement
         float chartDiameter = getResources().getDimension(
                 R.dimen.connected_time_doughnut);
         this.chartBuilder = new DoughnutChartBuilder(chartElement, chartDiameter);
-
+        chartElement.setRotation(180f);
 
         // Cargar datos de tipo de conexion de las últimas 24 horas
         (new Thread(){
