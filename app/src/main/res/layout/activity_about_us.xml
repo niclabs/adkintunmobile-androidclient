@@ -10,29 +10,58 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="cl.niclabs.adkintunmobile.views.aboutus.AboutUsActivity">
 
-    <LinearLayout
-        android:orientation="vertical"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true">
 
-        <ImageView
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:orientation="vertical"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/imageView"
-            android:src="@mipmap/ic_launcher"
-            android:layout_gravity="center" />
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"
+            style="@style/floatingBox"
+            android:padding="@dimen/separation_little">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="@string/app_name"
-            android:id="@+id/textView"
-            android:padding="@dimen/abc_action_bar_overflow_padding_end_material" />
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/imageView"
+                android:src="@mipmap/ic_launcher"
+                android:layout_gravity="center" />
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="@string/app_name"
+                android:id="@+id/textView"
+                android:padding="@dimen/abc_action_bar_overflow_padding_end_material"
+                android:layout_gravity="center" />
 
-    </LinearLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="@string/view_aboutus_about_app"
+                android:id="@+id/textView2" />
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="center">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/institutions_logo_height"
+                    android:id="@+id/imageView5"
+                    android:src="@mipmap/niclabs" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
 
 </RelativeLayout>
