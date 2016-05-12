@@ -42,7 +42,7 @@
                     android:fitsSystemWindows="true"
                     app:layout_collapseMode="parallax"
                     app:layout_collapseParallaxMultiplier="0.5"
-                    android:src="@drawable/wear2" />
+                    android:src="@drawable/wear3" />
 
 
                 <LinearLayout
@@ -60,8 +60,8 @@
 
                         <ImageView
                             android:padding="@dimen/activity_vertical_margin"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_width="@dimen/adkintun_icon_toolbar"
+                            android:layout_height="@dimen/adkintun_icon_toolbar"
                             android:src="@mipmap/ic_launcher"
                             android:background="@drawable/rounded_shadow" />
 

@@ -20,5 +20,6 @@
 
     <!-- Toolbar -->
     <dimen name="extended_toolbar_dashboard_height">200dp</dimen>
+    <dimen name="adkintun_icon_toolbar">110dp</dimen>
 
 </resources>

@@ -14,18 +14,16 @@ import android.widget.TextView;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Iterator;
-import java.util.List;
 
 import cl.niclabs.adkintunmobile.R;
-import cl.niclabs.adkintunmobile.data.chart.StatisticInformation;
 import cl.niclabs.adkintunmobile.data.persistent.visualization.ApplicationTraffic;
+import cl.niclabs.adkintunmobile.data.persistent.visualization.ConnectionModeSample;
 import cl.niclabs.adkintunmobile.data.persistent.visualization.DailyConnectionModeSummary;
 import cl.niclabs.adkintunmobile.data.persistent.visualization.DailyNetworkTypeSummary;
 import cl.niclabs.adkintunmobile.data.persistent.visualization.NetworkTypeSample;
 import cl.niclabs.adkintunmobile.utils.information.Network;
 import cl.niclabs.adkintunmobile.views.BaseToolbarFragment;
 import cl.niclabs.adkintunmobile.views.applicationstraffic.ApplicationsTrafficListElement;
-import cl.niclabs.adkintunmobile.views.connectiontype.networktype.DailyNetworkTypeInformation;
 
 public class DashboardFragment extends BaseToolbarFragment {
 
@@ -43,14 +41,20 @@ public class DashboardFragment extends BaseToolbarFragment {
         inflater.inflate(R.layout.fragment_dashboard, (ViewGroup) localFragmentView, true);
         setupToolbar(view);
 
-        updateStatusToolbar(view);
-        updateMobileConsumption(view);
-        updateConnectionMode(view);
-        updateTopApps(view);
-
         return view;
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        View view = getView();
+
+        updateStatusToolbar(view);
+        updateMobileConsumption(view);
+        updateConnectionMode(view);
+        updateNetworkType(view);
+        updateTopApps(view);
+    }
 
     public void updateStatusToolbar(View view){
 
@@ -88,7 +92,7 @@ public class DashboardFragment extends BaseToolbarFragment {
     }
 
     public void updateTopApps(View view){
-        ApplicationsTrafficListElement[] topApps = prueba();
+        ApplicationsTrafficListElement[] topApps = getTop3AppsToday();
 
         if(topApps[0] != null) {
             ((ImageView) view.findViewById(R.id.iv_app1)).setImageDrawable(topApps[0].getLogo());
@@ -108,16 +112,54 @@ public class DashboardFragment extends BaseToolbarFragment {
     }
 
     public void updateMobileConsumption(View view){
-        prueba2();
-        ((TextView) view.findViewById(R.id.tv_download_data)).setText(Network.formatBytes(this.rxMobile));
-        ((TextView) view.findViewById(R.id.tv_upload_data)).setText(Network.formatBytes(this.txMobile));
+        long[] monthlyData = getMonthlyMobileConsumption();
+        ((TextView) view.findViewById(R.id.tv_download_data)).setText(Network.formatBytes(monthlyData[0]));
+        ((TextView) view.findViewById(R.id.tv_upload_data)).setText(Network.formatBytes(monthlyData[1]));
     }
 
     public void updateConnectionMode(View view){
-        ((TextView) view.findViewById(R.id.tv_primary_conn)).setText(DailyConnectionModeSummary.getPrimaryType(System.currentTimeMillis()));
+        TextView tvPrimaryConn = (TextView)view.findViewById(R.id.tv_primary_conn);
+        switch (DailyConnectionModeSummary.getPrimaryType(System.currentTimeMillis())){
+            case ConnectionModeSample.NONE:
+                tvPrimaryConn.setText("Sin Red");
+                break;
+            case ConnectionModeSample.MOBILE:
+                tvPrimaryConn.setText("Mobile");
+                break;
+            case ConnectionModeSample.WIFI:
+                tvPrimaryConn.setText("Wi-Fi");
+                break;
+        }
     }
 
-    public ApplicationsTrafficListElement[] prueba(){
+    public void updateNetworkType(View view){
+        TextView tvPrimaryConn = (TextView)view.findViewById(R.id.tv_primary_net);
+        switch (DailyNetworkTypeSummary.getPrimaryType(System.currentTimeMillis())){
+            case NetworkTypeSample.UNKNOWN:
+                tvPrimaryConn.setText("Sin Red");
+                break;
+            case NetworkTypeSample.TYPE_G:
+                tvPrimaryConn.setText("G");
+                break;
+            case NetworkTypeSample.TYPE_E:
+                tvPrimaryConn.setText("E");
+                break;
+            case NetworkTypeSample.TYPE_3G:
+                tvPrimaryConn.setText("3G");
+                break;
+            case NetworkTypeSample.TYPE_H:
+                tvPrimaryConn.setText("H");
+                break;
+            case NetworkTypeSample.TYPE_Hp:
+                tvPrimaryConn.setText("H+");
+                break;
+            case NetworkTypeSample.TYPE_4G:
+                tvPrimaryConn.setText("4G");
+                break;
+        }
+    }
+
+    public ApplicationsTrafficListElement[] getTop3AppsToday(){
         ApplicationsTrafficListElement[] ret = new ApplicationsTrafficListElement[3];
 
         // Obtener aplicaciones con actividad de hoy
@@ -156,11 +198,14 @@ public class DashboardFragment extends BaseToolbarFragment {
     }
 
 
-    public long rxMobile, txMobile;
-
-    public void prueba2(){
-
-        this.rxMobile = this.txMobile = 0;
+    /**
+     *
+     * @return Arreglo con [rxData, txData] del mes actual
+     */
+    public long[] getMonthlyMobileConsumption(){
+        long[] dataUsage = new long[2];
+        long rxMobile = 0L;
+        long txMobile = 0L;
 
         Date today = new Date(System.currentTimeMillis());
         Calendar calendar = Calendar.getInstance();
@@ -177,16 +222,14 @@ public class DashboardFragment extends BaseToolbarFragment {
 
         while (iterator.hasNext()){
             ApplicationTraffic current = iterator.next();
-            this.rxMobile += current.rxBytes;
-            this.txMobile += current.txBytes;
+            rxMobile += current.rxBytes;
+            txMobile += current.txBytes;
         }
 
-    }
+        dataUsage[0] = rxMobile;
+        dataUsage[1] = txMobile;
 
-    public void prueba3(){
-        DailyNetworkTypeSummary a = DailyNetworkTypeSummary.getSummary(System.currentTimeMillis());
-        StatisticInformation statistic = new DailyNetworkTypeInformation(context, System.currentTimeMillis(), System.currentTimeMillis());
-        List<NetworkTypeSample> samples = NetworkTypeSample.listAll(NetworkTypeSample.class);
-        int b = 0;
+        return dataUsage;
+
     }
 }
