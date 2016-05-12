@@ -1,6 +1,7 @@
 package cl.niclabs.adkintunmobile.views.status;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -107,6 +108,18 @@ public class StatusActivity extends AppCompatActivity {
     private void showDialogPref() {
         FragmentManager fm = getSupportFragmentManager();
         StatusSettingsDialog editNameDialog = new StatusSettingsDialog();
+        editNameDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+            @Override
+            public void onDismiss(DialogInterface dialog) {
+                setMonthlyDataQuota();
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        updateActivityView(context);
+                    }
+                });
+            }
+        });
         editNameDialog.show(fm, "fragment_data_picker");
     }
 

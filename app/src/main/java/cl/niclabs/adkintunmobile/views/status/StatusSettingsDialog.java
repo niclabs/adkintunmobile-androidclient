@@ -1,6 +1,7 @@
 package cl.niclabs.adkintunmobile.views.status;
 
 
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -21,6 +22,8 @@ public class StatusSettingsDialog extends DialogFragment {
     private NumberPicker mNumberPicker;
     private Button mButton;
     private int dataQuotaTotalValue;
+
+    private DialogInterface.OnDismissListener onDismissListener;
 
     public StatusSettingsDialog() {
         // Required empty public constructor
@@ -67,6 +70,18 @@ public class StatusSettingsDialog extends DialogFragment {
         editor.putString(getActivity().getString(R.string.settings_app_data_quota_total_key), Integer.toString(mbDataPlan));
         editor.apply();
         Toast.makeText(getActivity(), getActivity().getString(R.string.settings_updated), Toast.LENGTH_SHORT).show();
+    }
+
+    public void setOnDismissListener(DialogInterface.OnDismissListener onDismissListener) {
+        this.onDismissListener = onDismissListener;
+    }
+
+    @Override
+    public void onDismiss(DialogInterface dialog) {
+        super.onDismiss(dialog);
+        if (onDismissListener != null) {
+            onDismissListener.onDismiss(dialog);
+        }
     }
 
 }
