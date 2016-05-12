@@ -6,9 +6,6 @@ import java.util.Locale;
 
 import cl.niclabs.android.data.Persistent;
 
-/**
- * Created by diego on 28-04-16.
- */
 public class DailyNetworkTypeSummary extends Persistent<DailyNetworkTypeSummary>{
 
     public long date;
@@ -111,7 +108,33 @@ public class DailyNetworkTypeSummary extends Persistent<DailyNetworkTypeSummary>
         return timeByType;
     }
 
+    /**
+     *
+     * @param currentTime
+     * @return int constant from ConnectionModeSample (UNKNOWN, TYPE_G, TYPE_E, TYPE_3G, TYPE_H, TYPE_Hp, TYPE_4G)
+     */
+    public static int getPrimaryType(long currentTime){
+        long[] timeByType = getTimeByTypeSummary(currentTime);
+
+        int primaryType = NetworkTypeSample.UNKNOWN;
+
+        if (timeByType[NetworkTypeSample.TYPE_G] > timeByType[primaryType])
+            primaryType = NetworkTypeSample.TYPE_G;
+        if (timeByType[NetworkTypeSample.TYPE_E] > timeByType[primaryType])
+            primaryType = NetworkTypeSample.TYPE_E;
+        if (timeByType[NetworkTypeSample.TYPE_3G] > timeByType[primaryType])
+            primaryType = NetworkTypeSample.TYPE_3G;
+        if (timeByType[NetworkTypeSample.TYPE_H] > timeByType[primaryType])
+            primaryType = NetworkTypeSample.TYPE_H;
+        if (timeByType[NetworkTypeSample.TYPE_Hp] > timeByType[primaryType])
+            primaryType = NetworkTypeSample.TYPE_Hp;
+        if (timeByType[NetworkTypeSample.TYPE_4G] > timeByType[primaryType])
+            primaryType = NetworkTypeSample.TYPE_4G;
+        return  primaryType;
+    }
+
     public long getDateMillis(){
         return date;
     }
+
 }
