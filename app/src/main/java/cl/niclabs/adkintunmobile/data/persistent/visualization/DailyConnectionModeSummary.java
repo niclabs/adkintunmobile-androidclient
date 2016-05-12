@@ -105,8 +105,6 @@ public class DailyConnectionModeSummary extends Persistent<DailyConnectionModeSu
             lastType = sample.getType();
             lastTime = sample.getInitialTime();
         }
-
-
         timeByType[lastType] += (currentTime - lastTime);
 
         return timeByType;

@@ -86,14 +86,15 @@ public class DailyNetworkTypeInformation extends StatisticInformation{
         }
 
         //Si primer reporte del día no parte de las 0 AM, completar con último del día anterior
-        if (lastTime > initialTime) {
+        if (lastTime >= initialTime) {
             DailyNetworkTypeSummary yesterdaySummary = DailyNetworkTypeSummary.getSummary(initialTime - period);
             Iterator<NetworkTypeSample> yesterdaySamples = yesterdaySummary.getSamples();
             if (yesterdaySamples.hasNext()){
                 while (yesterdaySamples.hasNext()) {
                     sample = yesterdaySamples.next();
                 }
-                colors.add( networkTypeColors[sample.getType()] );
+                lastColor = networkTypeColors[sample.getType()];
+                colors.add( lastColor );
             }
             else {
                 colors.add(noInfoColor);

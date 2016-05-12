@@ -53,15 +53,16 @@ public class DailyNetworkTypeSummary extends Persistent<DailyNetworkTypeSummary>
 
     /**
      * Return the time using each network type por an specific day.
-     * @param currentTime   in milliseconds (to represent an specific day)
+     * @param initialTime   in milliseconds (to represent an specific day)
      * @return long array with the time in milliseconds using each network type. Index are specified in NetworkTypeSample class.
      */
-    public static long[] getTimeByTypeSummary(long currentTime) {
+    public static long[] getTimeByTypeSummary(long initialTime) {
         long period = 3600L * 24L * 1000L;
-        DailyNetworkTypeSummary todaySummary = DailyNetworkTypeSummary.getSummary(currentTime);
+        DailyNetworkTypeSummary todaySummary = DailyNetworkTypeSummary.getSummary(initialTime);
         Iterator<NetworkTypeSample> todaySamples = todaySummary.getSamples();
         long[] timeByType = new long[7];
         long lastTime;
+        long currentTime = System.currentTimeMillis();
 
         int lastType;
         NetworkTypeSample sample;
@@ -75,12 +76,12 @@ public class DailyNetworkTypeSummary extends Persistent<DailyNetworkTypeSummary>
         else {                                      //manejo si no hay valores
             sample = null;                          //Se podría detectar acá el valor o ejecutar la sincronización
             lastType = 0;
-            lastTime = currentTime;
+            lastTime = initialTime;
         }
 
         //Si primer reporte del día no parte de las 0 AM, completar con último del día anterior
-        if (lastTime > currentTime) {
-            DailyNetworkTypeSummary yesterdaySummary = DailyNetworkTypeSummary.getSummary(currentTime - period);
+        if (lastTime >= initialTime) {
+            DailyNetworkTypeSummary yesterdaySummary = DailyNetworkTypeSummary.getSummary(initialTime - period);
             Iterator<NetworkTypeSample> yesterdaySamples = yesterdaySummary.getSamples();
             if (yesterdaySamples.hasNext()){
                 while (yesterdaySamples.hasNext()) {
@@ -91,7 +92,7 @@ public class DailyNetworkTypeSummary extends Persistent<DailyNetworkTypeSummary>
             else {
                 lastType = 0;
             }
-            timeByType[lastType] += (lastTime - currentTime);
+            timeByType[lastType] += (lastTime - initialTime);
         }
 
         //Samples del día
@@ -114,7 +115,13 @@ public class DailyNetworkTypeSummary extends Persistent<DailyNetworkTypeSummary>
      * @return int constant from ConnectionModeSample (UNKNOWN, TYPE_G, TYPE_E, TYPE_3G, TYPE_H, TYPE_Hp, TYPE_4G)
      */
     public static int getPrimaryType(long currentTime){
-        long[] timeByType = getTimeByTypeSummary(currentTime);
+        Calendar calendar = Calendar.getInstance(Locale.getDefault());
+        calendar.setTimeInMillis(currentTime);
+        calendar.set(Calendar.HOUR_OF_DAY, 0);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.SECOND, 0);
+        calendar.set(Calendar.MILLISECOND, 0);
+        long[] timeByType = getTimeByTypeSummary(calendar.getTimeInMillis());
 
         int primaryType = NetworkTypeSample.UNKNOWN;
 

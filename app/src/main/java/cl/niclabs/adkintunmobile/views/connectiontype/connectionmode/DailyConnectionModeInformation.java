@@ -2,12 +2,14 @@ package cl.niclabs.adkintunmobile.views.connectiontype.connectionmode;
 
 import android.content.Context;
 import android.support.v4.content.ContextCompat;
+import android.util.Log;
 import android.widget.ArrayAdapter;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Iterator;
 import java.util.Locale;
+import java.util.logging.Logger;
 
 import cl.niclabs.adkintunmobile.R;
 import cl.niclabs.adkintunmobile.data.chart.StatisticInformation;
@@ -81,14 +83,15 @@ public class DailyConnectionModeInformation extends StatisticInformation {
         }
 
         //Si primer reporte del día no parte de las 0 AM, completar con último del día anterior
-        if (lastTime > initialTime) {
+        if (lastTime >= initialTime) {
             DailyConnectionModeSummary yesterdaySummary = DailyConnectionModeSummary.getSummary(initialTime - period);
             Iterator<ConnectionModeSample> yesterdaySamples = yesterdaySummary.getSamples();
             if (yesterdaySamples.hasNext()){
                 while (yesterdaySamples.hasNext()) {
                     sample = yesterdaySamples.next();
                 }
-                colors.add( connectionTypeColors[sample.getType()] );
+                lastColor = connectionTypeColors[sample.getType()];
+                colors.add( lastColor );
             }
             else {
                 colors.add(noInfoColor);
