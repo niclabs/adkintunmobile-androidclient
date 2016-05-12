@@ -54,15 +54,16 @@ public class DailyConnectionModeSummary extends Persistent<DailyConnectionModeSu
 
     /**
      * Return the time using each connection type por an specific day.
-     * @param currentTime   in milliseconds (to represent an specific day)
+     * @param initialTime   in milliseconds (to represent an specific day)
      * @return long array with the time in milliseconds using each connection type. Index are specified in ConnectionModeSample class.
      */
-    public static long[] getTimeByTypeSummary(long currentTime){
+    public static long[] getTimeByTypeSummary(long initialTime){
         long period = 3600L * 24L * 1000L;
-        DailyConnectionModeSummary todaySummary = DailyConnectionModeSummary.getSummary(currentTime);
+        DailyConnectionModeSummary todaySummary = DailyConnectionModeSummary.getSummary(initialTime);
         Iterator<ConnectionModeSample> todaySamples = todaySummary.getSamples();
         long[] timeByType = new long[3];
         long lastTime;
+        long currentTime = System.currentTimeMillis();
 
         int lastType;
         ConnectionModeSample sample;
@@ -76,12 +77,12 @@ public class DailyConnectionModeSummary extends Persistent<DailyConnectionModeSu
         else {                                      //manejo si no hay valores
             sample = null;                          //Se podría detectar acá el valor o ejecutar la sincronización
             lastType = 0;
-            lastTime = currentTime;
+            lastTime = initialTime;
         }
 
         //Si primer reporte del día no parte de las 0 AM, completar con último del día anterior
-        if (lastTime > currentTime) {
-            DailyConnectionModeSummary yesterdaySummary = DailyConnectionModeSummary.getSummary(currentTime - period);
+        if (lastTime >= initialTime) {
+            DailyConnectionModeSummary yesterdaySummary = DailyConnectionModeSummary.getSummary(initialTime - period);
             Iterator<ConnectionModeSample> yesterdaySamples = yesterdaySummary.getSamples();
             if (yesterdaySamples.hasNext()){
                 while (yesterdaySamples.hasNext()) {
@@ -92,7 +93,7 @@ public class DailyConnectionModeSummary extends Persistent<DailyConnectionModeSu
             else {
                 lastType = 0;
             }
-            timeByType[lastType] += (lastTime - currentTime);
+            timeByType[lastType] += (lastTime - initialTime);
         }
 
         //Samples del día seleccionado
@@ -104,6 +105,8 @@ public class DailyConnectionModeSummary extends Persistent<DailyConnectionModeSu
             lastType = sample.getType();
             lastTime = sample.getInitialTime();
         }
+
+
         timeByType[lastType] += (currentTime - lastTime);
 
         return timeByType;
@@ -115,7 +118,13 @@ public class DailyConnectionModeSummary extends Persistent<DailyConnectionModeSu
      * @return int constant from ConnectionModeSample (NONE, MOBILE, WIFI)
      */
     public static int getPrimaryType(long currentTime){
-        long[] timeByType = getTimeByTypeSummary(currentTime);
+        Calendar calendar = Calendar.getInstance(Locale.getDefault());
+        calendar.setTimeInMillis(currentTime);
+        calendar.set(Calendar.HOUR_OF_DAY, 0);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.SECOND, 0);
+        calendar.set(Calendar.MILLISECOND, 0);
+        long[] timeByType = getTimeByTypeSummary(calendar.getTimeInMillis());
 
         int primaryType = ConnectionModeSample.NONE;
 
