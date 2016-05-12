@@ -171,7 +171,7 @@
                             <ImageView
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
-                                android:src="@drawable/ic_signal_cellular_bar_white"
+                                android:src="@drawable/ic_signal_cellular_4_bar_white"
                                 android:layout_marginLeft="@dimen/separation_little"
                                 android:layout_marginRight="@dimen/separation_min" />
 

@@ -76,7 +76,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:drawableLeft="@drawable/ic_signal_cellular_bar_white"
+                            android:drawableLeft="@drawable/ic_signal_cellular_4_bar_white"
                             android:gravity="center"
                             android:text="@string/view_status_your_signal"
                             style="@style/floatingBoxLabel"/>
