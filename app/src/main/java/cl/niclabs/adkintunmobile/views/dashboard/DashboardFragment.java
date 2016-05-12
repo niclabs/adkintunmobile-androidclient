@@ -41,6 +41,11 @@ public class DashboardFragment extends BaseToolbarFragment {
         inflater.inflate(R.layout.fragment_dashboard, (ViewGroup) localFragmentView, true);
         setupToolbar(view);
 
+        updateMobileConsumption(view);
+        updateConnectionMode(view);
+        updateNetworkType(view);
+        updateTopApps(view);
+
         return view;
     }
 
@@ -50,10 +55,6 @@ public class DashboardFragment extends BaseToolbarFragment {
         View view = getView();
 
         updateStatusToolbar(view);
-        updateMobileConsumption(view);
-        updateConnectionMode(view);
-        updateNetworkType(view);
-        updateTopApps(view);
     }
 
     public void updateStatusToolbar(View view){

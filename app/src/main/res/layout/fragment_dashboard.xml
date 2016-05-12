@@ -197,7 +197,7 @@
                                 android:text="@string/view_dashboard_net_type_summary" />
 
                             <ImageView
-                                android:layout_width="fill_parent"
+                                android:layout_width="wrap_content"
                                 android:layout_height="fill_parent"
                                 android:layout_margin="@dimen/separation_min"
                                 android:id="@+id/iv_primary_net"
