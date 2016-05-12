@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.DialogFragment;
+import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +16,7 @@ import android.widget.NumberPicker;
 import android.widget.Toast;
 
 import cl.niclabs.adkintunmobile.R;
+import cl.niclabs.adkintunmobile.utils.information.Network;
 
 public class StatusSettingsDialog extends DialogFragment {
 
@@ -43,11 +45,18 @@ public class StatusSettingsDialog extends DialogFragment {
         mNumberPicker = (NumberPicker) v.findViewById(R.id.np_data_quota);
         mButton = (Button) v.findViewById(R.id.bt_save_data_quota);
 
-        String[] dataQuotaOptions = getResources().getStringArray(R.array.data_quotas);
 
-        mNumberPicker.setMaxValue(dataQuotaOptions.length - 1);
+        String[] dataQuotaOptions = getResources().getStringArray(R.array.data_quotas);
+        String[] formatedDataQuotaOptions = new String[dataQuotaOptions.length];
+
+        for(int i =0 ; i<dataQuotaOptions.length; i++){
+            formatedDataQuotaOptions[i] = Network.formatBytes(Long.parseLong(dataQuotaOptions[i]));
+        }
+
+
+        mNumberPicker.setMaxValue(formatedDataQuotaOptions.length - 1);
         mNumberPicker.setMinValue(0);
-        mNumberPicker.setDisplayedValues(dataQuotaOptions);
+        mNumberPicker.setDisplayedValues(formatedDataQuotaOptions);
 
         mNumberPicker.setWrapSelectorWheel(true);
         mNumberPicker.setValue(dataQuotaTotalValue);
@@ -82,6 +91,12 @@ public class StatusSettingsDialog extends DialogFragment {
         if (onDismissListener != null) {
             onDismissListener.onDismiss(dialog);
         }
+    }
+
+    static public void showDialogPreference(FragmentManager fm, DialogInterface.OnDismissListener onDismissListener){
+        StatusSettingsDialog editNameDialog = new StatusSettingsDialog();
+        editNameDialog.setOnDismissListener(onDismissListener);
+        editNameDialog.show(fm, "fragment_data_picker");
     }
 
 }

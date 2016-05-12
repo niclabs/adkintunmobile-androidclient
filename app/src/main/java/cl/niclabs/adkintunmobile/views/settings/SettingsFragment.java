@@ -2,18 +2,23 @@ package cl.niclabs.adkintunmobile.views.settings;
 
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.EditTextPreference;
 import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceFragment;
+import android.preference.PreferenceScreen;
+import android.support.v4.app.FragmentManager;
 import android.util.Log;
 
 import java.util.Map;
 
 import cl.niclabs.adkintunmobile.R;
 import cl.niclabs.adkintunmobile.services.SetupSystem;
+import cl.niclabs.adkintunmobile.utils.information.Network;
+import cl.niclabs.adkintunmobile.views.status.StatusSettingsDialog;
 
 public class SettingsFragment extends PreferenceFragment implements SharedPreferences.OnSharedPreferenceChangeListener{
 
@@ -48,6 +53,17 @@ public class SettingsFragment extends PreferenceFragment implements SharedPrefer
         updateSummary(key);
     }
 
+    @Override
+    public boolean onPreferenceTreeClick(PreferenceScreen preferenceScreen, Preference preference) {
+        String key = preference.getKey();
+
+        if (key.equals(getString(R.string.settings_app_data_quota_total_key))) {
+            FragmentManager fm = ((SettingsActivity) getActivity()).getSupportFragmentManager();
+            StatusSettingsDialog.showDialogPreference(fm, null);
+        }
+        return super.onPreferenceTreeClick(preferenceScreen, preference);
+    }
+
     private void updateSummaries(){
         Map<String, ?> prefs = getPreferenceManager().getSharedPreferences().getAll();
         for (Map.Entry<String, ?> entry : prefs.entrySet()) {
@@ -66,8 +82,17 @@ public class SettingsFragment extends PreferenceFragment implements SharedPrefer
             pref.setSummary(editTextPreference.getText());
             Log.d(TAG, "Cambiada las preferencia de EditText");
         } else {
-            pref.setSummary(getPreferenceManager().getSharedPreferences().getString(pref.getKey(), "-"));
-            Log.d(TAG, "Cambiada las preferencia de sistema");
+            if (pref != null){
+                boolean inActivity = getActivity() != null;
+                if (inActivity && pref.getKey() == getActivity().getString(R.string.settings_app_data_quota_total_key)){
+                    int selectedOption = Integer.parseInt(getPreferenceManager().getSharedPreferences().getString(pref.getKey(), "0"));
+                    long quota = Long.parseLong(getResources().getStringArray(R.array.data_quotas)[selectedOption]);
+                    pref.setSummary(Network.formatBytes(quota));
+                }else{
+                    pref.setSummary(getPreferenceManager().getSharedPreferences().getString(pref.getKey(), "-"));
+                }
+                Log.d(TAG, "Cambiada las preferencia de sistema");
+            }
         }
     }
 }

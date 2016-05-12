@@ -107,8 +107,7 @@ public class StatusActivity extends AppCompatActivity {
 
     private void showDialogPref() {
         FragmentManager fm = getSupportFragmentManager();
-        StatusSettingsDialog editNameDialog = new StatusSettingsDialog();
-        editNameDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+        StatusSettingsDialog.showDialogPreference(fm, new DialogInterface.OnDismissListener() {
             @Override
             public void onDismiss(DialogInterface dialog) {
                 setMonthlyDataQuota();
@@ -120,7 +119,6 @@ public class StatusActivity extends AppCompatActivity {
                 });
             }
         });
-        editNameDialog.show(fm, "fragment_data_picker");
     }
 
 
@@ -149,7 +147,7 @@ public class StatusActivity extends AppCompatActivity {
         ((TextView)findViewById(R.id.tv_gauge_monthly_tx)).setText(this.txMonthlyMobileData);
 
 
-        long totalMonthlyQuota = this.monthlyDataQuota * 1000000;
+        long totalMonthlyQuota = this.monthlyDataQuota;
         int monthlyQuotaPercentage = (int) (100 * this.rxMonthlyMobile /totalMonthlyQuota);
         ((ProgressBar)findViewById(R.id.pb_mobile_data_consumption)).setProgress(monthlyQuotaPercentage);
         ((TextView)findViewById(R.id.tv_data_quota_percentage)).setText(monthlyQuotaPercentage + "%");

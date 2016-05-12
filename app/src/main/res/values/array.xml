@@ -40,23 +40,27 @@
 
     <!-- Data Quotas -->
     <string-array name="data_quotas">
-        <item>100</item>
-        <item>200</item>
-        <item>300</item>
-        <item>400</item>
-        <item>500</item>
-        <item>600</item>
-        <item>700</item>
-        <item>800</item>
-        <item>900</item>
-        <item>1000</item>
-        <item>1500</item>
-        <item>2000</item>
-        <item>2500</item>
-        <item>3000</item>
-        <item>4000</item>
-        <item>5000</item>
-        <item>10000</item>
+        <item>100000000</item>
+        <item>200000000</item>
+        <item>250000000</item>
+        <item>300000000</item>
+        <item>400000000</item>
+        <item>500000000</item>
+        <item>600000000</item>
+        <item>700000000</item>
+        <item>750000000</item>
+        <item>800000000</item>
+        <item>900000000</item>
+        <item>1000000000</item>
+        <item>1500000000</item>
+        <item>2000000000</item>
+        <item>2500000000</item>
+        <item>3000000000</item>
+        <item>3500000000</item>
+        <item>4000000000</item>
+        <item>5000000000</item>
+        <item>10000000000</item>
+        <item>15000000000</item>
     </string-array>
 
 </resources>
