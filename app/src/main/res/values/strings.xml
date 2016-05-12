@@ -46,6 +46,17 @@
     <string name="settings_app_data_quota_total_title">Cuota de navegación de tu plan de datos</string>
 
 
+    <!-- Dashboard -->
+    <string name="view_dashboard_news">Novedades</string>
+    <string name="view_dashboard_mobile_data_title">Consumo de datos móviles</string>
+    <string name="view_dashboard_mobile_data_summary">Consumo aproximado de datos móviles en el mes actual:</string>
+    <string name="view_dashboard_conn_mode_title">Datos</string>
+    <string name="view_dashboard_conn_mode_summary">Hoy has estado conectado principalmente a:</string>
+    <string name="view_dashboard_net_type_title">Red</string>
+    <string name="view_dashboard_net_type_summary">La mayor parte del día has tenido señal:</string>
+    <string name="view_dashboard_top_apps_title">Principales Aplicaciones</string>
+    <string name="view_dashboard_top_apps_summary">Las siguientes aplicaciones son las que más han usado tu internet móvil hoy:</string>
+
     <!-- Status -->
     <string name="view_status_your_signal">Tu Señal</string>
     <string name="view_status_your_SIM">Tu SIM</string>

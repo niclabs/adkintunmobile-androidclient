@@ -30,7 +30,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Novedades"
+                    android:text="@string/view_dashboard_news"
                     android:textAppearance="@style/TextAppearance.AppCompat.Title" />
 
                 <TextView
@@ -58,13 +58,13 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Consumo de datos móviles"
+                    android:text="@string/view_dashboard_mobile_data_title"
                     android:textAppearance="@style/TextAppearance.AppCompat.Title" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Consumo aproximado de datos móviles en el mes actual:" />
+                    android:text="@string/view_dashboard_mobile_data_summary" />
 
                 <LinearLayout
                     android:orientation="horizontal"
@@ -144,14 +144,13 @@
                             <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:text="Datos"
+                                android:text="@string/view_dashboard_conn_mode_title"
                                 android:textAppearance="@style/TextAppearance.AppCompat.Title" />
 
                             <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:text="Hoy has estado conectado principalmente a:" />
-
+                                android:text="@string/view_dashboard_conn_mode_summary" />
 
                             <TextView
                                 android:layout_width="wrap_content"
@@ -189,21 +188,31 @@
                             <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:text="Red"
+                                android:text="@string/view_dashboard_net_type_title"
                                 android:textAppearance="@style/TextAppearance.AppCompat.Title" />
 
                             <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:text="La mayor parte del día has tenido señal:" />
+                                android:text="@string/view_dashboard_net_type_summary" />
 
                             <ImageView
                                 android:layout_width="wrap_content"
-                                android:layout_height="match_parent"
+                                android:layout_height="wrap_content"
                                 android:layout_margin="@dimen/separation_min"
                                 android:id="@+id/iv_network"
                                 android:src="@mipmap/operator_other"
                                 android:layout_gravity="center" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="fill_parent"
+                                android:textAppearance="?android:attr/textAppearanceLarge"
+                                android:text="2G"
+                                android:id="@+id/tv_primary_net"
+                                android:layout_gravity="center_horizontal"
+                                android:textStyle="bold"
+                                android:gravity="center" />
 
                         </LinearLayout>
 
@@ -227,13 +236,13 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Principales Aplicaciones"
+                    android:text="@string/view_dashboard_top_apps_title"
                     android:textAppearance="@style/TextAppearance.AppCompat.Title" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Las siguientes aplicaciones son las que más han usado tu internet móvil hoy:" />
+                    android:text="@string/view_dashboard_top_apps_summary" />
 
                 <TableLayout
                     android:layout_width="match_parent"
