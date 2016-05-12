@@ -371,24 +371,27 @@
                             android:orientation="horizontal"
                             android:layout_width="fill_parent"
                             android:layout_height="match_parent"
-                            android:gravity="center_horizontal" >
+                            android:gravity="center_horizontal"
+                            android:layout_marginLeft="@dimen/margin_horizontal_info_data_quota"
+                            android:layout_marginRight="@dimen/margin_horizontal_info_data_quota">
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:textAppearance="?android:attr/textAppearanceSmall"
                                 android:text="XX MB"
-                                android:textSize="10sp"
+                                android:textSize="@dimen/text_info_data_quota"
                                 android:visibility="visible"
                                 android:layout_gravity="center"
-                                android:id="@+id/tv_used_data_quota" />
+                                android:id="@+id/tv_used_data_quota"
+                                android:textStyle="bold" />
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:textAppearance="?android:attr/textAppearanceSmall"
                                 android:text=" usados de "
-                                android:textSize="10sp"
+                                android:textSize="@dimen/text_info_data_quota"
                                 android:visibility="visible"
                                 android:layout_gravity="center" />
 
@@ -397,17 +400,18 @@
                                 android:layout_height="wrap_content"
                                 android:textAppearance="?android:attr/textAppearanceSmall"
                                 android:text="XXXX MB"
-                                android:textSize="10sp"
+                                android:textSize="@dimen/text_info_data_quota"
                                 android:visibility="visible"
                                 android:layout_gravity="center"
-                                android:id="@+id/tv_available_data_quota" />
+                                android:id="@+id/tv_available_data_quota"
+                                android:textStyle="bold" />
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:textAppearance="?android:attr/textAppearanceSmall"
-                                android:text=" disponibles en tu plan"
-                                android:textSize="10sp"
+                                android:text=" disponibles"
+                                android:textSize="@dimen/text_info_data_quota"
                                 android:visibility="visible"
                                 android:layout_gravity="center" />
 
