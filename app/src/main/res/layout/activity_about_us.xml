@@ -25,20 +25,12 @@
             android:padding="@dimen/separation_little">
 
             <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/aboutus_adk_logo_height"
                 android:id="@+id/imageView"
-                android:src="@mipmap/ic_launcher"
-                android:layout_gravity="center" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="@string/app_name"
-                android:id="@+id/textView"
-                android:padding="@dimen/abc_action_bar_overflow_padding_end_material"
-                android:layout_gravity="center" />
+                android:src="@mipmap/logo"
+                android:layout_gravity="center"
+                android:layout_margin="@dimen/abc_dialog_padding_top_material" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -55,7 +47,7 @@
 
                 <ImageView
                     android:layout_width="wrap_content"
-                    android:layout_height="@dimen/institutions_logo_height"
+                    android:layout_height="@dimen/aboutus_institutions_logo_height"
                     android:id="@+id/imageView5"
                     android:src="@mipmap/niclabs" />
             </LinearLayout>

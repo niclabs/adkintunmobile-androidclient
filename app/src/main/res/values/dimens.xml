@@ -17,13 +17,15 @@
 
     <!-- Navidation Drawer -->
     <dimen name="navigation_drawer_header">160dp</dimen>
+    <dimen name="navigation_drawer_header_logo">70dp</dimen>
 
     <!-- Toolbar -->
     <dimen name="extended_toolbar_dashboard_height">200dp</dimen>
     <dimen name="adkintun_icon_toolbar">110dp</dimen>
 
     <!-- About us -->
-    <dimen name="institutions_logo_height">50dp</dimen>
+    <dimen name="aboutus_adk_logo_height">70dp</dimen>
+    <dimen name="aboutus_institutions_logo_height">50dp</dimen>
 
     <!-- Status -->
     <dimen name="text_info_data_quota">14sp</dimen>
