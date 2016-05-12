@@ -133,28 +133,28 @@ public class DashboardFragment extends BaseToolbarFragment {
     }
 
     public void updateNetworkType(View view){
-        TextView tvPrimaryConn = (TextView)view.findViewById(R.id.tv_primary_net);
+        ImageView ivPrimaryNet = (ImageView)view.findViewById(R.id.iv_primary_net);
         switch (DailyNetworkTypeSummary.getPrimaryType(System.currentTimeMillis())){
             case NetworkTypeSample.UNKNOWN:
-                tvPrimaryConn.setText("Sin Red");
+                ivPrimaryNet.setImageResource(R.drawable.ic_10_nored);
                 break;
             case NetworkTypeSample.TYPE_G:
-                tvPrimaryConn.setText("G");
+                ivPrimaryNet.setImageResource(R.drawable.ic_04_g);
                 break;
             case NetworkTypeSample.TYPE_E:
-                tvPrimaryConn.setText("E");
+                ivPrimaryNet.setImageResource(R.drawable.ic_05_edge);
                 break;
             case NetworkTypeSample.TYPE_3G:
-                tvPrimaryConn.setText("3G");
+                ivPrimaryNet.setImageResource(R.drawable.ic_06_3g);
                 break;
             case NetworkTypeSample.TYPE_H:
-                tvPrimaryConn.setText("H");
+                ivPrimaryNet.setImageResource(R.drawable.ic_07_h);
                 break;
             case NetworkTypeSample.TYPE_Hp:
-                tvPrimaryConn.setText("H+");
+                ivPrimaryNet.setImageResource(R.drawable.ic_08_h);
                 break;
             case NetworkTypeSample.TYPE_4G:
-                tvPrimaryConn.setText("4G");
+                ivPrimaryNet.setImageResource(R.drawable.ic_09_4g);
                 break;
         }
     }

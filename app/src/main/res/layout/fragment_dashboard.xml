@@ -197,22 +197,13 @@
                                 android:text="@string/view_dashboard_net_type_summary" />
 
                             <ImageView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
+                                android:layout_width="fill_parent"
+                                android:layout_height="fill_parent"
                                 android:layout_margin="@dimen/separation_min"
-                                android:id="@+id/iv_network"
+                                android:id="@+id/iv_primary_net"
                                 android:src="@mipmap/operator_other"
                                 android:layout_gravity="center" />
 
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="fill_parent"
-                                android:textAppearance="?android:attr/textAppearanceLarge"
-                                android:text="2G"
-                                android:id="@+id/tv_primary_net"
-                                android:layout_gravity="center_horizontal"
-                                android:textStyle="bold"
-                                android:gravity="center" />
 
                         </LinearLayout>
 
