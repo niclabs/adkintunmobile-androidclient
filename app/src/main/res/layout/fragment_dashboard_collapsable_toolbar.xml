@@ -32,7 +32,8 @@
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:fitsSystemWindows="true">
 
                 <ImageView
                     android:id="@+id/iv_backdrop_toolbar"
@@ -62,7 +63,7 @@
                             android:padding="@dimen/activity_vertical_margin"
                             android:layout_width="@dimen/adkintun_icon_toolbar"
                             android:layout_height="@dimen/adkintun_icon_toolbar"
-                            android:src="@mipmap/ic_launcher"
+                            android:src="@mipmap/icon"
                             android:background="@drawable/rounded_shadow" />
 
                         <TextView
@@ -92,7 +93,7 @@
                             <ImageView
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
-                                android:src="@drawable/ic_settings_input_antenna_white"
+                                android:src="@drawable/ic_radio_tower_white"
                                 android:layout_marginRight="@dimen/separation_min"
                                 android:layout_marginLeft="@dimen/separation_little" />
 
@@ -171,7 +172,7 @@
                             <ImageView
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
-                                android:src="@drawable/ic_signal_cellular_4_bar_white"
+                                android:src="@drawable/ic_signal_white"
                                 android:layout_marginLeft="@dimen/separation_little"
                                 android:layout_marginRight="@dimen/separation_min" />
 
@@ -201,88 +202,6 @@
 
                     </LinearLayout>
 
-
-
-                    <!--
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:orientation="vertical"
-                        android:layout_margin="@dimen/abc_action_bar_overflow_padding_end_material">
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:src="@drawable/ic_settings_input_antenna_white"/>
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Operador"
-                            android:visibility="gone" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textAppearance="?android:attr/textAppearanceMedium"
-                            android:text="Operador"
-                            android:id="@+id/tv_antenna"
-                            android:textStyle="bold" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:orientation="vertical"
-                        android:layout_margin="@dimen/abc_action_bar_overflow_padding_end_material">
-
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:src="@drawable/ic_sim_card_white" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="SIM"
-                            android:visibility="gone" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textAppearance="?android:attr/textAppearanceMedium"
-                            android:text="SIM"
-                            android:id="@+id/tv_sim"
-                            android:textStyle="bold" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:orientation="vertical"
-                        android:layout_margin="@dimen/abc_action_bar_overflow_padding_end_material">
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:src="@drawable/ic_signal_cellular_bar_white"/>
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Señal"
-                            android:visibility="gone" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textAppearance="?android:attr/textAppearanceMedium"
-                            android:text="Señal"
-                            android:id="@+id/tv_signal"
-                            android:textStyle="bold" />
-                    </LinearLayout>
-
--->
                 </LinearLayout>
 
 
@@ -316,5 +235,16 @@
 
     </android.support.v4.widget.NestedScrollView>
 
+
+    <!--
+    <android.support.design.widget.FloatingActionButton
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        app:layout_anchor="@id/appbar"
+        app:layout_anchorGravity="bottom|right|end"
+        android:src="@drawable/ic_sync_white"
+        android:layout_margin="@dimen/margin_horizontal_info_data_quota"
+        android:clickable="true"/>
+-->
 
 </android.support.design.widget.CoordinatorLayout>

@@ -2,17 +2,15 @@ package cl.niclabs.adkintunmobile.views.applicationstraffic;
 
 import android.app.DatePickerDialog;
 import android.content.Context;
+import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.DatePicker;
 import android.widget.RelativeLayout;
 
@@ -24,6 +22,7 @@ import java.util.TimeZone;
 
 import cl.niclabs.adkintunmobile.R;
 import cl.niclabs.adkintunmobile.data.persistent.visualization.ApplicationTraffic;
+import cl.niclabs.adkintunmobile.utils.display.DisplayDateManager;
 import cl.niclabs.adkintunmobile.utils.display.DisplayManager;
 
 public class ApplicationsTrafficActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
@@ -195,7 +194,7 @@ public class ApplicationsTrafficActivity extends AppCompatActivity implements Da
 
     @Override
     public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-        Calendar calendar = Calendar.getInstance();
+        final Calendar calendar = Calendar.getInstance();
         calendar.set(Calendar.YEAR, year);
         calendar.set(Calendar.MONTH, monthOfYear);
         calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
@@ -216,6 +215,8 @@ public class ApplicationsTrafficActivity extends AppCompatActivity implements Da
                     @Override
                     public void run() {
                         trafficListsUpdate();
+                        DisplayDateManager d = new DisplayDateManager(context);
+
                         DisplayManager.dismissLoadingPanel(loadingPanel, context);
                     }
                 });

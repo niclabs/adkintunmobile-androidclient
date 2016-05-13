@@ -3,6 +3,7 @@ package cl.niclabs.adkintunmobile.utils.display;
 import android.content.Context;
 import android.widget.TextView;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
 
@@ -37,5 +38,10 @@ public class DisplayDateManager {
         calendar.setTimeInMillis(initialTime);
         setDayOfWeek(dayText, calendar);
         setDate(dateText, calendar);
+    }
+
+    public String getDateString(Calendar calendar){
+        SimpleDateFormat format1 = new SimpleDateFormat("dd-mm-yyyy hh:mm");
+        return format1.format(calendar);
     }
 }

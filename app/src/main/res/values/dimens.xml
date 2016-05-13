@@ -17,7 +17,7 @@
 
     <!-- Navidation Drawer -->
     <dimen name="navigation_drawer_header">130dp</dimen>
-    <dimen name="navigation_drawer_header_logo">70dp</dimen>
+    <dimen name="navigation_drawer_header_logo">50dp</dimen>
 
     <!-- Toolbar -->
     <dimen name="extended_toolbar_dashboard_height">200dp</dimen>

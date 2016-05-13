@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">Adkintun Mobile</string>
+    <string name="app_sub_title">Medidor de tu internet móvil</string>
 
     <!-- Titles By View -->
     <string name="view_status">Tu Estado</string>

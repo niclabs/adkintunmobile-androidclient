@@ -76,7 +76,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:drawableLeft="@drawable/ic_signal_cellular_4_bar_white"
+                            android:drawableLeft="@drawable/ic_signal_white"
                             android:gravity="center"
                             android:text="@string/view_status_your_signal"
                             style="@style/floatingBoxLabel"/>
@@ -159,7 +159,7 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:drawableLeft="@drawable/ic_settings_input_antenna_white"
+                                android:drawableLeft="@drawable/ic_radio_tower_white"
                                 android:gravity="center"
                                 style="@style/floatingBoxLabel"
                                 android:text="@string/view_status_your_network"/>
