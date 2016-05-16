@@ -6,6 +6,7 @@ import android.graphics.Typeface;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -13,7 +14,9 @@ import android.widget.DatePicker;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Locale;
 
 import cl.niclabs.adkintunmobile.R;
 import cl.niclabs.adkintunmobile.utils.display.DisplayDateManager;
@@ -33,8 +36,11 @@ public abstract class ConnectionTypeActivity extends AppCompatActivity implement
     protected TextView dayText;
     protected TextView dateText;
     protected DisplayDateManager dateManager;
+    protected ArrayList<TextView> timeByType;
 
     public abstract void loadData(long initialTime);
+
+    public abstract void refreshLegend(long initialTime);
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -77,10 +83,10 @@ public abstract class ConnectionTypeActivity extends AppCompatActivity implement
                 final long currentTime = System.currentTimeMillis();
 
                 loadData(currentTime);
-
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
+                        refreshLegend(currentTime);
                         dateManager.refreshDate(dayText, dateText, currentTime);
                         chart.draw();
                         DisplayManager.dismissLoadingPanel(loadingPanel, context);
@@ -112,10 +118,10 @@ public abstract class ConnectionTypeActivity extends AppCompatActivity implement
             public void run() {
                 // Acá la lógica de recuperar datos para el día seleccionado en initTime
                 loadData(initTime);
-
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
+                        refreshLegend(initTime);
                         //Acá la lógica para modificar el donutchart con los nuevos datos
                         dateManager.refreshDate(dayText, dateText, initTime);
                         chart.draw();

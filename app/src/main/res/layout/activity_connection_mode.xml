@@ -161,7 +161,7 @@
                                 android:background="@color/doughnut_wifi"
                                 android:textAppearance="?android:attr/textAppearance"
                                 android:text="XX Horas, YY Minutos"
-                                android:id="@+id/tv_mobile_total_time" />
+                                android:id="@+id/tv_wifi_total_time" />
 
                             <TextView
                                 android:layout_width="wrap_content"
@@ -169,7 +169,7 @@
                                 android:background="@color/doughnut_mobile"
                                 android:textAppearance="?android:attr/textAppearance"
                                 android:text="XX Horas, YY Minutos"
-                                android:id="@+id/tv_wifi_total_time" />
+                                android:id="@+id/tv_mobile_total_time" />
 
 
                             <TextView

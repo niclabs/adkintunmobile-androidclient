@@ -34,4 +34,9 @@ public class NetworkTypeActivity extends ConnectionTypeActivity {
         StatisticInformation statistic = new DailyNetworkTypeInformation(context, initialTime, currentTime);
         this.chart = (DoughnutChart) this.chartBuilder.createGraphicStatistic(statistic);
     }
+
+    @Override
+    public void refreshLegend(long initialTime){
+
+    }
 }

@@ -58,6 +58,13 @@ public class DailyConnectionModeSummary extends Persistent<DailyConnectionModeSu
      * @return long array with the time in milliseconds using each connection type. Index are specified in ConnectionModeSample class.
      */
     public static long[] getTimeByTypeSummary(long initialTime){
+        Calendar calendar = Calendar.getInstance(Locale.getDefault());
+        calendar.setTimeInMillis(initialTime);
+        calendar.set(Calendar.HOUR_OF_DAY, 0);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.SECOND, 0);
+        calendar.set(Calendar.MILLISECOND, 0);
+        initialTime = calendar.getTimeInMillis();
         long period = 3600L * 24L * 1000L;
         DailyConnectionModeSummary todaySummary = DailyConnectionModeSummary.getSummary(initialTime);
         Iterator<ConnectionModeSample> todaySamples = todaySummary.getSamples();
@@ -81,7 +88,7 @@ public class DailyConnectionModeSummary extends Persistent<DailyConnectionModeSu
         }
 
         //Si primer reporte del día no parte de las 0 AM, completar con último del día anterior
-        if (lastTime >= initialTime) {
+        if (lastTime > initialTime) {
             DailyConnectionModeSummary yesterdaySummary = DailyConnectionModeSummary.getSummary(initialTime - period);
             Iterator<ConnectionModeSample> yesterdaySamples = yesterdaySummary.getSamples();
             if (yesterdaySamples.hasNext()){
@@ -89,11 +96,8 @@ public class DailyConnectionModeSummary extends Persistent<DailyConnectionModeSu
                     sample = yesterdaySamples.next();
                 }
                 lastType = sample.getType();
+                timeByType[lastType] += (lastTime - initialTime);
             }
-            else {
-                lastType = 0;
-            }
-            timeByType[lastType] += (lastTime - initialTime);
         }
 
         //Samples del día seleccionado
@@ -105,8 +109,19 @@ public class DailyConnectionModeSummary extends Persistent<DailyConnectionModeSu
             lastType = sample.getType();
             lastTime = sample.getInitialTime();
         }
-        timeByType[lastType] += (currentTime - lastTime);
 
+        //Si es un día anterior a la fecha
+        if (currentTime >= initialTime + period){
+            if (lastTime > initialTime)
+                timeByType[lastType] += (initialTime + period - lastTime);
+        }
+        //Si es un día posterior a la fecha actual
+        else if(initialTime > currentTime){
+        }
+        //Si es el día actual
+        else {
+            timeByType[lastType] += (currentTime - lastTime);
+        }
         return timeByType;
     }
 
