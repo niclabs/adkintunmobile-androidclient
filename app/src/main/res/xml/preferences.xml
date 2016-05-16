@@ -17,6 +17,7 @@
             android:key="@string/settings_sampling_hostname_key"
             android:title="@string/settings_sampling_hostname_title"
             android:defaultValue="@string/settings_sampling_hostname_default"
+            android:editable="false"
             />
         <ListPreference
             android:key="@string/settings_sampling_frequency_key"
