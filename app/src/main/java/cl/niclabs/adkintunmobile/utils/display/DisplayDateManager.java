@@ -44,4 +44,16 @@ public class DisplayDateManager {
         SimpleDateFormat format1 = new SimpleDateFormat("dd-mm-yyyy hh:mm");
         return format1.format(calendar);
     }
+
+    static public String getDateString(long timestamp){
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(timestamp);
+
+        //return calendar.getTime().toString();
+
+        SimpleDateFormat format1 = new SimpleDateFormat("dd/MM/yyyy    hh:mm:ss");
+        String formatted = format1.format(calendar.getTime());
+
+        return formatted;
+    }
 }

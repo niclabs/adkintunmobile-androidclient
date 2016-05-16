@@ -19,7 +19,7 @@ import cl.niclabs.adkintunmobile.views.aboutus.AboutUsActivity;
 import cl.niclabs.adkintunmobile.views.applicationstraffic.ApplicationsTrafficActivity;
 import cl.niclabs.adkintunmobile.views.connectiontype.connectionmode.ConnectionModeActivity;
 import cl.niclabs.adkintunmobile.views.connectiontype.networktype.NetworkTypeActivity;
-import cl.niclabs.adkintunmobile.views.notificationlog.NotificationLogFragment;
+import cl.niclabs.adkintunmobile.views.notificationlog.NotificationLogActivity;
 import cl.niclabs.adkintunmobile.views.rankings.RankingFragment;
 import cl.niclabs.adkintunmobile.views.settings.SettingsActivity;
 import cl.niclabs.adkintunmobile.views.status.StatusActivity;
@@ -100,7 +100,7 @@ public class MainActivity extends AppCompatActivity {
                         updateMainFragment(new DashboardFragment());
                         break;
                     case R.id.nav_notifications_log:
-                        updateMainFragment(new NotificationLogFragment());
+                        openNotificationView(null);
                         break;
                     case R.id.nav_status:
                         openStatusView(null);
@@ -130,6 +130,11 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             }
         });
+    }
+
+    public void openNotificationView(View view){
+        Intent myIntent = new Intent(getApplicationContext(), NotificationLogActivity.class);
+        startActivity(myIntent);
     }
 
     public void openStatusView(View view){

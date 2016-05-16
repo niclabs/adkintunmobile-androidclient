@@ -122,13 +122,13 @@ public class DashboardFragment extends BaseToolbarFragment {
         TextView tvPrimaryConn = (TextView)view.findViewById(R.id.tv_primary_conn);
         switch (DailyConnectionModeSummary.getPrimaryType(System.currentTimeMillis())){
             case ConnectionModeSample.NONE:
-                tvPrimaryConn.setText("Sin Red");
+                tvPrimaryConn.setText(getString(R.string.view_dashboard_conn_mode_unknown));
                 break;
             case ConnectionModeSample.MOBILE:
-                tvPrimaryConn.setText("Mobile");
+                tvPrimaryConn.setText(getString(R.string.view_dashboard_conn_mode_mobile));
                 break;
             case ConnectionModeSample.WIFI:
-                tvPrimaryConn.setText("Wi-Fi");
+                tvPrimaryConn.setText(getString(R.string.view_dashboard_conn_mode_wifi));
                 break;
         }
     }

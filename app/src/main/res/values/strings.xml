@@ -50,9 +50,12 @@
     <!-- Dashboard -->
     <string name="view_dashboard_news">Novedades</string>
     <string name="view_dashboard_mobile_data_title">Consumo de datos móviles</string>
-    <string name="view_dashboard_mobile_data_summary">Consumo aproximado de datos móviles en el mes actual:</string>
+    <string name="view_dashboard_mobile_data_summary">Consumo aproximado de datos móviles del día actual:</string>
     <string name="view_dashboard_conn_mode_title">Datos</string>
     <string name="view_dashboard_conn_mode_summary">Hoy has estado conectado principalmente a:</string>
+    <string name="view_dashboard_conn_mode_wifi">Wi-Fi</string>
+    <string name="view_dashboard_conn_mode_mobile">Mobile</string>
+    <string name="view_dashboard_conn_mode_unknown">Sin Red</string>
     <string name="view_dashboard_net_type_title">Red</string>
     <string name="view_dashboard_net_type_summary">La mayor parte del día has tenido señal:</string>
     <string name="view_dashboard_top_apps_title">Principales Aplicaciones</string>
