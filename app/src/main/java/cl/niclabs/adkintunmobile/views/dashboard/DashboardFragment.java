@@ -152,7 +152,7 @@ public class DashboardFragment extends BaseToolbarFragment {
                 ivPrimaryNet.setImageResource(R.drawable.ic_07_h);
                 break;
             case NetworkTypeSample.TYPE_Hp:
-                ivPrimaryNet.setImageResource(R.drawable.ic_08_h);
+                ivPrimaryNet.setImageResource(R.drawable.ic_08_hp);
                 break;
             case NetworkTypeSample.TYPE_4G:
                 ivPrimaryNet.setImageResource(R.drawable.ic_09_4g);
