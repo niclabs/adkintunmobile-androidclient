@@ -11,7 +11,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.NumberPicker;
 import android.widget.Toast;
 
@@ -20,10 +19,10 @@ import cl.niclabs.adkintunmobile.utils.information.Network;
 
 public class StatusSettingsDialog extends DialogFragment {
 
-    private EditText mEditText;
+    static public final String TAG = "AdkM:StatusSettingsDialog";
+
     private NumberPicker mNumberPicker;
-    private Button mButton;
-    private int dataQuotaTotalValue;
+    private Button confirmationButton;
 
     private DialogInterface.OnDismissListener onDismissListener;
 
@@ -40,11 +39,10 @@ public class StatusSettingsDialog extends DialogFragment {
 
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
         String value = sharedPreferences.getString(getActivity().getString(R.string.settings_app_data_quota_total_key), "0");
-        dataQuotaTotalValue = Integer.parseInt(value);
+        int dataQuotaTotalValue = Integer.parseInt(value);
 
         mNumberPicker = (NumberPicker) v.findViewById(R.id.np_data_quota);
-        mButton = (Button) v.findViewById(R.id.bt_save_data_quota);
-
+        confirmationButton = (Button) v.findViewById(R.id.bt_save_data_quota);
 
         String[] dataQuotaOptions = getResources().getStringArray(R.array.data_quotas);
         String[] formatedDataQuotaOptions = new String[dataQuotaOptions.length];
@@ -53,7 +51,6 @@ public class StatusSettingsDialog extends DialogFragment {
             formatedDataQuotaOptions[i] = Network.formatBytes(Long.parseLong(dataQuotaOptions[i]));
         }
 
-
         mNumberPicker.setMaxValue(formatedDataQuotaOptions.length - 1);
         mNumberPicker.setMinValue(0);
         mNumberPicker.setDisplayedValues(formatedDataQuotaOptions);
@@ -61,8 +58,7 @@ public class StatusSettingsDialog extends DialogFragment {
         mNumberPicker.setWrapSelectorWheel(true);
         mNumberPicker.setValue(dataQuotaTotalValue);
 
-
-        mButton.setOnClickListener(new View.OnClickListener() {
+        confirmationButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 updateDataQuota(mNumberPicker.getValue());
@@ -96,7 +92,7 @@ public class StatusSettingsDialog extends DialogFragment {
     static public void showDialogPreference(FragmentManager fm, DialogInterface.OnDismissListener onDismissListener){
         StatusSettingsDialog editNameDialog = new StatusSettingsDialog();
         editNameDialog.setOnDismissListener(onDismissListener);
-        editNameDialog.show(fm, "fragment_data_picker");
+        editNameDialog.show(fm, TAG);
     }
 
 }
