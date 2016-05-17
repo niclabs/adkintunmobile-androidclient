@@ -36,7 +36,6 @@ public abstract class ConnectionTypeActivity extends AppCompatActivity implement
     protected TextView dayText;
     protected TextView dateText;
     protected DisplayDateManager dateManager;
-    protected ArrayList<TextView> timeByType;
 
     public abstract void loadData(long initialTime);
 

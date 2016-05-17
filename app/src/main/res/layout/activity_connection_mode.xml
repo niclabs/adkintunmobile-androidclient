@@ -134,19 +134,23 @@
                                 android:src="@drawable/ic_01_wifi"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_margin="@dimen/abc_button_inset_vertical_material"/>
+                                android:layout_margin="@dimen/abc_button_inset_vertical_material"
+                                android:id="@+id/icon_wifi"/>
 
                             <ImageView
                                 android:src="@drawable/ic_02_mobile"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_margin="@dimen/abc_button_inset_vertical_material"/>
+                                android:layout_margin="@dimen/abc_button_inset_vertical_material"
+                                android:id="@+id/icon_mobile"
+                                android:visibility="visible" />
 
                             <ImageView
                                 android:src="@drawable/ic_03_nowifi"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_margin="@dimen/abc_button_inset_vertical_material"/>
+                                android:layout_margin="@dimen/abc_button_inset_vertical_material"
+                                android:id="@+id/icon_disconnect"/>
                         </TableRow>
 
 
