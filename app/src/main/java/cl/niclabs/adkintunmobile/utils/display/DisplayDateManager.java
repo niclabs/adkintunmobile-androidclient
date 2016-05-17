@@ -51,7 +51,7 @@ public class DisplayDateManager {
 
         //return calendar.getTime().toString();
 
-        SimpleDateFormat format1 = new SimpleDateFormat("dd/MM/yyyy    hh:mm:ss");
+        SimpleDateFormat format1 = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
         String formatted = format1.format(calendar.getTime());
 
         return formatted;
