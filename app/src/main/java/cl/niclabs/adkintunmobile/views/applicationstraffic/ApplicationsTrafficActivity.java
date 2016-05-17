@@ -128,9 +128,9 @@ public class ApplicationsTrafficActivity extends AppCompatActivity implements Da
         mTabLayout.setupWithViewPager(mViewPager);
     }
 
-    private void trafficListsUpdate(){
-        this.mobileListFragment.updateData(this.mobileTrafficArray);
-        this.wifiListFragment.updateData(this.wifiTrafficArray);
+    private void trafficListsUpdate(long timestamp){
+        this.mobileListFragment.updateData(this.mobileTrafficArray, timestamp);
+        this.wifiListFragment.updateData(this.wifiTrafficArray, timestamp);
     }
 
     private void loadAppTrafficEventsData(long initTime) {
@@ -214,7 +214,7 @@ public class ApplicationsTrafficActivity extends AppCompatActivity implements Da
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        trafficListsUpdate();
+                        trafficListsUpdate(initTime);
                         DisplayDateManager d = new DisplayDateManager(context);
 
                         DisplayManager.dismissLoadingPanel(loadingPanel, context);

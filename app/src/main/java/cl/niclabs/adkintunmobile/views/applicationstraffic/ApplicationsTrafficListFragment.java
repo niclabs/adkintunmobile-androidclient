@@ -3,6 +3,7 @@ package cl.niclabs.adkintunmobile.views.applicationstraffic;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +13,7 @@ import android.widget.ListView;
 import java.util.ArrayList;
 
 import cl.niclabs.adkintunmobile.R;
+import cl.niclabs.adkintunmobile.utils.display.DisplayDateManager;
 
 
 public class ApplicationsTrafficListFragment extends Fragment {
@@ -44,7 +46,7 @@ public class ApplicationsTrafficListFragment extends Fragment {
         listView.setAdapter(listAdapter);
         listView.setEmptyView(view.findViewById(R.id.empty));
         this.listAdapter.sort();
-
+        
         return view;
     }
 
@@ -60,9 +62,11 @@ public class ApplicationsTrafficListFragment extends Fragment {
         this.dataArray = dataArray;
     }
 
-    public void updateData(ArrayList<ApplicationsTrafficListElement> dataArray){
+    public void updateData(ArrayList<ApplicationsTrafficListElement> dataArray, long timestamp){
         this.listAdapter.clear();
         this.listAdapter.addAll(dataArray);
         this.listAdapter.sort();
+
+        Snackbar.make(getView(), "Mostrando consumo desde "+DisplayDateManager.getDateString(timestamp),Snackbar.LENGTH_SHORT).show();
     }
 }
