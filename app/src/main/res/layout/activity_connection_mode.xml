@@ -123,68 +123,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerHorizontal="true"
-                        android:layout_gravity="center">
-
-
-                        <TableRow
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:gravity="center" >
-                            <ImageView
-                                android:src="@drawable/ic_01_wifi"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_margin="@dimen/abc_button_inset_vertical_material"
-                                android:id="@+id/icon_wifi"/>
-
-                            <ImageView
-                                android:src="@drawable/ic_02_mobile"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_margin="@dimen/abc_button_inset_vertical_material"
-                                android:id="@+id/icon_mobile"
-                                android:visibility="visible" />
-
-                            <ImageView
-                                android:src="@drawable/ic_03_nowifi"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_margin="@dimen/abc_button_inset_vertical_material"
-                                android:id="@+id/icon_disconnect"/>
-                        </TableRow>
-
-
-                        <TableRow
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:gravity="center" >
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:background="@color/doughnut_wifi"
-                                android:textAppearance="?android:attr/textAppearance"
-                                android:text="XX Horas, YY Minutos"
-                                android:id="@+id/tv_wifi_total_time" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:background="@color/doughnut_mobile"
-                                android:textAppearance="?android:attr/textAppearance"
-                                android:text="XX Horas, YY Minutos"
-                                android:id="@+id/tv_mobile_total_time" />
-
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:background="@color/doughnut_no_connection"
-                                android:textAppearance="?android:attr/textAppearance"
-                                android:text="XX Horas, YY Minutos"
-                                android:id="@+id/tv_disconnect_total_time" />
-
-                        </TableRow>
+                        android:layout_gravity="center"
+                        android:id="@+id/time_info_table_layout">
                     </TableLayout>
 
                     <LinearLayout

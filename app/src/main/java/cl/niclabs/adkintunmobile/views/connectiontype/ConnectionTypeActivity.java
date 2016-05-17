@@ -3,6 +3,7 @@ package cl.niclabs.adkintunmobile.views.connectiontype;
 import android.app.DatePickerDialog;
 import android.content.Context;
 import android.graphics.Typeface;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -40,6 +41,13 @@ public abstract class ConnectionTypeActivity extends AppCompatActivity implement
     public abstract void loadData(long initialTime);
 
     public abstract void refreshLegend(long initialTime);
+
+    public TextView createLegendTextView(int icon, int color){
+        TextView tv = new TextView(this);
+        tv.setCompoundDrawablesWithIntrinsicBounds(0, icon, 0, 0);
+        tv.setBackgroundColor(ContextCompat.getColor(this, color) );
+        return tv;
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

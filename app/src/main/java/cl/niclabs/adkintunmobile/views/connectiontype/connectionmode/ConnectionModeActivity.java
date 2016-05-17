@@ -1,13 +1,10 @@
 package cl.niclabs.adkintunmobile.views.connectiontype.connectionmode;
 
 import android.os.Bundle;
-import android.util.Log;
-import android.view.View;
-import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.TableLayout;
+import android.widget.TableRow;
 import android.widget.TextView;
-
-import java.util.ArrayList;
 
 import cl.niclabs.adkintunmobile.R;
 import cl.niclabs.adkintunmobile.data.chart.StatisticInformation;
@@ -43,30 +40,39 @@ public class ConnectionModeActivity extends ConnectionTypeActivity {
 
     @Override
     public void refreshLegend(long initialTime){
-        ArrayList<TextView> timeByType = new ArrayList<>();
-        timeByType.add((TextView) findViewById(R.id.tv_disconnect_total_time));
-        timeByType.add((TextView) findViewById(R.id.tv_mobile_total_time));
-        timeByType.add((TextView) findViewById(R.id.tv_wifi_total_time));
+        int[] icons = {R.drawable.ic_01_wifi,
+                R.drawable.ic_02_mobile,
+                R.drawable.ic_03_nowifi};
 
-        ArrayList<ImageView> timeByTypeIcon = new ArrayList<>();
-        timeByTypeIcon.add((ImageView) findViewById(R.id.icon_disconnect));
-        timeByTypeIcon.add((ImageView) findViewById(R.id.icon_mobile));
-        timeByTypeIcon.add((ImageView) findViewById(R.id.icon_wifi));
+        int[] colors = {R.color.doughnut_wifi,
+                R.color.doughnut_mobile,
+                R.color.doughnut_no_connection};
+
+        TableLayout tableLayout = (TableLayout) findViewById(R.id.time_info_table_layout);
+        tableLayout.removeAllViews();
 
         long [] totalTimeByType = DailyConnectionModeSummary.getTimeByTypeSummary(initialTime);
-        for (int i=0; i<timeByType.size(); i++){
+        long aux = totalTimeByType[2];
+        totalTimeByType[2] = totalTimeByType[0];
+        totalTimeByType[0] = aux;
+
+        TableRow tableRow = new TableRow(this);
+        tableRow.setLayoutParams(new TableRow.LayoutParams(
+                TableRow.LayoutParams.MATCH_PARENT,
+                TableRow.LayoutParams.WRAP_CONTENT));
+
+        for (int i=0; i<3; i++){
             long hours = totalTimeByType[i]/(1000*3600);
             long minutes = (totalTimeByType[i] - hours*1000*3600)/(1000*60);
-            timeByType.get(i).setText(hours + " Horas, " + minutes + " Min.");
-            if (hours == 0 && minutes == 0){
-                timeByType.get(i).setVisibility(View.GONE);
-                timeByTypeIcon.get(i).setVisibility(View.GONE);
-            }
-            else{
-                timeByType.get(i).setText(hours + " Horas, " + minutes + " Min.");
-                timeByType.get(i).setVisibility(View.VISIBLE);
-                timeByTypeIcon.get(i).setVisibility(View.VISIBLE);
+
+            if (hours != 0 || minutes != 0){
+                TextView legendTextView = createLegendTextView(icons[i], colors[i]);
+                legendTextView.setText(hours + " Horas, " + minutes + " Min.");
+                tableRow.addView(legendTextView);
             }
         }
+        tableLayout.addView(tableRow, new TableLayout.LayoutParams(
+                TableRow.LayoutParams.MATCH_PARENT,
+                TableRow.LayoutParams.WRAP_CONTENT));
     }
 }
