@@ -198,11 +198,11 @@
                                 android:text="@string/view_dashboard_net_type_summary" />
 
                             <ImageView
-                                android:layout_width="wrap_content"
-                                android:layout_height="fill_parent"
-                                android:layout_margin="@dimen/separation_min"
+                                android:layout_width="@dimen/app_traffic_icon_width"
+                                android:layout_height="@dimen/app_traffic_icon_width"
                                 android:id="@+id/iv_primary_net"
                                 android:src="@mipmap/operator_other"
+                                android:layout_marginTop="@dimen/separation_min"
                                 android:layout_gravity="center" />
 
 
