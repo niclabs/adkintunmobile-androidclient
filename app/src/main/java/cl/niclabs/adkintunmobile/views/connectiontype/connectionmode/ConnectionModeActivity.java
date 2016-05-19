@@ -44,9 +44,9 @@ public class ConnectionModeActivity extends ConnectionTypeActivity {
                 R.drawable.ic_02_mobile,
                 R.drawable.ic_03_nowifi};
 
-        int[] colors = {R.color.doughnut_wifi,
-                R.color.doughnut_mobile,
-                R.color.doughnut_no_connection};
+        int[] colors = {R.color.doughnut_wifi_soft,
+                R.color.doughnut_mobile_soft,
+                R.color.doughnut_no_connection_soft};
 
         TableLayout tableLayout = (TableLayout) findViewById(R.id.time_info_table_layout);
         tableLayout.removeAllViews();

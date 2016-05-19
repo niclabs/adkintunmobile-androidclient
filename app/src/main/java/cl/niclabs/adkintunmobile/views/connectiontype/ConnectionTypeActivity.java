@@ -7,7 +7,6 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -15,9 +14,7 @@ import android.widget.DatePicker;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Locale;
 
 import cl.niclabs.adkintunmobile.R;
 import cl.niclabs.adkintunmobile.utils.display.DisplayDateManager;
@@ -45,7 +42,10 @@ public abstract class ConnectionTypeActivity extends AppCompatActivity implement
     public TextView createLegendTextView(int icon, int color){
         TextView tv = new TextView(this);
         tv.setCompoundDrawablesWithIntrinsicBounds(0, icon, 0, 0);
-        tv.setBackgroundColor(ContextCompat.getColor(this, color) );
+        tv.setBackgroundColor(ContextCompat.getColor(this, color));
+        int marginHorizontal = (int)getResources().getDimension(R.dimen.separation_little);
+        int marginVertical = (int)getResources().getDimension(R.dimen.separation_min);
+        tv.setPadding(marginHorizontal, marginVertical, marginHorizontal, marginVertical);
         return tv;
     }
 
@@ -94,7 +94,7 @@ public abstract class ConnectionTypeActivity extends AppCompatActivity implement
                     @Override
                     public void run() {
                         refreshLegend(currentTime);
-                        dateManager.refreshDate(dayText, dateText, currentTime);
+                         dateManager.refreshDate(dayText, dateText, currentTime);
                         chart.draw();
                         DisplayManager.dismissLoadingPanel(loadingPanel, context);
                     }

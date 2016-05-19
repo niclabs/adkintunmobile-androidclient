@@ -46,7 +46,7 @@ public class ApplicationsTrafficListFragment extends Fragment {
         listView.setAdapter(listAdapter);
         listView.setEmptyView(view.findViewById(R.id.empty));
         this.listAdapter.sort();
-        
+
         return view;
     }
 
@@ -67,6 +67,6 @@ public class ApplicationsTrafficListFragment extends Fragment {
         this.listAdapter.addAll(dataArray);
         this.listAdapter.sort();
 
-        Snackbar.make(getView(), "Mostrando consumo desde "+DisplayDateManager.getDateString(timestamp),Snackbar.LENGTH_SHORT).show();
+        Snackbar.make(getView(), "Mostrando consumo desde "+DisplayDateManager.getDateString(timestamp),Snackbar.LENGTH_LONG).show();
     }
 }

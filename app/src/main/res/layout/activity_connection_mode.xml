@@ -124,7 +124,8 @@
                         android:layout_height="wrap_content"
                         android:layout_centerHorizontal="true"
                         android:layout_gravity="center"
-                        android:id="@+id/time_info_table_layout">
+                        android:id="@+id/time_info_table_layout"
+                        android:animateLayoutChanges="true">
                     </TableLayout>
 
                     <LinearLayout
@@ -132,7 +133,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_centerHorizontal="true"
-                        android:layout_marginTop="@dimen/abc_dialog_padding_top_material">
+                        android:layout_marginTop="@dimen/abc_dialog_padding_top_material"
+                        android:animateLayoutChanges="true">
 
                         <LinearLayout
                             android:layout_width="match_parent"
