@@ -13,10 +13,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.View;
 
-import com.crashlytics.android.Crashlytics;
-
 import cl.niclabs.adkintunmobile.R;
+import cl.niclabs.adkintunmobile.data.persistent.visualization.NewsNotification;
 import cl.niclabs.adkintunmobile.services.SetupSystem;
+import cl.niclabs.adkintunmobile.utils.display.NotificationManager;
 import cl.niclabs.adkintunmobile.views.aboutus.AboutUsActivity;
 import cl.niclabs.adkintunmobile.views.applicationstraffic.ApplicationsTrafficActivity;
 import cl.niclabs.adkintunmobile.views.connectiontype.connectionmode.ConnectionModeActivity;
@@ -25,7 +25,6 @@ import cl.niclabs.adkintunmobile.views.notificationlog.NotificationLogActivity;
 import cl.niclabs.adkintunmobile.views.rankings.RankingFragment;
 import cl.niclabs.adkintunmobile.views.settings.SettingsActivity;
 import cl.niclabs.adkintunmobile.views.status.StatusActivity;
-import io.fabric.sdk.android.Fabric;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -40,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Fabric.with(this, new Crashlytics());
+        //Fabric.with(this, new Crashlytics());
         setContentView(R.layout.activity_main);
 
         this.context = this;
@@ -188,5 +187,15 @@ public class MainActivity extends AppCompatActivity {
         fragmentTransaction.commit();
     }
 
+    public void notif(View view){
+        NewsNotification notification = new NewsNotification(NewsNotification.INFO, "Probandolos", "Hasta el fin del fin");
+        notification.save();
+
+        NewsNotification n = NewsNotification.findFirst(
+                NewsNotification.class,
+                "timestamp = ?",
+                NewsNotification.mostRecentlyTimestamp()+"");
+        NotificationManager.showNotification(this, n.title, n.content);
+    }
 }
 
