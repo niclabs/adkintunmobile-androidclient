@@ -59,6 +59,8 @@ public class NotificationLogListAdapter extends ArrayAdapter<NotificationLogList
         super.notifyDataSetChanged();
     }
 
+
+
     public void sort(){
         this.sort(new Comparator<NotificationLogListElement>() {
             @Override
