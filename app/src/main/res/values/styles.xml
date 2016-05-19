@@ -37,7 +37,7 @@
     <style name="floatingBox">
         <item name="android:layout_margin">@dimen/separation_min</item>
         <item name="android:paddingBottom">@dimen/separation_min</item>
-        <item name="android:background">@color/doughnut_no_info</item>
+        <item name="android:background">@drawable/item_background</item>
     </style>
 
     <style name="TransparentText" parent="@android:style/TextAppearance">

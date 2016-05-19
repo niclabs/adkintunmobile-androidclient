@@ -22,6 +22,9 @@
     <color name="doughnut_no_connection">#e1e84643</color>
     <color name="doughnut_no_info">#4ddadada</color>
     <color name="doughnut_start">#e1ffffff</color>
+    <color name="doughnut_wifi_soft">#963b8fb5</color>
+    <color name="doughnut_mobile_soft">#9622b573</color>
+    <color name="doughnut_no_connection_soft">#96e84643</color>
 
     <!-- Network Type -->
     <color name="network_type_G">#e1e5e588</color>
