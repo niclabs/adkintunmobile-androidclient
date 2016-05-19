@@ -4,6 +4,7 @@ import android.content.Context;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.Iterator;
 import java.util.List;
 
 import cl.niclabs.adkintunmobile.data.persistent.CdmaObservationWrapper;
@@ -13,6 +14,7 @@ import cl.niclabs.adkintunmobile.data.persistent.SampleWrapper;
 import cl.niclabs.adkintunmobile.data.persistent.StateChangeWrapper;
 import cl.niclabs.adkintunmobile.data.persistent.TelephonyObservationWrapper;
 import cl.niclabs.adkintunmobile.data.persistent.TrafficObservationWrapper;
+import cl.niclabs.adkintunmobile.data.persistent.visualization.ApplicationTraffic;
 import cl.niclabs.adkintunmobile.data.persistent.visualization.ConnectionModeSample;
 import cl.niclabs.adkintunmobile.data.persistent.visualization.NetworkTypeSample;
 
@@ -87,6 +89,27 @@ public class Report {
                 sample.save();
                 lastType = sample.getType();
             }
+        }
+
+        // Backup ApplicationTraffic
+        Iterator<TrafficObservationWrapper> iterator = TrafficObservationWrapper.findAsIterator(TrafficObservationWrapper.class, "uid > 0");
+        while(iterator.hasNext()){
+            ApplicationTraffic value = new ApplicationTraffic(iterator.next());
+            ApplicationTraffic refValue = ApplicationTraffic.findFirst(ApplicationTraffic.class,
+                    "uid = ? and timestamp = ? and network_type = ?",
+                    Integer.toString(value.uid),
+                    Long.toString(value.timestamp),
+                    Integer.toString(value.networkType));
+            if(refValue == null)
+                value.save();
+            else{
+                refValue.txBytes += value.txBytes;
+                refValue.rxBytes += value.rxBytes;
+                //refValue.tcpRxBytes += value.tcpRxBytes;
+                //refValue.tcpTxBytes += value.tcpTxBytes;
+                refValue.save();
+            }
+
         }
     }
 }

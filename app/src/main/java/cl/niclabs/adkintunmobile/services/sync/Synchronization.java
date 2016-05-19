@@ -23,13 +23,10 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
 
 import cl.niclabs.adkintunmobile.R;
 import cl.niclabs.adkintunmobile.data.Report;
-import cl.niclabs.adkintunmobile.data.persistent.TrafficObservationWrapper;
-import cl.niclabs.adkintunmobile.data.persistent.visualization.ApplicationTraffic;
 import cl.niclabs.adkintunmobile.utils.volley.HttpMultipartRequest;
 import cl.niclabs.adkintunmobile.utils.volley.VolleySingleton;
 
@@ -54,7 +51,7 @@ public class Synchronization extends Service {
         // 2.- Prepare request
         sendData(data);
         // 2,5.- Backup data
-        backupData();
+        //backupData();
         report.saveVisualSamples();
         // 3.- Clean DB
         report.cleanDBRecords();
@@ -77,31 +74,6 @@ public class Synchronization extends Service {
     /*
      *  Utility Methods
      */
-
-
-    // TODO: Mover metodo a clase Report.java
-    private void backupData(){
-        Iterator<TrafficObservationWrapper> iterator = TrafficObservationWrapper.findAsIterator(TrafficObservationWrapper.class, "uid > 0");
-
-        while(iterator.hasNext()){
-            ApplicationTraffic value = new ApplicationTraffic(iterator.next());
-            ApplicationTraffic refValue = ApplicationTraffic.findFirst(ApplicationTraffic.class,
-                    "uid = ? and timestamp = ? and network_type = ?",
-                    Integer.toString(value.uid),
-                    Long.toString(value.timestamp),
-                    Integer.toString(value.networkType));
-            if(refValue == null)
-                value.save();
-            else{
-                refValue.txBytes += value.txBytes;
-                refValue.rxBytes += value.rxBytes;
-                //refValue.tcpRxBytes += value.tcpRxBytes;
-                //refValue.tcpTxBytes += value.tcpTxBytes;
-                refValue.save();
-            }
-
-        }
-    }
 
     private byte[] collectStoredData(Report report) {
         // The output object
