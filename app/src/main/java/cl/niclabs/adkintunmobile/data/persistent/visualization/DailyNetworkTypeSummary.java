@@ -57,6 +57,13 @@ public class DailyNetworkTypeSummary extends Persistent<DailyNetworkTypeSummary>
      * @return long array with the time in milliseconds using each network type. Index are specified in NetworkTypeSample class.
      */
     public static long[] getTimeByTypeSummary(long initialTime) {
+        Calendar calendar = Calendar.getInstance(Locale.getDefault());
+        calendar.setTimeInMillis(initialTime);
+        calendar.set(Calendar.HOUR_OF_DAY, 0);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.SECOND, 0);
+        calendar.set(Calendar.MILLISECOND, 0);
+        initialTime = calendar.getTimeInMillis();
         long period = 3600L * 24L * 1000L;
         DailyNetworkTypeSummary todaySummary = DailyNetworkTypeSummary.getSummary(initialTime);
         Iterator<NetworkTypeSample> todaySamples = todaySummary.getSamples();
@@ -83,16 +90,13 @@ public class DailyNetworkTypeSummary extends Persistent<DailyNetworkTypeSummary>
         if (lastTime >= initialTime) {
             DailyNetworkTypeSummary yesterdaySummary = DailyNetworkTypeSummary.getSummary(initialTime - period);
             Iterator<NetworkTypeSample> yesterdaySamples = yesterdaySummary.getSamples();
-            if (yesterdaySamples.hasNext()){
+            if (yesterdaySamples.hasNext()) {
                 while (yesterdaySamples.hasNext()) {
                     sample = yesterdaySamples.next();
                 }
                 lastType = sample.getType();
+                timeByType[lastType] += (lastTime - initialTime);
             }
-            else {
-                lastType = 0;
-            }
-            timeByType[lastType] += (lastTime - initialTime);
         }
 
         //Samples del día
@@ -104,8 +108,19 @@ public class DailyNetworkTypeSummary extends Persistent<DailyNetworkTypeSummary>
             lastType = sample.getType();
             lastTime = sample.getInitialTime();
         }
-        timeByType[lastType] += (currentTime - lastTime);
 
+        //Si es un día anterior a la fecha
+        if (currentTime >= initialTime + period){
+            if (lastTime > initialTime)
+                timeByType[lastType] += (initialTime + period - lastTime);
+        }
+        //Si es un día posterior a la fecha actual
+        else if(initialTime > currentTime){
+        }
+        //Si es el día actual
+        else {
+            timeByType[lastType] += (currentTime - lastTime);
+        }
         return timeByType;
     }
 

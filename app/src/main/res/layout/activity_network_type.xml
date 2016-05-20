@@ -118,6 +118,15 @@
 
                     </RelativeLayout>
 
+                    <TableLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:layout_gravity="center"
+                        android:id="@+id/time_info_table_layout"
+                        android:animateLayoutChanges="true">
+                    </TableLayout>
+
                     <LinearLayout
                         android:orientation="vertical"
                         android:layout_width="match_parent"

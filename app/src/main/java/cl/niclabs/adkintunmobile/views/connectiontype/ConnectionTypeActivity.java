@@ -139,4 +139,22 @@ public abstract class ConnectionTypeActivity extends AppCompatActivity implement
         }).start();
     }
 
+    protected class TimeLegend{
+        private TextView legendTextView;
+        private long totalTime;
+
+
+        public TimeLegend(TextView legendTextView, long totalTime) {
+            this.legendTextView = legendTextView;
+            this.totalTime = totalTime;
+        }
+
+        public TextView getLegendTextView() {
+            return legendTextView;
+        }
+
+        public long getTotalTime() {
+            return totalTime;
+        }
+    }
 }
