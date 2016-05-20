@@ -1,7 +1,6 @@
 package cl.niclabs.adkintunmobile.views.connectiontype.networktype;
 
 import android.os.Bundle;
-import android.view.Gravity;
 import android.widget.RelativeLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
@@ -13,7 +12,6 @@ import java.util.Comparator;
 
 import cl.niclabs.adkintunmobile.R;
 import cl.niclabs.adkintunmobile.data.chart.StatisticInformation;
-import cl.niclabs.adkintunmobile.data.persistent.visualization.DailyConnectionModeSummary;
 import cl.niclabs.adkintunmobile.data.persistent.visualization.DailyNetworkTypeSummary;
 import cl.niclabs.adkintunmobile.utils.display.DoughnutChart;
 import cl.niclabs.adkintunmobile.views.connectiontype.ConnectionTypeActivity;
@@ -55,13 +53,13 @@ public class NetworkTypeActivity extends ConnectionTypeActivity {
                 R.drawable.ic_08_hp,
                 R.drawable.ic_09_4g};
 
-        int[] colors = {R.color.network_type_unknown,
-                R.color.network_type_G,
-                R.color.network_type_E,
-                R.color.network_type_3G,
-                R.color.network_type_H,
-                R.color.network_type_Hp,
-                R.color.network_type_4G};
+        int[] colors = {R.color.network_type_unknown_soft,
+                R.color.network_type_G_soft,
+                R.color.network_type_E_soft,
+                R.color.network_type_3G_soft,
+                R.color.network_type_H_soft,
+                R.color.network_type_Hp_soft,
+                R.color.network_type_4G_soft};
 
         TableLayout tableLayout = (TableLayout) findViewById(R.id.time_info_table_layout);
         tableLayout.removeAllViews();
@@ -75,10 +73,9 @@ public class NetworkTypeActivity extends ConnectionTypeActivity {
             long minutes = (totalTimeByType[i] - hours*1000*3600)/(1000*60);
 
             if (hours != 0 || minutes != 0){
-                TextView legendTextView = createLegendTextView(icons[i], colors[i]);
-                legendTextView.setText(hours + " h " + minutes + " min");
-                legendTextView.setGravity(Gravity.CENTER_HORIZONTAL);
-                timeLegend.add( new TimeLegend(legendTextView, totalTimeByType[i]) );
+                String leyend = hours + " h " + minutes + " min";
+                TextView legendTextView = createLegendTextView(icons[i], colors[i], leyend);
+                timeLegend.add(new TimeLegend(legendTextView, totalTimeByType[i]));
             }
         }
 
@@ -111,8 +108,10 @@ public class NetworkTypeActivity extends ConnectionTypeActivity {
                         TableRow.LayoutParams.WRAP_CONTENT));
             }
         }
-        tableLayout.addView(tableRow, new TableLayout.LayoutParams(
-                TableRow.LayoutParams.MATCH_PARENT,
-                TableRow.LayoutParams.WRAP_CONTENT));
+
+        if (!timeLegend.isEmpty())
+            tableLayout.addView(tableRow, new TableLayout.LayoutParams(
+                    TableRow.LayoutParams.MATCH_PARENT,
+                    TableRow.LayoutParams.WRAP_CONTENT));
     }
 }

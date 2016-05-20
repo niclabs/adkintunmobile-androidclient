@@ -1,7 +1,6 @@
 package cl.niclabs.adkintunmobile.views.connectiontype.connectionmode;
 
 import android.os.Bundle;
-import android.view.Gravity;
 import android.widget.RelativeLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
@@ -65,9 +64,8 @@ public class ConnectionModeActivity extends ConnectionTypeActivity {
             long minutes = (totalTimeByType[i] - hours*1000*3600)/(1000*60);
 
             if (hours != 0 || minutes != 0){
-                TextView legendTextView = createLegendTextView(icons[i], colors[i]);
-                legendTextView.setText(hours + " h " + minutes + " min");
-                legendTextView.setGravity(Gravity.CENTER_HORIZONTAL);
+                String leyend = hours + " h " + minutes + " min";
+                TextView legendTextView = createLegendTextView(icons[i], colors[i], leyend);
                 timeLegend.add(new TimeLegend(legendTextView, totalTimeByType[i]) );
             }
         }
@@ -87,8 +85,10 @@ public class ConnectionModeActivity extends ConnectionTypeActivity {
         for (int i=0; i<timeLegend.size(); i++){
             tableRow.addView( timeLegend.get(i).getLegendTextView() );
         }
-        tableLayout.addView(tableRow, new TableLayout.LayoutParams(
-                TableRow.LayoutParams.MATCH_PARENT,
-                TableRow.LayoutParams.WRAP_CONTENT));
+
+        if (!timeLegend.isEmpty())
+            tableLayout.addView(tableRow, new TableLayout.LayoutParams(
+                    TableRow.LayoutParams.MATCH_PARENT,
+                    TableRow.LayoutParams.WRAP_CONTENT));
     }
 }

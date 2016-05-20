@@ -125,7 +125,8 @@
                         android:layout_centerHorizontal="true"
                         android:layout_gravity="center"
                         android:id="@+id/time_info_table_layout"
-                        android:animateLayoutChanges="true">
+                        android:animateLayoutChanges="true"
+                        android:stretchColumns="*">
                     </TableLayout>
 
                     <LinearLayout
