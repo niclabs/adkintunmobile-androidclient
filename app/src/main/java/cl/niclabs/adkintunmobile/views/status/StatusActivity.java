@@ -178,7 +178,7 @@ public class StatusActivity extends AppCompatActivity {
         this.rxDailyMobileData = Network.formatBytes(this.rxDailyMobile);
         this.txDailyMobileData = Network.formatBytes(this.txDailyMobile);
 
-        this.currentDay = getResources().getStringArray(R.array.day_of_week)[calendar.get(Calendar.DAY_OF_WEEK)];
+        this.currentDay = getResources().getStringArray(R.array.day_of_week)[calendar.get(Calendar.DAY_OF_WEEK) - 1];
         this.currentDay += " " + calendar.get(Calendar.DAY_OF_MONTH);
         this.currentDay += " de " + getResources().getStringArray(R.array.month_of_year)[calendar.get(Calendar.MONTH)];
 

@@ -63,7 +63,7 @@
         android:layout_gravity="center"
         android:gravity="center"
         style="@style/TextAppearance.AppCompat.Large"
-        android:text="@string/view_applications_traffic_item_no_data"
+        android:text="@string/view_notifications_log_item_no_data"
         android:textColor="@color/textColorPrimary" />
 
 </android.support.design.widget.CoordinatorLayout>
