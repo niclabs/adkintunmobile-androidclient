@@ -88,7 +88,7 @@ public class DailyConnectionModeSummary extends Persistent<DailyConnectionModeSu
         }
 
         //Si primer reporte del día no parte de las 0 AM, completar con último del día anterior
-        if (lastTime > initialTime) {
+        if (lastTime >= initialTime) {
             DailyConnectionModeSummary yesterdaySummary = DailyConnectionModeSummary.getSummary(initialTime - period);
             Iterator<ConnectionModeSample> yesterdaySamples = yesterdaySummary.getSamples();
             if (yesterdaySamples.hasNext()){
