@@ -61,6 +61,9 @@
     <string name="view_dashboard_top_apps_title">Principales Aplicaciones</string>
     <string name="view_dashboard_top_apps_summary">Las siguientes aplicaciones son las que más han usado tu internet móvil hoy:</string>
 
+    <!-- Notifications Log -->
+    <string name="view_notifications_log_item_no_data">No hay notificaciones para mostrar</string>
+
     <!-- Status -->
     <string name="view_status_your_signal">Tu Señal</string>
     <string name="view_status_your_SIM">Tu SIM</string>
@@ -76,13 +79,14 @@
     <string name="view_status_settings_dialog_example_MB">MegaBytes</string>
 
 
-    <!-- Conn Type -->
+    <!-- Conn mode -->
     <string name="view_connection_mode_symbology">Leyenda</string>
     <string name="view_connection_mode_mobile">Conectado a red móvil</string>
     <string name="view_connection_mode_wifi">Conectado a red wifi</string>
     <string name="view_connection_mode_start">Inicio de datos registrados</string>
     <string name="view_connection_mode_no_info">Sin información</string>
     <string name="view_connection_mode_disconnected">Sin Conexión</string>
+    <string name="view_connection_mode_bad_date">Debe seleccionar una fecha previa</string>
 
     <!-- App Traffic -->
     <string name="view_applications_traffic_wifi">Tráfico WiFi</string>

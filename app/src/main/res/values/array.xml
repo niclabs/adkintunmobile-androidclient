@@ -49,13 +49,13 @@
         <item>@drawable/ic_09_4g</item>
     </array>
     <array name="network_type_legend_colors">
-        <item>@color/network_type_unknown</item>
-        <item>@color/network_type_G</item>
-        <item>@color/network_type_E</item>
-        <item>@color/network_type_3G</item>
-        <item>@color/network_type_H</item>
-        <item>@color/network_type_Hp</item>
-        <item>@color/network_type_4G</item>
+        <item>@color/network_type_unknown_soft</item>
+        <item>@color/network_type_G_soft</item>
+        <item>@color/network_type_E_soft</item>
+        <item>@color/network_type_3G_soft</item>
+        <item>@color/network_type_H_soft</item>
+        <item>@color/network_type_Hp_soft</item>
+        <item>@color/network_type_4G_soft</item>
     </array>
 
     <!-- Connection Mode Legend -->

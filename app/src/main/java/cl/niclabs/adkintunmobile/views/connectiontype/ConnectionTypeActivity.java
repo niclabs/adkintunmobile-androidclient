@@ -8,6 +8,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -17,6 +18,7 @@ import android.widget.RelativeLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -46,13 +48,15 @@ public abstract class ConnectionTypeActivity extends AppCompatActivity implement
 
     public abstract void refreshLegend(long initialTime);
 
-    public TextView createLegendTextView(int icon, int color){
+    public TextView createLegendTextView(int icon, int color, String text){
         TextView tv = new TextView(this);
+        tv.setText(text);
         tv.setCompoundDrawablesWithIntrinsicBounds(0, icon, 0, 0);
         tv.setBackgroundColor(ContextCompat.getColor(this, color));
-        int marginHorizontal = (int)getResources().getDimension(R.dimen.separation_little);
-        int marginVertical = (int)getResources().getDimension(R.dimen.separation_min);
+        int marginHorizontal = 0;
+        int marginVertical = (int)getResources().getDimension(R.dimen.separation_little);
         tv.setPadding(marginHorizontal, marginVertical, marginHorizontal, marginVertical);
+        tv.setGravity(Gravity.CENTER_HORIZONTAL);
         return tv;
     }
 
@@ -66,9 +70,8 @@ public abstract class ConnectionTypeActivity extends AppCompatActivity implement
             long minutes = (totalTimeByType[i] - hours*3600*1000)/(60*1000);
 
             if (hours != 0 || minutes != 0){
-                TextView legendTextView = createLegendTextView(icons.getResourceId(i,0), colors.getResourceId(i, 0));
-                legendTextView.setText(hours + " h " + minutes + " min");
-                legendTextView.setGravity(Gravity.CENTER_HORIZONTAL);
+                String legend = hours + " h " + minutes + " min";
+                TextView legendTextView = createLegendTextView(icons.getResourceId(i,0), colors.getResourceId(i, 0), legend);
                 timeLegend.add(new TimeLegend(legendTextView, totalTimeByType[i]) );
             }
         }
@@ -101,9 +104,10 @@ public abstract class ConnectionTypeActivity extends AppCompatActivity implement
                         TableRow.LayoutParams.WRAP_CONTENT));
             }
         }
-        tableLayout.addView(tableRow, new TableLayout.LayoutParams(
-                TableRow.LayoutParams.MATCH_PARENT,
-                TableRow.LayoutParams.WRAP_CONTENT));
+        if (!timeLegend.isEmpty())
+            tableLayout.addView(tableRow, new TableLayout.LayoutParams(
+                    TableRow.LayoutParams.MATCH_PARENT,
+                    TableRow.LayoutParams.WRAP_CONTENT));
     }
 
     @Override
@@ -175,6 +179,11 @@ public abstract class ConnectionTypeActivity extends AppCompatActivity implement
         c.set(Calendar.MONTH, monthOfYear);
         c.set(Calendar.DAY_OF_MONTH, dayOfMonth);
         final long initTime = c.getTimeInMillis();
+
+        if (initTime > System.currentTimeMillis()){
+            Toast.makeText(this.context, getString(R.string.view_connection_mode_bad_date), Toast.LENGTH_LONG).show();
+            return;
+        }
 
         DisplayManager.enableLoadingPanel(this.loadingPanel);
         (new Thread(){

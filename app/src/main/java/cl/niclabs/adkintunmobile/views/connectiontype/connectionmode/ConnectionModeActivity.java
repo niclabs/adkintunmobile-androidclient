@@ -2,16 +2,7 @@ package cl.niclabs.adkintunmobile.views.connectiontype.connectionmode;
 
 import android.content.res.TypedArray;
 import android.os.Bundle;
-import android.view.Gravity;
 import android.widget.RelativeLayout;
-import android.widget.TableLayout;
-import android.widget.TableRow;
-import android.widget.TextView;
-
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-
 import cl.niclabs.adkintunmobile.R;
 import cl.niclabs.adkintunmobile.data.chart.StatisticInformation;
 import cl.niclabs.adkintunmobile.data.persistent.visualization.DailyConnectionModeSummary;
@@ -49,6 +40,6 @@ public class ConnectionModeActivity extends ConnectionTypeActivity {
         TypedArray icons = context.getResources().obtainTypedArray(R.array.connection_mode_legend_icons);
         TypedArray colors = context.getResources().obtainTypedArray(R.array.connection_mode_legend_colors);
         long [] totalTimeByType = DailyConnectionModeSummary.getTimeByTypeSummary(initialTime);
-        setNewLegend(totalTimeByType,icons,colors);
+        setNewLegend(totalTimeByType, icons, colors);
     }
 }
