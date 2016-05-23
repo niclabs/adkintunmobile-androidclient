@@ -2,19 +2,26 @@ package cl.niclabs.adkintunmobile.views.connectiontype;
 
 import android.app.DatePickerDialog;
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.graphics.Typeface;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.DatePicker;
 import android.widget.RelativeLayout;
+import android.widget.TableLayout;
+import android.widget.TableRow;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
+import java.util.Comparator;
 
 import cl.niclabs.adkintunmobile.R;
 import cl.niclabs.adkintunmobile.utils.display.DisplayDateManager;
@@ -47,6 +54,56 @@ public abstract class ConnectionTypeActivity extends AppCompatActivity implement
         int marginVertical = (int)getResources().getDimension(R.dimen.separation_min);
         tv.setPadding(marginHorizontal, marginVertical, marginHorizontal, marginVertical);
         return tv;
+    }
+
+    public void setNewLegend(long [] totalTimeByType, TypedArray icons, TypedArray colors){
+        TableLayout tableLayout = (TableLayout) findViewById(R.id.time_info_table_layout);
+        tableLayout.removeAllViews();
+        ArrayList<TimeLegend> timeLegend = new ArrayList<>();
+
+        for (int i=0; i<totalTimeByType.length; i++){
+            long hours = totalTimeByType[i]/(3600*1000);
+            long minutes = (totalTimeByType[i] - hours*3600*1000)/(60*1000);
+
+            if (hours != 0 || minutes != 0){
+                TextView legendTextView = createLegendTextView(icons.getResourceId(i,0), colors.getResourceId(i, 0));
+                legendTextView.setText(hours + " h " + minutes + " min");
+                legendTextView.setGravity(Gravity.CENTER_HORIZONTAL);
+                timeLegend.add(new TimeLegend(legendTextView, totalTimeByType[i]) );
+            }
+        }
+        Collections.sort(timeLegend, new Comparator<TimeLegend>() {
+            @Override
+            public int compare(TimeLegend lhs, TimeLegend rhs) {
+                return (int) (rhs.getTotalTime() - lhs.getTotalTime());
+            }
+        });
+
+        int rowWidth = 3;
+        if (timeLegend.size() == 4){
+            rowWidth = 2;
+        }
+        TableRow tableRow = new TableRow(this);
+        tableRow.setLayoutParams(new TableRow.LayoutParams(
+                TableRow.LayoutParams.MATCH_PARENT,
+                TableRow.LayoutParams.WRAP_CONTENT));
+
+        for (int i=0; i<timeLegend.size(); i++){
+            tableRow.addView( timeLegend.get(i).getLegendTextView() );
+            if (tableRow.getChildCount() == rowWidth){
+                tableLayout.addView(tableRow, new TableLayout.LayoutParams(
+                        TableRow.LayoutParams.MATCH_PARENT,
+                        TableRow.LayoutParams.WRAP_CONTENT));
+
+                tableRow = new TableRow(this);
+                tableRow.setLayoutParams(new TableRow.LayoutParams(
+                        TableRow.LayoutParams.MATCH_PARENT,
+                        TableRow.LayoutParams.WRAP_CONTENT));
+            }
+        }
+        tableLayout.addView(tableRow, new TableLayout.LayoutParams(
+                TableRow.LayoutParams.MATCH_PARENT,
+                TableRow.LayoutParams.WRAP_CONTENT));
     }
 
     @Override
