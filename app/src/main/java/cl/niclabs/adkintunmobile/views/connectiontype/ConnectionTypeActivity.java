@@ -40,6 +40,7 @@ public abstract class ConnectionTypeActivity extends AppCompatActivity implement
 
     protected DoughnutChart chart;
     protected DoughnutChartBuilder chartBuilder;
+    protected long[] timeByType;
     protected TextView dayText;
     protected TextView dateText;
     protected DisplayDateManager dateManager;
@@ -60,19 +61,19 @@ public abstract class ConnectionTypeActivity extends AppCompatActivity implement
         return tv;
     }
 
-    public void setNewLegend(long [] totalTimeByType, TypedArray icons, TypedArray colors){
+    public void setNewLegend(TypedArray icons, TypedArray colors){
         TableLayout tableLayout = (TableLayout) findViewById(R.id.time_info_table_layout);
         tableLayout.removeAllViews();
         ArrayList<TimeLegend> timeLegend = new ArrayList<>();
 
-        for (int i=0; i<totalTimeByType.length; i++){
-            long hours = totalTimeByType[i]/(3600*1000);
-            long minutes = (totalTimeByType[i] - hours*3600*1000)/(60*1000);
+        for (int i=0; i<timeByType.length; i++){
+            long hours = timeByType[i]/(3600*1000);
+            long minutes = (timeByType[i] - hours*3600*1000)/(60*1000);
 
             if (hours != 0 || minutes != 0){
                 String legend = hours + " h " + minutes + " min";
                 TextView legendTextView = createLegendTextView(icons.getResourceId(i,0), colors.getResourceId(i, 0), legend);
-                timeLegend.add(new TimeLegend(legendTextView, totalTimeByType[i]) );
+                timeLegend.add(new TimeLegend(legendTextView, timeByType[i]) );
             }
         }
         Collections.sort(timeLegend, new Comparator<TimeLegend>() {
@@ -108,6 +109,9 @@ public abstract class ConnectionTypeActivity extends AppCompatActivity implement
             tableLayout.addView(tableRow, new TableLayout.LayoutParams(
                     TableRow.LayoutParams.MATCH_PARENT,
                     TableRow.LayoutParams.WRAP_CONTENT));
+
+        icons.recycle();
+        colors.recycle();
     }
 
     @Override
@@ -155,7 +159,7 @@ public abstract class ConnectionTypeActivity extends AppCompatActivity implement
                     @Override
                     public void run() {
                         refreshLegend(currentTime);
-                         dateManager.refreshDate(dayText, dateText, currentTime);
+                        dateManager.refreshDate(dayText, dateText, currentTime);
                         chart.draw();
                         DisplayManager.dismissLoadingPanel(loadingPanel, context);
                     }

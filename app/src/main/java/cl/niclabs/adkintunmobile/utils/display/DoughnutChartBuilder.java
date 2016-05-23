@@ -36,7 +36,6 @@ public class DoughnutChartBuilder implements GraphicStatisticsBuilder {
 	 */
 	@Override
 	public View createGraphicStatistic(StatisticInformation info) {
-		info.setStatisticsInformation();
 		final ArrayList<Integer> colors = info.getColors();
 		final ArrayList<Float> values = info.getValues();
 		/* this sets the start of the chart for a day that starts at 12am */
@@ -46,5 +45,4 @@ public class DoughnutChartBuilder implements GraphicStatisticsBuilder {
 		chart.setValues(values);
 		return chart;
 	}
-
 }

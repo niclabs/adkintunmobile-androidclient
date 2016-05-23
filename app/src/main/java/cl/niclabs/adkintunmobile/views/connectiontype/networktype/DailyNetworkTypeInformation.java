@@ -61,11 +61,13 @@ public class DailyNetworkTypeInformation extends StatisticInformation{
         //Samples del día representado por initialTime
         DailyNetworkTypeSummary todaySummary = DailyNetworkTypeSummary.getSummary(initialTime);
         Iterator<NetworkTypeSample> todaySamples = todaySummary.getSamples();
+        long[] timeByType = new long[7];
 
         final ArrayList<Integer> colors = new ArrayList<Integer>();
         final ArrayList<Float> values = new ArrayList<Float>();
         long lastTime;
         Integer lastColor;
+        int lastType;
         NetworkTypeSample sample;
         float initialBar = 1f;
         values.add(initialBar);
@@ -76,13 +78,13 @@ public class DailyNetworkTypeInformation extends StatisticInformation{
             sample = todaySamples.next();
             lastTime = sample.getInitialTime();
             lastColor = networkTypeColors[sample.getType()];
-
+            lastType = sample.getType();
         }
         else {                                      //manejo si no hay valores
             sample = null;                          //Se podría detectar acá el valor o ejecutar la sincronización
             lastColor = noInfoColor;
             lastTime = initialTime;
-
+            lastType = 0;
         }
 
         //Si primer reporte del día no parte de las 0 AM, completar con último del día anterior
@@ -95,6 +97,8 @@ public class DailyNetworkTypeInformation extends StatisticInformation{
                 }
                 lastColor = networkTypeColors[sample.getType()];
                 colors.add( lastColor );
+                lastType = sample.getType();
+                timeByType[lastType] += (lastTime - initialTime);
             }
             else {
                 colors.add(noInfoColor);
@@ -104,7 +108,7 @@ public class DailyNetworkTypeInformation extends StatisticInformation{
 
         Float angle;
 
-        //Samples del día
+        //Samples del día seleccionado
         while (todaySamples.hasNext()){
             sample = todaySamples.next();
             if (lastColor == networkTypeColors[sample.getType()])
@@ -113,6 +117,10 @@ public class DailyNetworkTypeInformation extends StatisticInformation{
             lastColor = networkTypeColors[sample.getType()];
             angle = (sample.getInitialTime() - lastTime) * anglePerMillisecond;
             values.add(angle);
+
+            timeByType[lastType] += (sample.getInitialTime() - lastTime);
+            lastType = sample.getType();
+
             lastTime = sample.getInitialTime();
         }
 
@@ -121,6 +129,8 @@ public class DailyNetworkTypeInformation extends StatisticInformation{
             angle = (initialTime + period - lastTime) * anglePerMillisecond;
             values.add(angle - initialBar);
             colors.add(lastColor);
+            if (lastTime >= initialTime)
+                timeByType[lastType] += (initialTime + period - lastTime);
         }
         //Si es un día posterior a la fecha actual
         else if(initialTime > currentTime){
@@ -134,7 +144,10 @@ public class DailyNetworkTypeInformation extends StatisticInformation{
             colors.add(lastColor);
             colors.add(noInfoColor);
             values.add((initialTime + period - currentTime - initialBar) * anglePerMillisecond);
+            timeByType[lastType] += (currentTime - lastTime);
         }
+
+        setTimeByType(timeByType);
 
         ArrayList<Object> results = new ArrayList<Object>();
         results.add(colors);

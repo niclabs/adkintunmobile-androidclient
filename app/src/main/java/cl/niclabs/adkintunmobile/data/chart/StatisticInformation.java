@@ -13,6 +13,7 @@ import java.util.ArrayList;
  */
 public abstract class StatisticInformation {
 	private ArrayList<Object> information;
+	private long[] timeByType;
 	/**
 	 * Creates an StatisticInformation with no info.
 	 */
@@ -45,6 +46,14 @@ public abstract class StatisticInformation {
 
 	public void setInformation(ArrayList<Object> information){
 		this.information = information;
+	}
+
+	public void setTimeByType(long[] timeByType){
+		this.timeByType = timeByType;
+	}
+
+	public long[] getTimeByType(){
+		return timeByType;
 	}
 	
 }

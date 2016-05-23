@@ -32,14 +32,15 @@ public class ConnectionModeActivity extends ConnectionTypeActivity {
     public void loadData(long initialTime) {
         long currentTime = System.currentTimeMillis();
         StatisticInformation statistic = new DailyConnectionModeInformation(context, initialTime, currentTime);
+        statistic.setStatisticsInformation();
         this.chart = (DoughnutChart) this.chartBuilder.createGraphicStatistic(statistic);
+        this.timeByType = statistic.getTimeByType();
     }
 
     @Override
     public void refreshLegend(long initialTime){
         TypedArray icons = context.getResources().obtainTypedArray(R.array.connection_mode_legend_icons);
         TypedArray colors = context.getResources().obtainTypedArray(R.array.connection_mode_legend_colors);
-        long [] totalTimeByType = DailyConnectionModeSummary.getTimeByTypeSummary(initialTime);
-        setNewLegend(totalTimeByType, icons, colors);
+        setNewLegend(icons, colors);
     }
 }

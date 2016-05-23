@@ -34,14 +34,15 @@ public class NetworkTypeActivity extends ConnectionTypeActivity {
     public void loadData(long initialTime) {
         long currentTime = System.currentTimeMillis();
         StatisticInformation statistic = new DailyNetworkTypeInformation(context, initialTime, currentTime);
+        statistic.setStatisticsInformation();
         this.chart = (DoughnutChart) this.chartBuilder.createGraphicStatistic(statistic);
+        this.timeByType = statistic.getTimeByType();
     }
 
     @Override
     public void refreshLegend(long initialTime){
         TypedArray icons = context.getResources().obtainTypedArray(R.array.network_type_legend_icons);
         TypedArray colors = context.getResources().obtainTypedArray(R.array.network_type_legend_colors);
-        long [] totalTimeByType = DailyNetworkTypeSummary.getTimeByTypeSummary(initialTime);
-        setNewLegend(totalTimeByType, icons, colors);
+        setNewLegend(icons, colors);
     }
 }
