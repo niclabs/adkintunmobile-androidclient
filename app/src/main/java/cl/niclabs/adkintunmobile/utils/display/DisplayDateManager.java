@@ -49,8 +49,6 @@ public class DisplayDateManager {
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(timestamp);
 
-        //return calendar.getTime().toString();
-
         SimpleDateFormat format1 = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
         String formatted = format1.format(calendar.getTime());
 

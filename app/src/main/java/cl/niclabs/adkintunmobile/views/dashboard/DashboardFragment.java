@@ -109,7 +109,6 @@ public class DashboardFragment extends BaseToolbarFragment {
             ((ImageView) view.findViewById(R.id.iv_app3)).setImageDrawable(topApps[2].getLogo());
             ((TextView) view.findViewById(R.id.tv_app3)).setText(topApps[2].getLabel());
         }
-
     }
 
     public void updateMobileConsumption(View view){
@@ -201,12 +200,10 @@ public class DashboardFragment extends BaseToolbarFragment {
         }
 
         return ret;
-
     }
 
 
     /**
-     *
      * @return Arreglo con [rxData, txData] del mes actual
      */
     public long[] getMonthlyMobileConsumption(){
@@ -237,6 +234,5 @@ public class DashboardFragment extends BaseToolbarFragment {
         dataUsage[1] = txMobile;
 
         return dataUsage;
-
     }
 }

@@ -27,8 +27,6 @@ import cl.niclabs.adkintunmobile.data.persistent.visualization.NetworkTypeSample
  */
 public class Report {
 
-    // TODO: Modificar Nombres de los campos Serializados
-
     @SerializedName("sim_records")
     SimSingleton simRecord;
     @SerializedName("device_records")

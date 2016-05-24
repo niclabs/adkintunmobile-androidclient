@@ -14,9 +14,6 @@ import cl.niclabs.adkintunmobile.data.chart.StatisticInformation;
 import cl.niclabs.adkintunmobile.data.persistent.visualization.ConnectionTypeSample;
 import cl.niclabs.adkintunmobile.data.persistent.visualization.DailyConnectionTypeSummary;
 
-/**
- * Created by diego on 23-05-16.
- */
 public abstract class DailyConnectionTypeInformation extends StatisticInformation{
     protected final long period = 3600L * 24L * 1000L;
     protected final float anglePerMillisecond = 360f/period;

@@ -17,7 +17,6 @@ public class NetworkTypeActivity extends ConnectionTypeActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_network_type);
-
         setBaseActivityParams();
         setUpToolbar();
         setUpDoughnutChart();
