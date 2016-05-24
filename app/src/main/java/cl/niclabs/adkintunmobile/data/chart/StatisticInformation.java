@@ -36,9 +36,9 @@ public abstract class StatisticInformation {
 	public abstract ArrayList<Float> getValues();
 	/**
 	 * From the information generated with setStatisticsInformation() returns an adapter for the graphics (ListView type graphics).  
-	 * @return adatpter to be used on a ListView. If there is no adapter return null.
+	 * @return adapter to be used on a ListView. If there is no adapter return null.
 	 */
-	public abstract ArrayAdapter<Integer> getAdapter();
+	//public abstract ArrayAdapter<Integer> getAdapter();
 
 	public ArrayList<Object> getInformation(){
 		return  information;

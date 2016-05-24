@@ -6,24 +6,15 @@ import java.util.Locale;
 
 import cl.niclabs.android.data.Persistent;
 
-public class DailyNetworkTypeSummary extends Persistent<DailyNetworkTypeSummary>{
-
-    public long date;
-
-    public DailyNetworkTypeSummary(long timestamp){
-        Calendar calendar = Calendar.getInstance(Locale.getDefault());
-        calendar.setTimeInMillis(timestamp);
-        calendar.set(Calendar.HOUR_OF_DAY, 0);
-        calendar.set(Calendar.MINUTE, 0);
-        calendar.set(Calendar.SECOND, 0);
-        calendar.set(Calendar.MILLISECOND, 0);
-        date = calendar.getTimeInMillis();
-
-    }
+public class DailyNetworkTypeSummary extends DailyConnectionTypeSummary{
 
     public DailyNetworkTypeSummary(){}
 
-    public Iterator<NetworkTypeSample> getSamples(){
+    public DailyNetworkTypeSummary(long timestamp){
+        super(timestamp);
+    }
+
+    public Iterator<? extends ConnectionTypeSample> getSamples(){
         String[] whereArgs = new String[1];
         whereArgs[0] =  Long.toString(getId());
         Iterator<NetworkTypeSample> samples = find(NetworkTypeSample.class, "date = ?", whereArgs, "initial_time");
@@ -56,7 +47,7 @@ public class DailyNetworkTypeSummary extends Persistent<DailyNetworkTypeSummary>
      * @param initialTime   in milliseconds (to represent an specific day)
      * @return long array with the time in milliseconds using each network type. Index are specified in NetworkTypeSample class.
      */
-    public static long[] getTimeByTypeSummary(long initialTime) {
+    /*public static long[] getTimeByTypeSummary(long initialTime) {
         Calendar calendar = Calendar.getInstance(Locale.getDefault());
         calendar.setTimeInMillis(initialTime);
         calendar.set(Calendar.HOUR_OF_DAY, 0);
@@ -66,13 +57,13 @@ public class DailyNetworkTypeSummary extends Persistent<DailyNetworkTypeSummary>
         initialTime = calendar.getTimeInMillis();
         long period = 3600L * 24L * 1000L;
         DailyNetworkTypeSummary todaySummary = DailyNetworkTypeSummary.getSummary(initialTime);
-        Iterator<NetworkTypeSample> todaySamples = todaySummary.getSamples();
+        Iterator<? extends ConnectionTypeSample> todaySamples = todaySummary.getSamples();
         long[] timeByType = new long[7];
         long lastTime;
         long currentTime = System.currentTimeMillis();
 
         int lastType;
-        NetworkTypeSample sample;
+        ConnectionTypeSample sample;
 
         //Info del primer sample del día
         if (todaySamples.hasNext()){
@@ -89,7 +80,7 @@ public class DailyNetworkTypeSummary extends Persistent<DailyNetworkTypeSummary>
         //Si primer reporte del día no parte de las 0 AM, completar con último del día anterior
         if (lastTime >= initialTime) {
             DailyNetworkTypeSummary yesterdaySummary = DailyNetworkTypeSummary.getSummary(initialTime - period);
-            Iterator<NetworkTypeSample> yesterdaySamples = yesterdaySummary.getSamples();
+            Iterator<? extends ConnectionTypeSample> yesterdaySamples = yesterdaySummary.getSamples();
             if (yesterdaySamples.hasNext()) {
                 while (yesterdaySamples.hasNext()) {
                     sample = yesterdaySamples.next();
@@ -122,14 +113,14 @@ public class DailyNetworkTypeSummary extends Persistent<DailyNetworkTypeSummary>
             timeByType[lastType] += (currentTime - lastTime);
         }
         return timeByType;
-    }
+    }*/
 
     /**
      *
-     * @param currentTime
+     * @param
      * @return int constant from ConnectionModeSample (UNKNOWN, TYPE_G, TYPE_E, TYPE_3G, TYPE_H, TYPE_Hp, TYPE_4G)
      */
-    public static int getPrimaryType(long currentTime){
+/*    public static int getPrimaryType(long currentTime){
         Calendar calendar = Calendar.getInstance(Locale.getDefault());
         calendar.setTimeInMillis(currentTime);
         calendar.set(Calendar.HOUR_OF_DAY, 0);
@@ -153,7 +144,7 @@ public class DailyNetworkTypeSummary extends Persistent<DailyNetworkTypeSummary>
         if (timeByType[NetworkTypeSample.TYPE_4G] > timeByType[primaryType])
             primaryType = NetworkTypeSample.TYPE_4G;
         return  primaryType;
-    }
+    }*/
 
     public long getDateMillis(){
         return date;

@@ -7,7 +7,7 @@ import cl.niclabs.android.data.Persistent;
 /**
  * Created by diego on 27-04-16.
  */
-public class NetworkTypeSample extends Persistent<NetworkTypeSample> {
+public class NetworkTypeSample extends ConnectionTypeSample{
 
     public final static int UNKNOWN = 0;
     public final static int TYPE_G = 1;
@@ -16,11 +16,6 @@ public class NetworkTypeSample extends Persistent<NetworkTypeSample> {
     public final static int TYPE_H = 4;
     public final static int TYPE_Hp = 5;
     public final static int TYPE_4G = 6;
-
-
-    private int type;
-    private long initialTime;
-    private DailyNetworkTypeSummary date;
 
     public NetworkTypeSample(GsmObservationWrapper observation) {
         NetworkType networkType = NetworkType.getInstance(observation.networkType);
@@ -69,13 +64,5 @@ public class NetworkTypeSample extends Persistent<NetworkTypeSample> {
     }
 
     public NetworkTypeSample(){}
-
-    public long getInitialTime(){
-        return initialTime;
-    }
-
-    public int getType(){
-        return type;
-    }
 }
 

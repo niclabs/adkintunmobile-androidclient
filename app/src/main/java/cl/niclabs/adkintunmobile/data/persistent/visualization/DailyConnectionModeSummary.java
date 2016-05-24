@@ -4,27 +4,18 @@ import java.util.Calendar;
 import java.util.Iterator;
 import java.util.Locale;
 
+import cl.niclabs.adkmobile.monitor.data.constants.ConnectionType;
 import cl.niclabs.android.data.Persistent;
 
-public class DailyConnectionModeSummary extends Persistent<DailyConnectionModeSummary> {
-
-    public long date;
-
-    public DailyConnectionModeSummary(long timestamp){
-        Calendar calendar = Calendar.getInstance(Locale.getDefault());
-        calendar.setTimeInMillis(timestamp);
-        calendar.set(Calendar.HOUR_OF_DAY, 0);
-        calendar.set(Calendar.MINUTE, 0);
-        calendar.set(Calendar.SECOND, 0);
-        calendar.set(Calendar.MILLISECOND, 0);
-        date = calendar.getTimeInMillis();
-
-    }
-
+public class DailyConnectionModeSummary extends DailyConnectionTypeSummary{
 
     public DailyConnectionModeSummary(){}
 
-    public Iterator<ConnectionModeSample> getSamples(){
+    public DailyConnectionModeSummary(long timestamp){
+        super(timestamp);
+    }
+
+    public Iterator<? extends ConnectionTypeSample> getSamples(){
         String[] whereArgs = new String[1];
         whereArgs[0] =  Long.toString(getId());
         Iterator<ConnectionModeSample> samples = find(ConnectionModeSample.class, "date = ?", whereArgs, "initial_time");
@@ -57,7 +48,7 @@ public class DailyConnectionModeSummary extends Persistent<DailyConnectionModeSu
      * @param initialTime   in milliseconds (to represent an specific day)
      * @return long array with the time in milliseconds using each connection type. Index are specified in ConnectionModeSample class.
      */
-    public static long[] getTimeByTypeSummary(long initialTime){
+    /*public static long[] getTimeByTypeSummary(long initialTime){
         Calendar calendar = Calendar.getInstance(Locale.getDefault());
         calendar.setTimeInMillis(initialTime);
         calendar.set(Calendar.HOUR_OF_DAY, 0);
@@ -67,13 +58,13 @@ public class DailyConnectionModeSummary extends Persistent<DailyConnectionModeSu
         initialTime = calendar.getTimeInMillis();
         long period = 3600L * 24L * 1000L;
         DailyConnectionModeSummary todaySummary = DailyConnectionModeSummary.getSummary(initialTime);
-        Iterator<ConnectionModeSample> todaySamples = todaySummary.getSamples();
+        Iterator<? extends ConnectionTypeSample> todaySamples = todaySummary.getSamples();
         long[] timeByType = new long[3];
         long lastTime;
         long currentTime = System.currentTimeMillis();
 
         int lastType;
-        ConnectionModeSample sample;
+        ConnectionTypeSample sample;
 
         //Info del primer sample del día
         if (todaySamples.hasNext()){
@@ -90,7 +81,7 @@ public class DailyConnectionModeSummary extends Persistent<DailyConnectionModeSu
         //Si primer reporte del día no parte de las 0 AM, completar con último del día anterior
         if (lastTime >= initialTime) {
             DailyConnectionModeSummary yesterdaySummary = DailyConnectionModeSummary.getSummary(initialTime - period);
-            Iterator<ConnectionModeSample> yesterdaySamples = yesterdaySummary.getSamples();
+            Iterator<? extends ConnectionTypeSample> yesterdaySamples = yesterdaySummary.getSamples();
             if (yesterdaySamples.hasNext()){
                 while (yesterdaySamples.hasNext()) {
                     sample = yesterdaySamples.next();
@@ -124,13 +115,13 @@ public class DailyConnectionModeSummary extends Persistent<DailyConnectionModeSu
         }
         return timeByType;
     }
-
+*/
     /**
      *
-     * @param currentTime
+     * @param
      * @return int constant from ConnectionModeSample (NONE, MOBILE, WIFI)
      */
-    public static int getPrimaryType(long currentTime){
+    /*public static int getPrimaryType(long currentTime){
         Calendar calendar = Calendar.getInstance(Locale.getDefault());
         calendar.setTimeInMillis(currentTime);
         calendar.set(Calendar.HOUR_OF_DAY, 0);
@@ -146,7 +137,7 @@ public class DailyConnectionModeSummary extends Persistent<DailyConnectionModeSu
         if (timeByType[ConnectionModeSample.WIFI] > timeByType[primaryType])
             primaryType = ConnectionModeSample.WIFI;
         return  primaryType;
-    }
+    }*/
 
     public long getDateMillis(){
         return date;

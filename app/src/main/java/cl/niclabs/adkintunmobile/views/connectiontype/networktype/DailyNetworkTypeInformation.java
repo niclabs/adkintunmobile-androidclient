@@ -1,9 +1,11 @@
 package cl.niclabs.adkintunmobile.views.connectiontype.networktype;
 
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.support.v4.content.ContextCompat;
 import android.widget.ArrayAdapter;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Iterator;
@@ -11,163 +13,50 @@ import java.util.Locale;
 
 import cl.niclabs.adkintunmobile.R;
 import cl.niclabs.adkintunmobile.data.chart.StatisticInformation;
+import cl.niclabs.adkintunmobile.data.persistent.visualization.ConnectionTypeSample;
+import cl.niclabs.adkintunmobile.data.persistent.visualization.DailyConnectionTypeSummary;
 import cl.niclabs.adkintunmobile.data.persistent.visualization.DailyNetworkTypeSummary;
 import cl.niclabs.adkintunmobile.data.persistent.visualization.NetworkTypeSample;
+import cl.niclabs.adkintunmobile.views.connectiontype.DailyConnectionTypeInformation;
 
 /**
  * Information about Network Type Events of an specific day, according to
  * "initialTime" parameter (UNIX timestamp of that day)
  */
-public class DailyNetworkTypeInformation extends StatisticInformation{
-    private final long period = 3600L * 24L * 1000L;
-    private final float anglePerMillisecond = 360f/period;
-    private long initialTime;
-    private long currentTime;
-    private Context context;
-
+public class DailyNetworkTypeInformation extends DailyConnectionTypeInformation{
 
     public DailyNetworkTypeInformation(Context context, long initialTime, long currentTime) {
-        this.context = context;
-        this.currentTime = currentTime;
-        Calendar calendar = Calendar.getInstance(Locale.getDefault());
-        calendar.setTimeInMillis(initialTime);
-        calendar.set(Calendar.HOUR_OF_DAY, 0);
-        calendar.set(Calendar.MINUTE, 0);
-        calendar.set(Calendar.SECOND, 0);
-        calendar.set(Calendar.MILLISECOND, 0);
-        this.initialTime = calendar.getTimeInMillis();
-    }
-
-    /**
-     * Get all NetworkTypeSample's of the day represented with "initialTime" parameter.
-     * Then, save ColorsArray and ValuesArray generated to build the DoughnutChart.
-     */
-    @Override
-    public void setStatisticsInformation() {
-        int unknownColor = ContextCompat.getColor(context, R.color.network_type_unknown);
-        int NetworkTypeGColor = ContextCompat.getColor(context, R.color.network_type_G);
-        int NetworkTypeEColor = ContextCompat.getColor(context, R.color.network_type_E);
-        int NetworkType3GColor = ContextCompat.getColor(context, R.color.network_type_3G);
-        int NetworkTypeHColor = ContextCompat.getColor(context, R.color.network_type_H);
-        int NetworkTypeHPColor = ContextCompat.getColor(context, R.color.network_type_Hp);
-        int NetworkType4GColor = ContextCompat.getColor(context, R.color.network_type_4G);
-
-        int[] networkTypeColors = {unknownColor, NetworkTypeGColor, NetworkTypeEColor,
-                NetworkType3GColor, NetworkTypeHColor, NetworkTypeHPColor, NetworkType4GColor};
-
-        int noInfoColor = ContextCompat.getColor(context, R.color.doughnut_no_info);
-        int startColor = ContextCompat.getColor(context, R.color.doughnut_start);
-
-        //Samples del día representado por initialTime
-        DailyNetworkTypeSummary todaySummary = DailyNetworkTypeSummary.getSummary(initialTime);
-        Iterator<NetworkTypeSample> todaySamples = todaySummary.getSamples();
-        long[] timeByType = new long[7];
-
-        final ArrayList<Integer> colors = new ArrayList<Integer>();
-        final ArrayList<Float> values = new ArrayList<Float>();
-        long lastTime;
-        Integer lastColor;
-        int lastType;
-        NetworkTypeSample sample;
-        float initialBar = 1f;
-        values.add(initialBar);
-        colors.add(startColor);
-
-        //Info del primer sample del día
-        if (todaySamples.hasNext()){
-            sample = todaySamples.next();
-            lastTime = sample.getInitialTime();
-            lastColor = networkTypeColors[sample.getType()];
-            lastType = sample.getType();
-        }
-        else {                                      //manejo si no hay valores
-            sample = null;                          //Se podría detectar acá el valor o ejecutar la sincronización
-            lastColor = noInfoColor;
-            lastTime = initialTime;
-            lastType = 0;
-        }
-
-        //Si primer reporte del día no parte de las 0 AM, completar con último del día anterior
-        if (lastTime >= initialTime) {
-            DailyNetworkTypeSummary yesterdaySummary = DailyNetworkTypeSummary.getSummary(initialTime - period);
-            Iterator<NetworkTypeSample> yesterdaySamples = yesterdaySummary.getSamples();
-            if (yesterdaySamples.hasNext()){
-                while (yesterdaySamples.hasNext()) {
-                    sample = yesterdaySamples.next();
-                }
-                lastColor = networkTypeColors[sample.getType()];
-                colors.add( lastColor );
-                lastType = sample.getType();
-                timeByType[lastType] += (lastTime - initialTime);
-            }
-            else {
-                colors.add(noInfoColor);
-            }
-            values.add((lastTime - initialTime) * anglePerMillisecond);
-        }
-
-        Float angle;
-
-        //Samples del día seleccionado
-        while (todaySamples.hasNext()){
-            sample = todaySamples.next();
-            if (lastColor == networkTypeColors[sample.getType()])
-                continue;
-            colors.add( lastColor );
-            lastColor = networkTypeColors[sample.getType()];
-            angle = (sample.getInitialTime() - lastTime) * anglePerMillisecond;
-            values.add(angle);
-
-            timeByType[lastType] += (sample.getInitialTime() - lastTime);
-            lastType = sample.getType();
-
-            lastTime = sample.getInitialTime();
-        }
-
-        //Si es un día anterior a la fecha actual
-        if (currentTime >= initialTime + period){
-            angle = (initialTime + period - lastTime) * anglePerMillisecond;
-            values.add(angle - initialBar);
-            colors.add(lastColor);
-            if (lastTime >= initialTime)
-                timeByType[lastType] += (initialTime + period - lastTime);
-        }
-        //Si es un día posterior a la fecha actual
-        else if(initialTime > currentTime){
-            colors.add(noInfoColor);
-            values.add((initialTime + period - lastTime - initialBar) * anglePerMillisecond);
-        }
-        //Si es el día actual
-        else {
-            angle = (currentTime - lastTime) * anglePerMillisecond;
-            values.add(angle);
-            colors.add(lastColor);
-            colors.add(noInfoColor);
-            values.add((initialTime + period - currentTime - initialBar) * anglePerMillisecond);
-            timeByType[lastType] += (currentTime - lastTime);
-        }
-
-        setTimeByType(timeByType);
-
-        ArrayList<Object> results = new ArrayList<Object>();
-        results.add(colors);
-        results.add(values);
-        super.setInformation(results);
+        super(context, initialTime, currentTime);
     }
 
     @Override
-    public ArrayList<Integer> getColors() {
-        return (ArrayList<Integer>) super.getInformation().get(0);
+    public DailyConnectionTypeSummary getSummary(long timestamp) {
+        return DailyNetworkTypeSummary.getSummary(timestamp);
     }
 
     @Override
-    public ArrayList<Float> getValues() {
-        return (ArrayList<Float>) super.getInformation().get(1);
+    public TypedArray getConnectionTypeColors(){
+        return context.getResources().obtainTypedArray(R.array.network_type_legend_colors);
     }
 
     @Override
-    public ArrayAdapter<Integer> getAdapter() {
-        return null;
-    }
+    public int getPrimaryType(){
+        long[] timeByType = getTimeByType();
 
+        int primaryType = NetworkTypeSample.UNKNOWN;
+
+        if (timeByType[NetworkTypeSample.TYPE_G] > timeByType[primaryType])
+        primaryType = NetworkTypeSample.TYPE_G;
+        if (timeByType[NetworkTypeSample.TYPE_E] > timeByType[primaryType])
+        primaryType = NetworkTypeSample.TYPE_E;
+        if (timeByType[NetworkTypeSample.TYPE_3G] > timeByType[primaryType])
+        primaryType = NetworkTypeSample.TYPE_3G;
+        if (timeByType[NetworkTypeSample.TYPE_H] > timeByType[primaryType])
+        primaryType = NetworkTypeSample.TYPE_H;
+        if (timeByType[NetworkTypeSample.TYPE_Hp] > timeByType[primaryType])
+        primaryType = NetworkTypeSample.TYPE_Hp;
+        if (timeByType[NetworkTypeSample.TYPE_4G] > timeByType[primaryType])
+        primaryType = NetworkTypeSample.TYPE_4G;
+        return  primaryType;
+    }
 }

@@ -49,6 +49,15 @@
         <item>@drawable/ic_09_4g</item>
     </array>
     <array name="network_type_legend_colors">
+        <item>@color/network_type_unknown</item>
+        <item>@color/network_type_G</item>
+        <item>@color/network_type_E</item>
+        <item>@color/network_type_3G</item>
+        <item>@color/network_type_H</item>
+        <item>@color/network_type_Hp</item>
+        <item>@color/network_type_4G</item>
+    </array>
+    <array name="network_type_legend_colors_soft">
         <item>@color/network_type_unknown_soft</item>
         <item>@color/network_type_G_soft</item>
         <item>@color/network_type_E_soft</item>
@@ -59,16 +68,21 @@
     </array>
 
     <!-- Connection Mode Legend -->
-    <integer-array name="connection_mode_legend_icons">
+    <array name="connection_mode_legend_icons">
         <item>@drawable/ic_03_nowifi</item>
         <item>@drawable/ic_02_mobile</item>
         <item>@drawable/ic_01_wifi</item>
-    </integer-array>
-    <integer-array name="connection_mode_legend_colors">
+    </array>
+    <array name="connection_mode_legend_colors">
+        <item>@color/doughnut_no_connection</item>
+        <item>@color/doughnut_mobile</item>
+        <item>@color/doughnut_wifi</item>
+    </array>
+    <array name="connection_mode_legend_colors_soft">
         <item>@color/doughnut_no_connection_soft</item>
         <item>@color/doughnut_mobile_soft</item>
         <item>@color/doughnut_wifi_soft</item>
-    </integer-array>
+    </array>
 
     <!-- Data Quotas -->
     <string-array name="data_quotas">

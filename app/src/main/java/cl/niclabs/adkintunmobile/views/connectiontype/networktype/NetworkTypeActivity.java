@@ -6,7 +6,6 @@ import android.widget.RelativeLayout;
 
 import cl.niclabs.adkintunmobile.R;
 import cl.niclabs.adkintunmobile.data.chart.StatisticInformation;
-import cl.niclabs.adkintunmobile.data.persistent.visualization.DailyNetworkTypeSummary;
 import cl.niclabs.adkintunmobile.utils.display.DoughnutChart;
 import cl.niclabs.adkintunmobile.views.connectiontype.ConnectionTypeActivity;
 
@@ -42,7 +41,7 @@ public class NetworkTypeActivity extends ConnectionTypeActivity {
     @Override
     public void refreshLegend(long initialTime){
         TypedArray icons = context.getResources().obtainTypedArray(R.array.network_type_legend_icons);
-        TypedArray colors = context.getResources().obtainTypedArray(R.array.network_type_legend_colors);
+        TypedArray colors = context.getResources().obtainTypedArray(R.array.network_type_legend_colors_soft);
         setNewLegend(icons, colors);
     }
 }

@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.widget.RelativeLayout;
 import cl.niclabs.adkintunmobile.R;
 import cl.niclabs.adkintunmobile.data.chart.StatisticInformation;
-import cl.niclabs.adkintunmobile.data.persistent.visualization.DailyConnectionModeSummary;
 import cl.niclabs.adkintunmobile.utils.display.DoughnutChart;
 import cl.niclabs.adkintunmobile.views.connectiontype.ConnectionTypeActivity;
 
@@ -40,7 +39,7 @@ public class ConnectionModeActivity extends ConnectionTypeActivity {
     @Override
     public void refreshLegend(long initialTime){
         TypedArray icons = context.getResources().obtainTypedArray(R.array.connection_mode_legend_icons);
-        TypedArray colors = context.getResources().obtainTypedArray(R.array.connection_mode_legend_colors);
+        TypedArray colors = context.getResources().obtainTypedArray(R.array.connection_mode_legend_colors_soft);
         setNewLegend(icons, colors);
     }
 }

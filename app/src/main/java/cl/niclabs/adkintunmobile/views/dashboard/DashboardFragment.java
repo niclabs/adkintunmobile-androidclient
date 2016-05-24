@@ -24,6 +24,8 @@ import cl.niclabs.adkintunmobile.data.persistent.visualization.NetworkTypeSample
 import cl.niclabs.adkintunmobile.utils.information.Network;
 import cl.niclabs.adkintunmobile.views.BaseToolbarFragment;
 import cl.niclabs.adkintunmobile.views.applicationstraffic.ApplicationsTrafficListElement;
+import cl.niclabs.adkintunmobile.views.connectiontype.connectionmode.DailyConnectionModeInformation;
+import cl.niclabs.adkintunmobile.views.connectiontype.networktype.DailyNetworkTypeInformation;
 
 public class DashboardFragment extends BaseToolbarFragment {
 
@@ -120,7 +122,10 @@ public class DashboardFragment extends BaseToolbarFragment {
 
     public void updateConnectionMode(View view){
         TextView tvPrimaryConn = (TextView)view.findViewById(R.id.tv_primary_conn);
-        switch (DailyConnectionModeSummary.getPrimaryType(System.currentTimeMillis())){
+        long currentTime = System.currentTimeMillis();
+        DailyConnectionModeInformation information = new DailyConnectionModeInformation(context, currentTime, currentTime);
+        information.setStatisticsInformation();
+        switch (information.getPrimaryType()){
             case ConnectionModeSample.NONE:
                 tvPrimaryConn.setText(getString(R.string.view_dashboard_conn_mode_unknown));
                 break;
@@ -135,7 +140,10 @@ public class DashboardFragment extends BaseToolbarFragment {
 
     public void updateNetworkType(View view){
         ImageView ivPrimaryNet = (ImageView)view.findViewById(R.id.iv_primary_net);
-        switch (DailyNetworkTypeSummary.getPrimaryType(System.currentTimeMillis())){
+        long currentTime = System.currentTimeMillis();
+        DailyNetworkTypeInformation information = new DailyNetworkTypeInformation(context, currentTime, currentTime);
+        information.setStatisticsInformation();
+        switch (information.getPrimaryType()){
             case NetworkTypeSample.UNKNOWN:
                 ivPrimaryNet.setImageResource(R.drawable.ic_10_nored);
                 break;
