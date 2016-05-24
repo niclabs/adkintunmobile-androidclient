@@ -57,6 +57,10 @@ public abstract class ConnectionTypeActivity extends AppCompatActivity implement
         int marginVertical = (int)getResources().getDimension(R.dimen.separation_little);
         tv.setPadding(marginHorizontal, marginVertical, marginHorizontal, marginVertical);
         tv.setGravity(Gravity.CENTER_HORIZONTAL);
+        Typeface tf1 = Typeface.createFromAsset(context.getAssets(),
+                getString(R.string.font_text_view));
+        tv.setTypeface(tf1);
+        tv.setTextColor(ContextCompat.getColor(context, android.R.color.white));
         return tv;
     }
 
@@ -70,7 +74,9 @@ public abstract class ConnectionTypeActivity extends AppCompatActivity implement
             long minutes = (timeByType[i] - hours*3600*1000)/(60*1000);
 
             if (hours != 0 || minutes != 0){
-                String legend = hours + " h " + minutes + " min";
+                String legend = "";
+                legend += hours > 0 ? + hours + " Hr. " : "";
+                legend += minutes > 0 ? minutes + " Min." : "";
                 TextView legendTextView = createLegendTextView(icons.getResourceId(i,0), colors.getResourceId(i, 0), legend);
                 timeLegend.add(new TimeLegend(legendTextView, timeByType[i]) );
             }
