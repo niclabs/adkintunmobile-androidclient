@@ -4,9 +4,6 @@ import java.util.Calendar;
 import java.util.Iterator;
 import java.util.Locale;
 
-import cl.niclabs.adkmobile.monitor.data.constants.ConnectionType;
-import cl.niclabs.android.data.Persistent;
-
 public class DailyConnectionModeSummary extends DailyConnectionTypeSummary{
 
     public DailyConnectionModeSummary(){}

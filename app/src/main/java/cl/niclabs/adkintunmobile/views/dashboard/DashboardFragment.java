@@ -18,8 +18,6 @@ import java.util.Iterator;
 import cl.niclabs.adkintunmobile.R;
 import cl.niclabs.adkintunmobile.data.persistent.visualization.ApplicationTraffic;
 import cl.niclabs.adkintunmobile.data.persistent.visualization.ConnectionModeSample;
-import cl.niclabs.adkintunmobile.data.persistent.visualization.DailyConnectionModeSummary;
-import cl.niclabs.adkintunmobile.data.persistent.visualization.DailyNetworkTypeSummary;
 import cl.niclabs.adkintunmobile.data.persistent.visualization.NetworkTypeSample;
 import cl.niclabs.adkintunmobile.utils.information.Network;
 import cl.niclabs.adkintunmobile.views.BaseToolbarFragment;

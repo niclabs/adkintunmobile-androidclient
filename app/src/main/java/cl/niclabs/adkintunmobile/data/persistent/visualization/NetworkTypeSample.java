@@ -2,7 +2,6 @@ package cl.niclabs.adkintunmobile.data.persistent.visualization;
 
 import cl.niclabs.adkintunmobile.data.persistent.GsmObservationWrapper;
 import cl.niclabs.adkmobile.monitor.data.constants.NetworkType;
-import cl.niclabs.android.data.Persistent;
 
 /**
  * Created by diego on 27-04-16.

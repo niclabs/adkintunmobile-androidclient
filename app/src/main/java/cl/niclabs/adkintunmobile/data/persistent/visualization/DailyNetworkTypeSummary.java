@@ -4,8 +4,6 @@ import java.util.Calendar;
 import java.util.Iterator;
 import java.util.Locale;
 
-import cl.niclabs.android.data.Persistent;
-
 public class DailyNetworkTypeSummary extends DailyConnectionTypeSummary{
 
     public DailyNetworkTypeSummary(){}

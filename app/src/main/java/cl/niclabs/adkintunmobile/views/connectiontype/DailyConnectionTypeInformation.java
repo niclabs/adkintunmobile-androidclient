@@ -3,7 +3,6 @@ package cl.niclabs.adkintunmobile.views.connectiontype;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.support.v4.content.ContextCompat;
-import android.widget.ArrayAdapter;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -12,9 +11,7 @@ import java.util.Locale;
 
 import cl.niclabs.adkintunmobile.R;
 import cl.niclabs.adkintunmobile.data.chart.StatisticInformation;
-import cl.niclabs.adkintunmobile.data.persistent.visualization.ConnectionModeSample;
 import cl.niclabs.adkintunmobile.data.persistent.visualization.ConnectionTypeSample;
-import cl.niclabs.adkintunmobile.data.persistent.visualization.DailyConnectionModeSummary;
 import cl.niclabs.adkintunmobile.data.persistent.visualization.DailyConnectionTypeSummary;
 
 /**
@@ -83,7 +80,7 @@ public abstract class DailyConnectionTypeInformation extends StatisticInformatio
             sample = null;                          //Se podría detectar acá el valor o ejecutar la sincronización
             lastColor = noInfoColor;
             lastTime = initialTime;
-            lastType = 0;
+            lastType = -1;
         }
 
         //Si primer reporte del día no parte de las 0 AM, completar con último del día anterior
@@ -128,7 +125,7 @@ public abstract class DailyConnectionTypeInformation extends StatisticInformatio
             angle = (initialTime + period - lastTime) * anglePerMillisecond;
             values.add(angle - initialBar);
             colors.add(lastColor);
-            if (lastTime >= initialTime)
+            if ((lastTime >= initialTime) && lastType!=-1)
                 timeByType[lastType] += (initialTime + period - lastTime);
         }
         //Si es un día posterior a la fecha actual

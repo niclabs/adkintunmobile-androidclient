@@ -3,6 +3,7 @@ package cl.niclabs.adkintunmobile.views.connectiontype.connectionmode;
 import android.content.res.TypedArray;
 import android.os.Bundle;
 import android.widget.RelativeLayout;
+
 import cl.niclabs.adkintunmobile.R;
 import cl.niclabs.adkintunmobile.data.chart.StatisticInformation;
 import cl.niclabs.adkintunmobile.utils.display.DoughnutChart;

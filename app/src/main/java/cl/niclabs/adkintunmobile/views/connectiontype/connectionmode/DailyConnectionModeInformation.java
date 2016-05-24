@@ -2,20 +2,9 @@ package cl.niclabs.adkintunmobile.views.connectiontype.connectionmode;
 
 import android.content.Context;
 import android.content.res.TypedArray;
-import android.support.v4.content.ContextCompat;
-import android.util.Log;
-import android.widget.ArrayAdapter;
-
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Iterator;
-import java.util.Locale;
-import java.util.logging.Logger;
 
 import cl.niclabs.adkintunmobile.R;
-import cl.niclabs.adkintunmobile.data.chart.StatisticInformation;
 import cl.niclabs.adkintunmobile.data.persistent.visualization.ConnectionModeSample;
-import cl.niclabs.adkintunmobile.data.persistent.visualization.ConnectionTypeSample;
 import cl.niclabs.adkintunmobile.data.persistent.visualization.DailyConnectionModeSummary;
 import cl.niclabs.adkintunmobile.data.persistent.visualization.DailyConnectionTypeSummary;
 import cl.niclabs.adkintunmobile.views.connectiontype.DailyConnectionTypeInformation;

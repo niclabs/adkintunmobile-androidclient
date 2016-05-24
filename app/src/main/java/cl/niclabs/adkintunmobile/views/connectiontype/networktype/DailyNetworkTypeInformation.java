@@ -2,18 +2,8 @@ package cl.niclabs.adkintunmobile.views.connectiontype.networktype;
 
 import android.content.Context;
 import android.content.res.TypedArray;
-import android.support.v4.content.ContextCompat;
-import android.widget.ArrayAdapter;
-
-import java.lang.reflect.Type;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Iterator;
-import java.util.Locale;
 
 import cl.niclabs.adkintunmobile.R;
-import cl.niclabs.adkintunmobile.data.chart.StatisticInformation;
-import cl.niclabs.adkintunmobile.data.persistent.visualization.ConnectionTypeSample;
 import cl.niclabs.adkintunmobile.data.persistent.visualization.DailyConnectionTypeSummary;
 import cl.niclabs.adkintunmobile.data.persistent.visualization.DailyNetworkTypeSummary;
 import cl.niclabs.adkintunmobile.data.persistent.visualization.NetworkTypeSample;

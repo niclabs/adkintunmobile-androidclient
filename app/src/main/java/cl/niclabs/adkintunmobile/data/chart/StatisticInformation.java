@@ -1,7 +1,5 @@
 package cl.niclabs.adkintunmobile.data.chart;
 
-import android.widget.ArrayAdapter;
-
 import java.util.ArrayList;
 
 /**
