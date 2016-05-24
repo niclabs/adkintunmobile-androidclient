@@ -51,7 +51,6 @@ public class Synchronization extends Service {
         // 2.- Prepare request
         sendData(data);
         // 2,5.- Backup data
-        //backupData();
         report.saveVisualSamples();
         // 3.- Clean DB
         report.cleanDBRecords();
@@ -74,7 +73,6 @@ public class Synchronization extends Service {
     /*
      *  Utility Methods
      */
-
     private byte[] collectStoredData(Report report) {
         // The output object
         byte[] data = null;
@@ -86,7 +84,9 @@ public class Synchronization extends Service {
         // Store in cache
         File outputDir = this.getCacheDir();
         try {
-            File outputFile = File.createTempFile("report", ".adkdb", outputDir);
+            String filename = getString(R.string.synchronization_report_filename);
+            String fileExtension = getString(R.string.synchronization_report_fileextension);
+            File outputFile = File.createTempFile(filename, fileExtension, outputDir);
             FileOutputStream outStream = new FileOutputStream(outputFile);
             outStream.write(reportData.getBytes());
             outStream.flush();
@@ -115,7 +115,6 @@ public class Synchronization extends Service {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
         return bFile;
     }
 
@@ -126,7 +125,8 @@ public class Synchronization extends Service {
         DataOutputStream dos = new DataOutputStream(bos);
         try {
             // Primer archivo adjuntado al DataOutputStream
-            HttpMultipartRequest.buildPart(dos, data, "report.JSON");
+            String fileMultiPartFormData = getString(R.string.synchronization_report_file_multipartdata);
+            HttpMultipartRequest.buildPart(dos, data, fileMultiPartFormData);
             // Agregar "multipart form data" después de los archivos
             HttpMultipartRequest.writeBytes(dos);
             // Crear multipart body
@@ -135,8 +135,12 @@ public class Synchronization extends Service {
             e.printStackTrace();
         }
 
+        // Preparar headers del request
         Map<String,String> headers = new HashMap<String, String>();
-        headers.put("Authorization", getResources().getString(R.string.settings_sampling_hostname_token));
+        String authKey = getString(R.string.settings_sampling_hostname_token_key);
+        String authValue = getString(R.string.settings_sampling_hostname_token_value);
+        headers.put(authKey, authValue);
+
         // Creación multipart request
         final SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this.context);
         HttpMultipartRequest multipartRequest =
