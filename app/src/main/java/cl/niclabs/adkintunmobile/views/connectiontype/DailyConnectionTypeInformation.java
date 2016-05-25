@@ -137,7 +137,8 @@ public abstract class DailyConnectionTypeInformation extends StatisticInformatio
             colors.add(lastColor);
             colors.add(noInfoColor);
             values.add((initialTime + period - currentTime - initialBar) * anglePerMillisecond);
-            timeByType[lastType] += (currentTime - lastTime);
+            if (lastType != -1)
+               timeByType[lastType] += (currentTime - lastTime);
         }
 
         super.setTimeByType(timeByType);
