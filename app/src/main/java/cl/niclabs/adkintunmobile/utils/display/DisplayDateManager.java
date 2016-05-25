@@ -40,18 +40,9 @@ public class DisplayDateManager {
         setDate(dateText, calendar);
     }
 
-    public String getDateString(Calendar calendar){
-        SimpleDateFormat format1 = new SimpleDateFormat("dd-mm-yyyy hh:mm");
-        return format1.format(calendar);
-    }
-
-    static public String getDateString(long timestamp){
+    static public String getDateString(long timestamp, SimpleDateFormat customFormat){
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(timestamp);
-
-        SimpleDateFormat format1 = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-        String formatted = format1.format(calendar.getTime());
-
-        return formatted;
+        return customFormat.format(calendar.getTime());
     }
 }

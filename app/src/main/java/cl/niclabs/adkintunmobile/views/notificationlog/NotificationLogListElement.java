@@ -1,5 +1,7 @@
 package cl.niclabs.adkintunmobile.views.notificationlog;
 
+import java.text.SimpleDateFormat;
+
 import cl.niclabs.adkintunmobile.data.persistent.visualization.NewsNotification;
 import cl.niclabs.adkintunmobile.utils.display.DisplayDateManager;
 
@@ -43,6 +45,6 @@ public class NotificationLogListElement {
     }
 
     public String getDate(){
-        return DisplayDateManager.getDateString(this.getTimestamp());
+        return DisplayDateManager.getDateString(this.getTimestamp(), new SimpleDateFormat("dd/MM/yyyy HH:mm"));
     }
 }

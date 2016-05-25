@@ -73,6 +73,8 @@ public class ApplicationsTrafficActivity extends AppCompatActivity implements Da
         }).start();
     }
 
+
+
     public void setBaseActivityParams(){
         this.title = getString(R.string.view_applications_traffic);
         this.context = this;
