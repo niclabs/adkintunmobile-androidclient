@@ -25,9 +25,10 @@
     <string name="settings_sampling_hostname_key">sync_hostname</string>
     <string name="settings_sampling_hostname_title">Dirección del servidor</string>
     <string name="settings_sampling_hostname_summary">Especificar dirección de servidor de datos</string>
-    <string name="settings_sampling_hostname_default">http://172.30.65.50:5000/events</string>
+    <string name="settings_sampling_hostname_default">http://dev.niclabs.cl/events</string>
     <string name="settings_sampling_hostname_token_key">Authorization</string>
-    <string name="settings_sampling_hostname_token_value">token dm89ivf57mjo7hj9zvzi0fkpd5v8t4dfgleqm08fqdridz8ror</string>
+    <!--<string name="settings_sampling_hostname_token_value">token dm89ivf57mjo7hj9zvzi0fkpd5v8t4dfgleqm08fqdridz8ror</string>-->
+    <string name="settings_sampling_hostname_token_value">token hKtEK6vVPKQA7hG7wnk7f4PmRm626ROYkFM69BCqvmniHnLeGJ</string>
 
     <string name="settings_sampling_frequency_key">sync_frequency</string>
     <string name="settings_sampling_frequency_title">Frencuencia de envío</string>
