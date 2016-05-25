@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 import cl.niclabs.adkintunmobile.R;
@@ -67,6 +68,6 @@ public class ApplicationsTrafficListFragment extends Fragment {
         this.listAdapter.addAll(dataArray);
         this.listAdapter.sort();
 
-        Snackbar.make(getView(), "Mostrando consumo desde "+DisplayDateManager.getDateString(timestamp),Snackbar.LENGTH_LONG).show();
+        Snackbar.make(getView(), "Mostrando consumo desde "+DisplayDateManager.getDateString(timestamp, new SimpleDateFormat("dd/MM/yyyy")),Snackbar.LENGTH_LONG).show();
     }
 }
