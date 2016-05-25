@@ -19,7 +19,7 @@ public class NetworkTypeActivity extends ConnectionTypeActivity {
         setContentView(R.layout.activity_network_type);
         setBaseActivityParams();
         setUpToolbar();
-        setUpDoughnutChart();
+        //setUpDoughnutChart();
     }
 
     public void setBaseActivityParams() {

@@ -19,7 +19,7 @@ public class ConnectionModeActivity extends ConnectionTypeActivity {
         setContentView(R.layout.activity_connection_mode);
         setBaseActivityParams();
         setUpToolbar();
-        setUpDoughnutChart();
+        //setUpDoughnutChart();
     }
 
     public void setBaseActivityParams() {

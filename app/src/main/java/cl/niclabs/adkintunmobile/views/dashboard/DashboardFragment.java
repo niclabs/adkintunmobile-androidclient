@@ -41,10 +41,10 @@ public class DashboardFragment extends BaseToolbarFragment {
         inflater.inflate(R.layout.fragment_dashboard, (ViewGroup) localFragmentView, true);
         setupToolbar(view);
 
-        updateMobileConsumption(view);
+/*        updateMobileConsumption(view);
         updateConnectionMode(view);
         updateNetworkType(view);
-        updateTopApps(view);
+        updateTopApps(view);*/
 
         return view;
     }
@@ -55,6 +55,10 @@ public class DashboardFragment extends BaseToolbarFragment {
         View view = getView();
 
         updateStatusToolbar(view);
+        updateMobileConsumption(view);
+        updateConnectionMode(view);
+        updateNetworkType(view);
+        updateTopApps(view);
     }
 
     public void updateStatusToolbar(View view){
@@ -92,77 +96,118 @@ public class DashboardFragment extends BaseToolbarFragment {
 
     }
 
-    public void updateTopApps(View view){
-        ApplicationsTrafficListElement[] topApps = getTop3AppsToday();
+    public void updateTopApps(final View view){
+        (new Thread(){
+            @Override
+            public void run() {
+                final ApplicationsTrafficListElement[] topApps = getTop3AppsToday();
 
-        if(topApps[0] != null) {
-            ((ImageView) view.findViewById(R.id.iv_app1)).setImageDrawable(topApps[0].getLogo());
-            ((TextView) view.findViewById(R.id.tv_app1)).setText(topApps[0].getLabel());
-        }
-
-        if(topApps[1] != null) {
-            ((ImageView) view.findViewById(R.id.iv_app2)).setImageDrawable(topApps[1].getLogo());
-            ((TextView) view.findViewById(R.id.tv_app2)).setText(topApps[1].getLabel());
-        }
-
-        if(topApps[2] != null) {
-            ((ImageView) view.findViewById(R.id.iv_app3)).setImageDrawable(topApps[2].getLogo());
-            ((TextView) view.findViewById(R.id.tv_app3)).setText(topApps[2].getLabel());
-        }
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        if(topApps[0] != null) {
+                            ((ImageView) view.findViewById(R.id.iv_app1)).setImageDrawable(topApps[0].getLogo());
+                            ((TextView) view.findViewById(R.id.tv_app1)).setText(topApps[0].getLabel());
+                        }
+                        if(topApps[1] != null) {
+                            ((ImageView) view.findViewById(R.id.iv_app2)).setImageDrawable(topApps[1].getLogo());
+                            ((TextView) view.findViewById(R.id.tv_app2)).setText(topApps[1].getLabel());
+                        }
+                        if(topApps[2] != null) {
+                            ((ImageView) view.findViewById(R.id.iv_app3)).setImageDrawable(topApps[2].getLogo());
+                            ((TextView) view.findViewById(R.id.tv_app3)).setText(topApps[2].getLabel());
+                        }
+                    }
+                });
+            }
+        }).start();
     }
 
-    public void updateMobileConsumption(View view){
-        long[] monthlyData = getMonthlyMobileConsumption();
-        ((TextView) view.findViewById(R.id.tv_download_data)).setText(Network.formatBytes(monthlyData[0]));
-        ((TextView) view.findViewById(R.id.tv_upload_data)).setText(Network.formatBytes(monthlyData[1]));
+    public void updateMobileConsumption(final View view){
+        (new Thread(){
+            @Override
+            public void run() {
+                final long[] monthlyData = getMonthlyMobileConsumption();
+
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        ((TextView) view.findViewById(R.id.tv_download_data)).setText(Network.formatBytes(monthlyData[0]));
+                        ((TextView) view.findViewById(R.id.tv_upload_data)).setText(Network.formatBytes(monthlyData[1]));
+                    }
+                });
+            }
+        }).start();
     }
 
-    public void updateConnectionMode(View view){
-        TextView tvPrimaryConn = (TextView)view.findViewById(R.id.tv_primary_conn);
-        long currentTime = System.currentTimeMillis();
-        DailyConnectionModeInformation information = new DailyConnectionModeInformation(context, currentTime, currentTime);
-        information.setStatisticsInformation();
-        switch (information.getPrimaryType()){
-            case ConnectionModeSample.NONE:
-                tvPrimaryConn.setText(getString(R.string.view_dashboard_conn_mode_unknown));
-                break;
-            case ConnectionModeSample.MOBILE:
-                tvPrimaryConn.setText(getString(R.string.view_dashboard_conn_mode_mobile));
-                break;
-            case ConnectionModeSample.WIFI:
-                tvPrimaryConn.setText(getString(R.string.view_dashboard_conn_mode_wifi));
-                break;
-        }
+    public void updateConnectionMode(final View view){
+        (new Thread(){
+            @Override
+            public void run() {
+                long currentTime = System.currentTimeMillis();
+                final DailyConnectionModeInformation information = new DailyConnectionModeInformation(context, currentTime, currentTime);
+                information.setStatisticsInformation();
+
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        TextView tvPrimaryConn = (TextView)view.findViewById(R.id.tv_primary_conn);
+                        switch (information.getPrimaryType()){
+                            case ConnectionModeSample.NONE:
+                                tvPrimaryConn.setText(getString(R.string.view_dashboard_conn_mode_unknown));
+                                break;
+                            case ConnectionModeSample.MOBILE:
+                                tvPrimaryConn.setText(getString(R.string.view_dashboard_conn_mode_mobile));
+                                break;
+                            case ConnectionModeSample.WIFI:
+                                tvPrimaryConn.setText(getString(R.string.view_dashboard_conn_mode_wifi));
+                                break;
+                        }
+                    }
+                });
+            }
+        }).start();
     }
 
-    public void updateNetworkType(View view){
-        ImageView ivPrimaryNet = (ImageView)view.findViewById(R.id.iv_primary_net);
-        long currentTime = System.currentTimeMillis();
-        DailyNetworkTypeInformation information = new DailyNetworkTypeInformation(context, currentTime, currentTime);
-        information.setStatisticsInformation();
-        switch (information.getPrimaryType()){
-            case NetworkTypeSample.UNKNOWN:
-                ivPrimaryNet.setImageResource(R.drawable.ic_10_nored);
-                break;
-            case NetworkTypeSample.TYPE_G:
-                ivPrimaryNet.setImageResource(R.drawable.ic_04_g);
-                break;
-            case NetworkTypeSample.TYPE_E:
-                ivPrimaryNet.setImageResource(R.drawable.ic_05_edge);
-                break;
-            case NetworkTypeSample.TYPE_3G:
-                ivPrimaryNet.setImageResource(R.drawable.ic_06_3g);
-                break;
-            case NetworkTypeSample.TYPE_H:
-                ivPrimaryNet.setImageResource(R.drawable.ic_07_h);
-                break;
-            case NetworkTypeSample.TYPE_Hp:
-                ivPrimaryNet.setImageResource(R.drawable.ic_08_hp);
-                break;
-            case NetworkTypeSample.TYPE_4G:
-                ivPrimaryNet.setImageResource(R.drawable.ic_09_4g);
-                break;
-        }
+    public void updateNetworkType(final View view){
+        (new Thread(){
+            @Override
+            public void run() {
+                long currentTime = System.currentTimeMillis();
+                final DailyNetworkTypeInformation information = new DailyNetworkTypeInformation(context, currentTime, currentTime);
+                information.setStatisticsInformation();
+
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        ImageView ivPrimaryNet = (ImageView)view.findViewById(R.id.iv_primary_net);
+                        switch (information.getPrimaryType()){
+                            case NetworkTypeSample.UNKNOWN:
+                                ivPrimaryNet.setImageResource(R.drawable.ic_10_nored);
+                                break;
+                            case NetworkTypeSample.TYPE_G:
+                                ivPrimaryNet.setImageResource(R.drawable.ic_04_g);
+                                break;
+                            case NetworkTypeSample.TYPE_E:
+                                ivPrimaryNet.setImageResource(R.drawable.ic_05_edge);
+                                break;
+                            case NetworkTypeSample.TYPE_3G:
+                                ivPrimaryNet.setImageResource(R.drawable.ic_06_3g);
+                                break;
+                            case NetworkTypeSample.TYPE_H:
+                                ivPrimaryNet.setImageResource(R.drawable.ic_07_h);
+                                break;
+                            case NetworkTypeSample.TYPE_Hp:
+                                ivPrimaryNet.setImageResource(R.drawable.ic_08_hp);
+                                break;
+                            case NetworkTypeSample.TYPE_4G:
+                                ivPrimaryNet.setImageResource(R.drawable.ic_09_4g);
+                                break;
+                        }
+                    }
+                });
+            }
+        }).start();
     }
 
     public ApplicationsTrafficListElement[] getTop3AppsToday(){

@@ -48,6 +48,12 @@ public abstract class ConnectionTypeActivity extends AppCompatActivity implement
 
     public abstract void refreshLegend(long initialTime);
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        setUpDoughnutChart();
+    }
+
     public TextView createLegendTextView(int icon, int color, String text){
         TextView tv = new TextView(this);
         tv.setText(text);
@@ -61,6 +67,7 @@ public abstract class ConnectionTypeActivity extends AppCompatActivity implement
                 getString(R.string.font_text_view));
         tv.setTypeface(tf1);
         tv.setTextColor(ContextCompat.getColor(context, android.R.color.white));
+
         return tv;
     }
 
@@ -154,6 +161,7 @@ public abstract class ConnectionTypeActivity extends AppCompatActivity implement
         chartElement.setRotation(180f);
 
         // Cargar datos de tipo de conexion de las últimas 24 horas
+        DisplayManager.enableLoadingPanel(this.loadingPanel);
         (new Thread(){
             @Override
             public void run() {

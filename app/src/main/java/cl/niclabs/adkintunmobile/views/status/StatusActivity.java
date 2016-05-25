@@ -51,8 +51,13 @@ public class StatusActivity extends AppCompatActivity {
 
         setBaseActivityParams();
         setupToolbar();
+    }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
 
+        DisplayManager.enableLoadingPanel(loadingPanel);
         (new Thread(){
             @Override
             public void run() {
@@ -70,7 +75,6 @@ public class StatusActivity extends AppCompatActivity {
 
             }
         }).start();
-
     }
 
     public void setBaseActivityParams(){
