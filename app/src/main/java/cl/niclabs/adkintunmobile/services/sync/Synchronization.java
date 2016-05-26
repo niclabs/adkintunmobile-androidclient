@@ -143,9 +143,14 @@ public class Synchronization extends Service {
 
         // Creación multipart request
         final SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this.context);
+        String requestURL =
+                sharedPreferences.getString(
+                        this.context.getString(R.string.settings_sampling_hostname_key),
+                        this.context.getString(R.string.settings_sampling_hostname_default));
+        Log.d(TAG, "to: "+ requestURL);
         HttpMultipartRequest multipartRequest =
                 new HttpMultipartRequest(
-                        sharedPreferences.getString(this.context.getString(R.string.settings_sampling_hostname_key), ""),
+                        requestURL,
                         headers,
                         multipartBody,
                         new Response.Listener<NetworkResponse>() {
