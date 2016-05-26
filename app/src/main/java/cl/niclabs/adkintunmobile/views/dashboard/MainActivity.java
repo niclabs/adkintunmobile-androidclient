@@ -13,6 +13,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.crashlytics.android.Crashlytics;
+
 import cl.niclabs.adkintunmobile.R;
 import cl.niclabs.adkintunmobile.data.persistent.visualization.NewsNotification;
 import cl.niclabs.adkintunmobile.services.SetupSystem;
@@ -24,6 +26,7 @@ import cl.niclabs.adkintunmobile.views.connectiontype.networktype.NetworkTypeAct
 import cl.niclabs.adkintunmobile.views.rankings.RankingFragment;
 import cl.niclabs.adkintunmobile.views.settings.SettingsActivity;
 import cl.niclabs.adkintunmobile.views.status.StatusActivity;
+import io.fabric.sdk.android.Fabric;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -38,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //Fabric.with(this, new Crashlytics());
+        Fabric.with(this, new Crashlytics());
         setContentView(R.layout.activity_main);
 
         this.context = this;
