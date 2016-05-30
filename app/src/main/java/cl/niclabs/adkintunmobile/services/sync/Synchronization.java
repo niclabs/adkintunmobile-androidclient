@@ -46,15 +46,17 @@ public class Synchronization extends Service {
 
         // 0.- Build a report
         Report report = new Report(getApplicationContext());
-        // 1.- Prepare data
-        byte[] data = collectStoredData(report);
-        // 2.- Prepare request
-        sendData(data);
-        // 2,5.- Backup data
-        report.saveVisualSamples();
-        // 3.- Clean DB
-        report.cleanDBRecords();
-        // 4.- StopService
+        if (report.recordsToSend()){
+            // 1.- Prepare data
+            byte[] data = collectStoredData(report);
+            // 2.- Prepare request
+            sendData(data);
+            // 3.- Backup data
+            report.saveVisualSamples();
+            // 4.- Clean DB
+            report.cleanDBRecords();
+        }
+        // 5.- StopService
         stopSelf();
     }
 

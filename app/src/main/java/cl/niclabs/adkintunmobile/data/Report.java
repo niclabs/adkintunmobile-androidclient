@@ -56,6 +56,16 @@ public class Report {
         this.trafficRecords = TrafficObservationWrapper.listAll(TrafficObservationWrapper.class);
     }
 
+    public boolean recordsToSend(){
+        boolean cdma = this.cdmaRecords.isEmpty();
+        boolean connectivity = this.connectivityRecords.isEmpty();
+        boolean gsm = this.gsmRecords.isEmpty();
+        boolean state = this.stateRecords.isEmpty();
+        boolean telephony = this.telephonyRecords.isEmpty();
+        boolean traffic = this.trafficRecords.isEmpty();
+        return !(cdma && connectivity && gsm && state && telephony && traffic);
+    }
+
     public void cleanDBRecords(){
         CdmaObservationWrapper.deleteAll(CdmaObservationWrapper.class);
         GsmObservationWrapper.deleteAll(GsmObservationWrapper.class);
