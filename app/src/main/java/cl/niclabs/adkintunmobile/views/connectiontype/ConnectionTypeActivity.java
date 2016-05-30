@@ -8,10 +8,12 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.DatePicker;
 import android.widget.RelativeLayout;
 import android.widget.TableLayout;
@@ -121,10 +123,25 @@ public abstract class ConnectionTypeActivity extends AppCompatActivity implement
             tableLayout.addView(tableRow, new TableLayout.LayoutParams(
                     TableRow.LayoutParams.MATCH_PARENT,
                     TableRow.LayoutParams.WRAP_CONTENT));
+        else{
+            TextView empty = new TextView(this);
+            empty.setVisibility(View.VISIBLE);
+            empty.setGravity(View.TEXT_ALIGNMENT_CENTER);
+            empty.setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimension(R.dimen.Large));
+            empty.setText(R.string.view_applications_traffic_item_no_data);
+            empty.setTextColor(ContextCompat.getColor(this, R.color.textColorPrimary));
+            tableRow.addView(empty, new TableRow.LayoutParams(
+                    TableRow.LayoutParams.MATCH_PARENT,
+                    TableRow.LayoutParams.WRAP_CONTENT));
+            tableLayout.addView(tableRow, new TableLayout.LayoutParams(
+                    TableRow.LayoutParams.MATCH_PARENT,
+                    TableRow.LayoutParams.WRAP_CONTENT));
+        }
 
         icons.recycle();
         colors.recycle();
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
