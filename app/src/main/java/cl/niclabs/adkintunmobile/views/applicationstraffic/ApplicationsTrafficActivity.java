@@ -103,7 +103,7 @@ public class ApplicationsTrafficActivity extends AppCompatActivity implements Da
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
             case R.id.menu_date_picker_btn:
-                makeDateDialog();
+                DisplayManager.makeDateDialog(context, this);
                 break;
         }
         return super.onOptionsItemSelected(item);
@@ -158,9 +158,7 @@ public class ApplicationsTrafficActivity extends AppCompatActivity implements Da
                 this.wifiTrafficArray.add(currentApp);
             if (current.networkType == ApplicationTraffic.MOBILE)
                 this.mobileTrafficArray.add(currentApp);
-
         }
-
     }
 
     private ApplicationsTrafficListElement getAppTxSummary(long initTime, int uid, int networkType){
@@ -178,20 +176,7 @@ public class ApplicationsTrafficActivity extends AppCompatActivity implements Da
             mApplicationTrafficListElement.updateRxBytes(current.rxBytes);
             mApplicationTrafficListElement.updateTxBytes(current.txBytes);
         }
-
         return mApplicationTrafficListElement;
-    }
-
-    private void makeDateDialog(){
-        Calendar cal = Calendar.getInstance(TimeZone.getDefault());
-        DatePickerDialog datePickerDialog = new DatePickerDialog(
-                this.context,
-                this,
-                cal.get(Calendar.YEAR),
-                cal.get(Calendar.MONTH),
-                cal.get(Calendar.DAY_OF_MONTH));
-        datePickerDialog.setCancelable(false);
-        datePickerDialog.show();
     }
 
     @Override
@@ -224,7 +209,5 @@ public class ApplicationsTrafficActivity extends AppCompatActivity implements Da
                 });
             }
         }).start();
-
-
     }
 }
