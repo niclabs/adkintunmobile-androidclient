@@ -125,7 +125,6 @@ public abstract class ConnectionTypeActivity extends AppCompatActivity implement
                     TableRow.LayoutParams.WRAP_CONTENT));
         else{
             TextView empty = new TextView(this);
-            empty.setVisibility(View.VISIBLE);
             empty.setGravity(Gravity.CENTER_HORIZONTAL);
             empty.setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimension(R.dimen.Large));
             empty.setText(R.string.view_applications_traffic_item_no_data);

@@ -2,7 +2,10 @@ package cl.niclabs.adkintunmobile.views.dashboard;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
+import android.util.TypedValue;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +13,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TableLayout;
+import android.widget.TableRow;
 import android.widget.TextView;
 
 import java.util.Calendar;
@@ -113,15 +117,26 @@ public class DashboardFragment extends BaseToolbarFragment {
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
+                        boolean isEmpty = true;
                         for (int i=0; i<3; i++){
                             if (topApps[i]!=null){
+                                isEmpty = false;
                                 rankingIcons[i].setImageDrawable(topApps[i].getLogo());
                                 rankingLabels[i].setText(topApps[i].getLabel());
                                 rankingIcons[i].setVisibility(View.VISIBLE);
                                 rankingLabels[i].setVisibility(View.VISIBLE);
                                 topAppsLayout.setColumnStretchable(i, true);
                             }
+                            else {
+                                rankingIcons[i].setVisibility(View.GONE);
+                                rankingLabels[i].setVisibility(View.GONE);
+                            }
                         }
+                        if (isEmpty){
+                            (view.findViewById(R.id.empty_dialog)).setVisibility(View.VISIBLE);
+                        }
+                        else
+                            (view.findViewById(R.id.empty_dialog)).setVisibility(View.GONE);
                     }
                 });
             }
