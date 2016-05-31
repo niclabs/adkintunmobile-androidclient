@@ -102,31 +102,25 @@ public class DashboardFragment extends BaseToolbarFragment {
             @Override
             public void run() {
                 final ApplicationsTrafficListElement[] topApps = getTop3AppsToday();
+                final TableLayout topAppsLayout = (TableLayout) view.findViewById(R.id.top_3_table_layout);
+                final TextView[] rankingLabels = {(TextView) view.findViewById(R.id.tv_app1),
+                        (TextView) view.findViewById(R.id.tv_app2),
+                        (TextView) view.findViewById(R.id.tv_app3)};
+                final ImageView[] rankingIcons = {(ImageView) view.findViewById(R.id.iv_app1),
+                        (ImageView) view.findViewById(R.id.iv_app2),
+                        (ImageView) view.findViewById(R.id.iv_app3)};
 
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        TableLayout topAppsLayout = (TableLayout) view.findViewById(R.id.top_3_table_layout);
-                        if(topApps[0] != null) {
-                            ((ImageView) view.findViewById(R.id.iv_app1)).setImageDrawable(topApps[0].getLogo());
-                            ((TextView) view.findViewById(R.id.tv_app1)).setText(topApps[0].getLabel());
-                            view.findViewById(R.id.iv_app1).setVisibility(View.VISIBLE);
-                            view.findViewById(R.id.tv_app1).setVisibility(View.VISIBLE);
-                            topAppsLayout.setColumnStretchable(0, true);
-                        }
-                        if(topApps[1] != null) {
-                            ((ImageView) view.findViewById(R.id.iv_app2)).setImageDrawable(topApps[1].getLogo());
-                            ((TextView) view.findViewById(R.id.tv_app2)).setText(topApps[1].getLabel());
-                            view.findViewById(R.id.iv_app2).setVisibility(View.VISIBLE);
-                            view.findViewById(R.id.tv_app2).setVisibility(View.VISIBLE);
-                            topAppsLayout.setColumnStretchable(1, true);
-                        }
-                        if(topApps[2] != null) {
-                            ((ImageView) view.findViewById(R.id.iv_app3)).setImageDrawable(topApps[2].getLogo());
-                            ((TextView) view.findViewById(R.id.tv_app3)).setText(topApps[2].getLabel());
-                            view.findViewById(R.id.iv_app3).setVisibility(View.VISIBLE);
-                            view.findViewById(R.id.tv_app3).setVisibility(View.VISIBLE);
-                            topAppsLayout.setColumnStretchable(2, true);
+                        for (int i=0; i<3; i++){
+                            if (topApps[i]!=null){
+                                rankingIcons[i].setImageDrawable(topApps[i].getLogo());
+                                rankingLabels[i].setText(topApps[i].getLabel());
+                                rankingIcons[i].setVisibility(View.VISIBLE);
+                                rankingLabels[i].setVisibility(View.VISIBLE);
+                                topAppsLayout.setColumnStretchable(i, true);
+                            }
                         }
                     }
                 });
