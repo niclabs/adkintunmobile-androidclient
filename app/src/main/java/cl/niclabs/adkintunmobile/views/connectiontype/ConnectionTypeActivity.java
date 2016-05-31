@@ -107,7 +107,7 @@ public abstract class ConnectionTypeActivity extends AppCompatActivity implement
                 TableRow.LayoutParams.WRAP_CONTENT));
 
         for (int i=0; i<timeLegend.size(); i++){
-            tableRow.addView( timeLegend.get(i).getLegendTextView() );
+            tableRow.addView( timeLegend.get(i).getLegendTextView(), new TableRow.LayoutParams(0, TableRow.LayoutParams.WRAP_CONTENT, 1f));
             if (tableRow.getChildCount() == rowWidth){
                 tableLayout.addView(tableRow, new TableLayout.LayoutParams(
                         TableRow.LayoutParams.MATCH_PARENT,
