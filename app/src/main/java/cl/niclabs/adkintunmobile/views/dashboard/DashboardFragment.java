@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
+import android.widget.TableLayout;
 import android.widget.TextView;
 
 import java.util.Calendar;
@@ -105,17 +106,27 @@ public class DashboardFragment extends BaseToolbarFragment {
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
+                        TableLayout topAppsLayout = (TableLayout) view.findViewById(R.id.top_3_table_layout);
                         if(topApps[0] != null) {
                             ((ImageView) view.findViewById(R.id.iv_app1)).setImageDrawable(topApps[0].getLogo());
                             ((TextView) view.findViewById(R.id.tv_app1)).setText(topApps[0].getLabel());
+                            view.findViewById(R.id.iv_app1).setVisibility(View.VISIBLE);
+                            view.findViewById(R.id.tv_app1).setVisibility(View.VISIBLE);
+                            topAppsLayout.setColumnStretchable(0, true);
                         }
                         if(topApps[1] != null) {
                             ((ImageView) view.findViewById(R.id.iv_app2)).setImageDrawable(topApps[1].getLogo());
                             ((TextView) view.findViewById(R.id.tv_app2)).setText(topApps[1].getLabel());
+                            view.findViewById(R.id.iv_app2).setVisibility(View.VISIBLE);
+                            view.findViewById(R.id.tv_app2).setVisibility(View.VISIBLE);
+                            topAppsLayout.setColumnStretchable(1, true);
                         }
                         if(topApps[2] != null) {
                             ((ImageView) view.findViewById(R.id.iv_app3)).setImageDrawable(topApps[2].getLogo());
                             ((TextView) view.findViewById(R.id.tv_app3)).setText(topApps[2].getLabel());
+                            view.findViewById(R.id.iv_app3).setVisibility(View.VISIBLE);
+                            view.findViewById(R.id.tv_app3).setVisibility(View.VISIBLE);
+                            topAppsLayout.setColumnStretchable(2, true);
                         }
                     }
                 });
