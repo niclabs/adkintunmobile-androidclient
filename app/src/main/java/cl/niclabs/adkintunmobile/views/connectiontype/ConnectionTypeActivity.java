@@ -98,7 +98,7 @@ public abstract class ConnectionTypeActivity extends AppCompatActivity implement
         });
 
         int rowWidth = 3;
-        if (timeLegend.size() == 4){
+        if (timeLegend.size() == 4 || timeLegend.size() == 5 ){
             rowWidth = 2;
         }
         TableRow tableRow = new TableRow(this);
@@ -117,6 +117,8 @@ public abstract class ConnectionTypeActivity extends AppCompatActivity implement
                 tableRow.setLayoutParams(new TableRow.LayoutParams(
                         TableRow.LayoutParams.MATCH_PARENT,
                         TableRow.LayoutParams.WRAP_CONTENT));
+                if(rowWidth == 2 )
+                    ++rowWidth;
             }
         }
         if (!timeLegend.isEmpty())
