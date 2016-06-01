@@ -5,12 +5,14 @@
         <item>Cada 2 Minutos</item>
         <item>Cada 5 Minutos</item>
         <item>Cada 10 Minutos</item>
+        <item>Cada 30 Minutos</item>
     </string-array>
     <string-array name="sync_sampling_frequency_values">
         <item>1</item>
         <item>2</item>
         <item>5</item>
         <item>10</item>
+        <item>30</item>
     </string-array>
 
     <!-- Doughnut Chart -->
