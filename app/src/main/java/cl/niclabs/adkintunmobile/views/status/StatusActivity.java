@@ -3,6 +3,8 @@ package cl.niclabs.adkintunmobile.views.status;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.FragmentManager;
@@ -24,6 +26,7 @@ import java.util.Iterator;
 
 import cl.niclabs.adkintunmobile.R;
 import cl.niclabs.adkintunmobile.data.persistent.visualization.ApplicationTraffic;
+import cl.niclabs.adkintunmobile.data.persistent.visualization.ConnectionModeSample;
 import cl.niclabs.adkintunmobile.utils.display.DisplayManager;
 import cl.niclabs.adkintunmobile.utils.information.Network;
 import pl.pawelkleczkowski.customgauge.CustomGauge;
@@ -75,6 +78,13 @@ public class StatusActivity extends AppCompatActivity {
 
             }
         }).start();
+
+
+
+
+        ConnectivityManager connMgr = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetwork = connMgr.getActiveNetworkInfo();
+
     }
 
     public void setBaseActivityParams(){
@@ -128,8 +138,22 @@ public class StatusActivity extends AppCompatActivity {
 
     public void updateActivityView(Context context){
 
-        ((TextView)findViewById(R.id.tv_signal)).setText(Network.getNetworkType(context));
-        ((TextView)findViewById(R.id.tv_signal2)).setText(Network.getSpecificNetworkType(context));
+        if(Network.getActiveNetwork(context) == ConnectionModeSample.MOBILE){
+            ((TextView) findViewById(R.id.tv_internet_interface)).setText(R.string.view_connection_mode_mobile);
+            ((ImageView)findViewById(R.id.iv_internet_type)).setImageResource(R.drawable.ic_02_mobile);
+            ((TextView) findViewById(R.id.tv_internet_network)).setText(Network.getConnectionDetails(context)[0]);
+            ((TextView) findViewById(R.id.tv_internet_state)).setText(Network.getConnectionDetails(context)[1]);
+        }else if(Network.getActiveNetwork(context) == ConnectionModeSample.WIFI){
+            ((TextView) findViewById(R.id.tv_internet_interface)).setText(R.string.view_connection_mode_wifi);
+            ((ImageView)findViewById(R.id.iv_internet_type)).setImageResource(R.drawable.ic_01_wifi);
+            ((TextView) findViewById(R.id.tv_internet_network)).setText(Network.getConnectionDetails(context)[0]);
+            ((TextView) findViewById(R.id.tv_internet_state)).setText(Network.getConnectionDetails(context)[1]);
+        }else {
+            ((TextView) findViewById(R.id.tv_internet_interface)).setText(R.string.view_connection_mode_disconnected);
+            ((ImageView)findViewById(R.id.iv_internet_type)).setImageResource(R.drawable.ic_03_nowifi);
+            ((TextView) findViewById(R.id.tv_internet_network)).setText(Network.getConnectionDetails(context)[0]);
+            ((TextView) findViewById(R.id.tv_internet_state)).setText(Network.getConnectionDetails(context)[1]);
+        }
 
         ((ImageView)findViewById(R.id.iv_sim)).setImageResource(Network.getSIMIntRes(context));
         ((TextView)findViewById(R.id.tv_sim)).setText(Network.getSimCarrier(context));

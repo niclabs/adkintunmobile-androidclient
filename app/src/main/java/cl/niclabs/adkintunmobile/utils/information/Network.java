@@ -8,6 +8,7 @@ import android.telephony.TelephonyManager;
 import java.util.Locale;
 
 import cl.niclabs.adkintunmobile.R;
+import cl.niclabs.adkintunmobile.data.persistent.visualization.ConnectionModeSample;
 
 public class Network {
 
@@ -47,41 +48,53 @@ public class Network {
         }
     }
 
-    /*
-     * TODO: Verificar problemas del método deprecado
-     */
+
     /**
-     * UMTS, HSPA+, etc
+     * Retorna el tipo actual de la conexión
      * @param context
-     * @return
+     * @return ConnectivityManager.TYPE_MOBILE, ConnectivityManager.TYPE_WIFI o ConnectivityManager.NONE
      */
-    static public String getSpecificNetworkType(Context context) {
+    static public int getActiveNetwork(Context context){
         ConnectivityManager connMgr = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo mobile = connMgr.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
-        String ret = mobile.getSubtypeName().isEmpty() ? Network.NOTAVAILABLE : mobile.getSubtypeName();
+        NetworkInfo activeNetwork = connMgr.getActiveNetworkInfo();
+        if (activeNetwork == null){
+            return ConnectionModeSample.NONE;
+        }else{
+            switch (activeNetwork.getType()){
+                case ConnectivityManager.TYPE_MOBILE:
+                    return ConnectionModeSample.MOBILE;
+                case ConnectivityManager.TYPE_WIFI:
+                    return ConnectionModeSample.WIFI;
+                default:
+                    return ConnectionModeSample.NONE;
+            }
+        }
+    }
+
+    // retorna arreglo con 3 strings:
+    // 0.- grande: ssid o tipo red
+    // 1.- chico: connected o subtipo de red
+    static public String[] getConnectionDetails(Context context){
+        ConnectivityManager connMgr = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetwork = connMgr.getActiveNetworkInfo();
+        String[] ret = new String[2];
+
+        if(activeNetwork == null){
+            ret[0] = context.getString(R.string.view_connection_mode_disconnected);
+            ret[1] = Network.NOTAVAILABLE;
+        }else if(activeNetwork.getType() == ConnectivityManager.TYPE_MOBILE) {
+            ret[0] = Network.getNetworkType(context);
+            ret[1] = activeNetwork.getSubtypeName();
+        }else {
+            ret[0] = activeNetwork.getExtraInfo();
+            ret[1] = activeNetwork.getState().name();
+        }
         return ret;
     }
 
-    /**
-     * nombre del perfil de configuración
-     * @param context
-     * @return
-     */
-    static public String getNetworkProfileConfig(Context context) {
-        ConnectivityManager connMgr = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo mobile = connMgr.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
-        return mobile.getExtraInfo();
-    }
-
-    static public boolean getOperatorConnection(Context context) {
-        ConnectivityManager connMgr = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo mobile = connMgr.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
-        return mobile.isConnected();
-    }
-
 
     /**
-     * int resource de operador al que estamos conectados
+     * Int resource de operador al que estamos conectados
      * @param context
      * @return
      */
@@ -91,7 +104,7 @@ public class Network {
     }
 
     /**
-     * int resource de la sim actual
+     * Int resource de la sim actual
      * @param context
      * @return
      */
@@ -127,7 +140,7 @@ public class Network {
 
 
     /**
-     * nombre del operador de nuestra SIM
+     * Nombre del operador de nuestra SIM
      * @param context
      * @return
      */
@@ -139,7 +152,7 @@ public class Network {
     }
 
     /**
-     * nombre de operador al que estamos conectados
+     * Nombre de operador al que estamos conectados
      * @param context
      * @return
      */
@@ -151,7 +164,7 @@ public class Network {
     }
 
     /**
-     * entrega string con tamaño de bytes formateado en human readable
+     * Entrega string con tamaño de bytes formateado en human readable
      * @param bytes
      * @return
      */
