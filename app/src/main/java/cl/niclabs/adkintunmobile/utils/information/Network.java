@@ -100,7 +100,7 @@ public class Network {
      */
     static public int getConnectedCarrierIntRes(Context context){
         String operator = Network.getConnectedCarrrier(context).toLowerCase();
-        return Network.getIntRes(operator);
+        return Network.getIntRes(operator, context);
     }
 
     /**
@@ -110,28 +110,34 @@ public class Network {
      */
     static public int getSIMIntRes(Context context){
         String operator = Network.getSimCarrier(context).toLowerCase();
-        return Network.getIntRes(operator);
+        return Network.getIntRes(operator, context);
     }
 
-    static public int getIntRes(String operator) {
-        switch (operator.toLowerCase()){
-            case "claro":
+    static private int getIntRes(String operator, Context context) {
+        String[] operators = context.getResources().getStringArray(R.array.mobile_operators);
+        int i;
+        for (i = 0; i < operators.length; ++i){
+            if (operator.toLowerCase().contains(operators[i]))
+                break;
+        }
+        switch (i){
+            case 0:
                 return R.mipmap.operator_claro;
-            case "entel":
+            case 1:
                 return R.mipmap.operator_entel;
-            case "falabella":
+            case 2:
                 return R.mipmap.operator_falabella;
-            case "gtd":
+            case 3:
                 return R.mipmap.operator_gtd;
-            case "movistar":
+            case 4:
                 return R.mipmap.operator_movistar;
-            case "nextel":
+            case 5:
                 return R.mipmap.operator_nextel;
-            case "virgin":
+            case 6:
                 return R.mipmap.operator_virgin;
-            case "vtr":
+            case 7:
                 return R.mipmap.operator_vtr;
-            case "wom":
+            case 8:
                 return R.mipmap.operator_wom;
             default:
                 return R.mipmap.operator_other;

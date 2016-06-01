@@ -111,4 +111,17 @@
         <item>15000000000</item>
     </string-array>
 
+    <!-- Operators -->
+    <string-array name="mobile_operators">
+        <item>claro</item>
+        <item>entel</item>
+        <item>falabella</item>
+        <item>gtd</item>
+        <item>movistar</item>
+        <item>nextel</item>
+        <item>virgin</item>
+        <item>vtr</item>
+        <item>wom</item>
+    </string-array>
+
 </resources>
