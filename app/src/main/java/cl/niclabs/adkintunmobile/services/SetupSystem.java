@@ -19,12 +19,14 @@ public class SetupSystem extends Device {
 
     @Override
     public void onBootCompleted(Context context) {
+        Log.d(TAG, "onBootCompleted");
         super.onBootCompleted(context);
         startUpSystem(context);
     }
 
     @Override
     public void onShutdown(Context context) {
+        Log.d(TAG, "onShutdown");
         super.onShutdown(context);
         bootOffSystem(context);
     }
@@ -34,7 +36,6 @@ public class SetupSystem extends Device {
      */
 
     static public void startUpSystem(Context context) {
-
         // Start Monitoring Services
         SetupSystem.startMonitoringServices(context);
 
@@ -43,8 +44,6 @@ public class SetupSystem extends Device {
 
         // Register preferences
         SetupSystem.setAppVersionCode(context);
-
-        Log.d(TAG, "Sistemas reconfigurados");
     }
 
     static public void startMonitoringServices(Context context) {
@@ -54,6 +53,7 @@ public class SetupSystem extends Device {
             context.startService(new Intent(context, TelephonyMonitor.class));
         if (!TrafficMonitor.isRunning())
             context.startService(new Intent(context, TrafficMonitor.class));
+        Log.d(TAG, "Monitores Iniciados");
     }
 
     private void bootOffSystem(Context context) {
@@ -63,14 +63,14 @@ public class SetupSystem extends Device {
             context.stopService(new Intent(context, TelephonyMonitor.class));
         if (TrafficMonitor.isRunning())
             context.stopService(new Intent(context, TrafficMonitor.class));
+        Log.d(TAG, "Monitores Detenidos");
     }
 
     static public void schedulleBroadcastReceivers(Context context) {
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
         long sampleRepeatTime = Long.parseLong(sharedPreferences.getString(context.getString(R.string.settings_sampling_frequency_key), "1"));
 
-        SynchronizationBroadcastReceiver sync = new SynchronizationBroadcastReceiver();
-        sync.setSchedule(context, sampleRepeatTime);
+        SynchronizationBroadcastReceiver.setSchedule(context, sampleRepeatTime);
     }
 
     static public void setAppVersionCode(Context context) {

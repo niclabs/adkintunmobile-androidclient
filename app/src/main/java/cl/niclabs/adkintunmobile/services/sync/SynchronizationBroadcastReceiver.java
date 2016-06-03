@@ -9,7 +9,7 @@ import android.util.Log;
 
 public class SynchronizationBroadcastReceiver extends BroadcastReceiver {
 
-    private final String TAG = "AdkM:SynchronizationBR";
+    private static final String TAG = "AdkM:SynchronizationBR";
 
     public SynchronizationBroadcastReceiver() {
     }
@@ -19,21 +19,16 @@ public class SynchronizationBroadcastReceiver extends BroadcastReceiver {
         context.startService(new Intent(context, Synchronization.class));
     }
 
-    public void setSchedule(Context context, long samplingMinutes){
+    static public void setSchedule(Context context, long samplingMinutes){
 
-        cancelSchedule(context);
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         Intent intent = new Intent(context, SynchronizationBroadcastReceiver.class);
         PendingIntent pIntent = PendingIntent.getBroadcast(context, 1, intent, PendingIntent.FLAG_CANCEL_CURRENT);
+
+        alarmManager.cancel(pIntent);   // Cancel others alarms
+
         long samplingTime = samplingMinutes * 60 *  1000;
         alarmManager.setRepeating(AlarmManager.RTC, System.currentTimeMillis(), samplingTime, pIntent);
-        Log.d(TAG, "Alarma seteada en " + samplingMinutes + " minutos");
-    }
-
-    private void cancelSchedule(Context context){
-        AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-        Intent intent = new Intent(context, SynchronizationBroadcastReceiver.class);
-        PendingIntent pIntent = PendingIntent.getBroadcast(context, 1, intent, PendingIntent.FLAG_CANCEL_CURRENT);
-        alarmManager.cancel(pIntent);
+        Log.d(TAG, "Alarma programada para " + samplingMinutes + " minutos más");
     }
 }
