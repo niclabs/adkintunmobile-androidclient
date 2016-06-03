@@ -2,7 +2,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="cl.niclabs.adkintunmobile.views.applicationstraffic.ApplicationsTrafficListFragment">
+    tools:context="cl.niclabs.adkintunmobile.views.applicationstraffic.ApplicationsTrafficListFragment"
+    android:background="@mipmap/background3">
 
     <LinearLayout
         android:layout_width="match_parent"
