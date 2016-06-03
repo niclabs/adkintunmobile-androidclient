@@ -45,4 +45,8 @@ public class DisplayDateManager {
         calendar.setTimeInMillis(timestamp);
         return customFormat.format(calendar.getTime());
     }
+
+    static public String getDateString(long timestamp){
+        return DisplayDateManager.getDateString(timestamp, new SimpleDateFormat("yyyy/MM/dd HH:mm:ss"));
+    }
 }
