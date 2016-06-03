@@ -9,9 +9,11 @@ public class NewsNotification extends Persistent<NewsNotification>{
     /**
      * INFO: avisos locales, informativa de un comportamiento inusual
      * NEWS: avisos del servidor, noticias por broadcast
+     * LOG: Registro de eventos locales
      */
     public final static int INFO = 1;
     public final static int NEWS = 2;
+    public final static int SYNC_LOG = 3;
 
     @SerializedName("type")
     public Integer type;

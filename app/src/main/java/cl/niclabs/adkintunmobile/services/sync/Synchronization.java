@@ -27,6 +27,8 @@ import java.util.Map;
 
 import cl.niclabs.adkintunmobile.R;
 import cl.niclabs.adkintunmobile.data.Report;
+import cl.niclabs.adkintunmobile.data.persistent.visualization.NewsNotification;
+import cl.niclabs.adkintunmobile.utils.display.DisplayDateManager;
 import cl.niclabs.adkintunmobile.utils.volley.HttpMultipartRequest;
 import cl.niclabs.adkintunmobile.utils.volley.VolleySingleton;
 
@@ -145,11 +147,10 @@ public class Synchronization extends Service {
 
         // Creación multipart request
         final SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this.context);
-        String requestURL =
+        final String requestURL =
                 sharedPreferences.getString(
                         this.context.getString(R.string.settings_sampling_hostname_key),
                         this.context.getString(R.string.settings_sampling_hostname_default));
-        Log.d(TAG, "to: "+ requestURL);
         HttpMultipartRequest multipartRequest =
                 new HttpMultipartRequest(
                         requestURL,
@@ -159,7 +160,7 @@ public class Synchronization extends Service {
                             @Override
                             public void onResponse(NetworkResponse response) {
                                 //Toast.makeText(getApplicationContext(), "Upload successfully!", Toast.LENGTH_SHORT).show();
-                                Log.d(TAG, "Upload successfully!");
+                                Log.d(TAG, "Upload successfully to " + requestURL);
 
                                 // Registro de la última sincronización exitosa
                                 // TODO: crear un sistema persistente de BD para almacenar este tipo de eventos
@@ -168,21 +169,37 @@ public class Synchronization extends Service {
                                 SharedPreferences.Editor editor = sharedPreferences.edit();
                                 editor.putString(context.getString(R.string.settings_sampling_lastsync_key), dateFormat.format(date));
                                 editor.apply();
+
+                                NewsNotification syncLog = new NewsNotification(
+                                        NewsNotification.SYNC_LOG,
+                                        DisplayDateManager.getDateString(System.currentTimeMillis()),
+                                        "OK ");
+                                syncLog.save();
                             }
                         },
                         new Response.ErrorListener() {
                             @Override
                             public void onErrorResponse(VolleyError error) {
-                                //Toast.makeText(getApplicationContext(), "Upload failed!" + error.toString(), Toast.LENGTH_SHORT).show();
-                                Log.d(TAG, "Upload failed! " + error.toString());
+                                Log.d(TAG, "Upload failed to " + requestURL + ": " + error.getMessage() + " : " + error.toString());
+
+                                NewsNotification syncLog = new NewsNotification(
+                                        NewsNotification.SYNC_LOG,
+                                        DisplayDateManager.getDateString(System.currentTimeMillis()),
+                                        error.getMessage());
+                                syncLog.save();
                             }
                         }) {
                     @Override
                     public void deliverError(VolleyError error) {
-                        VolleySingleton.getInstance(getApplicationContext()).addToRequestQueue(this);
                         VolleySingleton.getInstance(getApplicationContext()).getRequestQueue().stop();
-                        //Toast.makeText(getApplicationContext(), "Deliver Error, Queued!" + error.toString(), Toast.LENGTH_SHORT).show();
+                        VolleySingleton.getInstance(getApplicationContext()).addToRequestQueue(this);
                         Log.d(TAG, "Deliver Error, Queued! " + error.toString());
+
+                        NewsNotification syncLog = new NewsNotification(
+                                NewsNotification.SYNC_LOG,
+                                DisplayDateManager.getDateString(System.currentTimeMillis()),
+                                error.getMessage());
+                        syncLog.save();
                         // mErrorListener.onErrorResponse(error);
 
                     }

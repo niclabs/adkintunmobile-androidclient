@@ -60,6 +60,10 @@ public class SettingsFragment extends PreferenceFragment implements SharedPrefer
             FragmentManager fm = ((SettingsActivity) getActivity()).getSupportFragmentManager();
             StatusSettingsDialog.showDialogPreference(fm, null);
         }
+        if (key.equals(getString(R.string.settings_sampling_lastsync_key))){
+            FragmentManager fm = ((SettingsActivity) getActivity()).getSupportFragmentManager();
+            SynchronizationLogDialog.showDialog(fm);
+        }
         return super.onPreferenceTreeClick(preferenceScreen, preference);
     }
 
