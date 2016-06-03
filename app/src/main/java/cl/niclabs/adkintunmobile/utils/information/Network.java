@@ -12,7 +12,7 @@ import cl.niclabs.adkintunmobile.data.persistent.visualization.ConnectionModeSam
 
 public class Network {
 
-    static public final String  NOTAVAILABLE = "No Disponible";
+    static public final String  NOTAVAILABLE = "Sin red";
 
 
     /**
@@ -52,7 +52,7 @@ public class Network {
     /**
      * Retorna el tipo actual de la conexión
      * @param context
-     * @return ConnectivityManager.TYPE_MOBILE, ConnectivityManager.TYPE_WIFI o ConnectivityManager.NONE
+     * @return ConnectionModeSample.MOBILE, ConnectionModeSample.WIFI o ConnectionModeSample.NONE
      */
     static public int getActiveNetwork(Context context){
         ConnectivityManager connMgr = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -86,7 +86,9 @@ public class Network {
             ret[0] = Network.getNetworkType(context);
             ret[1] = activeNetwork.getSubtypeName();
         }else {
+
             ret[0] = activeNetwork.getExtraInfo();
+            ret[0] = ret[0]==null ? activeNetwork.getTypeName() : ret[0].replace("\"","");
             ret[1] = activeNetwork.getState().name();
         }
         return ret;
