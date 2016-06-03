@@ -2,10 +2,7 @@ package cl.niclabs.adkintunmobile.views.dashboard;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.content.ContextCompat;
 import android.util.Log;
-import android.util.TypedValue;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,8 +10,9 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TableLayout;
-import android.widget.TableRow;
 import android.widget.TextView;
+
+import com.facebook.shimmer.ShimmerFrameLayout;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -46,11 +44,6 @@ public class DashboardFragment extends BaseToolbarFragment {
         inflater.inflate(R.layout.fragment_dashboard, (ViewGroup) localFragmentView, true);
         setupToolbar(view);
 
-/*        updateMobileConsumption(view);
-        updateConnectionMode(view);
-        updateNetworkType(view);
-        updateTopApps(view);*/
-
         return view;
     }
 
@@ -68,15 +61,32 @@ public class DashboardFragment extends BaseToolbarFragment {
 
     public void updateStatusToolbar(View view){
 
-        TextView tvSim, tvAntenna, tvSignal;
+        ShimmerFrameLayout container =
+                (ShimmerFrameLayout) view.findViewById(R.id.shimmer_view_container);
+        container.startShimmerAnimation();
+
+        TextView tvSim, tvAntenna, tvSignal, tvInternet;
 
         tvSim = (TextView) view.findViewById(R.id.tv_sim);
         tvAntenna = (TextView) view.findViewById(R.id.tv_antenna);
         tvSignal = (TextView) view.findViewById(R.id.tv_signal);
+        tvInternet = (TextView) view.findViewById(R.id.tv_internet);
 
         tvSim.setText(Network.getSimCarrier(context));
         tvAntenna.setText(Network.getConnectedCarrrier(context));
         tvSignal.setText(Network.getNetworkType(context));
+
+        switch (Network.getActiveNetwork(context)){
+            case ConnectionModeSample.MOBILE:
+                tvInternet.setText("móvil");
+                break;
+            case ConnectionModeSample.WIFI:
+                tvInternet.setText("wifi");
+                break;
+            case ConnectionModeSample.NONE:
+                tvInternet.setText("Sin red");
+                break;
+        }
 
         final ImageView ivBackdrop = (ImageView) view.findViewById(R.id.iv_backdrop_toolbar);
         Animation zoomIn = AnimationUtils.loadAnimation(this.context, R.anim.zoom_toolbar);
@@ -147,7 +157,7 @@ public class DashboardFragment extends BaseToolbarFragment {
         (new Thread(){
             @Override
             public void run() {
-                final long[] monthlyData = getMonthlyMobileConsumption();
+                final long[] monthlyData = ApplicationTraffic.getMonthlyMobileConsumption();
 
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
@@ -265,39 +275,5 @@ public class DashboardFragment extends BaseToolbarFragment {
         }
 
         return ret;
-    }
-
-
-    /**
-     * @return Arreglo con [rxData, txData] del mes actual
-     */
-    public long[] getMonthlyMobileConsumption(){
-        long[] dataUsage = new long[2];
-        long rxMobile = 0L;
-        long txMobile = 0L;
-
-        Date today = new Date(System.currentTimeMillis());
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTime(today);
-        calendar.set(Calendar.HOUR_OF_DAY, 0);
-        calendar.set(Calendar.MINUTE, 0);
-        calendar.set(Calendar.SECOND, 0);
-        calendar.set(Calendar.MILLISECOND, 0);
-
-        Iterator<ApplicationTraffic> iterator = ApplicationTraffic.findAsIterator(
-                ApplicationTraffic.class, "network_type = ? and timestamp >= ?",
-                Integer.toString(ApplicationTraffic.MOBILE),
-                Long.toString(calendar.getTimeInMillis()));
-
-        while (iterator.hasNext()){
-            ApplicationTraffic current = iterator.next();
-            rxMobile += current.rxBytes;
-            txMobile += current.txBytes;
-        }
-
-        dataUsage[0] = rxMobile;
-        dataUsage[1] = txMobile;
-
-        return dataUsage;
     }
 }
