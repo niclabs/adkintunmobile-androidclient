@@ -6,7 +6,6 @@
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
     android:fitsSystemWindows="true"
-    android:background="@mipmap/background3"
     tools:context="cl.niclabs.adkintunmobile.views.connectiontype.connectionmode.ConnectionModeActivity">
 
 
@@ -38,7 +37,8 @@
         <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
             xmlns:tools="http://schemas.android.com/tools"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:background="@mipmap/background3">
 
             <RelativeLayout
                 android:id="@+id/loading_panel"
@@ -134,8 +134,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_centerHorizontal="true"
-                        android:layout_marginTop="@dimen/abc_dialog_padding_top_material"
-                        android:animateLayoutChanges="true">
+                        android:layout_marginTop="@dimen/abc_dialog_padding_top_material">
 
                         <LinearLayout
                             android:layout_width="match_parent"

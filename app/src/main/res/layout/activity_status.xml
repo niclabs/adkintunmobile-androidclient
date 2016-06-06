@@ -3,7 +3,6 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:background="@mipmap/background3"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
@@ -35,7 +34,9 @@
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            xmlns:gauge="http://schemas.android.com/apk/res-auto">
+            xmlns:gauge="http://schemas.android.com/apk/res-auto"
+            android:background="@mipmap/background3"
+            android:animateLayoutChanges="true">
 
             <RelativeLayout
                 android:id="@+id/loading_panel"
@@ -65,8 +66,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
-
-
 
                     <!-- Primera Fila -->
                     <LinearLayout
@@ -128,6 +127,10 @@
 
                     </LinearLayout>
 
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/doughnut_no_info"/>
 
                     <!-- Segunda fila -->
                     <LinearLayout
@@ -173,6 +176,11 @@
 
                         </LinearLayout>
 
+                        <View
+                            android:layout_width="1dp"
+                            android:layout_height="match_parent"
+                            android:background="@color/doughnut_no_info"/>
+
                         <LinearLayout
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
@@ -212,6 +220,10 @@
 
                     </LinearLayout>
 
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/doughnut_no_info"/>
 
                     <!-- Tercera Fila -->
                     <LinearLayout
@@ -348,6 +360,11 @@
                     </LinearLayout>
 
 
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/doughnut_no_info"/>
+
                     <!-- Cuarta Fila -->
 
                     <LinearLayout
@@ -441,10 +458,10 @@
                         </LinearLayout>
 
                         <View
-                            android:layout_width="fill_parent"
-                            android:layout_height="1dip"
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
                             android:layout_margin="@dimen/separation_little"
-                            android:background="@color/doughnut_start" />
+                            android:background="@color/doughnut_no_info"/>
 
                         <TableLayout
                             android:layout_width="match_parent"

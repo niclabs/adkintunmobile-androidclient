@@ -1,20 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!--
-    <color name="colorPrimaryLight">#BBDEFB</color>
-    <color name="colorPrimaryText">#FFE57F</color>
-    <color name="colorSecondaryText">#FFE57F</color>
-    -->
-
     <color name="colorSoftCard">#91bbdefb</color>
-    <color name="colorLoadingPane">#bb4c718f</color>
+    <color name="colorLoadingPane">#708e8b</color>
 
-    <color name="colorPrimary">#125688</color>
-    <color name="colorPrimaryDark">#125688</color>
-    <color name="textColorPrimary">#FFFFFF</color>
-    <color name="window_background">#FFF5F5F5</color>
-    <color name="navigationBarColor">#000000</color>
-    <color name="colorAccent">#c8e8ff</color>
+    <color name="colorPrimary">#4fa7a9</color>
+    <color name="colorPrimaryDark">#3b9986</color>
+    <color name="textColorPrimary">#212121</color>
+    <color name="textColorSecondary">#727272</color>
+    <color name="colorAccent">#359bc7</color>
+    <color name="window_background">#a7c4c1</color>
+
 
     <!-- Connection Time -->
     <color name="doughnut_wifi">#e13b8fb5</color>

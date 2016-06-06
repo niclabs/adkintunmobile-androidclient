@@ -20,8 +20,8 @@
     <dimen name="navigation_drawer_header_logo">50dp</dimen>
 
     <!-- Toolbar -->
-    <dimen name="extended_toolbar_dashboard_height">200dp</dimen>
-    <dimen name="adkintun_icon_toolbar">110dp</dimen>
+    <dimen name="extended_toolbar_dashboard_height">190dp</dimen>
+    <dimen name="adkintun_icon_toolbar">90dp</dimen>
 
     <!-- About us -->
     <dimen name="aboutus_adk_logo_height">70dp</dimen>
