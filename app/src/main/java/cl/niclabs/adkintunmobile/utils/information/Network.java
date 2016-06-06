@@ -12,9 +12,6 @@ import cl.niclabs.adkintunmobile.data.persistent.visualization.ConnectionModeSam
 
 public class Network {
 
-    static public final String  NOTAVAILABLE = "Sin red";
-
-
     /**
      * 2G, 3G, 4G, No Disponible
      * @param context
@@ -44,7 +41,7 @@ public class Network {
             case TelephonyManager.NETWORK_TYPE_LTE:
                 return "4G";
             default:
-                return Network.NOTAVAILABLE;
+                return context.getString(R.string.view_status_no_antenna);
         }
     }
 
@@ -81,7 +78,7 @@ public class Network {
 
         if(activeNetwork == null){
             ret[0] = context.getString(R.string.view_connection_mode_disconnected);
-            ret[1] = Network.NOTAVAILABLE;
+            ret[1] = context.getString(R.string.view_status_no_antenna);
         }else if(activeNetwork.getType() == ConnectivityManager.TYPE_MOBILE) {
             ret[0] = Network.getNetworkType(context);
             ret[1] = activeNetwork.getSubtypeName();
