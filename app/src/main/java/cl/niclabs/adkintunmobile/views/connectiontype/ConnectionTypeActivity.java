@@ -19,7 +19,6 @@ import android.widget.RelativeLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -215,11 +214,6 @@ public abstract class ConnectionTypeActivity extends AppCompatActivity implement
         c.set(Calendar.MONTH, monthOfYear);
         c.set(Calendar.DAY_OF_MONTH, dayOfMonth);
         final long initTime = c.getTimeInMillis();
-
-        if (initTime > System.currentTimeMillis()){
-            Toast.makeText(this.context, getString(R.string.view_connection_mode_bad_date), Toast.LENGTH_LONG).show();
-            return;
-        }
 
         DisplayManager.enableLoadingPanel(this.loadingPanel);
         (new Thread(){
