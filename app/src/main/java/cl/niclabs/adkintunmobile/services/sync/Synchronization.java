@@ -19,9 +19,6 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -159,21 +156,17 @@ public class Synchronization extends Service {
                         new Response.Listener<NetworkResponse>() {
                             @Override
                             public void onResponse(NetworkResponse response) {
-                                //Toast.makeText(getApplicationContext(), "Upload successfully!", Toast.LENGTH_SHORT).show();
                                 Log.d(TAG, "Upload successfully to " + requestURL);
 
                                 // Registro de la última sincronización exitosa
-                                // TODO: crear un sistema persistente de BD para almacenar este tipo de eventos
-                                DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss", java.util.Locale.getDefault());
-                                Date date = new Date();
                                 SharedPreferences.Editor editor = sharedPreferences.edit();
-                                editor.putString(context.getString(R.string.settings_sampling_lastsync_key), dateFormat.format(date));
+                                editor.putString(context.getString(R.string.settings_sampling_lastsync_key), DisplayDateManager.getDateString(System.currentTimeMillis()));
                                 editor.apply();
 
                                 NewsNotification syncLog = new NewsNotification(
                                         NewsNotification.SYNC_LOG,
                                         DisplayDateManager.getDateString(System.currentTimeMillis()),
-                                        "OK ");
+                                        "OK");
                                 syncLog.save();
                             }
                         },
@@ -185,7 +178,7 @@ public class Synchronization extends Service {
                                 NewsNotification syncLog = new NewsNotification(
                                         NewsNotification.SYNC_LOG,
                                         DisplayDateManager.getDateString(System.currentTimeMillis()),
-                                        error.getMessage());
+                                        "onErrorResponse - " + error.getMessage());
                                 syncLog.save();
                             }
                         }) {
@@ -198,10 +191,9 @@ public class Synchronization extends Service {
                         NewsNotification syncLog = new NewsNotification(
                                 NewsNotification.SYNC_LOG,
                                 DisplayDateManager.getDateString(System.currentTimeMillis()),
-                                error.getMessage());
+                                "Deliver Error - " + error.getMessage());
                         syncLog.save();
                         // mErrorListener.onErrorResponse(error);
-
                     }
                 };
 
