@@ -18,7 +18,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Iterator;
-import java.util.TimeZone;
 
 import cl.niclabs.adkintunmobile.R;
 import cl.niclabs.adkintunmobile.data.persistent.visualization.ApplicationTraffic;
@@ -153,7 +152,8 @@ public class ApplicationsTrafficActivity extends AppCompatActivity implements Da
                             initTime,
                             current.uid,
                             current.networkType);
-
+            if (currentApp.getLabel()==null)
+                continue;
             if (current.networkType == ApplicationTraffic.WIFI)
                 this.wifiTrafficArray.add(currentApp);
             if (current.networkType == ApplicationTraffic.MOBILE)
