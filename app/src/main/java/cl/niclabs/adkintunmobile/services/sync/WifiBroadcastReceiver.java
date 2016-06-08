@@ -121,7 +121,7 @@ public class WifiBroadcastReceiver extends BroadcastReceiver{
                         new Response.Listener<NetworkResponse>() {
                             @Override
                             public void onResponse(NetworkResponse response) {
-                                Log.d(TAG, "Upload successfully to " + requestURL);
+                                Log.d(TAG, "Upload " + reportFile.getName() + " successfully to " + requestURL);
 
                                 // Registro de la última sincronización exitosa
                                 SharedPreferences.Editor editor = sharedPreferences.edit();
