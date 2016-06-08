@@ -37,6 +37,11 @@ public class WifiBroadcastReceiver extends BroadcastReceiver{
         NetworkInfo netInfo = intent.getParcelableExtra(WifiManager.EXTRA_NETWORK_INFO);
 
         if (netInfo != null && netInfo.isConnected()) {
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
             Log.d(TAG, "Wifi disponible");
             // 1.- List report files in data directory
             File outputDir = context.getFilesDir();
