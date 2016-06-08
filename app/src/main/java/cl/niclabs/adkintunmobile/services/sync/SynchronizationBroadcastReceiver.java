@@ -28,7 +28,7 @@ public class SynchronizationBroadcastReceiver extends BroadcastReceiver {
         alarmManager.cancel(pIntent);   // Cancel others alarms
 
         long samplingTime = samplingMinutes * 60 *  1000;
-        alarmManager.setRepeating(AlarmManager.RTC, System.currentTimeMillis(), samplingTime, pIntent);
+        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), samplingTime, pIntent);
         Log.d(TAG, "Alarma programada para " + samplingMinutes + " minutos más");
     }
 }
