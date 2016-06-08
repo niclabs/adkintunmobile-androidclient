@@ -25,8 +25,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 import cl.niclabs.adkintunmobile.R;
+import cl.niclabs.adkintunmobile.data.persistent.visualization.ConnectionModeSample;
 import cl.niclabs.adkintunmobile.data.persistent.visualization.NewsNotification;
 import cl.niclabs.adkintunmobile.utils.display.DisplayDateManager;
+import cl.niclabs.adkintunmobile.utils.information.Network;
 import cl.niclabs.adkintunmobile.utils.volley.HttpMultipartRequest;
 import cl.niclabs.adkintunmobile.utils.volley.VolleySingleton;
 
@@ -34,14 +36,8 @@ public class WifiBroadcastReceiver extends BroadcastReceiver{
     private final String TAG = "AdkM:WifiBR";
 
     public void onReceive(final Context context, Intent intent) {
-        NetworkInfo netInfo = intent.getParcelableExtra(WifiManager.EXTRA_NETWORK_INFO);
+        if (Network.getActiveNetwork(context) == ConnectionModeSample.WIFI) {
 
-        if (netInfo != null && netInfo.isConnected()) {
-            try {
-                Thread.sleep(1000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
             Log.d(TAG, "Wifi disponible");
             // 1.- List report files in data directory
             File outputDir = context.getFilesDir();

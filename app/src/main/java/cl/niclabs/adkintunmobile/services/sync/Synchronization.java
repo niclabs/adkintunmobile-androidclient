@@ -13,6 +13,8 @@ public class Synchronization extends Service {
     private final String TAG = "AdkM:Synchronization";
     private Context context;
 
+    private final String SYNC_INTENT = "cl.niclabs.adkintunmobile.intent.SYNC_INTENT";
+
     public Synchronization() {
     }
 
@@ -32,8 +34,16 @@ public class Synchronization extends Service {
             // 4.- Clean DB
             report.cleanDBRecords();
         }
-        // 5.- StopService
+        // 5.- Intent send data
+        runIntentSendData();
+        // 6.- StopService
         stopSelf();
+    }
+
+    private void runIntentSendData() {
+        Intent intent = new Intent();
+        intent.setAction(SYNC_INTENT);
+        context.sendBroadcast(intent);
     }
 
     @Override
