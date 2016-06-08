@@ -53,10 +53,11 @@ public class DashboardFragment extends BaseToolbarFragment {
         View view = getView();
 
         updateStatusToolbar(view);
-        updateMobileConsumption(view);
-        updateConnectionMode(view);
-        updateNetworkType(view);
-        updateTopApps(view);
+
+        updateMobileConsumption(view.findViewById(R.id.card_mobile_consumption));
+        updateConnectionMode(view.findViewById(R.id.card_connection_mode));
+        updateNetworkType(view.findViewById(R.id.card_network_type));
+        updateTopApps(view.findViewById(R.id.card_top_apps));
     }
 
     public void updateStatusToolbar(View view){
@@ -147,6 +148,7 @@ public class DashboardFragment extends BaseToolbarFragment {
                         }
                         else
                             (view.findViewById(R.id.empty_dialog)).setVisibility(View.GONE);
+                        view.setVisibility(View.VISIBLE);
                     }
                 });
             }
@@ -164,6 +166,7 @@ public class DashboardFragment extends BaseToolbarFragment {
                     public void run() {
                         ((TextView) view.findViewById(R.id.tv_download_data)).setText(Network.formatBytes(monthlyData[0]));
                         ((TextView) view.findViewById(R.id.tv_upload_data)).setText(Network.formatBytes(monthlyData[1]));
+                        view.setVisibility(View.VISIBLE);
                     }
                 });
             }
@@ -193,6 +196,7 @@ public class DashboardFragment extends BaseToolbarFragment {
                                 tvPrimaryConn.setText(getString(R.string.view_dashboard_conn_mode_wifi));
                                 break;
                         }
+                        view.setVisibility(View.VISIBLE);
                     }
                 });
             }
@@ -234,6 +238,7 @@ public class DashboardFragment extends BaseToolbarFragment {
                                 ivPrimaryNet.setImageResource(R.drawable.ic_09_4g);
                                 break;
                         }
+                        view.setVisibility(View.VISIBLE);
                     }
                 });
             }
