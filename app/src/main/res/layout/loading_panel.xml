@@ -8,10 +8,22 @@
     android:background="@color/colorLoadingPane"
     android:visibility="visible">
 
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageView2"
+        android:src="@mipmap/icon"
+        android:alpha="0.6"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true" />
+
     <ProgressBar
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:indeterminate="true"
-        style="?android:attr/progressBarStyleLarge" />
+        style="?android:attr/progressBarStyleLarge"
+        android:id="@+id/progressBar"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/imageView2"/>
 
 </RelativeLayout>
