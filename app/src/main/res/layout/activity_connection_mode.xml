@@ -40,21 +40,6 @@
             android:layout_height="match_parent"
             android:background="@mipmap/background3">
 
-            <RelativeLayout
-                android:id="@+id/loading_panel"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                android:background="@color/colorLoadingPane">
-
-                <ProgressBar
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:indeterminate="true"
-                    style="?android:attr/progressBarStyleLarge" />
-
-            </RelativeLayout>
-
             <ScrollView
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
@@ -249,10 +234,11 @@
 
             </ScrollView>
 
+            <include layout="@layout/loading_panel"/>
+
         </FrameLayout>
 
 
     </android.support.v4.widget.NestedScrollView>
-
 
 </android.support.design.widget.CoordinatorLayout>

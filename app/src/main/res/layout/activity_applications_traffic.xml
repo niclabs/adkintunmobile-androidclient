@@ -28,26 +28,12 @@
 
 
     <!-- Contenido -->
-            <RelativeLayout
-                android:id="@+id/loading_panel"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@color/colorLoadingPane"
-                android:gravity="center"
-                android:visibility="visible">
+    <android.support.v4.view.ViewPager
+        android:id="@+id/viewpager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
-                <ProgressBar
-                    style="?android:attr/progressBarStyleLarge"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:indeterminate="true" />
-
-            </RelativeLayout>
-
-            <android.support.v4.view.ViewPager
-                android:id="@+id/viewpager"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+    <include layout="@layout/loading_panel"/>
 
 </android.support.design.widget.CoordinatorLayout>
