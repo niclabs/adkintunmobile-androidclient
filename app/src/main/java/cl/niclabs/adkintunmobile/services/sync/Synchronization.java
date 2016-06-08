@@ -43,14 +43,12 @@ public class Synchronization extends Service {
         this.context = this;
         Log.d(this.TAG, "Creado El servicio de sincronización");
 
-        // 0.- Build a report
+        // 1.- Build a report
         Report report = new Report(getApplicationContext());
         if (report.recordsToSend()){
-            // 1.- Prepare data
-            byte[] data = collectStoredData(report);
-            // 2.- Prepare request
-            sendData(data);
-            // 3.- Backup data
+            // 2.- Save report
+            report.saveFile(context);
+            // 3.- Backup visualization data
             report.saveVisualSamples();
             // 4.- Clean DB
             report.cleanDBRecords();
@@ -69,136 +67,4 @@ public class Synchronization extends Service {
     public IBinder onBind(Intent intent) {
         return null;
     }
-
-
-    /*
-     *  Utility Methods
-     */
-    private byte[] collectStoredData(Report report) {
-        // The output object
-        byte[] data = null;
-
-        // Store to String
-        Gson gson = new Gson();
-        String reportData = gson.toJson(report);
-
-        // Store in cache
-        File outputDir = this.getCacheDir();
-        try {
-            String filename = getString(R.string.synchronization_report_filename);
-            String fileExtension = getString(R.string.synchronization_report_fileextension);
-            File outputFile = File.createTempFile(filename, fileExtension, outputDir);
-            FileOutputStream outStream = new FileOutputStream(outputFile);
-            outStream.write(reportData.getBytes());
-            outStream.flush();
-            outStream.close();
-            data = readContentIntoByteArray(outputFile);
-
-            // Delete cache file
-            if (!outputFile.delete())
-                Log.d(this.TAG, "Error al borrar el archivo temporal");
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        return data;
-    }
-
-    private static byte[] readContentIntoByteArray(File file) {
-        FileInputStream fileInputStream;
-        byte[] bFile = new byte[(int) file.length()];
-        try {
-            // Convert file into array of bytes
-            fileInputStream = new FileInputStream(file);
-            fileInputStream.read(bFile);
-            fileInputStream.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return bFile;
-    }
-
-    private void sendData(byte[] data) {
-        byte[] multipartBody = null;
-
-        ByteArrayOutputStream bos = new ByteArrayOutputStream();
-        DataOutputStream dos = new DataOutputStream(bos);
-        try {
-            // Primer archivo adjuntado al DataOutputStream
-            String fileMultiPartFormData = getString(R.string.synchronization_report_file_multipartdata);
-            HttpMultipartRequest.buildPart(dos, data, fileMultiPartFormData);
-            // Agregar "multipart form data" después de los archivos
-            HttpMultipartRequest.writeBytes(dos);
-            // Crear multipart body
-            multipartBody = bos.toByteArray();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        // Preparar headers del request
-        Map<String,String> headers = new HashMap<String, String>();
-        String authKey = getString(R.string.settings_sampling_hostname_token_key);
-        String authValue = getString(R.string.settings_sampling_hostname_token_value);
-        headers.put(authKey, authValue);
-
-        // Creación multipart request
-        final SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this.context);
-        final String requestURL =
-                sharedPreferences.getString(
-                        this.context.getString(R.string.settings_sampling_hostname_key),
-                        this.context.getString(R.string.settings_sampling_hostname_default));
-        HttpMultipartRequest multipartRequest =
-                new HttpMultipartRequest(
-                        requestURL,
-                        headers,
-                        multipartBody,
-                        new Response.Listener<NetworkResponse>() {
-                            @Override
-                            public void onResponse(NetworkResponse response) {
-                                Log.d(TAG, "Upload successfully to " + requestURL);
-
-                                // Registro de la última sincronización exitosa
-                                SharedPreferences.Editor editor = sharedPreferences.edit();
-                                editor.putString(context.getString(R.string.settings_sampling_lastsync_key), DisplayDateManager.getDateString(System.currentTimeMillis()));
-                                editor.apply();
-
-                                NewsNotification syncLog = new NewsNotification(
-                                        NewsNotification.SYNC_LOG,
-                                        DisplayDateManager.getDateString(System.currentTimeMillis()),
-                                        "OK");
-                                syncLog.save();
-                            }
-                        },
-                        new Response.ErrorListener() {
-                            @Override
-                            public void onErrorResponse(VolleyError error) {
-                                Log.d(TAG, "Upload failed to " + requestURL + ": " + error.getMessage() + " : " + error.toString());
-
-                                NewsNotification syncLog = new NewsNotification(
-                                        NewsNotification.SYNC_LOG,
-                                        DisplayDateManager.getDateString(System.currentTimeMillis()),
-                                        "onErrorResponse - " + error.getMessage());
-                                syncLog.save();
-                            }
-                        }) {
-                    @Override
-                    public void deliverError(VolleyError error) {
-                        VolleySingleton.getInstance(getApplicationContext()).getRequestQueue().stop();
-                        VolleySingleton.getInstance(getApplicationContext()).addToRequestQueue(this);
-                        Log.d(TAG, "Deliver Error, Queued! " + error.toString());
-
-                        NewsNotification syncLog = new NewsNotification(
-                                NewsNotification.SYNC_LOG,
-                                DisplayDateManager.getDateString(System.currentTimeMillis()),
-                                "Deliver Error - " + error.getMessage());
-                        syncLog.save();
-                        // mErrorListener.onErrorResponse(error);
-                    }
-                };
-
-        // Agregar multipartrequest a la cola de peticiones
-        VolleySingleton.getInstance(getApplicationContext()).addToRequestQueue(multipartRequest);
-    }
-
 }

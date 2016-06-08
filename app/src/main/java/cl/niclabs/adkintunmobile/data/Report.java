@@ -1,12 +1,18 @@
 package cl.niclabs.adkintunmobile.data;
 
 import android.content.Context;
+import android.util.Log;
 
+import com.google.gson.Gson;
 import com.google.gson.annotations.SerializedName;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.Iterator;
 import java.util.List;
 
+import cl.niclabs.adkintunmobile.R;
 import cl.niclabs.adkintunmobile.data.persistent.CdmaObservationWrapper;
 import cl.niclabs.adkintunmobile.data.persistent.ConnectivityObservationWrapper;
 import cl.niclabs.adkintunmobile.data.persistent.GsmObservationWrapper;
@@ -64,6 +70,31 @@ public class Report {
         boolean telephony = this.telephonyRecords.isEmpty();
         boolean traffic = this.trafficRecords.isEmpty();
         return !(cdma && connectivity && gsm && state && telephony && traffic);
+    }
+
+    public boolean saveFile(Context context){
+        // Store to String
+        Gson gson = new Gson();
+        String reportData = gson.toJson(this);
+
+        // Store in local directory
+        File outputDir = context.getFilesDir();
+        try {
+            String filename = context.getString(R.string.synchronization_report_filename);
+            filename += "_" + System.currentTimeMillis();
+            String fileExtension = context.getString(R.string.synchronization_report_fileextension);
+
+            File outputFile = File.createTempFile(filename, fileExtension, outputDir);
+            FileOutputStream outStream = new FileOutputStream(outputFile);
+            outStream.write(reportData.getBytes());
+            outStream.flush();
+            outStream.close();
+            return true;
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 
     public void cleanDBRecords(){
