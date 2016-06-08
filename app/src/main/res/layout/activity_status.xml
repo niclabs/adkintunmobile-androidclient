@@ -572,12 +572,10 @@
                 </LinearLayout>
             </ScrollView>
 
-            <include layout="@layout/loading_panel"/>
-
         </FrameLayout>
-
 
     </android.support.v4.widget.NestedScrollView>
 
+    <include layout="@layout/loading_panel"/>
 
 </android.support.design.widget.CoordinatorLayout>
