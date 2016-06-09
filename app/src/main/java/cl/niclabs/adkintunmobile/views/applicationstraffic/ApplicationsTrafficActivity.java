@@ -14,6 +14,8 @@ import android.view.MenuItem;
 import android.widget.DatePicker;
 import android.widget.RelativeLayout;
 
+import com.facebook.shimmer.ShimmerFrameLayout;
+
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -89,6 +91,10 @@ public class ApplicationsTrafficActivity extends AppCompatActivity implements Da
         ActionBar ab = getSupportActionBar();
         ab.setTitle(this.title);
         ab.setDisplayHomeAsUpEnabled(true);
+
+        ShimmerFrameLayout container =
+                (ShimmerFrameLayout) findViewById(R.id.shimmer_view_container);
+        container.startShimmerAnimation();
     }
 
     @Override

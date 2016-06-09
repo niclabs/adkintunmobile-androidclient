@@ -20,6 +20,8 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.facebook.shimmer.ShimmerFrameLayout;
+
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Iterator;
@@ -100,6 +102,10 @@ public class StatusActivity extends AppCompatActivity {
         ActionBar ab = getSupportActionBar();
         ab.setTitle(this.title);
         ab.setDisplayHomeAsUpEnabled(true);
+
+        ShimmerFrameLayout container =
+                (ShimmerFrameLayout) findViewById(R.id.shimmer_view_container);
+        container.startShimmerAnimation();
     }
 
     @Override
