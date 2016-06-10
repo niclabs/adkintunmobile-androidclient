@@ -13,20 +13,18 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.View;
 
-import com.crashlytics.android.Crashlytics;
-
 import cl.niclabs.adkintunmobile.R;
 import cl.niclabs.adkintunmobile.data.persistent.visualization.NewsNotification;
 import cl.niclabs.adkintunmobile.services.SetupSystem;
 import cl.niclabs.adkintunmobile.utils.display.NotificationManager;
 import cl.niclabs.adkintunmobile.views.aboutus.AboutUsActivity;
+import cl.niclabs.adkintunmobile.views.activeconnections.ActiveConnections;
 import cl.niclabs.adkintunmobile.views.applicationstraffic.ApplicationsTrafficActivity;
 import cl.niclabs.adkintunmobile.views.connectiontype.connectionmode.ConnectionModeActivity;
 import cl.niclabs.adkintunmobile.views.connectiontype.networktype.NetworkTypeActivity;
 import cl.niclabs.adkintunmobile.views.rankings.RankingFragment;
 import cl.niclabs.adkintunmobile.views.settings.SettingsActivity;
 import cl.niclabs.adkintunmobile.views.status.StatusActivity;
-import io.fabric.sdk.android.Fabric;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -41,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Fabric.with(this, new Crashlytics());
+        //Fabric.with(this, new Crashlytics());
         setContentView(R.layout.activity_main);
 
         this.context = this;
@@ -122,6 +120,9 @@ public class MainActivity extends AppCompatActivity {
                     case R.id.nav_applications_traffic:
                         openApplicationTrafficView(null);
                         break;
+                    case R.id.nav_active_connections:
+                        openActiveConnectionsView(null);
+                        break;
                     case R.id.nav_settings:
                         myIntent = new Intent(getApplicationContext(), SettingsActivity.class);
                         startActivity(myIntent);
@@ -160,6 +161,11 @@ public class MainActivity extends AppCompatActivity {
 
     public void openNetworkTypeView(View view){
         Intent myIntent = new Intent(getApplicationContext(), NetworkTypeActivity.class);
+        startActivity(myIntent);
+    }
+
+    public void openActiveConnectionsView(View view) {
+        Intent myIntent = new Intent(getApplicationContext(), ActiveConnections.class);
         startActivity(myIntent);
     }
     /*

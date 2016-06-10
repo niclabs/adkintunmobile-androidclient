@@ -78,6 +78,14 @@
                 android:value=".views.dashboard.MainActivity" />
         </activity>
         <activity
+            android:name=".views.activeconnections.ActiveConnections"
+            android:parentActivityName=".views.dashboard.MainActivity"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".views.dashboard.MainActivity" />
+        </activity>
+        <activity
             android:name=".views.settings.SettingsActivity"
             android:parentActivityName=".views.dashboard.MainActivity"
             android:screenOrientation="portrait"
@@ -134,6 +142,7 @@
                 <action android:name="cl.niclabs.adkintunmobile.intent.SYNC_INTENT" />
             </intent-filter>
         </receiver>
+
         <meta-data
             android:name="io.fabric.ApiKey"
             android:value="82a140fbb4dca5f1fc6a84e30117e2ffafaf23a4" />
