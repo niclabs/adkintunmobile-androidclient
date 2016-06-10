@@ -12,10 +12,10 @@
         android:padding="16dp"
         android:background="@android:color/holo_purple"/>
 
-    <ImageView
+    <fragment
+        android:id="@+id/map"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:adjustViewBounds="true"
-        android:src="@drawable/wear2"/>
+        android:layout_height="200dp"
+        class="com.google.android.gms.maps.SupportMapFragment" />
 
 </LinearLayout>
