@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="google_api_key">google_api_key</string>
+    <string name="token_post_adkserver">token_server</string>
+</resources>

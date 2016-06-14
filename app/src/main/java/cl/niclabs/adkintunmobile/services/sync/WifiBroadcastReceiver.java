@@ -4,8 +4,6 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.net.NetworkInfo;
-import android.net.wifi.WifiManager;
 import android.preference.PreferenceManager;
 import android.util.Log;
 
@@ -103,7 +101,7 @@ public class WifiBroadcastReceiver extends BroadcastReceiver{
         // Preparar headers del request
         Map<String,String> headers = new HashMap<String, String>();
         String authKey = context.getString(R.string.settings_sampling_hostname_token_key);
-        String authValue = context.getString(R.string.settings_sampling_hostname_token_value);
+        String authValue = context.getString(R.string.token_post_adkserver);
         headers.put(authKey, authValue);
 
         final SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
