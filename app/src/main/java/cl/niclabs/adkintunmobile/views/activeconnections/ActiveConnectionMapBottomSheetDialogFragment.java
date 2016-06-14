@@ -1,11 +1,9 @@
 package cl.niclabs.adkintunmobile.views.activeconnections;
 
 import android.app.Dialog;
-import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
-import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomSheetBehavior;
 import android.support.design.widget.BottomSheetDialogFragment;
@@ -15,7 +13,6 @@ import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import com.android.volley.Request;
@@ -26,7 +23,6 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -41,19 +37,24 @@ import cl.niclabs.adkintunmobile.utils.volley.VolleySingleton;
 
 
 public class ActiveConnectionMapBottomSheetDialogFragment extends BottomSheetDialogFragment implements OnMapReadyCallback{
+
+    private final String TAG = "AdkM:ACMap";
+
     private final ActiveConnectionMapBottomSheetDialogFragment thisMap = this;
     private ActiveConnectionListElement activeConnectionListElement;
     private SupportMapFragment map;
+
     private ArrayList<LatLng> locations = new ArrayList<>();
     private ArrayList<String> countries = new ArrayList<>();
     private ArrayList<String> ipAddr = new ArrayList<>();
     private Bitmap icon;
     private int index;
     private TextView dialogTextView;
+
     @Override
     public void setupDialog(Dialog dialog, int style) {
         super.setupDialog(dialog, style);
-        Log.d("JSON", "setupDialog");
+        Log.d(TAG, "Setup Dialog");
         index = 0;
 
         View contentView = View.inflate(getContext(), R.layout.fragment_active_connection_map_bottom_sheet, null);
@@ -68,7 +69,7 @@ public class ActiveConnectionMapBottomSheetDialogFragment extends BottomSheetDia
                 index++;
                 if (index >= locations.size())
                     index = 0;
-                Log.d("JSON", "Current index: " + index+ " "+activeConnectionListElement.getIpAddr().size()+" "+ locations.size());
+                Log.d(TAG, "Current index: " + index+ " "+activeConnectionListElement.getIpAddr().size()+" "+ locations.size());
                 map.getMapAsync(thisMap);
             }
         });
@@ -114,7 +115,7 @@ public class ActiveConnectionMapBottomSheetDialogFragment extends BottomSheetDia
                                 countries.add(country);
                                 locations.add(new LatLng(lat, lon));
                                 ipAddr.add(ip);
-                                Log.d("JSON", lat + " " + lon+ " "+ ip);
+                                Log.d(TAG, lat + " " + lon+ " "+ ip);
                                 map.getMapAsync(thisMap);
 
                             } catch (JSONException e) {
@@ -135,6 +136,8 @@ public class ActiveConnectionMapBottomSheetDialogFragment extends BottomSheetDia
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
+        Log.d(TAG, "Mapa desplegado");
+
         googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(
                 locations.get(index), 0));
         googleMap.addMarker(new MarkerOptions().icon(BitmapDescriptorFactory.fromBitmap(icon)).anchor(0.0f, 1.0f) // Anchors the marker on the bottom left
@@ -153,7 +156,7 @@ public class ActiveConnectionMapBottomSheetDialogFragment extends BottomSheetDia
 
     public void setActiveConnectionListElement(ActiveConnectionListElement activeConnectionListElement){
         this.activeConnectionListElement = activeConnectionListElement;
-        Log.d("JSON", activeConnectionListElement.getLabel());
+        Log.d(TAG, "Mostrando: " + activeConnectionListElement.getLabel());
 
         Drawable d = activeConnectionListElement.getLogo();
         icon = ((BitmapDrawable)d).getBitmap();

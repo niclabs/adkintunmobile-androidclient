@@ -78,7 +78,7 @@
                 android:value=".views.dashboard.MainActivity" />
         </activity>
         <activity
-            android:name=".views.activeconnections.ActiveConnections"
+            android:name=".views.activeconnections.ActiveConnectionsActivity"
             android:parentActivityName=".views.dashboard.MainActivity"
             android:screenOrientation="portrait">
             <meta-data
@@ -145,7 +145,7 @@
 
         <meta-data
             android:name="io.fabric.ApiKey"
-            android:value="@string/fabric_api_key" />
+            android:value="82a140fbb4dca5f1fc6a84e30117e2ffafaf23a4" />
         <meta-data
             android:name="com.google.android.maps.v2.API_KEY"
             android:value="@string/google_api_key" />

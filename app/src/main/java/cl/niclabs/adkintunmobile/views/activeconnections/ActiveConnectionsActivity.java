@@ -3,7 +3,6 @@ package cl.niclabs.adkintunmobile.views.activeconnections;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.design.widget.BottomSheetBehavior;
-import android.support.design.widget.BottomSheetDialogFragment;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -21,9 +20,9 @@ import cl.niclabs.adkintunmobile.R;
 import cl.niclabs.adkintunmobile.utils.information.SystemSocket;
 import cl.niclabs.adkintunmobile.utils.information.SystemSockets;
 
-public class ActiveConnections extends AppCompatActivity {
+public class ActiveConnectionsActivity extends AppCompatActivity {
 
-    private final String TAG = "AdkM:ActiveConnections";
+    private final String TAG = "AdkM:ActiveConnectionsActivity";
 
     private String title;
     private Context context;

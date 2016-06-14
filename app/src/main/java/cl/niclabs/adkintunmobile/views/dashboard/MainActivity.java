@@ -18,7 +18,7 @@ import cl.niclabs.adkintunmobile.data.persistent.visualization.NewsNotification;
 import cl.niclabs.adkintunmobile.services.SetupSystem;
 import cl.niclabs.adkintunmobile.utils.display.NotificationManager;
 import cl.niclabs.adkintunmobile.views.aboutus.AboutUsActivity;
-import cl.niclabs.adkintunmobile.views.activeconnections.ActiveConnections;
+import cl.niclabs.adkintunmobile.views.activeconnections.ActiveConnectionsActivity;
 import cl.niclabs.adkintunmobile.views.applicationstraffic.ApplicationsTrafficActivity;
 import cl.niclabs.adkintunmobile.views.connectiontype.connectionmode.ConnectionModeActivity;
 import cl.niclabs.adkintunmobile.views.connectiontype.networktype.NetworkTypeActivity;
@@ -165,7 +165,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void openActiveConnectionsView(View view) {
-        Intent myIntent = new Intent(getApplicationContext(), ActiveConnections.class);
+        Intent myIntent = new Intent(getApplicationContext(), ActiveConnectionsActivity.class);
         startActivity(myIntent);
     }
     /*
