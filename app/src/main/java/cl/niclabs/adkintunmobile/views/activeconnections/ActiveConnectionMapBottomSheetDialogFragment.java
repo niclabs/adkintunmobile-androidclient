@@ -105,6 +105,7 @@ public class ActiveConnectionMapBottomSheetDialogFragment extends BottomSheetDia
         for (int i=0; i<activeConnectionListElement.getIpAddr().size(); i++) {
 
             final String ip = activeConnectionListElement.getIpAddr().get(i);
+            final int port = activeConnectionListElement.getPortAddr().get(i);
             String url = "http://freegeoip.net/json/" + ip;
 
             final JsonObjectRequest jsObjRequest = new JsonObjectRequest
@@ -118,7 +119,7 @@ public class ActiveConnectionMapBottomSheetDialogFragment extends BottomSheetDia
                                 String country = response.getString("country_name");
                                 countries.add(country);
                                 locations.add(new LatLng(lat, lon));
-                                ipAddr.add(ip);
+                                ipAddr.add(ip + ":" + port);
                                 Log.d(TAG, lat + " " + lon+ " "+ ip);
                                 map.getMapAsync(thisMap);
 
