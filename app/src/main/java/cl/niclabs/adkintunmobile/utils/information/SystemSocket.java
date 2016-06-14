@@ -96,9 +96,10 @@ public class SystemSocket {
         return uid;
     }
 
-    public boolean isOutsideConnection(){
+    public boolean isOutsideActiveConnection(){
         return !this.remoteAddress.contains("0.0.0.0") &&
-                !this.remoteAddress.contains("127.0.0.1");
+                !this.remoteAddress.contains("127.0.0.1") &&
+                (this.state.equals("01") || this.state.toLowerCase().equals("0a"));
     }
 
     private String parseIp(String ip){

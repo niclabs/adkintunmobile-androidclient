@@ -75,7 +75,7 @@ public class SystemSockets {
 
             while (( line = socketInfoReader.readLine() ) != null) {
                 SystemSocket currentConnection = new SystemSocket(line);
-                if ( currentConnection.isOutsideConnection() ){
+                if ( currentConnection.isOutsideActiveConnection() ){
                     sockets.add(currentConnection);
                 }
             }
