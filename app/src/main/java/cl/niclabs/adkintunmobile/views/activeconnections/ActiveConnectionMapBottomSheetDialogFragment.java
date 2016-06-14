@@ -13,6 +13,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.android.volley.Request;
@@ -23,6 +24,7 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.UiSettings;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -50,6 +52,7 @@ public class ActiveConnectionMapBottomSheetDialogFragment extends BottomSheetDia
     private Bitmap icon;
     private int index;
     private TextView dialogTextView;
+    private LinearLayout mapLayout;
 
     @Override
     public void setupDialog(Dialog dialog, int style) {
@@ -75,6 +78,7 @@ public class ActiveConnectionMapBottomSheetDialogFragment extends BottomSheetDia
         });
 
         dialogTextView = (TextView) contentView.findViewById(R.id.tv_ip_addr);
+        mapLayout = (LinearLayout) contentView.findViewById(R.id.map_layout);
 
         CoordinatorLayout.LayoutParams params = (CoordinatorLayout.LayoutParams) ((View) contentView.getParent()).getLayoutParams();
         final BottomSheetBehavior behavior = (BottomSheetBehavior) params.getBehavior();
@@ -137,6 +141,9 @@ public class ActiveConnectionMapBottomSheetDialogFragment extends BottomSheetDia
     @Override
     public void onMapReady(GoogleMap googleMap) {
         Log.d(TAG, "Mapa desplegado");
+        UiSettings uiSettings = googleMap.getUiSettings();
+        uiSettings.setRotateGesturesEnabled(false);
+        mapLayout.setVisibility(View.VISIBLE);
 
         googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(
                 locations.get(index), 0));
