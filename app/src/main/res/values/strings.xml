@@ -38,7 +38,7 @@
 
     <string name="settings_app_version_key">app_version</string>
     <string name="settings_app_version_title">Versión de la aplicación</string>
-    <string name="settings_app_version_default">0.1a</string>
+    <string name="settings_app_version_default">2.0a</string>
 
 
     <string name="settings_app_data_category">Ajustes de la aplicación</string>

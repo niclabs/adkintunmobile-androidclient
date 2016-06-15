@@ -129,7 +129,7 @@ public class WifiBroadcastReceiver extends BroadcastReceiver{
                                 NewsNotification syncLog = new NewsNotification(
                                         NewsNotification.SYNC_LOG,
                                         DisplayDateManager.getDateString(System.currentTimeMillis()),
-                                        "OK");
+                                        "OK\n" + reportFile.getName());
                                 syncLog.save();
 
                                 // Borrar archivo
@@ -150,7 +150,7 @@ public class WifiBroadcastReceiver extends BroadcastReceiver{
                                 NewsNotification syncLog = new NewsNotification(
                                         NewsNotification.SYNC_LOG,
                                         DisplayDateManager.getDateString(System.currentTimeMillis()),
-                                        "onErrorResponse - " + error.getMessage() + " : " + error.toString());
+                                        "onErrorResponse - " + error.getMessage() + " : " + error.toString() +"\n" + reportFile.getName());
                                 syncLog.save();
                             }
                         });
