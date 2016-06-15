@@ -18,8 +18,6 @@ public class ActiveConnectionListElement {
     private String label;
     private Drawable logo;
     private int uid;
-    private ArrayList<String> ipAddr;
-    private ArrayList<Integer> portAddr;
     private HashMap<SystemSockets.Type, ArrayList<String>> connAddress;
 
 
@@ -59,46 +57,6 @@ public class ActiveConnectionListElement {
             connections.add(dir);
     }
 
-
-    /*
-    public ActiveConnectionListElement(Context context, SystemSocket systemSocket) {
-        this.uid = systemSocket.getUid();
-
-        String [] packages = context.getPackageManager().getPackagesForUid(uid);
-        if (packages != null && packages.length > 0)
-            this.packageName = packages[0];
-
-        PackageManager pkgManager = context.getPackageManager();
-
-        try {
-            PackageInfo pkgInfo = pkgManager.getPackageInfo(this.packageName, 0);
-            ApplicationInfo appInfo = pkgInfo.applicationInfo;
-
-            this.label = pkgManager.getApplicationLabel(appInfo).toString();
-            this.logo = pkgManager.getApplicationIcon(pkgInfo.packageName);
-        } catch (PackageManager.NameNotFoundException e) {
-            this.label = this.packageName;
-            this.logo = null;
-        }
-
-        //this.ipAddr = new ArrayList<String>();
-        //this.ipAddr.add(systemSocket.getRemoteAddress());
-
-        //this.portAddr = new ArrayList<Integer>();
-        //this.portAddr.add(systemSocket.getRemotePort());
-    }
-    */
-
-    /*
-    public void addIpAddr(Collection<String> ipAddr){
-        this.ipAddr.addAll(ipAddr);
-    }
-
-    public void addPortAddr(Collection<Integer> portAddr){
-        this.portAddr.addAll(portAddr);
-    }
-    */
-
     public String getLabel() {
         return label;
     }
@@ -107,15 +65,9 @@ public class ActiveConnectionListElement {
         return logo;
     }
 
-    /*
-    public ArrayList<String> getIpAddr() {
-        return ipAddr;
+    public ArrayList<String> getIpConnections(SystemSockets.Type type){
+        return connAddress.get(type);
     }
-
-    public ArrayList<Integer> getPortAddr() {
-        return portAddr;
-    }
-    */
 
     public int getTotalActiveConnections(){
         int total = 0;

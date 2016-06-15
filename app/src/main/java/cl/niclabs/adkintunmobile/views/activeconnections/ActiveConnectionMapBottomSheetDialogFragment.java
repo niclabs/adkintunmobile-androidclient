@@ -13,6 +13,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -33,12 +34,16 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 import cl.niclabs.adkintunmobile.R;
+import cl.niclabs.adkintunmobile.data.persistent.IpLocation;
+import cl.niclabs.adkintunmobile.utils.information.SystemSockets;
 import cl.niclabs.adkintunmobile.utils.volley.VolleySingleton;
 
 
-public class ActiveConnectionMapBottomSheetDialogFragment extends BottomSheetDialogFragment implements OnMapReadyCallback{
+public class ActiveConnectionMapBottomSheetDialogFragment extends BottomSheetDialogFragment implements OnMapReadyCallback, View.OnClickListener {
 
     private final String TAG = "AdkM:ACMap";
 
@@ -46,11 +51,11 @@ public class ActiveConnectionMapBottomSheetDialogFragment extends BottomSheetDia
     private ActiveConnectionListElement activeConnectionListElement;
     private SupportMapFragment map;
 
-    private ArrayList<LatLng> locations = new ArrayList<>();
-    private ArrayList<String> countries = new ArrayList<>();
-    private ArrayList<String> ipAddr = new ArrayList<>();
+    private ArrayList<IpLocation> ipLocations = new ArrayList<>();
     private Bitmap icon;
     private int index;
+
+    private ImageView appLogo;
     private TextView dialogTextView;
     private LinearLayout mapLayout;
 
@@ -59,26 +64,67 @@ public class ActiveConnectionMapBottomSheetDialogFragment extends BottomSheetDia
         super.setupDialog(dialog, style);
         Log.d(TAG, "Setup Dialog");
         index = 0;
-
         View contentView = View.inflate(getContext(), R.layout.fragment_active_connection_map_bottom_sheet, null);
         dialog.setContentView(contentView);
 
         Button nextButton = (Button) contentView.findViewById(R.id.button_next);
-        nextButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (locations.size()<=1)
-                    return;
-                index++;
-                if (index >= locations.size())
-                    index = 0;
-                Log.d(TAG, "Current index: " + index+ " "+activeConnectionListElement.getIpAddr().size()+" "+ locations.size());
-                map.getMapAsync(thisMap);
-            }
-        });
+        nextButton.setOnClickListener(this);
 
+        setUpLayoutElements(contentView);
+        appLogo.setImageDrawable(activeConnectionListElement.getLogo());
+
+        for (String ipAddress : activeConnectionListElement.getIpConnections(SystemSockets.Type.TCP)){
+            final String ip = ipAddress.split(":")[0];
+            final String port = ipAddress.split(":")[1];
+
+            String url = "http://freegeoip.net/json/" + ip;
+
+            if (!IpLocation.existIpLocationByIp(ip)) {
+
+                final JsonObjectRequest jsObjRequest = new JsonObjectRequest
+                        (Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
+
+                            @Override
+                            public void onResponse(JSONObject response) {
+                                try {
+                                    double lat = Double.parseDouble(response.getString("latitude"));
+                                    double lon = Double.parseDouble(response.getString("longitude"));
+                                    String country = response.getString("country_name");
+                                    (new IpLocation(ip, lat, lon, country)).save();
+                                    Log.d(TAG, lat + " " + lon + " " + ip + " from API");
+
+                                    updateMapList(ip);
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        }, new Response.ErrorListener() {
+
+                            @Override
+                            public void onErrorResponse(VolleyError error) {
+                            }
+                        });
+
+                // Access the RequestQueue through your singleton class.
+                VolleySingleton.getInstance(getContext()).addToRequestQueue(jsObjRequest);
+            }
+            else {
+                updateMapList(ip);
+            }
+        }
+    }
+
+    private void updateMapList(String ip) {
+        IpLocation mIpLocation = IpLocation.getIpLocationByIp(ip);
+        ipLocations.add(mIpLocation);
+        map.getMapAsync(thisMap);
+    }
+
+    private void setUpLayoutElements(View contentView) {
         dialogTextView = (TextView) contentView.findViewById(R.id.tv_ip_addr);
         mapLayout = (LinearLayout) contentView.findViewById(R.id.map_layout);
+        appLogo = (ImageView) contentView.findViewById(R.id.iv_applogo);
+        map = (SupportMapFragment) getFragmentManager().findFragmentById(R.id.map);
 
         CoordinatorLayout.LayoutParams params = (CoordinatorLayout.LayoutParams) ((View) contentView.getParent()).getLayoutParams();
         final BottomSheetBehavior behavior = (BottomSheetBehavior) params.getBehavior();
@@ -98,45 +144,6 @@ public class ActiveConnectionMapBottomSheetDialogFragment extends BottomSheetDia
                     return;
                 }});
         }
-
-        map = (SupportMapFragment) getFragmentManager().findFragmentById(R.id.map);
-        //map.getMapAsync(this);
-
-        for (int i=0; i<activeConnectionListElement.getIpAddr().size(); i++) {
-
-            final String ip = activeConnectionListElement.getIpAddr().get(i);
-            final int port = activeConnectionListElement.getPortAddr().get(i);
-            String url = "http://freegeoip.net/json/" + ip;
-
-            final JsonObjectRequest jsObjRequest = new JsonObjectRequest
-                    (Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
-
-                        @Override
-                        public void onResponse(JSONObject response) {
-                            try {
-                                double lat = Double.parseDouble(response.getString("latitude"));
-                                double lon = Double.parseDouble(response.getString("longitude"));
-                                String country = response.getString("country_name");
-                                countries.add(country);
-                                locations.add(new LatLng(lat, lon));
-                                ipAddr.add(ip + ":" + port);
-                                Log.d(TAG, lat + " " + lon+ " "+ ip);
-                                map.getMapAsync(thisMap);
-
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            }
-                        }
-                    }, new Response.ErrorListener() {
-
-                        @Override
-                        public void onErrorResponse(VolleyError error) {
-                        }
-                    });
-
-            // Access the RequestQueue through your singleton class.
-            VolleySingleton.getInstance(getContext()).addToRequestQueue(jsObjRequest);
-        }
     }
 
     @Override
@@ -146,11 +153,12 @@ public class ActiveConnectionMapBottomSheetDialogFragment extends BottomSheetDia
         uiSettings.setRotateGesturesEnabled(false);
         mapLayout.setVisibility(View.VISIBLE);
 
+        LatLng latLng = new LatLng(ipLocations.get(index).getLatitude(), ipLocations.get(index).getLongitude());
         googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(
-                locations.get(index), 0));
+                latLng, 0));
         googleMap.addMarker(new MarkerOptions().icon(BitmapDescriptorFactory.fromBitmap(icon)).anchor(0.0f, 1.0f) // Anchors the marker on the bottom left
-                .position(locations.get(index))); //Iasi, Romania
-        dialogTextView.setText(ipAddr.get(index) + " " +countries.get(index));
+                .position(latLng));
+        dialogTextView.setText(ipLocations.get(index).getIpAddress() + " " +ipLocations.get(index).getCountry());
     }
 
     @Override
@@ -168,5 +176,12 @@ public class ActiveConnectionMapBottomSheetDialogFragment extends BottomSheetDia
 
         Drawable d = activeConnectionListElement.getLogo();
         icon = ((BitmapDrawable)d).getBitmap();
+    }
+
+    @Override
+    public void onClick(View v) {
+        index = (index + 1)%ipLocations.size();
+        Log.d(TAG, "Current index: " + index + "/" + ipLocations.size());
+        map.getMapAsync(thisMap);
     }
 }

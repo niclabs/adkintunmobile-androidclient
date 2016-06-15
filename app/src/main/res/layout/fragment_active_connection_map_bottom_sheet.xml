@@ -4,16 +4,20 @@
     android:layout_height="match_parent">
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="@android:color/holo_purple">
 
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/iv_applogo"/>
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/tv_ip_addr"
             android:textColor="@android:color/white"
             android:textSize="16sp"
-            android:padding="16dp"
-            android:background="@android:color/holo_purple"/>
+            android:padding="16dp"/>
 
         <Button
             android:layout_width="wrap_content"
