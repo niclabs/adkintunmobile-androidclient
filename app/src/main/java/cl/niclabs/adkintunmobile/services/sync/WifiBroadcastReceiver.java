@@ -150,7 +150,7 @@ public class WifiBroadcastReceiver extends BroadcastReceiver{
                                 NewsNotification syncLog = new NewsNotification(
                                         NewsNotification.SYNC_LOG,
                                         DisplayDateManager.getDateString(System.currentTimeMillis()),
-                                        "onErrorResponse - " + error.getMessage());
+                                        "onErrorResponse - " + error.getMessage() + " : " + error.toString());
                                 syncLog.save();
                             }
                         });
