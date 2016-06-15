@@ -7,9 +7,10 @@ import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
 
 import java.util.ArrayList;
-import java.util.Collection;
+import java.util.HashMap;
 
 import cl.niclabs.adkintunmobile.utils.information.SystemSocket;
+import cl.niclabs.adkintunmobile.utils.information.SystemSockets;
 
 public class ActiveConnectionListElement {
 
@@ -19,16 +20,49 @@ public class ActiveConnectionListElement {
     private int uid;
     private ArrayList<String> ipAddr;
     private ArrayList<Integer> portAddr;
+    private HashMap<SystemSockets.Type, ArrayList<String>> connAddress;
 
 
     public ActiveConnectionListElement(Context context, SystemSocket systemSocket) {
+        // Setup uid y packageName
         this.uid = systemSocket.getUid();
+        String [] packages = context.getPackageManager().getPackagesForUid(this.uid);
+        if (packages != null && packages.length > 0)
+            this.packageName = packages[0];
 
-        this.ipAddr = new ArrayList<String>();
-        this.ipAddr.add(systemSocket.getRemoteAddress());
+        // Setup label and logo
+        try {
+            PackageManager pkgManager = context.getPackageManager();
+            PackageInfo pkgInfo = pkgManager.getPackageInfo(this.packageName, 0);
+            ApplicationInfo appInfo = pkgInfo.applicationInfo;
 
-        this.portAddr = new ArrayList<Integer>();
-        this.portAddr.add(systemSocket.getRemotePort());
+            this.label = pkgManager.getApplicationLabel(appInfo).toString();
+            this.logo = pkgManager.getApplicationIcon(pkgInfo.packageName);
+        } catch (PackageManager.NameNotFoundException e) {
+            this.label = this.packageName;
+            this.logo = null;
+        }
+
+        // Setup map
+        this.connAddress = new HashMap<SystemSockets.Type, ArrayList<String>>();
+        for (SystemSockets.Type type : SystemSockets.Type.values()){
+            this.connAddress.put(type, new ArrayList<String>());
+        }
+        this.addConnection(systemSocket);
+
+    }
+
+    public void addConnection(SystemSocket socket){
+        String dir = socket.getRemoteAddress() + ":" + socket.getRemotePort();
+        ArrayList<String> connections = this.connAddress.get(socket.getType());
+        if (!connections.contains(dir))
+            connections.add(dir);
+    }
+
+
+    /*
+    public ActiveConnectionListElement(Context context, SystemSocket systemSocket) {
+        this.uid = systemSocket.getUid();
 
         String [] packages = context.getPackageManager().getPackagesForUid(uid);
         if (packages != null && packages.length > 0)
@@ -46,8 +80,16 @@ public class ActiveConnectionListElement {
             this.label = this.packageName;
             this.logo = null;
         }
-    }
 
+        //this.ipAddr = new ArrayList<String>();
+        //this.ipAddr.add(systemSocket.getRemoteAddress());
+
+        //this.portAddr = new ArrayList<Integer>();
+        //this.portAddr.add(systemSocket.getRemotePort());
+    }
+    */
+
+    /*
     public void addIpAddr(Collection<String> ipAddr){
         this.ipAddr.addAll(ipAddr);
     }
@@ -55,6 +97,7 @@ public class ActiveConnectionListElement {
     public void addPortAddr(Collection<Integer> portAddr){
         this.portAddr.addAll(portAddr);
     }
+    */
 
     public String getLabel() {
         return label;
@@ -64,12 +107,26 @@ public class ActiveConnectionListElement {
         return logo;
     }
 
+    /*
     public ArrayList<String> getIpAddr() {
         return ipAddr;
     }
 
     public ArrayList<Integer> getPortAddr() {
         return portAddr;
+    }
+    */
+
+    public int getTotalActiveConnections(){
+        int total = 0;
+        for (SystemSockets.Type type : SystemSockets.Type.values()){
+            total += this.connAddress.get(type).size();
+        }
+        return total;
+    }
+
+    public int getSpecificTotalActiveConnection(SystemSockets.Type type){
+        return this.connAddress.get(type).size();
     }
 
     public boolean isValidElement(){

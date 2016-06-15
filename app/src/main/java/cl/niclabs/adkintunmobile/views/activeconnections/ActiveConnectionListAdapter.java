@@ -17,11 +17,11 @@ public class ActiveConnectionListAdapter extends ArrayAdapter<ActiveConnectionLi
     private static class ViewHolder {
         TextView tvAppName;
         ImageView ivLogo;
-        TextView tvIpAddr, tvPortAddr;
+        TextView tvConnTotal;
     }
 
     public ActiveConnectionListAdapter(Context context, ArrayList<ActiveConnectionListElement> apps) {
-        super(context, R.layout.item_application_traffic, apps);
+        super(context, R.layout.item_active_connection, apps);
     }
 
     @Override
@@ -34,11 +34,10 @@ public class ActiveConnectionListAdapter extends ArrayAdapter<ActiveConnectionLi
         if (convertView == null){
             viewHolder = new ViewHolder();
             LayoutInflater inflater = LayoutInflater.from(getContext());
-            convertView = inflater.inflate(R.layout.item_active_application, parent, false);
+            convertView = inflater.inflate(R.layout.item_active_connection, parent, false);
             viewHolder.tvAppName = (TextView) convertView.findViewById(R.id.tv_appname);
             viewHolder.ivLogo = (ImageView) convertView.findViewById(R.id.iv_applogo);
-            viewHolder.tvIpAddr = (TextView) convertView.findViewById(R.id.tv_ip_addr);
-            viewHolder.tvPortAddr = (TextView) convertView.findViewById(R.id.tv_port_addr);
+            viewHolder.tvConnTotal = (TextView) convertView.findViewById(R.id.tv_conn_total);
             convertView.setTag(viewHolder);
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
@@ -47,8 +46,7 @@ public class ActiveConnectionListAdapter extends ArrayAdapter<ActiveConnectionLi
         // Populate the data into the template view using the data object
         viewHolder.tvAppName.setText(element.getLabel());
         viewHolder.ivLogo.setImageDrawable(element.getLogo());
-        viewHolder.tvIpAddr.setText(element.getIpAddr().toString());
-        viewHolder.tvPortAddr.setText(element.getPortAddr().toString());
+        viewHolder.tvConnTotal.setText(element.getTotalActiveConnections() + "");
 
         // Return the completed view to render on screen
         return convertView;
