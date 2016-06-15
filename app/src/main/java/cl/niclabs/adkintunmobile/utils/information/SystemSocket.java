@@ -15,6 +15,7 @@ public class SystemSocket {
     static final private Pattern fieldsPattern = Pattern.compile("^\\s*(\\d+): ([0-9A-F]+):(....) ([0-9A-F]+):(....) (..) (?:\\S+ ){3}\\s*(\\d+)\\s+\\d+\\s+(\\d+).*$");
 
     //private String slot;
+    private SystemSockets.Type type;
     private String localAddress;
     private int localPort;
     private String remoteAddress;
@@ -23,18 +24,19 @@ public class SystemSocket {
     private int uid;
     private String inode;
 
-    SystemSocket(String line) {
+    public SystemSocket(String line, SystemSockets.Type type) {
         Matcher match = fieldsPattern.matcher(line);
         match.lookingAt();
 
         //slot            = match.group(1);
-        localAddress    = parseIp(match.group(2));
-        localPort       = parsePort(match.group(3));
-        remoteAddress   = parseIp(match.group(4));
-        remotePort      = parsePort(match.group(5));
-        state           = match.group(6);
-        uid             = Integer.parseInt(match.group(7));
-        inode           = match.group(8);
+        this.type            = type;
+        this.localAddress    = parseIp(match.group(2));
+        this.localPort       = parsePort(match.group(3));
+        this.remoteAddress   = parseIp(match.group(4));
+        this.remotePort      = parsePort(match.group(5));
+        this.state           = match.group(6);
+        this.uid             = Integer.parseInt(match.group(7));
+        this.inode           = match.group(8);
     }
 
     private int parsePort(String port){
@@ -82,6 +84,10 @@ public class SystemSocket {
 
     public int getLocalPort() {
         return localPort;
+    }
+
+    public SystemSockets.Type getType() {
+        return type;
     }
 
     public String getLocalAddress() {

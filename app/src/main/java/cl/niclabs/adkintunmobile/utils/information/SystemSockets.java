@@ -15,6 +15,33 @@ public class SystemSockets {
     static final private String TCP_PATH = "/proc/net/tcp";
     static final private String UDP_PATH = "/proc/net/udp";
 
+    public enum Type{
+        TCP,
+        UDP,
+        TCP6,
+        UDP6
+    }
+
+    /**
+     * Retorna un número constante de la clase SystemSockets.java identificando el tipo de sockets rescatados
+     * @param path
+     * @return Type.{TCP, UDP, TCP6, UDP6}
+     */
+    public static Type getSocketTypeByPath(String path){
+        String vFile = path.split("/")[path.split("/").length - 1];
+        switch (vFile){
+            case "tcp":
+                return Type.TCP;
+            case "udp":
+                return Type.UDP;
+            case "tcp6":
+                return Type.TCP6;
+            case "udp6":
+                return Type.UDP6;
+        }
+        return null;
+    }
+
     /**
      * Retorna un ArrayList con obtejos SystemSocket de las conexiones TCP activas
      * @return
@@ -74,7 +101,7 @@ public class SystemSockets {
             socketInfoReader.readLine(); // Skip header
 
             while (( line = socketInfoReader.readLine() ) != null) {
-                SystemSocket currentConnection = new SystemSocket(line);
+                SystemSocket currentConnection = new SystemSocket(line, SystemSockets.getSocketTypeByPath(path));
                 if ( currentConnection.isOutsideActiveConnection() ){
                     sockets.add(currentConnection);
                 }
