@@ -8,6 +8,10 @@
             android:key="@string/settings_app_data_quota_total_key"
             android:title="@string/settings_app_data_quota_total_title"
             />
+        <Preference
+            android:key="@string/settings_app_data_clean_ip_location_cache_key"
+            android:title="@string/settings_app_data_clean_ip_location_cache_title"
+            />
     </PreferenceCategory>
 
     <PreferenceCategory
@@ -17,7 +21,7 @@
             android:key="@string/settings_sampling_hostname_key"
             android:title="@string/settings_sampling_hostname_title"
             android:defaultValue="@string/settings_sampling_hostname_default"
-            android:editable="false"
+            android:editable="true"
             />
         <ListPreference
             android:key="@string/settings_sampling_frequency_key"

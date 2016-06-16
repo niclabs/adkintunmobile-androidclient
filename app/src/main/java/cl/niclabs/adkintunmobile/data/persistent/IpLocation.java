@@ -47,4 +47,8 @@ public class IpLocation extends Persistent<IpLocation>{
         whereArgs[0] =  ip;
         return count(IpLocation.class, "ip_address = ?", whereArgs) > 0;
     }
+
+    public static void cleanDB(){
+        deleteAll(IpLocation.class);
+    }
 }

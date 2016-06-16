@@ -20,32 +20,29 @@
 
     <!-- Preferences Strings -->
     <string name="settings_updated">Preferencias actualizadas</string>
-    <string name="settings_sampling_category">Ajustes de sincronización</string>
 
+    <string name="settings_app_data_category">Ajustes de la aplicación</string>
+    <string name="settings_app_data_quota_total_key">plan_data_quota</string>
+    <string name="settings_app_data_quota_total_title">Cuota de navegación de tu plan de datos</string>
+    <string name="settings_app_data_clean_ip_location_cache_key">clean_ip_location_cache</string>
+    <string name="settings_app_data_clean_ip_location_cache_title">Limpiar datos de cache</string>
+    <string name="settings_app_data_clean_ip_location_cache_message">Cache Borrado</string>
+
+    <string name="settings_sampling_category">Ajustes de sincronización</string>
     <string name="settings_sampling_hostname_key">sync_hostname</string>
     <string name="settings_sampling_hostname_title">Dirección del servidor</string>
     <string name="settings_sampling_hostname_summary">Especificar dirección de servidor de datos</string>
     <string name="settings_sampling_hostname_default">http://dev.niclabs.cl/events</string>
     <string name="settings_sampling_hostname_token_key">Authorization</string>
-
     <string name="settings_sampling_frequency_key">sync_frequency</string>
     <string name="settings_sampling_frequency_title">Frencuencia de envío</string>
-
     <string name="settings_sampling_lastsync_key">sync_lastsync</string>
     <string name="settings_sampling_lastsync_title">Última Sincronización</string>
 
     <string name="settings_app_category">Aplicación</string>
-
     <string name="settings_app_version_key">app_version</string>
     <string name="settings_app_version_title">Versión de la aplicación</string>
     <string name="settings_app_version_default">2.0a</string>
-
-
-    <string name="settings_app_data_category">Ajustes de la aplicación</string>
-
-    <string name="settings_app_data_quota_total_key">plan_data_quota</string>
-    <string name="settings_app_data_quota_total_title">Cuota de navegación de tu plan de datos</string>
-
 
     <!-- Dashboard -->
     <string name="view_dashboard_news">Novedades</string>

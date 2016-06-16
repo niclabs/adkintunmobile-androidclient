@@ -11,10 +11,12 @@ import android.preference.PreferenceFragment;
 import android.preference.PreferenceScreen;
 import android.support.v4.app.FragmentManager;
 import android.util.Log;
+import android.widget.Toast;
 
 import java.util.Map;
 
 import cl.niclabs.adkintunmobile.R;
+import cl.niclabs.adkintunmobile.data.persistent.IpLocation;
 import cl.niclabs.adkintunmobile.services.SetupSystem;
 import cl.niclabs.adkintunmobile.utils.information.Network;
 import cl.niclabs.adkintunmobile.views.status.StatusSettingsDialog;
@@ -63,6 +65,10 @@ public class SettingsFragment extends PreferenceFragment implements SharedPrefer
         if (key.equals(getString(R.string.settings_sampling_lastsync_key))){
             FragmentManager fm = ((SettingsActivity) getActivity()).getSupportFragmentManager();
             SynchronizationLogDialog.showDialog(fm);
+        }
+        if (key.equals(getString(R.string.settings_app_data_clean_ip_location_cache_key))){
+            IpLocation.cleanDB();
+            Toast.makeText(this.context, getString(R.string.settings_app_data_clean_ip_location_cache_message), Toast.LENGTH_SHORT).show();
         }
         return super.onPreferenceTreeClick(preferenceScreen, preference);
     }
