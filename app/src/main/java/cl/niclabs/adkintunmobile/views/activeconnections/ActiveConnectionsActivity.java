@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import cl.niclabs.adkintunmobile.R;
+import cl.niclabs.adkintunmobile.utils.display.DisplayManager;
 import cl.niclabs.adkintunmobile.utils.information.SystemSocket;
 import cl.niclabs.adkintunmobile.utils.information.SystemSockets;
 
@@ -31,6 +32,9 @@ public class ActiveConnectionsActivity extends AppCompatActivity {
     private Toolbar toolbar;
     private RelativeLayout loadingPanel;
 
+    private ArrayList<ActiveConnectionListElement> activeSockets;
+    private ActiveConnectionListAdapter listAdapter;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,12 +43,32 @@ public class ActiveConnectionsActivity extends AppCompatActivity {
 
         setBaseActivityParams();
         setupToolbar();
+
+        // Cargar datos disponibles
+        DisplayManager.enableLoadingPanel(this.loadingPanel);
+        (new Thread(){
+            @Override
+            public void run() {
+
+                // Recuperar datos
+                activeSockets = new ArrayList<ActiveConnectionListElement>();
+                AddListElements(activeSockets, SystemSockets.getTCPSockets());
+                AddListElements(activeSockets, SystemSockets.getUDPSockets());
+
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        initList();
+                        DisplayManager.dismissLoadingPanel(loadingPanel, context);
+                    }
+                });
+            }
+        }).start();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        initList();
     }
 
     private void AddListElements(List<ActiveConnectionListElement> list,
@@ -65,18 +89,8 @@ public class ActiveConnectionsActivity extends AppCompatActivity {
 
     private void initList() {
 
-        ArrayList<ActiveConnectionListElement> activeSockets = new ArrayList<ActiveConnectionListElement>();
-
-        ArrayList<SystemSocket> tcpSockets = SystemSockets.getTCPSockets();
-        ArrayList<SystemSocket> udpSockets = SystemSockets.getUDPSockets();
-
-        AddListElements(activeSockets, tcpSockets);
-        AddListElements(activeSockets, udpSockets);
-
-        System.out.println(activeSockets);
-
         ListView listView = (ListView) findViewById(R.id.list);
-        ActiveConnectionListAdapter listAdapter = new ActiveConnectionListAdapter(this.context, activeSockets);
+        listAdapter = new ActiveConnectionListAdapter(this.context, activeSockets);
         listView.setAdapter(listAdapter);
         listView.setEmptyView(findViewById(R.id.empty));
 
@@ -98,11 +112,19 @@ public class ActiveConnectionsActivity extends AppCompatActivity {
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                Toast.makeText(getApplicationContext(), "refrescando noticias", Toast.LENGTH_SHORT).show();
+                updateActiveConnections();
+                Toast.makeText(getApplicationContext(), "Refrescado", Toast.LENGTH_SHORT).show();
                 mSwipeRefreshLayout.setRefreshing(false);
             }
         });
 
+    }
+
+    private void updateActiveConnections() {
+        this.activeSockets.clear();
+        AddListElements(activeSockets, SystemSockets.getTCPSockets());
+        AddListElements(activeSockets, SystemSockets.getUDPSockets());
+        this.listAdapter.notifyDataSetChanged();
     }
 
     public void setupToolbar(){
