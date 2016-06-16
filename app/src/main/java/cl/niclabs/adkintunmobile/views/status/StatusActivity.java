@@ -93,19 +93,18 @@ public class StatusActivity extends AppCompatActivity {
         this.title = getString(R.string.view_status);
         this.context = this;
         this.loadingPanel = (RelativeLayout) findViewById(R.id.loading_panel);
+        ShimmerFrameLayout container =
+                (ShimmerFrameLayout) findViewById(R.id.shimmer_view_container);
+        container.startShimmerAnimation();
     }
 
     public void setupToolbar(){
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        this.toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         ActionBar ab = getSupportActionBar();
         ab.setTitle(this.title);
         ab.setDisplayHomeAsUpEnabled(true);
-
-        ShimmerFrameLayout container =
-                (ShimmerFrameLayout) findViewById(R.id.shimmer_view_container);
-        container.startShimmerAnimation();
     }
 
     @Override

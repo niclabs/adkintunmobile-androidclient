@@ -81,6 +81,9 @@ public class ApplicationsTrafficActivity extends AppCompatActivity implements Da
         this.title = getString(R.string.view_applications_traffic);
         this.context = this;
         this.loadingPanel = (RelativeLayout) findViewById(R.id.loading_panel);
+        ShimmerFrameLayout container =
+                (ShimmerFrameLayout) findViewById(R.id.shimmer_view_container);
+        container.startShimmerAnimation();
 
         this.mViewPagerAdapter = new ApplicationsTrafficViewPagerAdapter(getSupportFragmentManager());
     }
@@ -92,10 +95,6 @@ public class ApplicationsTrafficActivity extends AppCompatActivity implements Da
         ActionBar ab = getSupportActionBar();
         ab.setTitle(this.title);
         ab.setDisplayHomeAsUpEnabled(true);
-
-        ShimmerFrameLayout container =
-                (ShimmerFrameLayout) findViewById(R.id.shimmer_view_container);
-        container.startShimmerAnimation();
     }
 
     @Override

@@ -20,8 +20,6 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
-import com.facebook.shimmer.ShimmerFrameLayout;
-
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
@@ -202,15 +200,12 @@ public abstract class ConnectionTypeActivity extends AppCompatActivity implement
     }
 
     public void setUpToolbar(){
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        this.toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
         ActionBar ab = getSupportActionBar();
         ab.setTitle(this.title);
         ab.setDisplayHomeAsUpEnabled(true);
-
-        ShimmerFrameLayout container =
-                (ShimmerFrameLayout) findViewById(R.id.shimmer_view_container);
-        container.startShimmerAnimation();
     }
 
     @Override

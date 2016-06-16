@@ -4,6 +4,8 @@ import android.content.res.TypedArray;
 import android.os.Bundle;
 import android.widget.RelativeLayout;
 
+import com.facebook.shimmer.ShimmerFrameLayout;
+
 import cl.niclabs.adkintunmobile.R;
 import cl.niclabs.adkintunmobile.data.chart.StatisticInformation;
 import cl.niclabs.adkintunmobile.utils.display.DoughnutChart;
@@ -26,6 +28,9 @@ public class ConnectionModeActivity extends ConnectionTypeActivity {
         this.title = getString(R.string.view_connection_mode);
         this.context = this;
         this.loadingPanel = (RelativeLayout) findViewById(R.id.loading_panel);
+        ShimmerFrameLayout container =
+                (ShimmerFrameLayout) findViewById(R.id.shimmer_view_container);
+        container.startShimmerAnimation();
     }
 
     @Override
