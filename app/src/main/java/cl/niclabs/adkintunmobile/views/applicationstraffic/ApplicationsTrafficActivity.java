@@ -48,6 +48,7 @@ public class ApplicationsTrafficActivity extends AppCompatActivity implements Da
         setupToolbar();
 
         // Cargar datos de tráfico de apps del día actual
+        DisplayManager.enableLoadingPanel(this.loadingPanel);
         (new Thread(){
             @Override
             public void run() {
