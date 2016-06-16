@@ -15,12 +15,14 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.facebook.shimmer.ShimmerFrameLayout;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -34,11 +36,10 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
 
 import cl.niclabs.adkintunmobile.R;
 import cl.niclabs.adkintunmobile.data.persistent.IpLocation;
+import cl.niclabs.adkintunmobile.utils.display.DisplayManager;
 import cl.niclabs.adkintunmobile.utils.information.SystemSockets;
 import cl.niclabs.adkintunmobile.utils.volley.VolleySingleton;
 
@@ -46,6 +47,8 @@ import cl.niclabs.adkintunmobile.utils.volley.VolleySingleton;
 public class ActiveConnectionMapBottomSheetDialogFragment extends BottomSheetDialogFragment implements OnMapReadyCallback, View.OnClickListener {
 
     private final String TAG = "AdkM:ACMap";
+
+    private RelativeLayout loadingPanel;
 
     private final ActiveConnectionMapBottomSheetDialogFragment thisMap = this;
     private ActiveConnectionListElement activeConnectionListElement;
@@ -57,6 +60,8 @@ public class ActiveConnectionMapBottomSheetDialogFragment extends BottomSheetDia
 
     private ImageView appLogo;
     private TextView dialogTextView;
+    private TextView tvAppName;
+    private TextView tvAllIp;
     private LinearLayout mapLayout;
 
     @Override
@@ -71,7 +76,16 @@ public class ActiveConnectionMapBottomSheetDialogFragment extends BottomSheetDia
         nextButton.setOnClickListener(this);
 
         setUpLayoutElements(contentView);
+
         appLogo.setImageDrawable(activeConnectionListElement.getLogo());
+        tvAppName.setText(activeConnectionListElement.getLabel());
+        String ret = "";
+        for (String a : activeConnectionListElement.getIpConnections(SystemSockets.Type.TCP)){
+            ret += a + "\n";
+        }
+        tvAllIp.setText(ret);
+
+        DisplayManager.enableLoadingPanel(this.loadingPanel);
 
         for (String ipAddress : activeConnectionListElement.getIpConnections(SystemSockets.Type.TCP)){
             final String ip = ipAddress.split(":")[0];
@@ -121,10 +135,17 @@ public class ActiveConnectionMapBottomSheetDialogFragment extends BottomSheetDia
     }
 
     private void setUpLayoutElements(View contentView) {
-        dialogTextView = (TextView) contentView.findViewById(R.id.tv_ip_addr);
-        mapLayout = (LinearLayout) contentView.findViewById(R.id.map_layout);
-        appLogo = (ImageView) contentView.findViewById(R.id.iv_applogo);
-        map = (SupportMapFragment) getFragmentManager().findFragmentById(R.id.map);
+        this.loadingPanel = (RelativeLayout) contentView.findViewById(R.id.loading_panel);
+        ShimmerFrameLayout container =
+                (ShimmerFrameLayout) contentView.findViewById(R.id.shimmer_view_container);
+        container.startShimmerAnimation();
+
+        this.dialogTextView = (TextView) contentView.findViewById(R.id.tv_ip_addr);
+        this.tvAllIp = (TextView) contentView.findViewById(R.id.tv_all_ip);
+        this.tvAppName = (TextView) contentView.findViewById(R.id.tv_appname);
+        this.mapLayout = (LinearLayout) contentView.findViewById(R.id.map_layout);
+        this.appLogo = (ImageView) contentView.findViewById(R.id.iv_applogo);
+        this.map = (SupportMapFragment) getFragmentManager().findFragmentById(R.id.map);
 
         CoordinatorLayout.LayoutParams params = (CoordinatorLayout.LayoutParams) ((View) contentView.getParent()).getLayoutParams();
         final BottomSheetBehavior behavior = (BottomSheetBehavior) params.getBehavior();
@@ -149,6 +170,8 @@ public class ActiveConnectionMapBottomSheetDialogFragment extends BottomSheetDia
     @Override
     public void onMapReady(GoogleMap googleMap) {
         Log.d(TAG, "Mapa desplegado");
+        DisplayManager.dismissLoadingPanel(loadingPanel, getContext());
+
         UiSettings uiSettings = googleMap.getUiSettings();
         uiSettings.setRotateGesturesEnabled(false);
         mapLayout.setVisibility(View.VISIBLE);
