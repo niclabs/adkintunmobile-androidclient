@@ -31,6 +31,8 @@ import com.google.android.gms.maps.UiSettings;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.JsonHttpResponseHandler;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -42,6 +44,7 @@ import cl.niclabs.adkintunmobile.data.persistent.IpLocation;
 import cl.niclabs.adkintunmobile.utils.display.DisplayManager;
 import cl.niclabs.adkintunmobile.utils.information.SystemSockets;
 import cl.niclabs.adkintunmobile.utils.volley.VolleySingleton;
+import cz.msebera.android.httpclient.Header;
 
 
 public class ActiveConnectionMapBottomSheetDialogFragment extends BottomSheetDialogFragment implements OnMapReadyCallback, View.OnClickListener {
@@ -95,32 +98,25 @@ public class ActiveConnectionMapBottomSheetDialogFragment extends BottomSheetDia
 
             if (!IpLocation.existIpLocationByIp(ip)) {
 
-                final JsonObjectRequest jsObjRequest = new JsonObjectRequest
-                        (Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
+                AsyncHttpClient client = new AsyncHttpClient();
+                client.get(url, new JsonHttpResponseHandler(){
 
-                            @Override
-                            public void onResponse(JSONObject response) {
-                                try {
-                                    double lat = Double.parseDouble(response.getString("latitude"));
-                                    double lon = Double.parseDouble(response.getString("longitude"));
-                                    String country = response.getString("country_name");
-                                    (new IpLocation(ip, lat, lon, country)).save();
-                                    Log.d(TAG, lat + " " + lon + " " + ip + " from API");
+                    @Override
+                    public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                        try {
+                            double lat = Double.parseDouble(response.getString("latitude"));
+                            double lon = Double.parseDouble(response.getString("longitude"));
+                            String country = response.getString("country_name");
+                            (new IpLocation(ip, lat, lon, country)).save();
+                            Log.d(TAG, lat + " " + lon + " " + ip + " from API");
 
-                                    updateMapList(ip);
-                                } catch (JSONException e) {
-                                    e.printStackTrace();
-                                }
-                            }
-                        }, new Response.ErrorListener() {
-
-                            @Override
-                            public void onErrorResponse(VolleyError error) {
-                            }
-                        });
-
-                // Access the RequestQueue through your singleton class.
-                VolleySingleton.getInstance(getContext()).addToRequestQueue(jsObjRequest);
+                            updateMapList(ip);
+                        } catch (JSONException e) {
+                            Log.d(TAG, "API fail");
+                            e.printStackTrace();
+                        }
+                    }
+                });
             }
             else {
                 updateMapList(ip);
