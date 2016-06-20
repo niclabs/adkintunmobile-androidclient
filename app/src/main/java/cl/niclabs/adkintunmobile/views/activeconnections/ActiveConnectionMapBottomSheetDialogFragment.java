@@ -1,7 +1,10 @@
 package cl.niclabs.adkintunmobile.views.activeconnections;
 
 import android.app.Dialog;
+import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.Color;
+import android.graphics.Typeface;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
@@ -11,7 +14,9 @@ import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -30,6 +35,7 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.UiSettings;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
@@ -82,10 +88,7 @@ public class ActiveConnectionMapBottomSheetDialogFragment extends BottomSheetDia
 
         appLogo.setImageDrawable(activeConnectionListElement.getLogo());
         tvAppName.setText(activeConnectionListElement.getLabel());
-        String ret = "";
-        for (String a : activeConnectionListElement.getIpConnections(SystemSockets.Type.TCP)){
-            ret += a + "\n";
-        }
+        String ret = "" + activeConnectionListElement.getIpConnections(SystemSockets.Type.TCP).size();
         tvAllIp.setText(ret);
 
         DisplayManager.enableLoadingPanel(this.loadingPanel);
@@ -175,9 +178,37 @@ public class ActiveConnectionMapBottomSheetDialogFragment extends BottomSheetDia
         LatLng latLng = new LatLng(ipLocations.get(index).getLatitude(), ipLocations.get(index).getLongitude());
         googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(
                 latLng, 0));
-        googleMap.addMarker(new MarkerOptions().icon(BitmapDescriptorFactory.fromBitmap(icon)).anchor(0.0f, 1.0f) // Anchors the marker on the bottom left
-                .position(latLng));
-        dialogTextView.setText(ipLocations.get(index).getIpAddress() + " " +ipLocations.get(index).getCountry());
+
+        googleMap.addMarker(new MarkerOptions().position(latLng).snippet(ipLocations.get(index).getIpAddress()).title(ipLocations.get(index).getCountry())).showInfoWindow();
+        googleMap.setInfoWindowAdapter(new GoogleMap.InfoWindowAdapter() {
+            @Override
+            public View getInfoWindow(Marker marker) {
+                return null;
+            }
+
+            @Override
+            public View getInfoContents(Marker marker) {
+                Context context = getContext(); //or getActivity(), YourActivity.this, etc.
+
+                LinearLayout info = new LinearLayout(context);
+                info.setOrientation(LinearLayout.VERTICAL);
+
+                TextView title = new TextView(context);
+                title.setTextColor(Color.BLACK);
+                title.setGravity(Gravity.CENTER);
+                title.setTypeface(null, Typeface.BOLD);
+                title.setText(marker.getTitle());
+
+                TextView snippet = new TextView(context);
+                snippet.setTextColor(Color.GRAY);
+                snippet.setText(marker.getSnippet());
+
+                info.addView(title);
+                info.addView(snippet);
+
+                return info;
+            }
+        });
     }
 
     @Override
