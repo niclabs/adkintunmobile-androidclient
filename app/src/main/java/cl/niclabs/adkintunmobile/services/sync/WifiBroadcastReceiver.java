@@ -34,6 +34,7 @@ public class WifiBroadcastReceiver extends BroadcastReceiver{
     private final String TAG = "AdkM:WifiBR";
 
     public void onReceive(final Context context, Intent intent) {
+        Log.d(TAG, "Iniciado intento de despacho de datos");
         if (Network.getActiveNetwork(context) == ConnectionModeSample.WIFI) {
 
             Log.d(TAG, "Wifi disponible");
@@ -119,7 +120,7 @@ public class WifiBroadcastReceiver extends BroadcastReceiver{
                         new Response.Listener<NetworkResponse>() {
                             @Override
                             public void onResponse(NetworkResponse response) {
-                                Log.d(TAG, "Upload " + reportFile.getName() + " successfully to " + requestURL);
+                                Log.d(TAG, "Upload " + reportFile.getName() + "(" + reportFile.length() + "b)" + " successfully to " + requestURL);
 
                                 // Registro de la última sincronización exitosa
                                 SharedPreferences.Editor editor = sharedPreferences.edit();
