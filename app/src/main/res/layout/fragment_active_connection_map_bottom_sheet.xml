@@ -27,21 +27,15 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/tv_appname"
+                android:id="@+id/tv_total_connections"
                 android:textColor="@android:color/white"
                 android:textSize="16sp"
-                android:padding="@dimen/separation_little"
                 android:text="APP NAME"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:paddingLeft="@dimen/separation_little"
+                android:paddingTop="@dimen/separation_little"
+                android:paddingRight="@dimen/separation_little" />
 
-            <!--
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                android:text="IP1, IP2"
-                android:id="@+id/tv_iplist" />
-                -->
             <TextView
                 android:id="@+id/tv_ip_addr"
                 android:layout_width="wrap_content"
@@ -58,16 +52,20 @@
                 android:id="@+id/tv_all_ip" />
 
         </LinearLayout>
-
+        <View
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"/>
         <Button
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:id="@+id/button_next"
             android:text=">"
             android:textColor="@android:color/white"
             android:textSize="16sp"
             android:padding="16dp"
-            android:background="@android:color/darker_gray" />
+            android:background="@android:color/darker_gray"
+            android:layout_gravity="right" />
     </LinearLayout>
 
 
