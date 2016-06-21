@@ -36,7 +36,7 @@
                 android:scaleType="centerCrop"
                 app:layout_collapseMode="parallax"
                 app:layout_collapseParallaxMultiplier="0.8"
-                android:src="@drawable/wear3" />
+                android:src="@drawable/wear_collapsible_background" />
 
 
                 <LinearLayout
