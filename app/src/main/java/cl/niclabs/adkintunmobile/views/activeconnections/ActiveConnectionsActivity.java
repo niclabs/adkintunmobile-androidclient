@@ -113,7 +113,7 @@ public class ActiveConnectionsActivity extends AppCompatActivity {
             @Override
             public void onRefresh() {
                 updateActiveConnections();
-                Toast.makeText(getApplicationContext(), "Refrescado", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), getString(R.string.view_active_connections_reload) , Toast.LENGTH_SHORT).show();
                 mSwipeRefreshLayout.setRefreshing(false);
             }
         });

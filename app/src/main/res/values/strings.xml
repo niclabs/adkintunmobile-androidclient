@@ -99,6 +99,9 @@
     <string name="view_network_type_disconnected">Sin Conexión</string>
     <string name="view_network_type_start">Inicio</string>
 
+    <!-- Active Connections -->
+    <string name="view_active_connections_reload">Conexiones Activas Actualizadas</string>
+
 
     <!-- About Us -->
     <string name="view_aboutus_about_app">Adkintun Mobile es un proyecto de investigación desarrollado específicamente para dispositivos móviles, que busca evaluar la calidad de servicio entregado por los operadores de Internet móvil a través de la utilización de indicadores de rendimiento usados mundialmente. La aplicación permite la medición de la calidad del acceso a internet sin observar el tráfico, midiendo la cantidad de datos enviados y recibidos durante el día, la calidad de la señal en la antena, el tipo de conexión (2g, 3g, etc), y otros datos útiles. Con estos datos se realizarán estudios para describir el estado del internet móvil a nivel nacional.
