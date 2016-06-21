@@ -63,6 +63,14 @@
         <ImageButton
             android:layout_width="@dimen/navigation_drawer_header_logo"
             android:layout_height="match_parent"
+            android:id="@+id/ib_prev"
+            android:paddingLeft="@dimen/separation_little"
+            android:paddingRight="@dimen/separation_little"
+            android:src="@drawable/ic_navigate_before_white" />
+
+        <ImageButton
+            android:layout_width="@dimen/navigation_drawer_header_logo"
+            android:layout_height="match_parent"
             android:id="@+id/ib_next"
             android:paddingLeft="@dimen/separation_little"
             android:paddingRight="@dimen/separation_little"

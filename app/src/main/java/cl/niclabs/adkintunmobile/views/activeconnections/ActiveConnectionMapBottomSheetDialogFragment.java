@@ -64,6 +64,7 @@ public class ActiveConnectionMapBottomSheetDialogFragment extends BottomSheetDia
     private TextView tvTotalConnections;
     private LinearLayout mapLayout;
     private ImageButton nextButton;
+    private ImageButton prevButton;
 
     public final String GEO_DATA_URL_API = "http://freegeoip.net/json/";
 
@@ -76,7 +77,10 @@ public class ActiveConnectionMapBottomSheetDialogFragment extends BottomSheetDia
         dialog.setContentView(contentView);
 
         this.nextButton = (ImageButton) contentView.findViewById(R.id.ib_next);
+        this.prevButton = (ImageButton) contentView.findViewById(R.id.ib_prev);
+
         this.nextButton.setOnClickListener(this);
+        this.prevButton.setOnClickListener(this);
 
         setUpLayoutElements(contentView);
 
@@ -231,7 +235,14 @@ public class ActiveConnectionMapBottomSheetDialogFragment extends BottomSheetDia
 
     @Override
     public void onClick(View v) {
-        index = ++index%ipLocations.size();
+        switch (v.getId()){
+            case R.id.ib_next:
+                index = ++index%ipLocations.size();
+                break;
+            case R.id.ib_prev:
+                index = --index < 0 ? ipLocations.size() -1 : index;
+                break;
+        }
         Log.d(TAG, "Current index: " + index + "/" + ipLocations.size());
         map.getMapAsync(thisMap);
     }
