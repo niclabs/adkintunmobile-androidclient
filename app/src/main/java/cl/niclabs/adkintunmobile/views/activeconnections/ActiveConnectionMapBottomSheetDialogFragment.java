@@ -161,7 +161,7 @@ public class ActiveConnectionMapBottomSheetDialogFragment extends BottomSheetDia
                 @Override
                 public void onStateChanged(@NonNull View bottomSheet, int newState) {
                     if (newState == BottomSheetBehavior.STATE_DRAGGING) {
-                        behavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+                        behavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
                     }
                 }
 
