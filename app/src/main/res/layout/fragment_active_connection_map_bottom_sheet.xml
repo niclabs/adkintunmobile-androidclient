@@ -8,6 +8,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:background="@color/colorPrimary"
+        android:paddingRight="@dimen/separation_little"
         android:paddingLeft="@dimen/separation_little">
 
         <ImageView
@@ -24,7 +25,8 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:paddingTop="@dimen/separation_min"
-            android:paddingBottom="@dimen/separation_min">
+            android:paddingBottom="@dimen/separation_min"
+            android:paddingLeft="@dimen/separation_little">
 
             <TextView
                 android:layout_width="wrap_content"
