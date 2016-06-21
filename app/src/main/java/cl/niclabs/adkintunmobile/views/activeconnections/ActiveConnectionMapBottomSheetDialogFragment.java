@@ -13,7 +13,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
-import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -58,41 +58,45 @@ public class ActiveConnectionMapBottomSheetDialogFragment extends BottomSheetDia
     private ArrayList<SystemSockets.Type> types = new ArrayList<>();
     private int index;
 
-    private ImageView appLogo;
-    private TextView dialogTextView;
+    private ImageView ivAppLogo;
+    private TextView tvCurrentConnection;
+    private TextView tvAppName;
     private TextView tvTotalConnections;
-    private TextView tvAllIp;
     private LinearLayout mapLayout;
+    private ImageButton nextButton;
+
+    public final String GEO_DATA_URL_API = "http://freegeoip.net/json/";
 
     @Override
     public void setupDialog(Dialog dialog, int style) {
-        super.setupDialog(dialog, style);
         Log.d(TAG, "Setup Dialog");
-        index = 0;
+        super.setupDialog(dialog, style);
+        this.index = 0;
         View contentView = View.inflate(getContext(), R.layout.fragment_active_connection_map_bottom_sheet, null);
         dialog.setContentView(contentView);
 
-        Button nextButton = (Button) contentView.findViewById(R.id.button_next);
-        nextButton.setOnClickListener(this);
+        this.nextButton = (ImageButton) contentView.findViewById(R.id.ib_next);
+        this.nextButton.setOnClickListener(this);
 
         setUpLayoutElements(contentView);
 
-        appLogo.setImageDrawable(activeConnectionListElement.getLogo());
-        tvTotalConnections.setText(activeConnectionListElement.getLabel());
-        String ret = "de " + activeConnectionListElement.getTotalActiveConnections() + " conexiones (" +
-                activeConnectionListElement.getIpConnections(SystemSockets.Type.TCP).size() + "," +
-                activeConnectionListElement.getIpConnections(SystemSockets.Type.TCP6).size() + "," +
-                activeConnectionListElement.getIpConnections(SystemSockets.Type.UDP).size() + "," +
-                activeConnectionListElement.getIpConnections(SystemSockets.Type.UDP6).size() + ")";
-        tvAllIp.setText(ret);
+        initDialog();
+    }
 
+    private void initDialog() {
+        ivAppLogo.setImageDrawable(activeConnectionListElement.getLogo());
+        tvAppName.setText(activeConnectionListElement.getLabel());
+        tvTotalConnections.setText("de " + activeConnectionListElement.getTotalActiveConnections() + " conexiones");
+        mapLayout.setVisibility(View.GONE);
         DisplayManager.enableLoadingPanel(this.loadingPanel);
+
         for (final SystemSockets.Type type : SystemSockets.Type.values()) {
+
             for (String ipAddress : activeConnectionListElement.getIpConnections(type)) {
+
                 final String ip = ipAddress.split(":")[0];
                 final String port = ipAddress.split(":")[1];
-
-                String url = "http://freegeoip.net/json/" + ip;
+                String url = GEO_DATA_URL_API + ip;
 
                 if (!IpLocation.existIpLocationByIp(ip)) {
 
@@ -109,6 +113,7 @@ public class ActiveConnectionMapBottomSheetDialogFragment extends BottomSheetDia
                                 Log.d(TAG, lat + " " + lon + " " + ip + " " + type + " from API" );
 
                                 updateMapList(ip, port, type);
+
                             } catch (JSONException e) {
                                 Log.d(TAG, "API fail");
                                 e.printStackTrace();
@@ -136,11 +141,11 @@ public class ActiveConnectionMapBottomSheetDialogFragment extends BottomSheetDia
                 (ShimmerFrameLayout) contentView.findViewById(R.id.shimmer_view_container);
         container.startShimmerAnimation();
 
-        this.dialogTextView = (TextView) contentView.findViewById(R.id.tv_ip_addr);
-        this.tvAllIp = (TextView) contentView.findViewById(R.id.tv_all_ip);
+        this.tvCurrentConnection = (TextView) contentView.findViewById(R.id.tv_current_connection);
         this.tvTotalConnections = (TextView) contentView.findViewById(R.id.tv_total_connections);
+        this.tvAppName = (TextView) contentView.findViewById(R.id.tv_app_name);
         this.mapLayout = (LinearLayout) contentView.findViewById(R.id.map_layout);
-        this.appLogo = (ImageView) contentView.findViewById(R.id.iv_applogo);
+        this.ivAppLogo = (ImageView) contentView.findViewById(R.id.iv_applogo);
         this.map = (SupportMapFragment) getFragmentManager().findFragmentById(R.id.map);
 
         CoordinatorLayout.LayoutParams params = (CoordinatorLayout.LayoutParams) ((View) contentView.getParent()).getLayoutParams();
@@ -166,11 +171,12 @@ public class ActiveConnectionMapBottomSheetDialogFragment extends BottomSheetDia
     @Override
     public void onMapReady(GoogleMap googleMap) {
         Log.d(TAG, "Mapa desplegado");
-        DisplayManager.dismissLoadingPanel(loadingPanel, getContext());
 
         UiSettings uiSettings = googleMap.getUiSettings();
         uiSettings.setRotateGesturesEnabled(false);
         mapLayout.setVisibility(View.VISIBLE);
+        DisplayManager.dismissLoadingPanel(loadingPanel, getContext());
+        tvCurrentConnection.setText("Mostrando conexión #" + (index + 1));
 
         LatLng latLng = new LatLng(ipLocations.get(index).getLatitude(), ipLocations.get(index).getLongitude());
         googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(
@@ -207,7 +213,6 @@ public class ActiveConnectionMapBottomSheetDialogFragment extends BottomSheetDia
                 return info;
             }
         });
-        dialogTextView.setText("Mostrando conexión #" + (index + 1));
     }
 
     @Override
@@ -226,7 +231,7 @@ public class ActiveConnectionMapBottomSheetDialogFragment extends BottomSheetDia
 
     @Override
     public void onClick(View v) {
-        index = (index + 1)%ipLocations.size();
+        index = ++index%ipLocations.size();
         Log.d(TAG, "Current index: " + index + "/" + ipLocations.size());
         map.getMapAsync(thisMap);
     }

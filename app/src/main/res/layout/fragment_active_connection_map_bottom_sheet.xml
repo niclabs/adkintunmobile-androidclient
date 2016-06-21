@@ -22,22 +22,23 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:paddingTop="@dimen/separation_min"
+            android:paddingBottom="@dimen/separation_min">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/tv_total_connections"
+                android:id="@+id/tv_app_name"
                 android:textColor="@android:color/white"
                 android:textSize="16sp"
                 android:text="APP NAME"
                 android:textStyle="bold"
                 android:paddingLeft="@dimen/separation_little"
-                android:paddingTop="@dimen/separation_little"
                 android:paddingRight="@dimen/separation_little" />
 
             <TextView
-                android:id="@+id/tv_ip_addr"
+                android:id="@+id/tv_current_connection"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="left"
@@ -49,23 +50,21 @@
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 android:text="All IP"
-                android:id="@+id/tv_all_ip" />
+                android:id="@+id/tv_total_connections" />
 
         </LinearLayout>
         <View
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"/>
-        <Button
-            android:layout_width="wrap_content"
+
+        <ImageButton
+            android:layout_width="@dimen/navigation_drawer_header_logo"
             android:layout_height="match_parent"
-            android:id="@+id/button_next"
-            android:text=">"
-            android:textColor="@android:color/white"
-            android:textSize="16sp"
-            android:padding="16dp"
-            android:background="@android:color/darker_gray"
-            android:layout_gravity="right" />
+            android:id="@+id/ib_next"
+            android:paddingLeft="@dimen/separation_little"
+            android:paddingRight="@dimen/separation_little"
+            android:src="@drawable/ic_navigate_next_white" />
     </LinearLayout>
 
 
