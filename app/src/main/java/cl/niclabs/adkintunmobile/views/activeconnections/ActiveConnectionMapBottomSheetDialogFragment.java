@@ -113,6 +113,8 @@ public class ActiveConnectionMapBottomSheetDialogFragment extends BottomSheetDia
                                 double lat = Double.parseDouble(response.getString("latitude"));
                                 double lon = Double.parseDouble(response.getString("longitude"));
                                 String country = response.getString("country_name");
+                                if (country.equals(""))
+                                    country = response.getString("time_zone");
                                 (new IpLocation(ip, lat, lon, country)).save();
                                 Log.d(TAG, lat + " " + lon + " " + ip + " " + type + " from API" );
 
