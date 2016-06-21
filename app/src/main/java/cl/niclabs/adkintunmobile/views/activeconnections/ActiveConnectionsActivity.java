@@ -97,10 +97,12 @@ public class ActiveConnectionsActivity extends AppCompatActivity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                parent.setEnabled(false);
                 Log.d(TAG, ((ActiveConnectionListElement) parent.getItemAtPosition(position)).getLabel());
                 ActiveConnectionMapBottomSheetDialogFragment bottomSheetDialogFragment = new ActiveConnectionMapBottomSheetDialogFragment();
                 bottomSheetDialogFragment.show(getSupportFragmentManager(), bottomSheetDialogFragment.getTag());
                 bottomSheetDialogFragment.setActiveConnectionListElement((ActiveConnectionListElement) parent.getItemAtPosition(position));
+                bottomSheetDialogFragment.setParentToEnable(parent);
             }
         });
 

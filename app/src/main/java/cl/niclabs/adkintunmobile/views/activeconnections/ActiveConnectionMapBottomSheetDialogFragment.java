@@ -2,6 +2,7 @@ package cl.niclabs.adkintunmobile.views.activeconnections;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.support.annotation.NonNull;
@@ -13,6 +14,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -66,6 +68,8 @@ public class ActiveConnectionMapBottomSheetDialogFragment extends BottomSheetDia
     private ImageButton nextButton;
     private ImageButton prevButton;
 
+    private AdapterView<?> parentToEnable;
+
     public final String GEO_DATA_URL_API = "http://freegeoip.net/json/";
 
     @Override
@@ -85,6 +89,12 @@ public class ActiveConnectionMapBottomSheetDialogFragment extends BottomSheetDia
         setUpLayoutElements(contentView);
 
         initDialog();
+    }
+
+    @Override
+    public void onDismiss(DialogInterface dialog) {
+        super.onDismiss(dialog);
+        parentToEnable.setEnabled(true);
     }
 
     private void initDialog() {
@@ -247,5 +257,9 @@ public class ActiveConnectionMapBottomSheetDialogFragment extends BottomSheetDia
         }
         Log.d(TAG, "Current index: " + index + "/" + ipLocations.size());
         map.getMapAsync(thisMap);
+    }
+
+    public void setParentToEnable(AdapterView<?> parentToEnable) {
+        this.parentToEnable = parentToEnable;
     }
 }
