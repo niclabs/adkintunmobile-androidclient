@@ -32,7 +32,7 @@
     <string name="settings_sampling_hostname_key">sync_hostname</string>
     <string name="settings_sampling_hostname_title">Dirección del servidor</string>
     <string name="settings_sampling_hostname_summary">Especificar dirección de servidor de datos</string>
-    <string name="settings_sampling_hostname_default">http://dev.niclabs.cl/events</string>
+    <string name="settings_sampling_hostname_default">http://172.30.65.207:5000</string>
     <string name="settings_sampling_hostname_token_key">Authorization</string>
     <string name="settings_sampling_frequency_key">sync_frequency</string>
     <string name="settings_sampling_frequency_title">Frencuencia de envío</string>
@@ -109,8 +109,9 @@
 
     <!-- Syncrhonization Service -->
     <string name="synchronization_report_filename">report</string>
-    <string name="synchronization_report_fileextension">.adkdb</string>
-    <string name="synchronization_report_file_multipartdata">report.JSON</string>
+    <string name="synchronization_report_file_extension">.adkdb</string>
+    <string name="synchronization_report_file_multipartdata">report.gz</string>
+    <string name="synchronization_report_file_post_name_parameter">uploaded_file</string>
 
 
     <!-- Fonts -->

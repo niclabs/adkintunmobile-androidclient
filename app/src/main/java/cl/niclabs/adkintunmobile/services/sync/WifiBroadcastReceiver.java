@@ -31,6 +31,7 @@ import cl.niclabs.adkintunmobile.utils.volley.HttpMultipartRequest;
 import cl.niclabs.adkintunmobile.utils.volley.VolleySingleton;
 
 public class WifiBroadcastReceiver extends BroadcastReceiver{
+
     private final String TAG = "AdkM:WifiBR";
 
     public void onReceive(final Context context, Intent intent) {
@@ -44,7 +45,7 @@ public class WifiBroadcastReceiver extends BroadcastReceiver{
                 @Override
                 public boolean accept(File dir, String filename) {
                     return filename.startsWith(context.getString(R.string.synchronization_report_filename)) &&
-                            filename.endsWith(context.getString(R.string.synchronization_report_fileextension));
+                            filename.endsWith(context.getString(R.string.synchronization_report_file_extension));
                 }
             });
             Log.d(TAG, "Requests pendientes: " + reportFiles.length);
@@ -67,11 +68,15 @@ public class WifiBroadcastReceiver extends BroadcastReceiver{
         }
     }
 
+    /**
+     * Convert File into array of bytes
+     * @param file
+     * @return
+     */
     private static byte[] readContentIntoByteArray(File file) {
         FileInputStream fileInputStream;
         byte[] bFile = new byte[(int) file.length()];
         try {
-            // Convert file into array of bytes
             fileInputStream = new FileInputStream(file);
             fileInputStream.read(bFile);
             fileInputStream.close();
@@ -85,14 +90,14 @@ public class WifiBroadcastReceiver extends BroadcastReceiver{
         byte[] data = readContentIntoByteArray(reportFile);
         byte[] multipartBody = null;
 
+        // Preparar Archivo a adjuntar
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
         DataOutputStream dos = new DataOutputStream(bos);
         try {
             // Primer archivo adjuntado al DataOutputStream
             String fileMultiPartFormData = context.getString(R.string.synchronization_report_file_multipartdata);
-            HttpMultipartRequest.buildPart(dos, data, fileMultiPartFormData);
-            // Agregar "multipart form data" después de los archivos
-            HttpMultipartRequest.writeBytes(dos);
+            String filePostNameParam = context.getString(R.string.synchronization_report_file_post_name_parameter);
+            HttpMultipartRequest.buildPart(dos, filePostNameParam, data, fileMultiPartFormData);
             // Crear multipart body
             multipartBody = bos.toByteArray();
         } catch (IOException e) {
@@ -122,7 +127,7 @@ public class WifiBroadcastReceiver extends BroadcastReceiver{
                             public void onResponse(NetworkResponse response) {
                                 Log.d(TAG, "Upload " + reportFile.getName() + "(" + reportFile.length() + "b)" + " successfully to " + requestURL);
 
-                                // Registro de la última sincronización exitosa
+                                // Actualizar registro de la última sincronización exitosa
                                 SharedPreferences.Editor editor = sharedPreferences.edit();
                                 editor.putString(context.getString(R.string.settings_sampling_lastsync_key), DisplayDateManager.getDateString(System.currentTimeMillis()));
                                 editor.apply();

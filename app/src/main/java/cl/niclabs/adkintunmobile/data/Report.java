@@ -22,6 +22,7 @@ import cl.niclabs.adkintunmobile.data.persistent.TrafficObservationWrapper;
 import cl.niclabs.adkintunmobile.data.persistent.visualization.ApplicationTraffic;
 import cl.niclabs.adkintunmobile.data.persistent.visualization.ConnectionModeSample;
 import cl.niclabs.adkintunmobile.data.persistent.visualization.NetworkTypeSample;
+import cl.niclabs.adkintunmobile.utils.compression.CompressionUtils;
 
 /**
  * Clase para manipular los datos de eventos persistidos en el telefono.
@@ -81,11 +82,13 @@ public class Report {
         try {
             String filename = context.getString(R.string.synchronization_report_filename);
             filename += "_" + System.currentTimeMillis();
-            String fileExtension = context.getString(R.string.synchronization_report_fileextension);
+            String fileExtension = context.getString(R.string.synchronization_report_file_extension);
 
             File outputFile = File.createTempFile(filename, fileExtension, outputDir);
             FileOutputStream outStream = new FileOutputStream(outputFile);
-            outStream.write(reportData.getBytes());
+            //outStream.write(reportData.getBytes());                               // No compression
+            //outStream.write(CompressionUtils.compress(reportData.getBytes()));    // Compress using Deflater
+            outStream.write(CompressionUtils.gzip(reportData.getBytes()));          // Compress using Gzip
             outStream.flush();
             outStream.close();
             return true;

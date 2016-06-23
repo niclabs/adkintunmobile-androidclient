@@ -26,6 +26,7 @@ public class Synchronization extends Service {
 
         // 1.- Build a report
         Report report = new Report(getApplicationContext());
+
         if (report.recordsToSend()){
             // 2.- Save report
             report.saveFile(context);

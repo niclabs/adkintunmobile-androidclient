@@ -1,4 +1,5 @@
 package cl.niclabs.adkintunmobile.utils.volley;
+
 import com.android.volley.AuthFailureError;
 import com.android.volley.NetworkResponse;
 import com.android.volley.ParseError;
@@ -24,35 +25,35 @@ public class HttpMultipartRequest extends Request<NetworkResponse> {
      *
      * HttpMultipartRequest structure:
 
-          We need the corresponding byte-array of the file "example.zip" to be sent to de URL "example.com"
-               byte[] file;
+     We need the corresponding byte-array of the file "example.zip" to be sent to de URL "example.com"
+     byte[] file;
 
-          ByteArrayOutputStream bos = new ByteArrayOutputStream();
-          DataOutputStream dos = new DataOutputStream(bos);
-          try{
-              MultipartRequest.buildPart(dos, file, "example.zip");   //If you need to add another file to the Request, you can do:
-                                                                      //    MultipartRequest.buildPart(dos, file2, "file2.zip");
-              MultipartRequest.writeBytes(dos);
-              byte[] multipartBody = bos.toByteArray();               //Create multipart body
-          }
-          catch (IOException e){
-              e.printStackTrace();
-          }
+     ByteArrayOutputStream bos = new ByteArrayOutputStream();
+     DataOutputStream dos = new DataOutputStream(bos);
+     try{
+     MultipartRequest.buildPart(dos, file, "example.zip");   //    If you need to add another file to the Request, you can do:
+     //    MultipartRequest.buildPart(dos, file2, "file2.zip");
+     MultipartRequest.multipartFileDataSeparator(dos);
+     byte[] multipartBody = bos.toByteArray();               //    Create multipart body
+     }
+     catch (IOException e){
+     e.printStackTrace();
+     }
 
-          MultipartRequest request = new MultipartRequest( "example.com", null, multipartBody, new Response.Listener<NetworkResponse>(){
-              @Override
-              public void onResponse(NetworkResponse response) {
-                  //Method to handle the response
-              }
-          }, new Response.ErrorListener(){
-              @Override
-              public void onErrorResponse(VolleyError error) {
-                  //Method to handle the error
-              }
-          });
+     MultipartRequest request = new MultipartRequest( "example.com", null, multipartBody, new Response.Listener<NetworkResponse>(){
+    @Override
+    public void onResponse(NetworkResponse response) {
+    //Method to handle the response
+    }
+    }, new Response.ErrorListener(){
+    @Override
+    public void onErrorResponse(VolleyError error) {
+    //Method to handle the error
+    }
+    });
 
-          //Add the request to the Request Queue
-          VolleySingleton.getInstance(context).addToRequestQueue(request);
+     //Add the request to the Request Queue
+     VolleySingleton.getInstance(context).addToRequestQueue(request);
 
      * @param url               URL to fetch the file at
      * @param headers           Request headers
@@ -60,7 +61,12 @@ public class HttpMultipartRequest extends Request<NetworkResponse> {
      * @param responseListener  Listener to receive the response
      * @param errorListener     Error listener, or null to ignore errors
      */
-    public HttpMultipartRequest(String url, Map<String, String> headers, byte[] multipartBody, Response.Listener<NetworkResponse> responseListener, Response.ErrorListener errorListener) {
+    public HttpMultipartRequest(
+            String url,
+            Map<String, String> headers,
+            byte[] multipartBody,
+            Response.Listener<NetworkResponse> responseListener,
+            Response.ErrorListener errorListener) {
         super(Method.POST, url, errorListener);
         this.mListener = responseListener;
         this.mErrorListener = errorListener;
@@ -81,6 +87,16 @@ public class HttpMultipartRequest extends Request<NetworkResponse> {
     @Override
     public byte[] getBody() throws AuthFailureError {
         return mMultipartBody;
+        /**
+         * Code block to send the request gzipped.
+         * Must be added as in the request header "Content-Encoding", "gzip"
+         try {
+         return CompressionUtils.gzip(mMultipartBody);
+         } catch (IOException e) {
+         e.printStackTrace();
+         return mMultipartBody;
+         }
+         */
     }
 
     @Override
@@ -104,15 +120,38 @@ public class HttpMultipartRequest extends Request<NetworkResponse> {
         mErrorListener.onErrorResponse(error);
     }
 
+
+    /**
+     * Static Methods
+     */
+
     private static final String twoHyphens = "--";
     private static final String lineEnd = "\r\n";
-    public static final String boundary = "apiclient-" + System.currentTimeMillis();
+    private static final String boundary = "apiclient-" + System.currentTimeMillis();
     private static final String mimeType = "multipart/form-data;boundary=" + boundary;
 
-    public static void buildPart(DataOutputStream dataOutputStream, byte[] fileData, String fileName) throws IOException {
+    /**
+     * Build the body of a post http request, attaching a custom file.
+     * @param dataOutputStream Stream where write the output
+     * @param postParamFileName Parameter name in the post request where is located the file
+     * @param fileData byteArray of the file to attach
+     * @param fileName   @throws IOException
+     */
+    public static void buildPart(
+            DataOutputStream dataOutputStream,
+            String postParamFileName,
+            byte[] fileData,
+            String fileName) throws IOException {
+
         dataOutputStream.writeBytes(twoHyphens + boundary + lineEnd);
-        dataOutputStream.writeBytes("Content-Disposition: form-data; name=\"uploaded_file\"; filename=\""
-                + fileName + "\"" + lineEnd);
+
+        String postParams ="";
+        postParams += "Content-Disposition: form-data; ";
+        postParams += "name=\"" + postParamFileName + "\"; ";
+        postParams += "filename=\"" + fileName + "\"";
+        postParams += lineEnd;
+
+        dataOutputStream.writeBytes(postParams);
         dataOutputStream.writeBytes(lineEnd);
 
         ByteArrayInputStream fileInputStream = new ByteArrayInputStream(fileData);
@@ -133,9 +172,9 @@ public class HttpMultipartRequest extends Request<NetworkResponse> {
         }
 
         dataOutputStream.writeBytes(lineEnd);
-    }
 
-    public static void writeBytes(DataOutputStream dos) throws IOException {
-        dos.writeBytes(twoHyphens + boundary + twoHyphens + lineEnd);
+        // Close the request with a separator for multipart.
+        // To send more files the previous process should be repeated.
+        dataOutputStream.writeBytes(twoHyphens + boundary + twoHyphens + lineEnd);
     }
 }
