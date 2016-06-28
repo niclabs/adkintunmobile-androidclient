@@ -6,8 +6,6 @@ import android.widget.RelativeLayout;
 
 import com.facebook.shimmer.ShimmerFrameLayout;
 
-import java.util.HashMap;
-
 import cl.niclabs.adkintunmobile.R;
 import cl.niclabs.adkintunmobile.data.chart.StatisticInformation;
 import cl.niclabs.adkintunmobile.utils.display.DoughnutChart;

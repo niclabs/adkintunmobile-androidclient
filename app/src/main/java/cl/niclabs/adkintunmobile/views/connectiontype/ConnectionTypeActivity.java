@@ -30,7 +30,6 @@ import java.util.Comparator;
 import java.util.HashMap;
 
 import cl.niclabs.adkintunmobile.R;
-import cl.niclabs.adkintunmobile.data.persistent.visualization.NetworkTypeSample;
 import cl.niclabs.adkintunmobile.utils.display.DisplayDateManager;
 import cl.niclabs.adkintunmobile.utils.display.DisplayManager;
 import cl.niclabs.adkintunmobile.utils.display.DoughnutChart;
@@ -99,8 +98,6 @@ public abstract class ConnectionTypeActivity extends AppCompatActivity implement
                 legendTextView.setOnTouchListener(new View.OnTouchListener() {
                     @Override
                     public boolean onTouch(View v, MotionEvent event) {
-                        //Log.d("PRESS", event.toString());
-
                         switch (event.getActionMasked()) {
                             case MotionEvent.ACTION_DOWN:
                                 Log.d("PRESS", "down");
