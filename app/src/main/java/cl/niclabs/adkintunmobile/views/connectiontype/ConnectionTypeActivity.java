@@ -4,15 +4,18 @@ import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Typeface;
+import android.graphics.drawable.ColorDrawable;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.RelativeLayout;
@@ -24,8 +27,10 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashMap;
 
 import cl.niclabs.adkintunmobile.R;
+import cl.niclabs.adkintunmobile.data.persistent.visualization.NetworkTypeSample;
 import cl.niclabs.adkintunmobile.utils.display.DisplayDateManager;
 import cl.niclabs.adkintunmobile.utils.display.DisplayManager;
 import cl.niclabs.adkintunmobile.utils.display.DoughnutChart;
@@ -44,10 +49,15 @@ public abstract class ConnectionTypeActivity extends AppCompatActivity implement
     protected TextView dayText;
     protected TextView dateText;
     protected DisplayDateManager dateManager;
+    protected HashMap<Integer, Integer> colorHashMap;
 
     public abstract void loadData(long initialTime);
 
     public abstract void refreshLegend(long initialTime);
+
+    public abstract TypedArray getSaturatedColors();
+
+    public abstract TypedArray getSoftColors();
 
     @Override
     protected void onResume() {
@@ -85,7 +95,52 @@ public abstract class ConnectionTypeActivity extends AppCompatActivity implement
                 String legend = "";
                 legend += hours > 0 ? + hours + " Hr. " : "";
                 legend += minutes > 0 ? minutes + " Min." : "";
-                TextView legendTextView = createLegendTextView(icons.getResourceId(i,0), colors.getResourceId(i, 0), legend);
+                TextView legendTextView = createLegendTextView(icons.getResourceId(i, 0), colors.getResourceId(i, 0), legend);
+                legendTextView.setOnTouchListener(new View.OnTouchListener() {
+                    @Override
+                    public boolean onTouch(View v, MotionEvent event) {
+                        //Log.d("PRESS", event.toString());
+
+                        switch (event.getActionMasked()) {
+                            case MotionEvent.ACTION_DOWN:
+                                Log.d("PRESS", "down");
+                                int typeColor = ((ColorDrawable) v.getBackground()).getColor();
+                                TypedArray saturatedColors = getSaturatedColors();
+                                TypedArray softColors = getSoftColors();
+                                int index;
+
+                                for (index=0; index<softColors.length(); index++){
+                                    if (typeColor == ContextCompat.getColor(context, softColors.getResourceId(index, 0))){
+                                        typeColor = ContextCompat.getColor(context, saturatedColors.getResourceId(index, 0));
+                                        //v.setBackgroundColor(typeColor);
+                                        break;
+                                    }
+                                }
+                                ArrayList<Integer> chartColors = new ArrayList<>();
+                                ArrayList<Integer> newColors = chart.getColors();
+                                for (int i=0; i<newColors.size(); i++) {
+                                    chartColors.add(newColors.get(i));
+
+                                    if (newColors.get(i) != typeColor){
+                                        int newColor = colorHashMap.get(newColors.get(i));
+                                        newColors.remove(i);
+                                        newColors.add(i, newColor);
+                                    }
+                                }
+                                chart.setColors(newColors);
+                                chart.draw();
+                                chart.setColors(chartColors);
+                                return true;
+                            case MotionEvent.ACTION_UP:
+                            case MotionEvent.ACTION_CANCEL:
+                                Log.d("PRESS", "up");
+                                chart.draw();
+                                return true;
+
+                        }
+                        return false;
+                    }
+                });
                 timeLegend.add(new TimeLegend(legendTextView, timeByType[i]) );
             }
         }
@@ -197,6 +252,22 @@ public abstract class ConnectionTypeActivity extends AppCompatActivity implement
                 });
             }
         }).start();
+        setUpHashMap();
+    }
+
+    private void setUpHashMap() {
+        TypedArray saturatedColors = getSaturatedColors();
+        TypedArray softColors = getSoftColors();
+
+        colorHashMap = new HashMap<>();
+        colorHashMap.put(ContextCompat.getColor(context, R.color.doughnut_no_info),
+                ContextCompat.getColor(context, R.color.doughnut_no_info));
+        colorHashMap.put(ContextCompat.getColor(context, R.color.doughnut_start),
+                ContextCompat.getColor(context, R.color.doughnut_start));
+        for (int i=0; i< saturatedColors.length(); i++){
+            colorHashMap.put(ContextCompat.getColor(context, saturatedColors.getResourceId(i, 0)),
+                    (ContextCompat.getColor(context,R.color.doughnut_no_info)));
+        }
     }
 
     public void setUpToolbar(){
