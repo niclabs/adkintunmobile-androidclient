@@ -30,9 +30,9 @@ import cl.niclabs.adkintunmobile.utils.information.Network;
 import cl.niclabs.adkintunmobile.utils.volley.HttpMultipartRequest;
 import cl.niclabs.adkintunmobile.utils.volley.VolleySingleton;
 
-public class WifiBroadcastReceiver extends BroadcastReceiver{
+public class DispatcherDataBroadcastReceiver extends BroadcastReceiver{
 
-    private final String TAG = "AdkM:WifiBR";
+    private final String TAG = "AdkM:DispatcherDataBR";
 
     public void onReceive(final Context context, Intent intent) {
         Log.d(TAG, "Iniciado intento de despacho de datos");

@@ -13,7 +13,7 @@ public class Synchronization extends Service {
     private final String TAG = "AdkM:Synchronization";
     private Context context;
 
-    private final String SYNC_INTENT = "cl.niclabs.adkintunmobile.intent.SYNC_INTENT";
+    private final String SYNC_INTENT = "cl.niclabs.adkintunmobile.intent.DISPATCHER_DATA";
 
     public Synchronization() {
     }

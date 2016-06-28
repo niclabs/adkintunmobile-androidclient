@@ -136,10 +136,10 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </receiver>
-        <receiver android:name=".services.sync.WifiBroadcastReceiver">
+        <receiver android:name=".services.sync.DispatcherDataBroadcastReceiver">
             <intent-filter>
                 <action android:name="android.net.wifi.STATE_CHANGE" />
-                <action android:name="cl.niclabs.adkintunmobile.intent.SYNC_INTENT" />
+                <action android:name="cl.niclabs.adkintunmobile.intent.DISPATCHER_DATA" />
             </intent-filter>
         </receiver>
 
