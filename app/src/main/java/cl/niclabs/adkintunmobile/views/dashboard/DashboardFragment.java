@@ -77,6 +77,7 @@ public class DashboardFragment extends BaseToolbarFragment {
         tvAntenna.setText(Network.getConnectedCarrrier(context));
         tvSignal.setText(Network.getNetworkType(context));
 
+        // TODO: Pasar Strings a strings.xml
         switch (Network.getActiveNetwork(context)){
             case ConnectionModeSample.MOBILE:
                 tvInternet.setText("móvil");
@@ -90,8 +91,9 @@ public class DashboardFragment extends BaseToolbarFragment {
         }
 
         final ImageView ivBackdrop = (ImageView) view.findViewById(R.id.iv_backdrop_toolbar);
-        Animation zoomIn = AnimationUtils.loadAnimation(this.context, R.anim.zoom_toolbar);
-        zoomIn.setAnimationListener(new Animation.AnimationListener() {
+        Animation toolbarAnimation = AnimationUtils.loadAnimation(this.context, R.anim.zoom_toolbar);
+
+        toolbarAnimation.setAnimationListener(new Animation.AnimationListener() {
             @Override
             public void onAnimationStart(Animation animation) {
             }
@@ -108,7 +110,8 @@ public class DashboardFragment extends BaseToolbarFragment {
 
             }
         });
-        ivBackdrop.setAnimation(zoomIn);
+
+        ivBackdrop.setAnimation(toolbarAnimation);
 
     }
 
