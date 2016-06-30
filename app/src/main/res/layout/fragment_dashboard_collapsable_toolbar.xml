@@ -156,8 +156,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:textAppearance="?android:attr/textAppearanceSmall"
-                                android:text="Tu estado Ahora"
-                                android:id="@+id/textView"
+                                android:text="@string/view_dashboard_toolbar_slogan"
                                 android:textStyle="italic"
                                 android:textAlignment="center"
                                 android:textSize="@dimen/design_tab_text_size_2line" />

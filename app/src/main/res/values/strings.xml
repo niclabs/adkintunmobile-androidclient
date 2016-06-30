@@ -45,6 +45,7 @@
     <string name="settings_app_version_default">2.0a</string>
 
     <!-- Dashboard -->
+    <string name="view_dashboard_toolbar_slogan">Tu Estado Ahora</string>
     <string name="view_dashboard_news">Novedades</string>
     <string name="view_dashboard_mobile_data_title">Consumo de datos móviles</string>
     <string name="view_dashboard_mobile_data_summary">Consumo aproximado de datos móviles del día actual:</string>
