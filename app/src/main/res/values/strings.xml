@@ -59,25 +59,6 @@
     <string name="view_dashboard_top_apps_title">Principales Aplicaciones</string>
     <string name="view_dashboard_top_apps_summary">Las siguientes aplicaciones son las que más han usado tu internet móvil hoy:</string>
 
-    <string name="view_dashboard_tutorial_1_title">Bienvenida</string>
-    <string name="view_dashboard_tutorial_1_body">Bienvenido a Adkintiun Mobile, aplicación de monitoreo de internet.\n\nEl siguiente recorrido describe las principales vistas de la aplicación.</string>
-    <string name="view_dashboard_tutorial_2_title">"Tu Estado Ahora"</string>
-    <string name="view_dashboard_tutorial_2_body">Aquí se muestra un resumen del estado actual de la conexión del teléfono.</string>
-    <string name="view_dashboard_tutorial_3_title">Antena</string>
-    <string name="view_dashboard_tutorial_3_body">Indica el nombre del proveedor de servicio que administra la antena a la que estás actualmente conectado.</string>
-    <string name="view_dashboard_tutorial_4_title">SIM</string>
-    <string name="view_dashboard_tutorial_4_body">Indica el nombre del proveedor de servicio asociado a tu tarjeta SIM.</string>
-    <string name="view_dashboard_tutorial_5_title">Señal</string>
-    <string name="view_dashboard_tutorial_5_body">Reporta la generación tecnológica asociada a la señal actual de tu equipo. Más G es mejor.</string>
-    <string name="view_dashboard_tutorial_6_title">Internet</string>
-    <string name="view_dashboard_tutorial_6_body">Indica qué tipo de conexión está usando tu equipo en este momento (WiFi/Móvil).</string>
-    <string name="view_dashboard_tutorial_7_title">Tarjetas</string>
-    <string name="view_dashboard_tutorial_7_body">En esta parte se muestran tarjetas con información resumida de las distintas funcionalidades de la aplicación. Para más detalle puedes hacer click en cada una.</string>
-    <string name="view_dashboard_tutorial_8_title">Menu Principal</string>
-    <string name="view_dashboard_tutorial_8_body">En el menú principal puedes acceder a cada una de las funcionalidades completas de la aplicación.</string>
-    <string name="view_dashboard_tutorial_9_title">Adkintun Mobile</string>
-    <string name="view_dashboard_tutorial_9_body">Disfruta</string>
-
     <!-- Notifications Log -->
     <string name="view_notifications_log_item_no_data">No hay notificaciones para mostrar</string>
 
@@ -94,20 +75,6 @@
     <string name="view_status_settings_dialog_title">Tu Plan de Datos</string>
     <string name="view_status_settings_dialog_description">Establece la cuota de navegación provista en tu plan de datos de tu proveedor de telefonía.</string>
 
-    <string name="view_status_tutorial_1_title">Tu Estado</string>
-    <string name="view_status_tutorial_1_body">La vista "Tu Estado" incluye información completa respecto a tu conexión actual y el consumo de tus datos móviles.</string>
-    <string name="view_status_tutorial_2_title">"Tu Internet"</string>
-    <string name="view_status_tutorial_2_body">Indica información sobre tu salida actual de datos.\nSi estás usando datos móviles, se indica la tecnología de transmisión de datos.</string>
-    <string name="view_status_tutorial_3_title">"Tu SIM"</string>
-    <string name="view_status_tutorial_3_body">Indica el nombre del proveedor de servicio asociado a tu tarjeta SIM.</string>
-    <string name="view_status_tutorial_4_title">"Tu Red"</string>
-    <string name="view_status_tutorial_4_body">Indica el nombre del proveedor de servicio que administra la antena a la que estás actualmente conectado.</string>
-    <string name="view_status_tutorial_5_title">"Tu consumo Diario"</string>
-    <string name="view_status_tutorial_5_body">Muestra información sobre la cantidad de datos subidos y bajados usando datos móviles de tu plan de Internet durante el día de hoy.</string>
-    <string name="view_status_tutorial_6_title">"Tu consumo Mensual"</string>
-    <string name="view_status_tutorial_6_body">Muestra información sobre la cantidad de datos subidos y bajados usando datos móviles de tu plan de Internet durante el mes en curso.\nPuedes configurarlo con tu plan de datos para regular qué porcentaje de datos has ocupado.</string>
-
-
     <!-- Conn mode -->
     <string name="view_connection_mode_symbology">Leyenda</string>
     <string name="view_connection_mode_mobile">Conectado a red móvil</string>
@@ -116,29 +83,6 @@
     <string name="view_connection_mode_no_info">Sin información</string>
     <string name="view_connection_mode_disconnected">Sin Conexión</string>
     <string name="view_connection_mode_bad_date">Debe seleccionar una fecha previa</string>
-
-    <string name="view_connection_mode_tutorial_1_title">Tipo de Conexión</string>
-    <string name="view_connection_mode_tutorial_1_body">La vista "Tipo de Conexión" visualiza los modos de conexion que ha usado tu teléfono para acceder a Internet.</string>
-    <string name="view_connection_mode_tutorial_2_title">Reloj</string>
-    <string name="view_connection_mode_tutorial_2_body">Se muestra un reloj de 24 horas donde se reconocen los principales cambios de conexión sufridos a lo largo del día.</string>
-    <string name="view_connection_mode_tutorial_3_title">Leyenda</string>
-    <string name="view_connection_mode_tutorial_3_body">Se incluye un resumen con el total de tiempo conectado por cada modo.\nPuedes mantener presionado en un tipo de conexión para destacarlo en el reloj.</string>
-    <string name="view_connection_mode_tutorial_4_title">Registros Previos</string>
-    <string name="view_connection_mode_tutorial_4_body">Finalmente, puedes seleccionar una fecha en particular para ver los registros asociados a dicho día.</string>
-
-    <!-- App Traffic -->
-    <string name="view_applications_traffic_wifi">Tráfico WiFi</string>
-    <string name="view_applications_traffic_mobile">Tráfico Móvil</string>
-    <string name="view_applications_traffic_item_no_data">No hay resultados para mostrar</string>
-
-    <string name="view_applications_traffic_tutorial_1_title">Tráfico por Aplicación</string>
-    <string name="view_applications_traffic_tutorial_1_body">La vista "Tráfico por Aplicación" muestra el consumo de datos que han efectuado las aplicaciones instaladas en tu equipo.</string>
-    <string name="view_applications_traffic_tutorial_2_title">Tipo de Consumo de datos</string>
-    <string name="view_applications_traffic_tutorial_2_body">El consumo de las aplicaciones está separado según si usaron datos móviles o WiFi.</string>
-    <string name="view_applications_traffic_tutorial_3_title">Listado de Aplicaciones</string>
-    <string name="view_applications_traffic_tutorial_3_body">Aquí se listan las aplicaciones con consumo de datos, diferenciando la cantidad de datos subidos y bajados. Las aplicaciones se muestran ordenadas desde la de mayor a la de menor descarga de datos.</string>
-    <string name="view_applications_traffic_tutorial_4_title">Registros Previos</string>
-    <string name="view_applications_traffic_tutorial_4_body">Finalmente, puedes seleccionar una fecha en particular para ver los registros acumulados a partir de dicho día.</string>
 
     <!-- Network Type -->
     <string name="view_network_type_g">G</string>
@@ -150,24 +94,13 @@
     <string name="view_network_type_disconnected">Sin Conexión</string>
     <string name="view_network_type_start">Inicio</string>
 
-    <string name="view_network_type_tutorial_1_title">Tipo de Señal</string>
-    <string name="view_network_type_tutorial_1_body">La vista "Tipo de Señal" visualiza los cambios de red que ha experimentado tu teléfono a lo largo de un día.\n\nEl tipo de señal influye directamente en tu calidad de acceso a datos móviles.</string>
-    <string name="view_network_type_tutorial_2_title">Reloj</string>
-    <string name="view_network_type_tutorial_2_body">Se muestra un reloj de 24 horas donde se reconocen los principales cambios de red sufridos a lo largo del día.</string>
-    <string name="view_network_type_tutorial_3_title">Leyenda</string>
-    <string name="view_network_type_tutorial_3_body">Se incluye un resumen con el total de tiempo conectado a cada tipo de red.\nPuedes mantener presionado en un tipo de conexión para destacarlo en el reloj.</string>
-    <string name="view_network_type_tutorial_4_title">Registros Previos</string>
-    <string name="view_network_type_tutorial_4_body">Finalmente, puedes seleccionar una fecha en particular para ver los registros asociados a dicho día.</string>
-
+    <!-- App Traffic -->
+    <string name="view_applications_traffic_wifi">Tráfico WiFi</string>
+    <string name="view_applications_traffic_mobile">Tráfico Móvil</string>
+    <string name="view_applications_traffic_item_no_data">No hay resultados para mostrar</string>
 
     <!-- Active Connections -->
     <string name="view_active_connections_reload">Conexiones Activas Actualizadas</string>
-
-    <string name="view_active_connections_tutorial_1_title">Conexiones Activas</string>
-    <string name="view_active_connections_tutorial_1_body">La vista "Conexiones Activas" muestra las aplicaciones que reportan conexiones a Intenet activas en este instante.</string>
-    <string name="view_active_connections_tutorial_2_title">Listado de Aplicaciones</string>
-    <string name="view_active_connections_tutorial_2_body">De cada aplicación se muestra el total de conexiones operativas.\nAl hacer click en una aplicación se levanta un mapa que muestra la ubicación geográfica de los servidores a donde se están enviando los datos.</string>
-
 
     <!-- Tutorial Controls -->
     <string name="tutorial_next">Siguiente</string>
