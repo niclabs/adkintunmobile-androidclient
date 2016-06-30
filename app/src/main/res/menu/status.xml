@@ -5,6 +5,12 @@
 
     <!--TODO: Agregar textos a strings.xml -->
     <item
+        android:id="@+id/menu_info_btn"
+        android:icon="@drawable/ic_info_outline_white"
+        app:showAsAction="always"
+        android:title="Información sobre esta vista">
+    </item>
+    <item
         android:id="@+id/menu_date_picker_btn"
         android:icon="@drawable/ic_settings_white"
         app:showAsAction="always"
