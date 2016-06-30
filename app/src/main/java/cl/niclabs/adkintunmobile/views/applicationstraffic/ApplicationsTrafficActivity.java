@@ -198,52 +198,50 @@ public class ApplicationsTrafficActivity extends AppCompatActivity implements Da
 
     public void showTutorial() {
         helpCounter = 0;
+        final String[] tutorialTitle = getResources().getStringArray(R.array.tutorial_application_traffic_title);
+        final String[] tutorialBody = getResources().getStringArray(R.array.tutorial_application_traffic_body);
+
         showcaseView = new ShowcaseView.Builder(this)
                 .setTarget(Target.NONE)
-                .setContentTitle(getString(R.string.view_applications_traffic_tutorial_1_title))
-                .setContentText(getString(R.string.view_applications_traffic_tutorial_1_body))
+                .setContentTitle(tutorialTitle[helpCounter])
+                .setContentText(tutorialBody[helpCounter])
                 .setStyle(R.style.CustomShowcaseTheme)
                 .setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         TabLayout mTabLayout = (TabLayout) findViewById(R.id.tabs);
                         ViewGroup tabs = ((ViewGroup) mTabLayout.getChildAt(0));
+                        helpCounter++;
+                        Target mTarget = Target.NONE;
 
                         switch (helpCounter) {
-                            case 0:
+                            case 1:
                                 int activeTabIndex = mTabLayout.getSelectedTabPosition();
-                                Target mTarget0 = new ViewTarget(tabs.getChildAt(activeTabIndex));
-                                showcaseView.setShowcase(mTarget0, true);
-                                showcaseView.setContentTitle(getString(R.string.view_applications_traffic_tutorial_2_title));
-                                showcaseView.setContentText(getString(R.string.view_applications_traffic_tutorial_2_body));
+                                mTarget = new ViewTarget(tabs.getChildAt(activeTabIndex));
                                 break;
 
-                            case 1:
+                            case 2:
                                 ViewPager mViewPager = (ViewPager) findViewById(R.id.viewpager);
                                 int activeListFragmentIndex = mViewPager.getCurrentItem();
                                 ListView mListView = (ListView) mViewPagerAdapter.getItem(activeListFragmentIndex).getView().findViewById(R.id.list_view_traffic);
                                 if (mListView.getChildAt(0) != null) {
-                                    Target mTarget1 = new ViewTarget(((ViewGroup) mListView.getChildAt(0)).getChildAt(0));
-                                    showcaseView.setShowcase(mTarget1, true);
-                                    showcaseView.setContentTitle(getString(R.string.view_applications_traffic_tutorial_3_title));
-                                    showcaseView.setContentText(getString(R.string.view_applications_traffic_tutorial_3_body));
+                                    mTarget = new ViewTarget(((ViewGroup) mListView.getChildAt(0)).getChildAt(0));
                                     break;
                                 } else
                                     helpCounter++;
 
-                            case 2:
-                                Target mTarget2 = new ViewTarget(findViewById(R.id.menu_date_picker_btn));
-                                showcaseView.setShowcase(mTarget2, true);
-                                showcaseView.setContentTitle(getString(R.string.view_applications_traffic_tutorial_4_title));
-                                showcaseView.setContentText(getString(R.string.view_applications_traffic_tutorial_4_body));
+                            case 3:
+                                mTarget = new ViewTarget(findViewById(R.id.menu_date_picker_btn));
                                 showcaseView.setButtonText(getString(R.string.tutorial_close));
                                 break;
 
-                            case 3:
+                            case 4:
                                 showcaseView.hide();
-                                break;
+                                return;
                         }
-                        helpCounter++;
+                        showcaseView.setContentTitle(tutorialTitle[helpCounter]);
+                        showcaseView.setContentText(tutorialBody[helpCounter]);
+                        showcaseView.setShowcase(mTarget, true);
                     }
                 })
                 .withNewStyleShowcase()

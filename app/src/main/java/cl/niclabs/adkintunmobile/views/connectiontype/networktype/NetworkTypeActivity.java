@@ -71,43 +71,42 @@ public class NetworkTypeActivity extends ConnectionTypeActivity {
     @Override
     public void showTutorial() {
         helpCounter = 0;
+        final String[] tutorialTitle = getResources().getStringArray(R.array.tutorial_network_type_title);
+        final String[] tutorialBody = getResources().getStringArray(R.array.tutorial_network_type_body);
+
         showcaseView = new ShowcaseView.Builder(this)
                 .setTarget(Target.NONE)
-                .setContentTitle(getString(R.string.view_network_type_tutorial_1_title))
-                .setContentText(getString(R.string.view_network_type_tutorial_1_body))
+                .setContentTitle(tutorialTitle[helpCounter])
+                .setContentText(tutorialBody[helpCounter])
                 .setStyle(R.style.CustomShowcaseTheme)
                 .setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        switch (helpCounter) {
-                            case 0:
-                                Target mTarget0 = new ViewTarget(findViewById(R.id.layout_time));
-                                showcaseView.setShowcase(mTarget0, true);
-                                showcaseView.setContentTitle(getString(R.string.view_network_type_tutorial_2_title));
-                                showcaseView.setContentText(getString(R.string.view_network_type_tutorial_2_body));
-                                break;
+                        helpCounter++;
+                        Target mTarget = Target.NONE;
 
+                        switch (helpCounter) {
                             case 1:
-                                View mView = ((TableLayout) findViewById(R.id.time_info_table_layout)).getChildAt(0);
-                                Target mTarget1 = new ViewTarget(((TableRow) mView).getChildAt(0));
-                                showcaseView.setShowcase(mTarget1, true);
-                                showcaseView.setContentTitle(getString(R.string.view_network_type_tutorial_3_title));
-                                showcaseView.setContentText(getString(R.string.view_network_type_tutorial_3_body));
+                                mTarget = new ViewTarget(findViewById(R.id.layout_time));
                                 break;
 
                             case 2:
-                                Target mTarget2 = new ViewTarget(findViewById(R.id.menu_date_picker_btn));
-                                showcaseView.setShowcase(mTarget2, true);
-                                showcaseView.setContentTitle(getString(R.string.view_network_type_tutorial_4_title));
-                                showcaseView.setContentText(getString(R.string.view_network_type_tutorial_4_body));
-                                showcaseView.setButtonText(getString(R.string.tutorial_close));
+                                View mView = ((TableLayout) findViewById(R.id.time_info_table_layout)).getChildAt(0);
+                                mTarget = new ViewTarget(((TableRow) mView).getChildAt(0));
                                 break;
 
                             case 3:
-                                showcaseView.hide();
+                                mTarget = new ViewTarget(findViewById(R.id.menu_date_picker_btn));
+                                showcaseView.setButtonText(getString(R.string.tutorial_close));
                                 break;
+
+                            case 4:
+                                showcaseView.hide();
+                                return;
                         }
-                        helpCounter++;
+                        showcaseView.setContentTitle(tutorialTitle[helpCounter]);
+                        showcaseView.setContentText(tutorialBody[helpCounter]);
+                        showcaseView.setShowcase(mTarget, true);
                     }
                 })
                 .withNewStyleShowcase()

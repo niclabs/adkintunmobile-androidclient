@@ -177,9 +177,9 @@
     </string-array>
     <string-array name="tutorial_connection_mode_body">
         <item>La vista "Tipo de Conexión" visualiza los modos de conexion que ha usado tu teléfono para acceder a Internet.</item>
-        <item>body">Se muestra un reloj de 24 horas donde se reconocen los principales cambios de conexión sufridos a lo largo del día.</item>
-        <item>body">Se incluye un resumen con el total de tiempo conectado por cada modo.\nPuedes mantener presionado en un tipo de conexión para destacarlo en el reloj.</item>
-        <item>body">Finalmente, puedes seleccionar una fecha en particular para ver los registros asociados a dicho día.</item>
+        <item>Se muestra un reloj de 24 horas donde se reconocen los principales cambios de conexión sufridos a lo largo del día.</item>
+        <item>Se incluye un resumen con el total de tiempo conectado por cada modo.\nPuedes mantener presionado en un tipo de conexión para destacarlo en el reloj.</item>
+        <item>Finalmente, puedes seleccionar una fecha en particular para ver los registros asociados a dicho día.</item>
     </string-array>
 
     <!-- Connection Mode -->
@@ -191,9 +191,9 @@
     </string-array>
     <string-array name="tutorial_network_type_body">
         <item>La vista "Tipo de Señal" visualiza los cambios de red que ha experimentado tu teléfono a lo largo de un día.\n\nEl tipo de señal influye directamente en tu calidad de acceso a datos móviles.</item>
-        <item>body">Se muestra un reloj de 24 horas donde se reconocen los principales cambios de conexión sufridos a lo largo del día.</item>
-        <item>body">Se incluye un resumen con el total de tiempo conectado por cada modo.\nPuedes mantener presionado en un tipo de conexión para destacarlo en el reloj.</item>
-        <item>body">Finalmente, puedes seleccionar una fecha en particular para ver los registros asociados a dicho día.</item>
+        <item>Se muestra un reloj de 24 horas donde se reconocen los principales cambios de conexión sufridos a lo largo del día.</item>
+        <item>Se incluye un resumen con el total de tiempo conectado por cada modo.\nPuedes mantener presionado en un tipo de conexión para destacarlo en el reloj.</item>
+        <item>Finalmente, puedes seleccionar una fecha en particular para ver los registros asociados a dicho día.</item>
     </string-array>
 
     <!-- applications traffic -->

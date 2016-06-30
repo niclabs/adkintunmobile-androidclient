@@ -219,73 +219,65 @@ public class MainActivity extends AppCompatActivity {
 
     private void showTutorial() {
         helpCounter = 0;
+        final String[] tutorialTitle = getResources().getStringArray(R.array.tutorial_dashboard_title);
+        final String[] tutorialBody = getResources().getStringArray(R.array.tutorial_dashboard_body);
+
         showcaseView = new ShowcaseView.Builder(this)
                 .setTarget(Target.NONE)
-                .setContentTitle(getString(R.string.view_dashboard_tutorial_1_title))
-                .setContentText(getString(R.string.view_dashboard_tutorial_1_body))
+                .setContentTitle(tutorialTitle[helpCounter])
+                .setContentText(tutorialBody[helpCounter])
                 .setStyle(R.style.CustomShowcaseTheme)
-                .singleShot(40)
+                .singleShot(37)
                 .setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        switch (helpCounter) {
-                            case 0:
-                                showcaseView.setShowcase(new ViewTarget(findViewById(R.id.shimmer_view_container)), true);
-                                showcaseView.setContentTitle(getString(R.string.view_dashboard_tutorial_2_title));
-                                showcaseView.setContentText(getString(R.string.view_dashboard_tutorial_2_body));
-                                break;
+                        helpCounter++;
+                        Target mTarget = Target.NONE;
 
+                        switch (helpCounter) {
                             case 1:
-                                showcaseView.setShowcase(new ViewTarget(findViewById(R.id.tv_antenna)), true);
-                                showcaseView.setContentTitle(getString(R.string.view_dashboard_tutorial_3_title));
-                                showcaseView.setContentText(getString(R.string.view_dashboard_tutorial_3_body));
+                                mTarget = new ViewTarget(findViewById(R.id.shimmer_view_container));
                                 break;
 
                             case 2:
-                                showcaseView.setShowcase(new ViewTarget(findViewById(R.id.tv_sim)), true);
-                                showcaseView.setContentTitle(getString(R.string.view_dashboard_tutorial_4_title));
-                                showcaseView.setContentText(getString(R.string.view_dashboard_tutorial_4_body));
+                                mTarget = new ViewTarget(findViewById(R.id.tv_antenna));
                                 break;
 
                             case 3:
-                                showcaseView.setShowcase(new ViewTarget(findViewById(R.id.tv_signal)), true);
-                                showcaseView.setContentTitle(getString(R.string.view_dashboard_tutorial_5_title));
-                                showcaseView.setContentText(getString(R.string.view_dashboard_tutorial_5_body));
+                                mTarget = new ViewTarget(findViewById(R.id.tv_sim));
                                 break;
 
                             case 4:
-                                showcaseView.setShowcase(new ViewTarget(findViewById(R.id.tv_internet)), true);
-                                showcaseView.setContentTitle(getString(R.string.view_dashboard_tutorial_6_title));
-                                showcaseView.setContentText(getString(R.string.view_dashboard_tutorial_6_body));
+                                mTarget = new ViewTarget(findViewById(R.id.tv_signal));
                                 break;
 
                             case 5:
-                                showcaseView.setShowcase(new ViewTarget(findViewById(R.id.card_mobile_consumption)), true);
-                                showcaseView.setContentTitle(getString(R.string.view_dashboard_tutorial_7_title));
-                                showcaseView.setContentText(getString(R.string.view_dashboard_tutorial_7_body));
+                                mTarget = new ViewTarget(findViewById(R.id.tv_internet));
                                 break;
 
                             case 6:
-                                mDrawer.openDrawer(GravityCompat.START);
-                                showcaseView.setShowcase(new ViewTarget(mDrawer.getRootView()), true);
-                                showcaseView.setContentTitle(getString(R.string.view_dashboard_tutorial_8_title));
-                                showcaseView.setContentText(getString(R.string.view_dashboard_tutorial_8_body));
-                                showcaseView.setButtonText(getString(R.string.tutorial_close));
+                                mTarget = new ViewTarget(findViewById(R.id.card_mobile_consumption));
                                 break;
 
                             case 7:
-                                mDrawer.closeDrawers();
-                                showcaseView.setShowcase(Target.NONE, true);
-                                showcaseView.setContentTitle(getString(R.string.view_dashboard_tutorial_9_title));
-                                showcaseView.setContentText(getString(R.string.view_dashboard_tutorial_9_body));
+                                mDrawer.openDrawer(GravityCompat.START);
+                                mTarget = new ViewTarget(mDrawer.getRootView());
                                 showcaseView.setButtonText(getString(R.string.tutorial_close));
                                 break;
 
                             case 8:
-                                showcaseView.hide();
+                                mDrawer.closeDrawers();
+                                mTarget = Target.NONE;
+                                showcaseView.setButtonText(getString(R.string.tutorial_close));
                                 break;
+
+                            case 9:
+                                showcaseView.hide();
+                                return;
                         }
-                        helpCounter++;
+                        showcaseView.setContentTitle(tutorialTitle[helpCounter]);
+                        showcaseView.setContentText(tutorialBody[helpCounter]);
+                        showcaseView.setShowcase(mTarget, true);
                     }
                 })
                 .withNewStyleShowcase()

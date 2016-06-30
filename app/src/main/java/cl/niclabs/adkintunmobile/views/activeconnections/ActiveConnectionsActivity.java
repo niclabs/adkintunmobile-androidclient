@@ -176,32 +176,37 @@ public class ActiveConnectionsActivity extends AppCompatActivity {
 
     private void showTutorial() {
         helpCounter = 0;
+        final String[] tutorialTitle = getResources().getStringArray(R.array.tutorial_active_connections_title);
+        final String[] tutorialBody = getResources().getStringArray(R.array.tutorial_active_connections_body);
+
         showcaseView = new ShowcaseView.Builder(this)
                 .setTarget(Target.NONE)
-                .setContentTitle(getString(R.string.view_active_connections_tutorial_1_title))
-                .setContentText(getString(R.string.view_active_connections_tutorial_1_body))
+                .setContentTitle(tutorialTitle[helpCounter])
+                .setContentText(tutorialBody[helpCounter])
                 .setStyle(R.style.CustomShowcaseTheme)
                 .setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        helpCounter++;
+                        Target mTarget = Target.NONE;
+
                         switch (helpCounter) {
-                            case 0:
+                            case 1:
                                 ListView mListView = (ListView)findViewById(R.id.list);
                                 if (mListView.getChildAt(0) != null) {
-                                    Target mTarget0 = new ViewTarget(((ViewGroup) mListView.getChildAt(0)).getChildAt(0));
-                                    showcaseView.setShowcase(mTarget0, true);
-                                    showcaseView.setContentTitle(getString(R.string.view_active_connections_tutorial_2_title));
-                                    showcaseView.setContentText(getString(R.string.view_active_connections_tutorial_2_body));
+                                    mTarget = new ViewTarget(((ViewGroup) mListView.getChildAt(0)).getChildAt(0));
                                     showcaseView.setButtonText(getString(R.string.tutorial_close));
                                     break;
                                 } else
                                     helpCounter++;
 
-                            case 1:
+                            case 2:
                                 showcaseView.hide();
-                                break;
+                                return;
                         }
-                        helpCounter++;
+                        showcaseView.setContentTitle(tutorialTitle[helpCounter]);
+                        showcaseView.setContentText(tutorialBody[helpCounter]);
+                        showcaseView.setShowcase(mTarget, true);
                     }
                 })
                 .withNewStyleShowcase()
