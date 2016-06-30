@@ -122,7 +122,7 @@ public class StatusActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
             case R.id.menu_date_picker_btn:
-                showDialogPref();
+                showDialogMobileQuotaPref();
                 break;
             case R.id.menu_info_btn:
                 showTutorial();
@@ -131,7 +131,7 @@ public class StatusActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    private void showDialogPref() {
+    private void showDialogMobileQuotaPref() {
         FragmentManager fm = getSupportFragmentManager();
         StatusSettingsDialog.showDialogPreference(fm, new DialogInterface.OnDismissListener() {
             @Override
@@ -145,6 +145,10 @@ public class StatusActivity extends AppCompatActivity {
                 });
             }
         });
+    }
+
+    public void showDialogMobileQuotaPref(View view){
+        showDialogMobileQuotaPref();
     }
 
 

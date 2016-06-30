@@ -367,7 +367,8 @@
 
                         <RelativeLayout
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent">
+                            android:layout_height="match_parent"
+                            android:onClick="showDialogMobileQuotaPref">
                             <ProgressBar
                                 style="@style/CustomProgressBarHorizontal"
                                 android:layout_width="match_parent"
