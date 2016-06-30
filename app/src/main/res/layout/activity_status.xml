@@ -227,7 +227,8 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:stretchColumns="0,1,2"
-                            android:layout_marginTop="@dimen/separation_little">
+                            android:layout_marginTop="@dimen/separation_little"
+                            android:id="@+id/tb_daily_consumption">
 
                             <TableRow
                                 android:layout_width="match_parent"
@@ -328,7 +329,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:textAppearance="?android:attr/textAppearanceSmall"
-                                android:text="@string/sample_period"
+                                android:text="@string/view_status_sample_period"
                                 android:textSize="10sp"
                                 android:visibility="visible"
                                 android:layout_gravity="center" />
@@ -552,7 +553,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:textAppearance="?android:attr/textAppearanceSmall"
-                                android:text="@string/sample_period"
+                                android:text="@string/view_status_sample_period"
                                 android:textSize="10sp"
                                 android:visibility="visible"
                                 android:layout_gravity="center" />
