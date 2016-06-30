@@ -60,7 +60,7 @@
 
     <string name="view_dashboard_tutorial_1_title">Bienvenida</string>
     <string name="view_dashboard_tutorial_1_body">Bienvenido a Adkintiun Mobile, aplicación de monitoreo de internet.\n\nEl siguiente recorrido describe las principales vistas de la aplicación.</string>
-    <string name="view_dashboard_tutorial_2_title">"Tu Estado Actual"</string>
+    <string name="view_dashboard_tutorial_2_title">"Tu Estado Ahora"</string>
     <string name="view_dashboard_tutorial_2_body">Aquí se muestra un resumen del estado actual de la conexión del teléfono.</string>
     <string name="view_dashboard_tutorial_3_title">Antena</string>
     <string name="view_dashboard_tutorial_3_body">Indica el nombre del proveedor de servicio que administra la antena a la que estás actualmente conectado.</string>
@@ -72,8 +72,10 @@
     <string name="view_dashboard_tutorial_6_body">Indica qué tipo de conexión está usando tu equipo en este momento (WiFi/Móvil).</string>
     <string name="view_dashboard_tutorial_7_title">Tarjetas</string>
     <string name="view_dashboard_tutorial_7_body">En esta parte se muestran tarjetas con información resumida de las distintas funcionalidades de la aplicación. Para más detalle puedes hacer click en cada una.</string>
-    <string name="view_dashboard_tutorial_8_title">Navigation Drawer</string>
+    <string name="view_dashboard_tutorial_8_title">Menu Principal</string>
     <string name="view_dashboard_tutorial_8_body">En el menú principal puedes acceder a cada una de las funcionalidades completas de la aplicación.</string>
+    <string name="view_dashboard_tutorial_9_title">Adkintun Mobile</string>
+    <string name="view_dashboard_tutorial_9_body">Disfruta</string>
 
     <!-- Notifications Log -->
     <string name="view_notifications_log_item_no_data">No hay notificaciones para mostrar</string>
