@@ -13,6 +13,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.github.amlcurran.showcaseview.ShowcaseView;
+import com.github.amlcurran.showcaseview.targets.Target;
+import com.github.amlcurran.showcaseview.targets.ViewTarget;
+
 import cl.niclabs.adkintunmobile.R;
 import cl.niclabs.adkintunmobile.data.persistent.visualization.NewsNotification;
 import cl.niclabs.adkintunmobile.services.SetupSystem;
@@ -47,11 +51,14 @@ public class MainActivity extends AppCompatActivity {
         // Start System
         SetupSystem.startUpSystem(this.context);
 
-        //setupToolBar();
+        // SetupToolBar();
         setupNavigationDrawer();
 
         // Initial Fragment: DashboardFragment
         updateMainFragment(new DashboardFragment());
+
+        // Show tutorial
+        showTutorial();
     }
 
     /*
@@ -205,6 +212,85 @@ public class MainActivity extends AppCompatActivity {
                 "timestamp = ?",
                 NewsNotification.mostRecentlyTimestamp()+"");
         NotificationManager.showNotification(this, n.title, n.content);
+    }
+
+    private int helpCounter;
+    private ShowcaseView showcaseView;
+
+    private void showTutorial() {
+        helpCounter = 0;
+        showcaseView = new ShowcaseView.Builder(this)
+                .setTarget(Target.NONE)
+                .setContentTitle(getString(R.string.view_dashboard_tutorial_1_title))
+                .setContentText(getString(R.string.view_dashboard_tutorial_1_body))
+                .setStyle(R.style.CustomShowcaseTheme)
+                .singleShot(40)
+                .setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        switch (helpCounter) {
+                            case 0:
+                                showcaseView.setShowcase(new ViewTarget(findViewById(R.id.shimmer_view_container)), true);
+                                showcaseView.setContentTitle(getString(R.string.view_dashboard_tutorial_2_title));
+                                showcaseView.setContentText(getString(R.string.view_dashboard_tutorial_2_body));
+                                break;
+
+                            case 1:
+                                showcaseView.setShowcase(new ViewTarget(findViewById(R.id.tv_antenna)), true);
+                                showcaseView.setContentTitle(getString(R.string.view_dashboard_tutorial_3_title));
+                                showcaseView.setContentText(getString(R.string.view_dashboard_tutorial_3_body));
+                                break;
+
+                            case 2:
+                                showcaseView.setShowcase(new ViewTarget(findViewById(R.id.tv_sim)), true);
+                                showcaseView.setContentTitle(getString(R.string.view_dashboard_tutorial_4_title));
+                                showcaseView.setContentText(getString(R.string.view_dashboard_tutorial_4_body));
+                                break;
+
+                            case 3:
+                                showcaseView.setShowcase(new ViewTarget(findViewById(R.id.tv_signal)), true);
+                                showcaseView.setContentTitle(getString(R.string.view_dashboard_tutorial_5_title));
+                                showcaseView.setContentText(getString(R.string.view_dashboard_tutorial_5_body));
+                                break;
+
+                            case 4:
+                                showcaseView.setShowcase(new ViewTarget(findViewById(R.id.tv_internet)), true);
+                                showcaseView.setContentTitle(getString(R.string.view_dashboard_tutorial_6_title));
+                                showcaseView.setContentText(getString(R.string.view_dashboard_tutorial_6_body));
+                                break;
+
+                            case 5:
+                                showcaseView.setShowcase(new ViewTarget(findViewById(R.id.card_mobile_consumption)), true);
+                                showcaseView.setContentTitle(getString(R.string.view_dashboard_tutorial_7_title));
+                                showcaseView.setContentText(getString(R.string.view_dashboard_tutorial_7_body));
+                                break;
+
+                            case 6:
+                                mDrawer.openDrawer(GravityCompat.START);
+                                showcaseView.setShowcase(new ViewTarget(mDrawer.getRootView()), true);
+                                showcaseView.setContentTitle(getString(R.string.view_dashboard_tutorial_8_title));
+                                showcaseView.setContentText(getString(R.string.view_dashboard_tutorial_8_body));
+                                showcaseView.setButtonText(getString(R.string.tutorial_close));
+                                break;
+
+                            case 7:
+                                mDrawer.closeDrawers();
+                                showcaseView.setShowcase(Target.NONE, true);
+                                showcaseView.setContentTitle(getString(R.string.view_dashboard_tutorial_9_title));
+                                showcaseView.setContentText(getString(R.string.view_dashboard_tutorial_9_body));
+                                showcaseView.setButtonText(getString(R.string.tutorial_close));
+                                break;
+
+                            case 8:
+                                showcaseView.hide();
+                                break;
+                        }
+                        helpCounter++;
+                    }
+                })
+                .withNewStyleShowcase()
+                .build();
+        showcaseView.setButtonText(getString(R.string.tutorial_next));
     }
 }
 

@@ -7,13 +7,20 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.facebook.shimmer.ShimmerFrameLayout;
+import com.github.amlcurran.showcaseview.ShowcaseView;
+import com.github.amlcurran.showcaseview.targets.Target;
+import com.github.amlcurran.showcaseview.targets.ViewTarget;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -115,7 +122,7 @@ public class ActiveConnectionsActivity extends AppCompatActivity {
             @Override
             public void onRefresh() {
                 updateActiveConnections();
-                Toast.makeText(getApplicationContext(), getString(R.string.view_active_connections_reload) , Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), getString(R.string.view_active_connections_reload), Toast.LENGTH_SHORT).show();
                 mSwipeRefreshLayout.setRefreshing(false);
             }
         });
@@ -127,6 +134,23 @@ public class ActiveConnectionsActivity extends AppCompatActivity {
         AddListElements(activeSockets, SystemSockets.getTCPSockets());
         AddListElements(activeSockets, SystemSockets.getUDPSockets());
         this.listAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.active_connections, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.menu_info_btn:
+                showTutorial();
+                break;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     public void setupToolbar(){
@@ -145,5 +169,43 @@ public class ActiveConnectionsActivity extends AppCompatActivity {
         ShimmerFrameLayout container =
                 (ShimmerFrameLayout) findViewById(R.id.shimmer_view_container);
         container.startShimmerAnimation();
+    }
+
+    private ShowcaseView showcaseView;
+    private int helpCounter;
+
+    private void showTutorial() {
+        helpCounter = 0;
+        showcaseView = new ShowcaseView.Builder(this)
+                .setTarget(Target.NONE)
+                .setContentTitle(getString(R.string.view_active_connections_tutorial_1_title))
+                .setContentText(getString(R.string.view_active_connections_tutorial_1_body))
+                .setStyle(R.style.CustomShowcaseTheme)
+                .setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        switch (helpCounter) {
+                            case 0:
+                                ListView mListView = (ListView)findViewById(R.id.list);
+                                if (mListView.getChildAt(0) != null) {
+                                    Target mTarget0 = new ViewTarget(((ViewGroup) mListView.getChildAt(0)).getChildAt(0));
+                                    showcaseView.setShowcase(mTarget0, true);
+                                    showcaseView.setContentTitle(getString(R.string.view_active_connections_tutorial_2_title));
+                                    showcaseView.setContentText(getString(R.string.view_active_connections_tutorial_2_body));
+                                    showcaseView.setButtonText(getString(R.string.tutorial_close));
+                                    break;
+                                } else
+                                    helpCounter++;
+
+                            case 1:
+                                showcaseView.hide();
+                                break;
+                        }
+                        helpCounter++;
+                    }
+                })
+                .withNewStyleShowcase()
+                .build();
+        showcaseView.setButtonText(getString(R.string.tutorial_next));
     }
 }

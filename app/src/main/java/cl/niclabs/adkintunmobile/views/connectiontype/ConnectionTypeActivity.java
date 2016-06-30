@@ -58,6 +58,8 @@ public abstract class ConnectionTypeActivity extends AppCompatActivity implement
 
     public abstract TypedArray getSoftColors();
 
+    public abstract void showTutorial();
+
     @Override
     protected void onResume() {
         super.onResume();
@@ -208,6 +210,9 @@ public abstract class ConnectionTypeActivity extends AppCompatActivity implement
         switch (item.getItemId()){
             case R.id.menu_date_picker_btn:
                 DisplayManager.makeDateDialog(context, this);
+                break;
+            case R.id.menu_info_btn:
+                showTutorial();
                 break;
         }
         return super.onOptionsItemSelected(item);

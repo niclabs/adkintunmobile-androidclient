@@ -11,10 +11,16 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.DatePicker;
+import android.widget.ListView;
 import android.widget.RelativeLayout;
 
 import com.facebook.shimmer.ShimmerFrameLayout;
+import com.github.amlcurran.showcaseview.ShowcaseView;
+import com.github.amlcurran.showcaseview.targets.Target;
+import com.github.amlcurran.showcaseview.targets.ViewTarget;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -110,6 +116,9 @@ public class ApplicationsTrafficActivity extends AppCompatActivity implements Da
             case R.id.menu_date_picker_btn:
                 DisplayManager.makeDateDialog(context, this);
                 break;
+            case R.id.menu_info_btn:
+                showTutorial();
+                break;
         }
         return super.onOptionsItemSelected(item);
     }
@@ -118,15 +127,14 @@ public class ApplicationsTrafficActivity extends AppCompatActivity implements Da
     // Métodos de funcionamiento
     private void setupViewPager(){
 
-        this.wifiListFragment = new ApplicationsTrafficListFragment();
-        this.wifiListFragment.setTitle(getString(R.string.view_applications_traffic_wifi));
-        this.wifiListFragment.setDataArray(this.wifiTrafficArray);
-
         this.mobileListFragment = new ApplicationsTrafficListFragment();
         this.mobileListFragment.setTitle(getString(R.string.view_applications_traffic_mobile));
         this.mobileListFragment.setDataArray(this.mobileTrafficArray);
-
         this.mViewPagerAdapter.addFragment(this.mobileListFragment);
+
+        this.wifiListFragment = new ApplicationsTrafficListFragment();
+        this.wifiListFragment.setTitle(getString(R.string.view_applications_traffic_wifi));
+        this.wifiListFragment.setDataArray(this.wifiTrafficArray);
         this.mViewPagerAdapter.addFragment(this.wifiListFragment);
 
         ViewPager mViewPager = (ViewPager) findViewById(R.id.viewpager);
@@ -183,6 +191,64 @@ public class ApplicationsTrafficActivity extends AppCompatActivity implements Da
             mApplicationTrafficListElement.updateTxBytes(current.txBytes);
         }
         return mApplicationTrafficListElement;
+    }
+
+    private int helpCounter;
+    private ShowcaseView showcaseView;
+
+    public void showTutorial() {
+        helpCounter = 0;
+        showcaseView = new ShowcaseView.Builder(this)
+                .setTarget(Target.NONE)
+                .setContentTitle(getString(R.string.view_applications_traffic_tutorial_1_title))
+                .setContentText(getString(R.string.view_applications_traffic_tutorial_1_body))
+                .setStyle(R.style.CustomShowcaseTheme)
+                .setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        TabLayout mTabLayout = (TabLayout) findViewById(R.id.tabs);
+                        ViewGroup tabs = ((ViewGroup) mTabLayout.getChildAt(0));
+
+                        switch (helpCounter) {
+                            case 0:
+                                int activeTabIndex = mTabLayout.getSelectedTabPosition();
+                                Target mTarget0 = new ViewTarget(tabs.getChildAt(activeTabIndex));
+                                showcaseView.setShowcase(mTarget0, true);
+                                showcaseView.setContentTitle(getString(R.string.view_applications_traffic_tutorial_2_title));
+                                showcaseView.setContentText(getString(R.string.view_applications_traffic_tutorial_2_body));
+                                break;
+
+                            case 1:
+                                ViewPager mViewPager = (ViewPager) findViewById(R.id.viewpager);
+                                int activeListFragmentIndex = mViewPager.getCurrentItem();
+                                ListView mListView = (ListView) mViewPagerAdapter.getItem(activeListFragmentIndex).getView().findViewById(R.id.list_view_traffic);
+                                if (mListView.getChildAt(0) != null) {
+                                    Target mTarget1 = new ViewTarget(((ViewGroup) mListView.getChildAt(0)).getChildAt(0));
+                                    showcaseView.setShowcase(mTarget1, true);
+                                    showcaseView.setContentTitle(getString(R.string.view_applications_traffic_tutorial_3_title));
+                                    showcaseView.setContentText(getString(R.string.view_applications_traffic_tutorial_3_body));
+                                    break;
+                                } else
+                                    helpCounter++;
+
+                            case 2:
+                                Target mTarget2 = new ViewTarget(findViewById(R.id.menu_date_picker_btn));
+                                showcaseView.setShowcase(mTarget2, true);
+                                showcaseView.setContentTitle(getString(R.string.view_applications_traffic_tutorial_4_title));
+                                showcaseView.setContentText(getString(R.string.view_applications_traffic_tutorial_4_body));
+                                showcaseView.setButtonText(getString(R.string.tutorial_close));
+                                break;
+
+                            case 3:
+                                showcaseView.hide();
+                                break;
+                        }
+                        helpCounter++;
+                    }
+                })
+                .withNewStyleShowcase()
+                .build();
+        showcaseView.setButtonText(getString(R.string.tutorial_next));
     }
 
     @Override

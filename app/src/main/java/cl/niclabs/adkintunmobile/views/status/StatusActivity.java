@@ -15,12 +15,16 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.facebook.shimmer.ShimmerFrameLayout;
+import com.github.amlcurran.showcaseview.ShowcaseView;
+import com.github.amlcurran.showcaseview.targets.Target;
+import com.github.amlcurran.showcaseview.targets.ViewTarget;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -119,6 +123,9 @@ public class StatusActivity extends AppCompatActivity {
         switch (item.getItemId()){
             case R.id.menu_date_picker_btn:
                 showDialogPref();
+                break;
+            case R.id.menu_info_btn:
+                showTutorial();
                 break;
         }
         return super.onOptionsItemSelected(item);
@@ -275,5 +282,63 @@ public class StatusActivity extends AppCompatActivity {
         ret[0] = rxData;
         ret[1] = txData;
         return ret;
+    }
+
+
+    private int helpCounter;
+    private ShowcaseView showcaseView;
+
+    private void showTutorial() {
+        helpCounter = 0;
+        showcaseView = new ShowcaseView.Builder(this)
+                .setTarget(Target.NONE)
+                .setContentTitle(getString(R.string.view_status_tutorial_1_title))
+                .setContentText(getString(R.string.view_status_tutorial_1_body))
+                .setStyle(R.style.CustomShowcaseTheme)
+                .setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        switch (helpCounter) {
+                            case 0:
+                                showcaseView.setShowcase(new ViewTarget(findViewById(R.id.tv_internet_interface)), true);
+                                showcaseView.setContentTitle(getString(R.string.view_status_tutorial_2_title));
+                                showcaseView.setContentText(getString(R.string.view_status_tutorial_2_body));
+                                break;
+
+                            case 1:
+                                showcaseView.setShowcase(new ViewTarget(findViewById(R.id.iv_sim)), true);
+                                showcaseView.setContentTitle(getString(R.string.view_status_tutorial_3_title));
+                                showcaseView.setContentText(getString(R.string.view_status_tutorial_3_body));
+                                break;
+
+                            case 2:
+                                showcaseView.setShowcase(new ViewTarget(findViewById(R.id.iv_antenna)), true);
+                                showcaseView.setContentTitle(getString(R.string.view_status_tutorial_4_title));
+                                showcaseView.setContentText(getString(R.string.view_status_tutorial_4_body));
+                                break;
+
+                            case 3:
+                                showcaseView.setShowcase(new ViewTarget(findViewById(R.id.tb_daily_consumption)), true);
+                                showcaseView.setContentTitle(getString(R.string.view_status_tutorial_5_title));
+                                showcaseView.setContentText(getString(R.string.view_status_tutorial_5_body));
+                                break;
+
+                            case 4:
+                                showcaseView.setShowcase(new ViewTarget(findViewById(R.id.pb_mobile_data_consumption)), true);
+                                showcaseView.setContentTitle(getString(R.string.view_status_tutorial_6_title));
+                                showcaseView.setContentText(getString(R.string.view_status_tutorial_6_body));
+                                showcaseView.setButtonText(getString(R.string.tutorial_close));
+                                break;
+
+                            case 5:
+                                showcaseView.hide();
+                                break;
+                        }
+                        helpCounter++;
+                    }
+                })
+                .withNewStyleShowcase()
+                .build();
+        showcaseView.setButtonText(getString(R.string.tutorial_next));
     }
 }
