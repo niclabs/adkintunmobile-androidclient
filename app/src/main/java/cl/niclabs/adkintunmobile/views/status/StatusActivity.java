@@ -8,6 +8,7 @@ import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.widget.NestedScrollView;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -19,6 +20,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.facebook.shimmer.ShimmerFrameLayout;
@@ -296,6 +298,7 @@ public class StatusActivity extends AppCompatActivity {
         helpCounter = 0;
         final String[] tutorialTitle = getResources().getStringArray(R.array.tutorial_status_title);
         final String[] tutorialBody = getResources().getStringArray(R.array.tutorial_status_body);
+        final NestedScrollView mScrollView = (NestedScrollView) findViewById(R.id.sv_activity_status);
 
         showcaseView = new ShowcaseView.Builder(this)
                 .setTarget(Target.NONE)
@@ -310,6 +313,7 @@ public class StatusActivity extends AppCompatActivity {
 
                         switch (helpCounter) {
                             case 1:
+                                mScrollView.scrollTo(0, mScrollView.getBottom());
                                 mTarget = new ViewTarget(findViewById(R.id.tv_internet_interface));
                                 break;
 
@@ -326,11 +330,12 @@ public class StatusActivity extends AppCompatActivity {
                                 break;
 
                             case 5:
+                                mScrollView.scrollTo(0, mScrollView.getBottom());
                                 mTarget = new ViewTarget(findViewById(R.id.pb_mobile_data_consumption));
                                 showcaseView.setButtonText(getString(R.string.tutorial_close));
                                 break;
 
-                            case 6:
+                            default:
                                 showcaseView.hide();
                                 return;
                         }
