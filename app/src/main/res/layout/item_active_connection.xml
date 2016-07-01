@@ -23,7 +23,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginLeft="@dimen/separation_little">
+        android:layout_marginLeft="@dimen/separation_little"
+        android:layout_marginStart="@dimen/separation_little">
 
         <TextView
             android:layout_width="wrap_content"
