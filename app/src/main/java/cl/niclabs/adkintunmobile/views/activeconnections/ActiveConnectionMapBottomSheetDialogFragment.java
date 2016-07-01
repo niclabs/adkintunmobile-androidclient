@@ -20,6 +20,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.facebook.shimmer.ShimmerFrameLayout;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -59,6 +60,7 @@ public class ActiveConnectionMapBottomSheetDialogFragment extends BottomSheetDia
     private ArrayList<String> ports = new ArrayList<>();
     private ArrayList<SystemSockets.Type> types = new ArrayList<>();
     private int index;
+    private int failApiCounter;
 
     private ImageView ivAppLogo;
     private TextView tvCurrentConnection;
@@ -103,7 +105,8 @@ public class ActiveConnectionMapBottomSheetDialogFragment extends BottomSheetDia
         tvTotalConnections.setText("de " + activeConnectionListElement.getTotalActiveConnections() + " conexiones");
         mapLayout.setVisibility(View.GONE);
         DisplayManager.enableLoadingPanel(this.loadingPanel);
-
+        failApiCounter = 0;
+        final Toast mToast = Toast.makeText(getContext(), "", Toast.LENGTH_LONG);
         for (final SystemSockets.Type type : SystemSockets.Type.values()) {
 
             for (String ipAddress : activeConnectionListElement.getIpConnections(type)) {
@@ -131,13 +134,21 @@ public class ActiveConnectionMapBottomSheetDialogFragment extends BottomSheetDia
                                 updateMapList(ip, port, type);
 
                             } catch (JSONException e) {
-                                Log.d(TAG, "API fail");
+                                Log.d(TAG, "API JSONException");
                                 e.printStackTrace();
                             }
+                        };
+                        @Override
+                        public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+                            Log.d(TAG, "API failed on " + ip + " " + type);
+                            failApiCounter++;
+                            mToast.setText("Localizaciones no encontradas: " + failApiCounter);
+                            mToast.show();
                         }
                     });
                 } else {
                     updateMapList(ip, port, type);
+                    Log.d(TAG, ip + " " + type + " from local database");
                 }
             }
         }
