@@ -334,15 +334,10 @@
                                 android:text="@string/view_status_sample_period"
                                 android:textSize="10sp"
                                 android:visibility="visible"
-                                android:layout_gravity="center" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:textAppearance="?android:attr/textAppearanceSmall"
-                                android:text="DIA"
+                                android:layout_gravity="center"
                                 android:id="@+id/tv_daily_sample_period"
-                                android:layout_marginLeft="@dimen/separation_little" />
+                                />
+
                         </LinearLayout>
                     </LinearLayout>
 
@@ -562,16 +557,9 @@
                                 android:text="@string/view_status_sample_period"
                                 android:textSize="10sp"
                                 android:visibility="visible"
+                                android:id="@+id/tv_monthly_sample_period"
                                 android:layout_gravity="center" />
 
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:textAppearance="?android:attr/textAppearanceSmall"
-                                android:text="MES"
-                                android:id="@+id/tv_monthly_sample_period"
-                                android:layout_marginStart="@dimen/separation_little"
-                                android:layout_marginLeft="@dimen/separation_little" />
                         </LinearLayout>
 
                     </LinearLayout>

@@ -51,8 +51,8 @@
     <string name="view_dashboard_mobile_data_summary">Consumo aproximado de datos móviles del día actual:</string>
     <string name="view_dashboard_conn_mode_title">Datos</string>
     <string name="view_dashboard_conn_mode_summary">Hoy has estado conectado principalmente a:</string>
-    <string name="view_dashboard_conn_mode_wifi">Wi-Fi</string>
-    <string name="view_dashboard_conn_mode_mobile">Mobile</string>
+    <string name="view_dashboard_conn_mode_wifi">WiFi</string>
+    <string name="view_dashboard_conn_mode_mobile">Móvil</string>
     <string name="view_dashboard_conn_mode_unknown">Sin Red</string>
     <string name="view_dashboard_net_type_title">Red</string>
     <string name="view_dashboard_net_type_summary">La mayor parte del día has tenido señal:</string>
@@ -69,7 +69,7 @@
     <string name="view_status_your_monthly_data_usage">Tu consumo mensual de datos móviles</string>
     <string name="view_status_no_sim">Sin tarjeta SIM</string>
     <string name="view_status_no_antenna">Sin Red</string>
-    <string name="view_status_sample_period">Periodo de muestreo:</string>
+    <string name="view_status_sample_period">Periodo de muestreo: %1$s.</string>
 
     <string name="view_status_settings_dialog_title">Tu Plan de Datos</string>
     <string name="view_status_settings_dialog_description">Establece la cuota de navegación provista en tu plan de datos de tu proveedor de telefonía.</string>
@@ -99,6 +99,9 @@
 
     <!-- Active Connections -->
     <string name="view_active_connections_reload">Conexiones Activas Actualizadas</string>
+    <string name="view_active_connections_dialog_current_conn">Mostrando conexión #%1$d</string>
+    <string name="view_active_connections_dialog_total_conn">de %1$d conexiones.</string>
+    <string name="view_active_connections_dialog_location_not_found">%1$d localizaciones no encontradas</string>
 
     <!-- Tutorial Controls -->
     <string name="tutorial_next">Siguiente</string>

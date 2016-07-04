@@ -181,7 +181,7 @@ public class StatusActivity extends AppCompatActivity {
         ((TextView)findViewById(R.id.tv_gauge_daily_rx)).setText(this.rxDailyMobileData);
         ((CustomGauge)findViewById(R.id.gauge_daily_tx)).setValue((int) (100 * this.txDailyMobile / totalDailyData));
         ((TextView)findViewById(R.id.tv_gauge_daily_tx)).setText(this.txDailyMobileData);
-        ((TextView)findViewById(R.id.tv_daily_sample_period)).setText(this.currentDay);
+        ((TextView)findViewById(R.id.tv_daily_sample_period)).setText(String.format(getString(R.string.view_status_sample_period), this.currentDay));
 
 
         long totalMonthlyData = (this.rxMonthlyMobile +this.txMonthlyMobile) == 0 ? 1: (this.rxMonthlyMobile +this.txMonthlyMobile);
@@ -200,7 +200,7 @@ public class StatusActivity extends AppCompatActivity {
         ((TextView)findViewById(R.id.tv_available_data_quota)).setText(Network.formatBytes(totalMonthlyQuota));
 
 
-        ((TextView)findViewById(R.id.tv_monthly_sample_period)).setText(this.currentMonth);
+        ((TextView)findViewById(R.id.tv_monthly_sample_period)).setText(String.format(getString(R.string.view_status_sample_period), this.currentMonth));
 
         //Snackbar.make(getView(), this.ret, Snackbar.LENGTH_SHORT).show();
     }
