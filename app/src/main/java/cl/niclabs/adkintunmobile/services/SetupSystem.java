@@ -7,11 +7,16 @@ import android.preference.PreferenceManager;
 import android.util.Log;
 
 import cl.niclabs.adkintunmobile.R;
+import cl.niclabs.adkintunmobile.data.persistent.ConnectivityObservationWrapper;
+import cl.niclabs.adkintunmobile.data.persistent.GsmObservationWrapper;
 import cl.niclabs.adkintunmobile.services.monitors.ConnectivityMonitor;
 import cl.niclabs.adkintunmobile.services.monitors.TelephonyMonitor;
 import cl.niclabs.adkintunmobile.services.monitors.TrafficMonitor;
 import cl.niclabs.adkintunmobile.services.sync.SynchronizationBroadcastReceiver;
 import cl.niclabs.adkmobile.monitor.Device;
+import cl.niclabs.adkmobile.monitor.data.constants.ConnectionType;
+import cl.niclabs.adkmobile.monitor.data.constants.NetworkType;
+import cl.niclabs.android.utils.Time;
 
 public class SetupSystem extends Device {
 
@@ -64,6 +69,16 @@ public class SetupSystem extends Device {
         if (TrafficMonitor.isRunning())
             context.stopService(new Intent(context, TrafficMonitor.class));
         Log.d(TAG, "Monitores Detenidos");
+
+        ConnectivityObservationWrapper shutDownConnectivityObservation = new ConnectivityObservationWrapper();
+        shutDownConnectivityObservation.timestamp = Time.currentTimeMillis();
+        shutDownConnectivityObservation.connectionType = ConnectionType.NONE.value();
+        shutDownConnectivityObservation.save();
+
+        GsmObservationWrapper shutDownGsmObservation = new GsmObservationWrapper();
+        shutDownGsmObservation.timestamp = Time.currentTimeMillis();
+        shutDownGsmObservation.networkType = NetworkType.UNKNOWN.value();
+        shutDownGsmObservation.save();
     }
 
     static public void schedulleBroadcastReceivers(Context context) {
