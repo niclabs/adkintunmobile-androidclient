@@ -313,7 +313,7 @@ public class StatusActivity extends AppCompatActivity {
 
                         switch (helpCounter) {
                             case 1:
-                                mScrollView.scrollTo(0, mScrollView.getBottom());
+                                mScrollView.scrollTo(0,0);
                                 mTarget = new ViewTarget(findViewById(R.id.tv_internet_interface));
                                 break;
 
