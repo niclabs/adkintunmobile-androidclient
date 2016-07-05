@@ -102,7 +102,7 @@ public class ActiveConnectionMapBottomSheetDialogFragment extends BottomSheetDia
     private void initDialog() {
         ivAppLogo.setImageDrawable(activeConnectionListElement.getLogo());
         tvAppName.setText(activeConnectionListElement.getLabel());
-        tvTotalConnections.setText("de " + activeConnectionListElement.getTotalActiveConnections() + " conexiones");
+        tvTotalConnections.setText(String.format(getString(R.string.view_active_connections_dialog_total_conn), activeConnectionListElement.getTotalActiveConnections()));
         mapLayout.setVisibility(View.GONE);
         DisplayManager.enableLoadingPanel(this.loadingPanel);
         failApiCounter = 0;
@@ -142,7 +142,7 @@ public class ActiveConnectionMapBottomSheetDialogFragment extends BottomSheetDia
                         public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
                             Log.d(TAG, "API failed on " + ip + " " + type);
                             failApiCounter++;
-                            mToast.setText("Localizaciones no encontradas: " + failApiCounter);
+                            mToast.setText(String.format(getString(R.string.view_active_connections_dialog_location_not_found), failApiCounter));
                             mToast.show();
                         }
                     });
@@ -203,7 +203,7 @@ public class ActiveConnectionMapBottomSheetDialogFragment extends BottomSheetDia
         uiSettings.setRotateGesturesEnabled(false);
         mapLayout.setVisibility(View.VISIBLE);
         DisplayManager.dismissLoadingPanel(loadingPanel, getContext());
-        tvCurrentConnection.setText("Mostrando conexión #" + (index + 1));
+        tvCurrentConnection.setText(String.format(getString(R.string.view_active_connections_dialog_current_conn), (index + 1)));
 
         LatLng latLng = new LatLng(ipLocations.get(index).getLatitude(), ipLocations.get(index).getLongitude());
         googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(

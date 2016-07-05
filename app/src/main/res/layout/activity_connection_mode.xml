@@ -42,14 +42,12 @@
 
             <ScrollView
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_alignParentBottom="true"
-                android:layout_alignParentLeft="true" >
+                android:layout_height="match_parent">
 
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:orientation="vertical">
 
                     <RelativeLayout
@@ -106,8 +104,6 @@
                     <TableLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_centerHorizontal="true"
-                        android:layout_centerInParent="true"
                         android:layout_gravity="center"
                         android:id="@+id/time_info_table_layout"
                         android:animateLayoutChanges="true"
@@ -118,7 +114,6 @@
                         android:orientation="vertical"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_centerHorizontal="true"
                         android:layout_marginTop="@dimen/abc_dialog_padding_top_material"
                         android:visibility="gone">
 
@@ -126,14 +121,13 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:orientation="vertical"
-                            style="@style/floatingBox"
-                            android:layout_alignParentLeft="true"
-                            android:layout_alignParentTop="true">
+                            style="@style/floatingBox">
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="@string/view_connection_mode_symbology"
                                 android:gravity="center"
+                                android:drawableStart="@drawable/ic_info_outline_white"
                                 android:drawableLeft="@drawable/ic_info_outline_white"
                                 style="@style/floatingBoxLabel"/>
 
@@ -145,8 +139,7 @@
 
                                 <TableLayout
                                     android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_centerHorizontal="true">
+                                    android:layout_height="wrap_content">
 
 
                                     <TableRow

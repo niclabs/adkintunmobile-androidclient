@@ -26,6 +26,7 @@
 
     <!-- Contenido -->
     <android.support.v4.widget.NestedScrollView
+        android:id="@+id/sv_activity_status"
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -60,6 +61,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:drawableStart="@drawable/ic_web_white"
                             android:drawableLeft="@drawable/ic_web_white"
                             android:gravity="center"
                             android:text="Tu Internet"
@@ -76,7 +78,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:id="@+id/iv_internet_type"
-                                android:layout_marginRight="@dimen/separation_little" />
+                                android:layout_marginEnd="@dimen/separation_little" />
 
                             <LinearLayout
                                 android:orientation="vertical"
@@ -218,6 +220,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:drawableStart="@drawable/ic_data_usage_white"
                             android:drawableLeft="@drawable/ic_data_usage_white"
                             android:gravity="center"
                             style="@style/floatingBoxLabel"
@@ -332,15 +335,10 @@
                                 android:text="@string/view_status_sample_period"
                                 android:textSize="10sp"
                                 android:visibility="visible"
-                                android:layout_gravity="center" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:textAppearance="?android:attr/textAppearanceSmall"
-                                android:text="DIA"
+                                android:layout_gravity="center"
                                 android:id="@+id/tv_daily_sample_period"
-                                android:layout_marginLeft="@dimen/separation_little" />
+                                />
+
                         </LinearLayout>
                     </LinearLayout>
 
@@ -360,6 +358,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:drawableStart="@drawable/ic_data_usage_white"
                             android:drawableLeft="@drawable/ic_data_usage_white"
                             android:gravity="center"
                             style="@style/floatingBoxLabel"
@@ -384,8 +383,10 @@
                                 android:gravity="center"
                                 android:layout_height="wrap_content"
                                 android:id="@+id/tv_data_quota_percentage"
+                                android:layout_alignStart="@id/pb_mobile_data_consumption"
                                 android:layout_alignLeft="@id/pb_mobile_data_consumption"
                                 android:layout_alignTop="@id/pb_mobile_data_consumption"
+                                android:layout_alignEnd="@id/pb_mobile_data_consumption"
                                 android:layout_alignRight="@id/pb_mobile_data_consumption"
                                 android:layout_alignBottom="@id/pb_mobile_data_consumption"
                                 android:text="50%"
@@ -557,15 +558,9 @@
                                 android:text="@string/view_status_sample_period"
                                 android:textSize="10sp"
                                 android:visibility="visible"
+                                android:id="@+id/tv_monthly_sample_period"
                                 android:layout_gravity="center" />
 
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:textAppearance="?android:attr/textAppearanceSmall"
-                                android:text="MES"
-                                android:id="@+id/tv_monthly_sample_period"
-                                android:layout_marginLeft="@dimen/separation_little" />
                         </LinearLayout>
 
                     </LinearLayout>

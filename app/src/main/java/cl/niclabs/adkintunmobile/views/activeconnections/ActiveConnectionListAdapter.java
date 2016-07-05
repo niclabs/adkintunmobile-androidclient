@@ -46,7 +46,7 @@ public class ActiveConnectionListAdapter extends ArrayAdapter<ActiveConnectionLi
         // Populate the data into the template view using the data object
         viewHolder.tvAppName.setText(element.getLabel());
         viewHolder.ivLogo.setImageDrawable(element.getLogo());
-        viewHolder.tvConnTotal.setText(element.getTotalActiveConnections() + "");
+        viewHolder.tvConnTotal.setText(Integer.toString(element.getTotalActiveConnections()));
 
         // Return the completed view to render on screen
         return convertView;
