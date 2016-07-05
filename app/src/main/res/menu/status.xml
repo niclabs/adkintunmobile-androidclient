@@ -7,7 +7,7 @@
     <item
         android:id="@+id/menu_info_btn"
         android:icon="@drawable/ic_info_outline_white"
-        app:showAsAction="always"
+        app:showAsAction="ifRoom"
         android:title="Información sobre esta vista">
     </item>
     <item

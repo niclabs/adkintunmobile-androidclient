@@ -80,13 +80,13 @@ public class DashboardFragment extends BaseToolbarFragment {
         // TODO: Pasar Strings a strings.xml
         switch (Network.getActiveNetwork(context)){
             case ConnectionModeSample.MOBILE:
-                tvInternet.setText("móvil");
+                tvInternet.setText(getString(R.string.view_dashboard_conn_mode_mobile));
                 break;
             case ConnectionModeSample.WIFI:
-                tvInternet.setText("wifi");
+                tvInternet.setText(getString(R.string.view_dashboard_conn_mode_wifi));
                 break;
             case ConnectionModeSample.NONE:
-                tvInternet.setText("Sin red");
+                tvInternet.setText(getString(R.string.view_dashboard_conn_mode_unknown));
                 break;
         }
 
