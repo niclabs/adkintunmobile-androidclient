@@ -25,6 +25,7 @@ import android.widget.TextView;
 
 import com.facebook.shimmer.ShimmerFrameLayout;
 import com.github.amlcurran.showcaseview.ShowcaseView;
+import com.github.amlcurran.showcaseview.targets.PointTarget;
 import com.github.amlcurran.showcaseview.targets.Target;
 import com.github.amlcurran.showcaseview.targets.ViewTarget;
 
@@ -301,51 +302,56 @@ public class StatusActivity extends AppCompatActivity {
         final NestedScrollView mScrollView = (NestedScrollView) findViewById(R.id.sv_activity_status);
 
         showcaseView = new ShowcaseView.Builder(this)
-                .setTarget(Target.NONE)
-                .setContentTitle(tutorialTitle[helpCounter])
-                .setContentText(tutorialBody[helpCounter])
-                .setStyle(R.style.CustomShowcaseTheme)
-                .setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        helpCounter++;
-                        Target mTarget = Target.NONE;
+                .setTarget(new ViewTarget(toolbar.getChildAt(0)))
+                        .setContentTitle(tutorialTitle[helpCounter])
+                        .setContentText(tutorialBody[helpCounter])
+                        .setStyle(R.style.CustomShowcaseTheme)
+                        .setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                helpCounter++;
+                                showcaseView.setContentTitle("");
+                                showcaseView.setContentText("");
+                                Target mTarget = Target.NONE;
 
-                        switch (helpCounter) {
-                            case 1:
-                                mScrollView.scrollTo(0,0);
-                                mTarget = new ViewTarget(findViewById(R.id.tv_internet_interface));
-                                break;
+                                switch (helpCounter) {
+                                    case 1:
+                                        mScrollView.scrollTo(0, 0);
+                                        mTarget = new ViewTarget(findViewById(R.id.tv_internet_interface));
+                                        break;
 
-                            case 2:
-                                mTarget = new ViewTarget(findViewById(R.id.iv_sim));
-                                break;
+                                    case 2:
+                                        mTarget = new ViewTarget(findViewById(R.id.iv_sim));
+                                        showcaseView.forceTextPosition(ShowcaseView.BELOW_SHOWCASE);
+                                        break;
 
-                            case 3:
-                                mTarget = new ViewTarget(findViewById(R.id.iv_antenna));
-                                break;
+                                    case 3:
+                                        mTarget = new ViewTarget(findViewById(R.id.iv_antenna));
+                                        break;
 
-                            case 4:
-                                mTarget = new ViewTarget(findViewById(R.id.tb_daily_consumption));
-                                break;
+                                    case 4:
+                                        mScrollView.scrollTo(0, mScrollView.getBottom());
+                                        mTarget = new ViewTarget(findViewById(R.id.gauge_daily_rx));
+                                        break;
 
-                            case 5:
-                                mScrollView.scrollTo(0, mScrollView.getBottom());
-                                mTarget = new ViewTarget(findViewById(R.id.pb_mobile_data_consumption));
-                                showcaseView.setButtonText(getString(R.string.tutorial_close));
-                                break;
+                                    case 5:
+                                        mTarget = new ViewTarget(findViewById(R.id.pb_mobile_data_consumption));
+                                        showcaseView.forceTextPosition(ShowcaseView.ABOVE_SHOWCASE);
+                                        showcaseView.setButtonText(getString(R.string.tutorial_close));
+                                        break;
 
-                            default:
-                                showcaseView.hide();
-                                return;
-                        }
-                        showcaseView.setContentTitle(tutorialTitle[helpCounter]);
-                        showcaseView.setContentText(tutorialBody[helpCounter]);
-                        showcaseView.setShowcase(mTarget, true);
-                    }
-                })
-                .withNewStyleShowcase()
-                .build();
+                                    default:
+                                        showcaseView.hide();
+                                        return;
+                                }
+                                showcaseView.setShowcase(mTarget, true);
+                                showcaseView.setContentTitle(tutorialTitle[helpCounter]);
+                                showcaseView.setContentText(tutorialBody[helpCounter]);
+                            }
+                        })
+                        .withNewStyleShowcase()
+                        .build();
         showcaseView.setButtonText(getString(R.string.tutorial_next));
+        showcaseView.setHideOnTouchOutside(true);
     }
 }

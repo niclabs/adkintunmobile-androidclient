@@ -75,7 +75,7 @@ public class ConnectionModeActivity extends ConnectionTypeActivity {
         final String[] tutorialBody = getResources().getStringArray(R.array.tutorial_connection_mode_body);
 
         showcaseView = new ShowcaseView.Builder(this)
-                .setTarget(Target.NONE)
+                .setTarget(new ViewTarget(toolbar.getChildAt(0)))
                 .setContentTitle(tutorialTitle[helpCounter])
                 .setContentText(tutorialBody[helpCounter])
                 .setStyle(R.style.CustomShowcaseTheme)
@@ -112,5 +112,6 @@ public class ConnectionModeActivity extends ConnectionTypeActivity {
                 .withNewStyleShowcase()
                 .build();
         showcaseView.setButtonText(getString(R.string.tutorial_next));
+        showcaseView.setHideOnTouchOutside(true);
     }
 }
