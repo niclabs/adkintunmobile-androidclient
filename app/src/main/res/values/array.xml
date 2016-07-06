@@ -128,7 +128,7 @@
     <!-- Pasos Tutoriales  -->
     <!-- Dashboard-->
     <string-array name="tutorial_dashboard_title">
-        <item>Bienvenida</item>
+        <item>Hola!</item>
         <item>"Tu Estado Ahora"</item>
         <item>Antena</item>
         <item>SIM</item>
@@ -139,7 +139,7 @@
         <item>Adkintun Mobile</item>
     </string-array>
     <string-array name="tutorial_dashboard_body">
-        <item>Bienvenido a Adkintiun Mobile, aplicación de monitoreo de internet.\n\nEl siguiente recorrido describe las principales vistas de la aplicación.</item>
+        <item>Bienvenido a Adkintiun Mobile, tu aplicación de monitoreo de internet.\n\nEn el siguiente recorrido se describen las principales vistas de la aplicación.</item>
         <item>Aquí se muestra un resumen del estado actual de la conexión del teléfono.</item>
         <item>Indica el nombre del proveedor de servicio que administra la antena a la que estás actualmente conectado.</item>
         <item>Indica el nombre del proveedor de servicio asociado a tu tarjeta SIM.</item>
@@ -147,7 +147,7 @@
         <item>Indica qué tipo de conexión está usando tu equipo en este momento (WiFi/Móvil).</item>
         <item>En esta parte se muestran tarjetas con información resumida de las distintas funcionalidades de la aplicación. Para más detalle puedes hacer click en cada una.</item>
         <item>En el menú principal puedes acceder a cada una de las funcionalidades completas de la aplicación.</item>
-        <item>Disfruta</item>
+        <item>Para más detalles, presiona el ícono de información <node>&#x24D8;</node> en cada una de las vistas de la aplicación.</item>
     </string-array>
 
     <!-- Status -->

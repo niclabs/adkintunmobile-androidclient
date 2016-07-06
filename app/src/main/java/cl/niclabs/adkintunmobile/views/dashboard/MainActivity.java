@@ -1,8 +1,12 @@
 package cl.niclabs.adkintunmobile.views.dashboard;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Point;
 import android.os.Bundle;
+import android.support.design.widget.AppBarLayout;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -10,10 +14,16 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
+import android.view.Display;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.RelativeLayout;
 
 import com.github.amlcurran.showcaseview.ShowcaseView;
+import com.github.amlcurran.showcaseview.targets.ActionItemTarget;
+import com.github.amlcurran.showcaseview.targets.PointTarget;
 import com.github.amlcurran.showcaseview.targets.Target;
 import com.github.amlcurran.showcaseview.targets.ViewTarget;
 
@@ -104,7 +114,6 @@ public class MainActivity extends AppCompatActivity {
             public boolean onNavigationItemSelected(MenuItem item) {
 
                 Intent myIntent;
-                Fragment myFragment;
                 switch (item.getItemId()) {
                     case R.id.nav_dashboard:
                         updateMainFragment(new DashboardFragment());
@@ -222,8 +231,16 @@ public class MainActivity extends AppCompatActivity {
         final String[] tutorialTitle = getResources().getStringArray(R.array.tutorial_dashboard_title);
         final String[] tutorialBody = getResources().getStringArray(R.array.tutorial_dashboard_body);
 
+        Display display = getWindowManager().getDefaultDisplay();
+
+        Point initialTarget = new Point();
+
+        display.getSize(initialTarget);
+        initialTarget.y = (int) getResources().getDimension(R.dimen.dashboard_first_target_y);
+        initialTarget.x /= 2;
+
         showcaseView = new ShowcaseView.Builder(this)
-                .setTarget(Target.NONE)
+                .setTarget(new PointTarget(initialTarget))
                 .setContentTitle(tutorialTitle[helpCounter])
                 .setContentText(tutorialBody[helpCounter])
                 .setStyle(R.style.CustomShowcaseTheme)
@@ -261,17 +278,22 @@ public class MainActivity extends AppCompatActivity {
 
                             case 7:
                                 mDrawer.openDrawer(GravityCompat.START);
-                                mTarget = new ViewTarget(mDrawer.getRootView());
-                                showcaseView.setButtonText(getString(R.string.tutorial_close));
+                                Display display = getWindowManager().getDefaultDisplay();
+                                Point pointTarget = new Point();
+
+                                display.getSize(pointTarget);
+                                pointTarget.y = (int) getResources().getDimension(R.dimen.extended_toolbar_dashboard_height);
+                                pointTarget.x = 0;
+                                mTarget = new PointTarget(pointTarget);
                                 break;
 
                             case 8:
                                 mDrawer.closeDrawers();
-                                mTarget = Target.NONE;
+                                mTarget = new ViewTarget(findViewById(R.id.iv_collapsable_toolbar_app_icon));
                                 showcaseView.setButtonText(getString(R.string.tutorial_close));
                                 break;
 
-                            case 9:
+                            default:
                                 showcaseView.hide();
                                 return;
                         }

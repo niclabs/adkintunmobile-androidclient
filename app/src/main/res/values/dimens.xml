@@ -31,5 +31,8 @@
     <dimen name="text_info_data_quota">14sp</dimen>
     <dimen name="margin_horizontal_info_data_quota">14dp</dimen>
 
+    <!--ShowCaseView-->
+    <dimen name="dashboard_first_target_y">112dp</dimen>
+
     <dimen name="Large">22sp</dimen>
 </resources>

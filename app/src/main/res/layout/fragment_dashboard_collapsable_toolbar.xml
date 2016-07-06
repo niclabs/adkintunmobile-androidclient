@@ -140,6 +140,7 @@
                         android:layout_weight="3">
 
                         <ImageView
+                            android:id="@+id/iv_collapsable_toolbar_app_icon"
                             android:padding="@dimen/activity_vertical_margin"
                             android:layout_width="@dimen/adkintun_icon_toolbar"
                             android:layout_height="@dimen/adkintun_icon_toolbar"
