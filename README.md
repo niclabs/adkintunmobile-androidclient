@@ -5,13 +5,13 @@
 ## Disponibilidad
 La aplicación se encuentra constantemente en desarrollo, incorporando nuevas funcionalidades para el usuario, corrigiendo problemas y mejorando su rendimiento.
 
-La versión más estable está disponible en la [play store de google](#).
+La versión más estable está disponible en la play store de google (Pronto).
 
 ## Dependencias
 La aplicación está construida empleando las siguientes librerías:
 - [**adkintun-mobile-middleware**](https://github.com/niclabs/adkintun-mobile-middleware) Para la colección de eventos de tráfico móvil
-- [**Volley**]() Para el manejo de peticiones HTTP encoladas
-- [**Google Maps**]() Para la visualización de mapas de conexiones activas
+- **Volley** Para el manejo de peticiones HTTP encoladas
+- **Google Maps** Para la visualización de mapas de conexiones activas
 - **Support Library** Para manejo de retrocompatibilidad
 - [**CustomGauge**](https://github.com/pkleczko/CustomGauge) Para manejo de gráficos
 - [**Facebook Shimmer**](https://github.com/facebook/shimmer-android) Para animaciones
