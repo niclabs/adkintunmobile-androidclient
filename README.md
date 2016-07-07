@@ -9,16 +9,12 @@ La versión más estable está disponible en la [play store de google](#).
 
 ## Dependencias
 La aplicación está construida empleando las siguientes librerías:
-- [**adkintun-mobile-middleware**](https://github.com/niclabs/adkintun-mobile-middleware) `cl.niclabs:adkintun-mobile-middleware:1.3.5b` Para la colección de eventos de tráfico móvil
-- [**Volley**]() `com.android.volley:volley:1.0.0` Para el manejo de peticiones HTTP encoladas
-- [**Google Maps**]() `com.google.android.gms:play-services-maps` Para la visualización de mapas de conexiones activas
+- [**adkintun-mobile-middleware**](https://github.com/niclabs/adkintun-mobile-middleware) Para la colección de eventos de tráfico móvil
+- [**Volley**]() Para el manejo de peticiones HTTP encoladas
+- [**Google Maps**]() Para la visualización de mapas de conexiones activas
 - **Support Library** Para manejo de retrocompatibilidad
- - `com.android.support:design:23.1.1`
- - `com.android.support:appcompat-v7:23.3.0`
- - `com.android.support:support-v4:23.3.0'`
- - `com.android.support:cardview-v7:23.3.0`
-- [**CustomGauge**](https://github.com/pkleczko/CustomGauge) `pl.pawelkleczkowski.customgauge:CustomGauge:1.0.1` Para manejo de gráficos
-- [**Facebook Shimmer**](https://github.com/facebook/shimmer-android) `com.facebook.shimmer:shimmer:0.1.0@aar` Para animaciones
+- [**CustomGauge**](https://github.com/pkleczko/CustomGauge) Para manejo de gráficos
+- [**Facebook Shimmer**](https://github.com/facebook/shimmer-android) Para animaciones
 - [**Android Asynchronous Http Client**](http://loopj.com/android-async-http/) Para solicitudes HTTP
 - [**ShowcaseView**](https://github.com/amlcurran/ShowcaseView) Para tutorial de vistas
 
