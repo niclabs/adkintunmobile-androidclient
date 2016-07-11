@@ -3,6 +3,8 @@ package cl.niclabs.adkintunmobile.views.connectiontype.networktype;
 import android.content.Context;
 import android.content.res.TypedArray;
 
+import java.util.Iterator;
+
 import cl.niclabs.adkintunmobile.R;
 import cl.niclabs.adkintunmobile.data.persistent.visualization.DailyConnectionTypeSummary;
 import cl.niclabs.adkintunmobile.data.persistent.visualization.DailyNetworkTypeSummary;
@@ -48,5 +50,21 @@ public class DailyNetworkTypeInformation extends DailyConnectionTypeInformation{
         if (timeByType[NetworkTypeSample.TYPE_4G] > timeByType[primaryType])
         primaryType = NetworkTypeSample.TYPE_4G;
         return  primaryType;
+    }
+
+    @Override
+    protected DailyConnectionTypeSummary getLastDaySummary(long initialTime) {
+        String[] whereArgs = new String[1];
+        whereArgs[0] = Long.toString(initialTime);
+        Iterator<DailyNetworkTypeSummary> pastDaysSummaries = DailyNetworkTypeSummary.find(DailyNetworkTypeSummary.class, "date < ?", whereArgs, "date DESC");
+        if (pastDaysSummaries.hasNext()){
+            while (pastDaysSummaries.hasNext()){
+                DailyNetworkTypeSummary pastDaySummary = pastDaysSummaries.next();
+                if (pastDaySummary.getSamples().hasNext()){
+                    return pastDaySummary;
+                }
+            }
+        }
+        return getSummary(initialTime - period);
     }
 }

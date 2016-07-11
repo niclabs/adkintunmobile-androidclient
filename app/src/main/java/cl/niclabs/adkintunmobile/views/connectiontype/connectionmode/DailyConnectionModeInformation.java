@@ -3,6 +3,8 @@ package cl.niclabs.adkintunmobile.views.connectiontype.connectionmode;
 import android.content.Context;
 import android.content.res.TypedArray;
 
+import java.util.Iterator;
+
 import cl.niclabs.adkintunmobile.R;
 import cl.niclabs.adkintunmobile.data.persistent.visualization.ConnectionModeSample;
 import cl.niclabs.adkintunmobile.data.persistent.visualization.DailyConnectionModeSummary;
@@ -40,5 +42,21 @@ public class DailyConnectionModeInformation extends DailyConnectionTypeInformati
         if (timeByType[ConnectionModeSample.WIFI] > timeByType[primaryType])
             primaryType = ConnectionModeSample.WIFI;
         return  primaryType;
+    }
+
+    @Override
+    protected DailyConnectionTypeSummary getLastDaySummary(long initialTime) {
+        String[] whereArgs = new String[1];
+        whereArgs[0] = Long.toString(initialTime);
+        Iterator<DailyConnectionModeSummary> pastDaysSummaries = DailyConnectionModeSummary.find(DailyConnectionModeSummary.class, "date < ?", whereArgs, "date DESC");
+        if (pastDaysSummaries.hasNext()){
+            while (pastDaysSummaries.hasNext()){
+                DailyConnectionModeSummary pastDaySummary = pastDaysSummaries.next();
+                if (pastDaySummary.getSamples().hasNext()){
+                    return pastDaySummary;
+                }
+            }
+        }
+        return getSummary(initialTime - period);
     }
 }
