@@ -39,6 +39,8 @@ public abstract class DailyConnectionTypeInformation extends StatisticInformatio
 
     public abstract int getPrimaryType();
 
+    protected abstract DailyConnectionTypeSummary getLastDaySummary(long initialTime);
+
     /**
      * Get all ConnectionTypeSample's of the day represented with "initialTime" parameter.
      * Then, save ColorsArray and ValuesArray generated to build the DoughnutChart. Also save
@@ -82,11 +84,11 @@ public abstract class DailyConnectionTypeInformation extends StatisticInformatio
 
         //Si primer reporte del día no parte de las 0 AM, completar con último del día anterior
         if (lastTime >= initialTime) {
-            DailyConnectionTypeSummary yesterdaySummary = getSummary(initialTime - period);
-            Iterator<? extends ConnectionTypeSample> yesterdaySamples = yesterdaySummary.getSamples();
-            if (yesterdaySamples.hasNext()){
-                while (yesterdaySamples.hasNext()) {
-                    sample = yesterdaySamples.next();
+            DailyConnectionTypeSummary lastDaySummary = getLastDaySummary(initialTime);
+            Iterator<? extends ConnectionTypeSample> lastDaySamples = lastDaySummary.getSamples();
+            if (lastDaySamples.hasNext()){
+                while (lastDaySamples.hasNext()) {
+                    sample = lastDaySamples.next();
                 }
                 lastColor = connectionTypeColors.getColor(sample.getType(), 0);
                 colors.add( lastColor );
