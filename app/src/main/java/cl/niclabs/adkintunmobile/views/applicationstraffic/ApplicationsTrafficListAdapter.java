@@ -1,6 +1,10 @@
 package cl.niclabs.adkintunmobile.views.applicationstraffic;
 
+import android.content.ActivityNotFoundException;
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,7 +39,7 @@ public class ApplicationsTrafficListAdapter extends ArrayAdapter<ApplicationsTra
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         // Get the data item for this position
-        ApplicationsTrafficListElement element = getItem(position);
+        final ApplicationsTrafficListElement element = getItem(position);
         // Check if an existing view is being reused, otherwise inflate the view
         ViewHolder viewHolder; // view lookup cache stored in tag
 
@@ -65,7 +69,22 @@ public class ApplicationsTrafficListAdapter extends ArrayAdapter<ApplicationsTra
 
         viewHolder.pbTxBytes.setProgress(txPercentage);
         viewHolder.pbRxBytes.setProgress(rxPercentage);
+        convertView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                try {
+                    //Open the specific App Info page:
+                    Intent intent = new Intent(android.provider.Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+                    intent.setData(Uri.parse("package:" + element.getPackageName()));
+                    getContext().startActivity(intent);
 
+                } catch ( ActivityNotFoundException e ) {
+                    //Open the generic Apps page:
+                    Intent intent = new Intent(android.provider.Settings.ACTION_MANAGE_APPLICATIONS_SETTINGS);
+                    getContext().startActivity(intent);
+                }
+            }
+        });
         // Return the completed view to render on screen
         return convertView;
     }
