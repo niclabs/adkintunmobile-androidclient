@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.preference.EditTextPreference;
 import android.preference.ListPreference;
 import android.preference.Preference;
+import android.preference.PreferenceCategory;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceScreen;
 import android.support.v4.app.FragmentManager;
@@ -15,6 +16,7 @@ import android.widget.Toast;
 
 import java.util.Map;
 
+import cl.niclabs.adkintunmobile.BuildConfig;
 import cl.niclabs.adkintunmobile.R;
 import cl.niclabs.adkintunmobile.data.persistent.IpLocation;
 import cl.niclabs.adkintunmobile.services.SetupSystem;
@@ -42,6 +44,15 @@ public class SettingsFragment extends PreferenceFragment implements SharedPrefer
         getPreferenceManager().getSharedPreferences().registerOnSharedPreferenceChangeListener(this);
 
         updateSummaries();
+
+        if (!BuildConfig.DEBUG_MODE) {
+            PreferenceCategory preferenceCategory = (PreferenceCategory) findPreference(getString(R.string.settings_sampling_category_key));
+            Preference syncHostname = findPreference(getString(R.string.settings_sampling_hostname_key));
+            Preference syncFrequency = findPreference(getString(R.string.settings_sampling_frequency_key));
+
+            preferenceCategory.removePreference(syncHostname);
+            preferenceCategory.removePreference(syncFrequency);
+        }
     }
 
     @Override

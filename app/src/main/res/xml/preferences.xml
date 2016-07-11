@@ -16,6 +16,7 @@
 
     <PreferenceCategory
         android:title="@string/settings_sampling_category"
+        android:key="@string/settings_sampling_category_key"
         >
         <EditTextPreference
             android:key="@string/settings_sampling_hostname_key"
@@ -27,7 +28,7 @@
             android:key="@string/settings_sampling_frequency_key"
             android:title="@string/settings_sampling_frequency_title"
             android:dialogTitle="@string/settings_sampling_frequency_title"
-            android:defaultValue="1"
+            android:defaultValue="30"
             android:summary="%s"
             android:entries="@array/sync_sampling_frequency"
             android:entryValues="@array/sync_sampling_frequency_values"
