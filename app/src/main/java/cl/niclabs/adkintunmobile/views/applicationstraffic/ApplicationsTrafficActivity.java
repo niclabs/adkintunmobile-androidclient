@@ -225,7 +225,10 @@ public class ApplicationsTrafficActivity extends AppCompatActivity implements Da
                                 int activeListFragmentIndex = mViewPager.getCurrentItem();
                                 ListView mListView = (ListView) mViewPagerAdapter.getItem(activeListFragmentIndex).getView().findViewById(R.id.list_view_traffic);
                                 if (mListView.getChildAt(0) != null) {
-                                    mTarget = new ViewTarget(((ViewGroup) mListView.getChildAt(0)).getChildAt(0));
+                                    if (mListView.getChildAt(1) != null) {
+                                        mTarget = new ViewTarget(((ViewGroup)((ViewGroup) mListView.getChildAt(1)).getChildAt(1)).getChildAt(0));
+                                    } else
+                                        mTarget = new ViewTarget(((ViewGroup)((ViewGroup) mListView.getChildAt(0)).getChildAt(1)).getChildAt(0));
                                     break;
                                 } else
                                     helpCounter++;
