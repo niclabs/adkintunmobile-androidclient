@@ -21,6 +21,7 @@ import cl.niclabs.adkintunmobile.R;
 import cl.niclabs.adkintunmobile.data.persistent.IpLocation;
 import cl.niclabs.adkintunmobile.services.SetupSystem;
 import cl.niclabs.adkintunmobile.utils.information.Network;
+import cl.niclabs.adkintunmobile.views.status.DayOfRechargeDialog;
 import cl.niclabs.adkintunmobile.views.status.StatusSettingsDialog;
 
 public class SettingsFragment extends PreferenceFragment implements SharedPreferences.OnSharedPreferenceChangeListener{
@@ -73,6 +74,10 @@ public class SettingsFragment extends PreferenceFragment implements SharedPrefer
             FragmentManager fm = ((SettingsActivity) getActivity()).getSupportFragmentManager();
             StatusSettingsDialog.showDialogPreference(fm, null);
         }
+        if (key.equals(getString(R.string.settings_app_day_of_recharge_key))) {
+            FragmentManager fm = ((SettingsActivity) getActivity()).getSupportFragmentManager();
+            DayOfRechargeDialog.showDialogPreference(fm, null);
+        }
         if (key.equals(getString(R.string.settings_sampling_lastsync_key))){
             FragmentManager fm = ((SettingsActivity) getActivity()).getSupportFragmentManager();
             SynchronizationLogDialog.showDialog(fm);
@@ -108,6 +113,10 @@ public class SettingsFragment extends PreferenceFragment implements SharedPrefer
                     int selectedOption = Integer.parseInt(getPreferenceManager().getSharedPreferences().getString(pref.getKey(), "0"));
                     long quota = Long.parseLong(getResources().getStringArray(R.array.data_quotas)[selectedOption]);
                     pref.setSummary(Network.formatBytes(quota));
+                }
+                else if (inActivity && pref.getKey() == getActivity().getString(R.string.settings_app_day_of_recharge_key)){
+                    int selectedOption = Integer.parseInt(getPreferenceManager().getSharedPreferences().getString(pref.getKey(), "0"));
+                    pref.setSummary(Integer.toString(selectedOption + 1));
                 }else{
                     pref.setSummary(getPreferenceManager().getSharedPreferences().getString(pref.getKey(), "-"));
                 }

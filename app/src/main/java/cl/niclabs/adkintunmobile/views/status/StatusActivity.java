@@ -124,7 +124,7 @@ public class StatusActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
-            case R.id.menu_date_picker_btn:
+            case R.id.menu_settings_btn:
                 showDialogMobileQuotaPref();
                 break;
             case R.id.menu_info_btn:
