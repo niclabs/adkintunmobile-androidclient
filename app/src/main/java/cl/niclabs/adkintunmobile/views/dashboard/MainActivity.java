@@ -2,6 +2,7 @@ package cl.niclabs.adkintunmobile.views.dashboard;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Point;
 import android.os.Bundle;
@@ -38,6 +39,7 @@ import cl.niclabs.adkintunmobile.views.connectiontype.connectionmode.ConnectionM
 import cl.niclabs.adkintunmobile.views.connectiontype.networktype.NetworkTypeActivity;
 import cl.niclabs.adkintunmobile.views.rankings.RankingFragment;
 import cl.niclabs.adkintunmobile.views.settings.SettingsActivity;
+import cl.niclabs.adkintunmobile.views.status.DayOfRechargeDialog;
 import cl.niclabs.adkintunmobile.views.status.StatusActivity;
 import cl.niclabs.adkintunmobile.views.status.StatusSettingsDialog;
 
@@ -296,8 +298,13 @@ public class MainActivity extends AppCompatActivity {
 
                             default:
                                 showcaseView.hide();
-                                FragmentManager fm = getSupportFragmentManager();
-                                StatusSettingsDialog.showDialogPreference(fm, null);
+                                final FragmentManager fm = getSupportFragmentManager();
+                                StatusSettingsDialog.showDialogPreference(fm, new DialogInterface.OnDismissListener() {
+                                    @Override
+                                    public void onDismiss(DialogInterface dialog) {
+                                        DayOfRechargeDialog.showDialogPreference(fm, null);
+                                    }
+                                });
                                 return;
                         }
                         showcaseView.setContentTitle(tutorialTitle[helpCounter]);

@@ -135,7 +135,7 @@ public class StatusActivity extends AppCompatActivity {
     }
 
     private void showDialogMobileQuotaPref() {
-        FragmentManager fm = getSupportFragmentManager();
+        final FragmentManager fm = getSupportFragmentManager();
         StatusSettingsDialog.showDialogPreference(fm, new DialogInterface.OnDismissListener() {
             @Override
             public void onDismiss(DialogInterface dialog) {
@@ -144,6 +144,18 @@ public class StatusActivity extends AppCompatActivity {
                     @Override
                     public void run() {
                         updateActivityView(context);
+                    }
+                });
+                DayOfRechargeDialog.showDialogPreference(fm, new DialogInterface.OnDismissListener() {
+                    @Override
+                    public void onDismiss(DialogInterface dialog) {
+                        setCurrentMonthMobileData();
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                updateActivityView(context);
+                            }
+                        });
                     }
                 });
             }
@@ -234,10 +246,22 @@ public class StatusActivity extends AppCompatActivity {
     }
 
     public void setCurrentMonthMobileData(){
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        String value = sharedPreferences.getString(getString(R.string.settings_app_day_of_recharge_key), "0");
+        int dayOfRecharge = Integer.parseInt(value) + 1;
+
         Date today = new Date(System.currentTimeMillis());
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(today);
-        calendar.set(Calendar.DAY_OF_MONTH, 1);
+        if (dayOfRecharge > calendar.get(Calendar.DAY_OF_MONTH)) {
+            int month = calendar.get(Calendar.MONTH) - 1;
+            if (month < 0)
+                month = Calendar.DECEMBER;
+            calendar.set(Calendar.MONTH, month);
+        }
+        if (dayOfRecharge > calendar.getActualMaximum(Calendar.DAY_OF_MONTH))
+            dayOfRecharge = calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
+        calendar.set(Calendar.DAY_OF_MONTH, dayOfRecharge);
         calendar.set(Calendar.HOUR_OF_DAY, 0);
         calendar.set(Calendar.MINUTE, 0);
         calendar.set(Calendar.SECOND, 0);
@@ -250,7 +274,8 @@ public class StatusActivity extends AppCompatActivity {
         this.rxMonthlyMobileData = Network.formatBytes(this.rxMonthlyMobile);
         this.txMonthlyMobileData = Network.formatBytes(this.txMonthlyMobile);
 
-        this.currentMonth = getResources().getStringArray(R.array.month_of_year)[calendar.get(Calendar.MONTH)];
+        this.currentMonth = dayOfRecharge + " ";
+        this.currentMonth += getResources().getStringArray(R.array.month_of_year)[calendar.get(Calendar.MONTH)];
         this.currentMonth += " " + calendar.get(Calendar.YEAR);
 
         Log.d(TAG, "Monthly: rx:"+this.rxMonthlyMobile+" tx:"+this.txMonthlyMobile);
@@ -271,7 +296,6 @@ public class StatusActivity extends AppCompatActivity {
      */
     //TODO: Move to ApplicationTraffic.java
     public long[] getTransferedData(int appTrafficType, long initialTimestamp){
-
         long rxData = 0, txData = 0;
 
         Iterator<ApplicationTraffic> iterator = ApplicationTraffic.findAsIterator(
