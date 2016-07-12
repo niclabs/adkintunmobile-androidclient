@@ -39,6 +39,7 @@ import cl.niclabs.adkintunmobile.views.connectiontype.networktype.NetworkTypeAct
 import cl.niclabs.adkintunmobile.views.rankings.RankingFragment;
 import cl.niclabs.adkintunmobile.views.settings.SettingsActivity;
 import cl.niclabs.adkintunmobile.views.status.StatusActivity;
+import cl.niclabs.adkintunmobile.views.status.StatusSettingsDialog;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -295,6 +296,8 @@ public class MainActivity extends AppCompatActivity {
 
                             default:
                                 showcaseView.hide();
+                                FragmentManager fm = getSupportFragmentManager();
+                                StatusSettingsDialog.showDialogPreference(fm, null);
                                 return;
                         }
                         showcaseView.setContentTitle(tutorialTitle[helpCounter]);
