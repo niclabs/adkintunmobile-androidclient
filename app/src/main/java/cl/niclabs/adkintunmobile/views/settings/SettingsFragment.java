@@ -22,7 +22,7 @@ import cl.niclabs.adkintunmobile.data.persistent.IpLocation;
 import cl.niclabs.adkintunmobile.services.SetupSystem;
 import cl.niclabs.adkintunmobile.utils.information.Network;
 import cl.niclabs.adkintunmobile.views.status.DayOfRechargeDialog;
-import cl.niclabs.adkintunmobile.views.status.StatusSettingsDialog;
+import cl.niclabs.adkintunmobile.views.status.DataQuotaDialog;
 
 public class SettingsFragment extends PreferenceFragment implements SharedPreferences.OnSharedPreferenceChangeListener{
 
@@ -72,7 +72,7 @@ public class SettingsFragment extends PreferenceFragment implements SharedPrefer
 
         if (key.equals(getString(R.string.settings_app_data_quota_total_key))) {
             FragmentManager fm = ((SettingsActivity) getActivity()).getSupportFragmentManager();
-            StatusSettingsDialog.showDialogPreference(fm, null);
+            DataQuotaDialog.showDialogPreference(fm, null);
         }
         if (key.equals(getString(R.string.settings_app_day_of_recharge_key))) {
             FragmentManager fm = ((SettingsActivity) getActivity()).getSupportFragmentManager();

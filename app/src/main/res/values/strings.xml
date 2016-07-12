@@ -74,8 +74,8 @@
     <string name="view_status_no_antenna">Sin Red</string>
     <string name="view_status_sample_period">Periodo de muestreo: DESDE %1$s.</string>
 
-    <string name="view_status_settings_dialog_title">Tu Plan de Datos</string>
-    <string name="view_status_settings_dialog_description">Establece la cuota de navegación provista en tu plan de datos de tu proveedor de telefonía.</string>
+    <string name="view_data_quota_dialog_title">Tu Plan de Datos</string>
+    <string name="view_data_quota_dialog_description">Establece la cuota de navegación provista en tu plan de datos de tu proveedor de telefonía.</string>
 
     <string name="view_day_of_recharge_dialog_title">Día de Recarga de Datos</string>
     <string name="view_day_of_recharge_dialog_description">Establece el día de recarga de la cuota de navegación provista en tu plan de datos.</string>

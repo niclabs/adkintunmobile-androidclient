@@ -9,13 +9,14 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/view_status_settings_dialog_description"
+        android:text="@string/view_data_quota_dialog_description"
         android:textSize="18sp" />
 
     <NumberPicker
         android:id="@+id/np_data_quota"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:descendantFocusability="blocksDescendants" />
 
     <Button
         android:id="@+id/bt_save_data_quota"

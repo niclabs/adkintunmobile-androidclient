@@ -15,7 +15,8 @@
     <NumberPicker
         android:id="@+id/np_day_of_recharge"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:descendantFocusability="blocksDescendants" />
 
     <Button
         android:id="@+id/bt_save_day_of_recharge"

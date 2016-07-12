@@ -17,16 +17,16 @@ import android.widget.Toast;
 import cl.niclabs.adkintunmobile.R;
 import cl.niclabs.adkintunmobile.utils.information.Network;
 
-public class StatusSettingsDialog extends DialogFragment {
+public class DataQuotaDialog extends DialogFragment {
 
-    static public final String TAG = "AdkM:StatusSettingsDialog";
+    static public final String TAG = "AdkM:DataQuotaDialog";
 
     private NumberPicker mNumberPicker;
     private Button confirmationButton;
 
     private DialogInterface.OnDismissListener onDismissListener;
 
-    public StatusSettingsDialog() {
+    public DataQuotaDialog() {
         // Required empty public constructor
     }
 
@@ -34,8 +34,8 @@ public class StatusSettingsDialog extends DialogFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View v =  inflater.inflate(R.layout.fragment_status_settings_dialog, container, false);
-        getDialog().setTitle(getActivity().getString(R.string.view_status_settings_dialog_title));
+        View v =  inflater.inflate(R.layout.fragment_data_quota_dialog, container, false);
+        getDialog().setTitle(getActivity().getString(R.string.view_data_quota_dialog_title));
 
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
         String value = sharedPreferences.getString(getActivity().getString(R.string.settings_app_data_quota_total_key), "0");
@@ -90,7 +90,7 @@ public class StatusSettingsDialog extends DialogFragment {
     }
 
     static public void showDialogPreference(FragmentManager fm, DialogInterface.OnDismissListener onDismissListener){
-        StatusSettingsDialog editNameDialog = new StatusSettingsDialog();
+        DataQuotaDialog editNameDialog = new DataQuotaDialog();
         editNameDialog.setOnDismissListener(onDismissListener);
         editNameDialog.show(fm, TAG);
     }

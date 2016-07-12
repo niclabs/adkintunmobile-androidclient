@@ -20,12 +20,10 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
-import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.facebook.shimmer.ShimmerFrameLayout;
 import com.github.amlcurran.showcaseview.ShowcaseView;
-import com.github.amlcurran.showcaseview.targets.PointTarget;
 import com.github.amlcurran.showcaseview.targets.Target;
 import com.github.amlcurran.showcaseview.targets.ViewTarget;
 
@@ -136,7 +134,7 @@ public class StatusActivity extends AppCompatActivity {
 
     private void showDialogMobileQuotaPref() {
         final FragmentManager fm = getSupportFragmentManager();
-        StatusSettingsDialog.showDialogPreference(fm, new DialogInterface.OnDismissListener() {
+        DataQuotaDialog.showDialogPreference(fm, new DialogInterface.OnDismissListener() {
             @Override
             public void onDismiss(DialogInterface dialog) {
                 setMonthlyDataQuota();
