@@ -42,6 +42,7 @@ public class ApplicationsTrafficListElement {
         this.txBytes = 0L;
     }
 
+
     public ApplicationsTrafficListElement(Context context, ApplicationTraffic applicationTraffic) {
         this(context, applicationTraffic.uid);
         this.updateRxBytes(applicationTraffic.rxBytes);
@@ -64,6 +65,10 @@ public class ApplicationsTrafficListElement {
 
     public Drawable getLogo() {
         return logo;
+    }
+
+    public String getPackageName(){
+        return packageName;
     }
 
     @Override

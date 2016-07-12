@@ -206,7 +206,7 @@
     <string-array name="tutorial_application_traffic_body">
         <item>La vista "Tráfico por Aplicación" muestra el consumo de datos que han efectuado las aplicaciones instaladas en tu equipo.</item>
         <item>El consumo de las aplicaciones está separado según si usaron datos móviles o WiFi.</item>
-        <item>Aquí se listan las aplicaciones con consumo de datos, diferenciando la cantidad de datos subidos y bajados. Las aplicaciones se muestran ordenadas desde la de mayor a la de menor descarga de datos.</item>
+        <item>Aquí se listan las aplicaciones con consumo de datos, diferenciando la cantidad de datos subidos y bajados. Las aplicaciones se muestran ordenadas desde la de mayor a la de menor descarga de datos. Dale click para más información.</item>
         <item>Finalmente, puedes seleccionar una fecha en particular para ver los registros acumulados a partir de dicho día.</item>
     </string-array>
 
