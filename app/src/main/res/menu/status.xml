@@ -11,7 +11,7 @@
         android:title="Información sobre esta vista">
     </item>
     <item
-        android:id="@+id/menu_date_picker_btn"
+        android:id="@+id/menu_settings_btn"
         android:icon="@drawable/ic_settings_white"
         app:showAsAction="always"
         android:title="Configurar datos móviles">

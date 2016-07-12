@@ -1,12 +1,10 @@
 package cl.niclabs.adkintunmobile.views.dashboard;
 
-import android.app.Activity;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Point;
 import android.os.Bundle;
-import android.support.design.widget.AppBarLayout;
-import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -14,15 +12,11 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.Display;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.RelativeLayout;
 
 import com.github.amlcurran.showcaseview.ShowcaseView;
-import com.github.amlcurran.showcaseview.targets.ActionItemTarget;
 import com.github.amlcurran.showcaseview.targets.PointTarget;
 import com.github.amlcurran.showcaseview.targets.Target;
 import com.github.amlcurran.showcaseview.targets.ViewTarget;
@@ -38,7 +32,9 @@ import cl.niclabs.adkintunmobile.views.connectiontype.connectionmode.ConnectionM
 import cl.niclabs.adkintunmobile.views.connectiontype.networktype.NetworkTypeActivity;
 import cl.niclabs.adkintunmobile.views.rankings.RankingFragment;
 import cl.niclabs.adkintunmobile.views.settings.SettingsActivity;
+import cl.niclabs.adkintunmobile.views.status.DayOfRechargeDialog;
 import cl.niclabs.adkintunmobile.views.status.StatusActivity;
+import cl.niclabs.adkintunmobile.views.status.DataQuotaDialog;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -295,6 +291,13 @@ public class MainActivity extends AppCompatActivity {
 
                             default:
                                 showcaseView.hide();
+                                final FragmentManager fm = getSupportFragmentManager();
+                                DataQuotaDialog.showDialogPreference(fm, new DialogInterface.OnDismissListener() {
+                                    @Override
+                                    public void onDismiss(DialogInterface dialog) {
+                                        DayOfRechargeDialog.showDialogPreference(fm, null);
+                                    }
+                                });
                                 return;
                         }
                         showcaseView.setContentTitle(tutorialTitle[helpCounter]);

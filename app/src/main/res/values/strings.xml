@@ -24,6 +24,8 @@
     <string name="settings_app_data_category">Ajustes de la aplicación</string>
     <string name="settings_app_data_quota_total_key">plan_data_quota</string>
     <string name="settings_app_data_quota_total_title">Cuota de navegación de tu plan de datos</string>
+    <string name="settings_app_day_of_recharge_key">day_of_recharge</string>
+    <string name="settings_app_day_of_recharge_title">Día de recarga de tu plan de datos</string>
     <string name="settings_app_data_clean_ip_location_cache_key">clean_ip_location_cache</string>
     <string name="settings_app_data_clean_ip_location_cache_title">Limpiar datos de cache</string>
     <string name="settings_app_data_clean_ip_location_cache_message">Cache Borrado</string>
@@ -70,10 +72,13 @@
     <string name="view_status_your_monthly_data_usage">Tu consumo mensual de datos móviles</string>
     <string name="view_status_no_sim">Sin tarjeta SIM</string>
     <string name="view_status_no_antenna">Sin Red</string>
-    <string name="view_status_sample_period">Periodo de muestreo: %1$s.</string>
+    <string name="view_status_sample_period">Periodo de muestreo: DESDE %1$s.</string>
 
-    <string name="view_status_settings_dialog_title">Tu Plan de Datos</string>
-    <string name="view_status_settings_dialog_description">Establece la cuota de navegación provista en tu plan de datos de tu proveedor de telefonía.</string>
+    <string name="view_data_quota_dialog_title">Tu Plan de Datos</string>
+    <string name="view_data_quota_dialog_description">Establece la cuota de navegación provista en tu plan de datos de tu proveedor de telefonía.</string>
+
+    <string name="view_day_of_recharge_dialog_title">Día de Recarga de Datos</string>
+    <string name="view_day_of_recharge_dialog_description">Establece el día de recarga de la cuota de navegación provista en tu plan de datos.</string>
 
     <!-- Conn mode -->
     <string name="view_connection_mode_symbology">Leyenda</string>

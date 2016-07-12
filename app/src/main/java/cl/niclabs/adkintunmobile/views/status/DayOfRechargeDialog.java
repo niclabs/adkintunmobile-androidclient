@@ -1,6 +1,5 @@
 package cl.niclabs.adkintunmobile.views.status;
 
-
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -15,18 +14,17 @@ import android.widget.NumberPicker;
 import android.widget.Toast;
 
 import cl.niclabs.adkintunmobile.R;
-import cl.niclabs.adkintunmobile.utils.information.Network;
 
-public class StatusSettingsDialog extends DialogFragment {
+public class DayOfRechargeDialog extends DialogFragment {
 
-    static public final String TAG = "AdkM:StatusSettingsDialog";
+    static public final String TAG = "AdkM:DayOfRechargeDialog";
 
     private NumberPicker mNumberPicker;
     private Button confirmationButton;
 
     private DialogInterface.OnDismissListener onDismissListener;
 
-    public StatusSettingsDialog() {
+    public DayOfRechargeDialog() {
         // Required empty public constructor
     }
 
@@ -34,34 +32,33 @@ public class StatusSettingsDialog extends DialogFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View v =  inflater.inflate(R.layout.fragment_status_settings_dialog, container, false);
-        getDialog().setTitle(getActivity().getString(R.string.view_status_settings_dialog_title));
+        View v =  inflater.inflate(R.layout.fragment_day_of_recharge_dialog, container, false);
+        getDialog().setTitle(getActivity().getString(R.string.view_day_of_recharge_dialog_title));
 
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
-        String value = sharedPreferences.getString(getActivity().getString(R.string.settings_app_data_quota_total_key), "0");
-        int dataQuotaTotalValue = Integer.parseInt(value);
+        String value = sharedPreferences.getString(getActivity().getString(R.string.settings_app_day_of_recharge_key), "0");
+        int dayOfRechargeValue = Integer.parseInt(value);
 
-        mNumberPicker = (NumberPicker) v.findViewById(R.id.np_data_quota);
-        confirmationButton = (Button) v.findViewById(R.id.bt_save_data_quota);
+        mNumberPicker = (NumberPicker) v.findViewById(R.id.np_day_of_recharge);
+        confirmationButton = (Button) v.findViewById(R.id.bt_save_day_of_recharge);
 
-        String[] dataQuotaOptions = getResources().getStringArray(R.array.data_quotas);
-        String[] formatedDataQuotaOptions = new String[dataQuotaOptions.length];
+        String[] dayOfRechargeOptions = new String[31];
 
-        for(int i =0 ; i<dataQuotaOptions.length; i++){
-            formatedDataQuotaOptions[i] = Network.formatBytes(Long.parseLong(dataQuotaOptions[i]));
+        for(int i=0 ; i<dayOfRechargeOptions.length; i++){
+            dayOfRechargeOptions[i] = Integer.toString(i+1);
         }
 
-        mNumberPicker.setMaxValue(formatedDataQuotaOptions.length - 1);
+        mNumberPicker.setMaxValue(dayOfRechargeOptions.length - 1);
         mNumberPicker.setMinValue(0);
-        mNumberPicker.setDisplayedValues(formatedDataQuotaOptions);
+        mNumberPicker.setDisplayedValues(dayOfRechargeOptions);
 
         mNumberPicker.setWrapSelectorWheel(true);
-        mNumberPicker.setValue(dataQuotaTotalValue);
+        mNumberPicker.setValue(dayOfRechargeValue);
 
         confirmationButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                updateDataQuota(mNumberPicker.getValue());
+                updateDayOfRecharge(mNumberPicker.getValue());
                 dismiss();
             }
         });
@@ -69,10 +66,10 @@ public class StatusSettingsDialog extends DialogFragment {
         return v;
     }
 
-    public void updateDataQuota(int mbDataPlan){
+    public void updateDayOfRecharge(int dayOfRecharge){
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString(getActivity().getString(R.string.settings_app_data_quota_total_key), Integer.toString(mbDataPlan));
+        editor.putString(getActivity().getString(R.string.settings_app_day_of_recharge_key), Integer.toString(dayOfRecharge));
         editor.apply();
         Toast.makeText(getActivity(), getActivity().getString(R.string.settings_updated), Toast.LENGTH_SHORT).show();
     }
@@ -90,9 +87,8 @@ public class StatusSettingsDialog extends DialogFragment {
     }
 
     static public void showDialogPreference(FragmentManager fm, DialogInterface.OnDismissListener onDismissListener){
-        StatusSettingsDialog editNameDialog = new StatusSettingsDialog();
+        DayOfRechargeDialog editNameDialog = new DayOfRechargeDialog();
         editNameDialog.setOnDismissListener(onDismissListener);
         editNameDialog.show(fm, TAG);
     }
-
 }
