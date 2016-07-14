@@ -3,6 +3,7 @@ package cl.niclabs.adkintunmobile.views.settings;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
 import android.preference.EditTextPreference;
 import android.preference.ListPreference;
@@ -78,7 +79,7 @@ public class SettingsFragment extends PreferenceFragment implements SharedPrefer
             FragmentManager fm = ((SettingsActivity) getActivity()).getSupportFragmentManager();
             DayOfRechargeDialog.showDialogPreference(fm, null);
         }
-        if (key.equals(getString(R.string.settings_sampling_lastsync_key))){
+        if (key.equals(getString(R.string.settings_sampling_lastsync_key)) && BuildConfig.DEBUG_MODE){
             FragmentManager fm = ((SettingsActivity) getActivity()).getSupportFragmentManager();
             SynchronizationLogDialog.showDialog(fm);
         }
