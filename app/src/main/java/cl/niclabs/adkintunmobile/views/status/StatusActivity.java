@@ -213,7 +213,7 @@ public class StatusActivity extends AppCompatActivity {
         ((TextView)findViewById(R.id.tv_available_data_quota)).setText(Network.formatBytes(totalMonthlyQuota));
 
 
-        ((TextView)findViewById(R.id.tv_monthly_sample_period)).setText(String.format(getString(R.string.view_status_sample_period), this.currentMonth));
+        ((TextView)findViewById(R.id.tv_monthly_sample_period)).setText(String.format(getString(R.string.view_status_monthly_sample_period), this.currentMonth));
 
         //Snackbar.make(getView(), this.ret, Snackbar.LENGTH_SHORT).show();
     }
