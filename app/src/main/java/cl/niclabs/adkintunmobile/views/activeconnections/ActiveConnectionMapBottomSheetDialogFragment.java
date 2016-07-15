@@ -245,10 +245,12 @@ public class ActiveConnectionMapBottomSheetDialogFragment extends BottomSheetDia
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        Fragment fragment = (getFragmentManager().findFragmentById(R.id.map));
-        FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
-        ft.remove(fragment);
-        ft.commit();
+        if (!getActivity().isFinishing()) {
+            Fragment fragment = (getFragmentManager().findFragmentById(R.id.map));
+            FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+            ft.remove(fragment);
+            ft.commit();
+        }
     }
 
     public void setActiveConnectionListElement(ActiveConnectionListElement activeConnectionListElement){
