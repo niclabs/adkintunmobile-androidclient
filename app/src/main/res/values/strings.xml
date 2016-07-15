@@ -1,3 +1,131 @@
 <resources>
-    <string name="app_name">AdkintunMobile</string>
+    <string name="app_name">Adkintun Mobile</string>
+    <string name="app_sub_title">Medidor de tu internet móvil</string>
+
+    <!-- Titles By View -->
+    <string name="view_status">Tu Estado</string>
+    <string name="view_dashboard">Dashboard</string>
+    <string name="view_connection_mode">Tipo de Conexión</string>
+    <string name="view_network_type">Tipo de Señal</string>
+    <string name="view_carrier_ranking">Ranking de Operadores</string>
+    <string name="view_applications_traffic">Tráfico por Aplicación</string>
+    <string name="view_active_connections">Conexiones Activas</string>
+    <string name="view_about_us">Acerca de</string>
+    <string name="view_settings">Preferencias</string>
+    <string name="view_notifications_log">Notificaciones</string>
+
+    <!-- Navigation Drawer texts -->
+    <string name="drawer_open">Open navigation drawer</string>
+    <string name="drawer_close">Close navigation drawer</string>
+
+    <!-- Preferences Strings -->
+    <string name="settings_updated">Preferencias actualizadas</string>
+
+    <string name="settings_app_data_category">Ajustes de la aplicación</string>
+    <string name="settings_app_data_quota_total_key">plan_data_quota</string>
+    <string name="settings_app_data_quota_total_title">Cuota de navegación de tu plan de datos</string>
+    <string name="settings_app_day_of_recharge_key">day_of_recharge</string>
+    <string name="settings_app_day_of_recharge_title">Día de recarga de tu plan de datos</string>
+    <string name="settings_app_data_clean_ip_location_cache_key">clean_ip_location_cache</string>
+    <string name="settings_app_data_clean_ip_location_cache_title">Limpiar datos de cache</string>
+    <string name="settings_app_data_clean_ip_location_cache_message">Cache Borrado</string>
+
+    <string name="settings_sampling_category">Ajustes de sincronización</string>
+    <string name="settings_sampling_category_key">sync_category_key</string>
+    <string name="settings_sampling_hostname_key">sync_hostname</string>
+    <string name="settings_sampling_hostname_title">Dirección del servidor</string>
+    <string name="settings_sampling_hostname_summary">Especificar dirección de servidor de datos</string>
+    <string name="settings_sampling_hostname_token_key">Authorization</string>
+    <string name="settings_sampling_frequency_key">sync_frequency</string>
+    <string name="settings_sampling_frequency_title">Frencuencia de envío</string>
+    <string name="settings_sampling_lastsync_key">sync_lastsync</string>
+    <string name="settings_sampling_lastsync_title">Última Sincronización</string>
+
+    <string name="settings_app_category">Aplicación</string>
+    <string name="settings_app_version_key">app_version</string>
+    <string name="settings_app_version_title">Versión de la aplicación</string>
+    <string name="settings_app_version_default">2.0b</string>
+
+    <!-- Dashboard -->
+    <string name="view_dashboard_toolbar_slogan">Tu Estado Ahora</string>
+    <string name="view_dashboard_news">Novedades</string>
+    <string name="view_dashboard_mobile_data_title">Consumo de datos móviles</string>
+    <string name="view_dashboard_mobile_data_summary">Consumo aproximado de datos móviles del día actual:</string>
+    <string name="view_dashboard_conn_mode_title">Datos</string>
+    <string name="view_dashboard_conn_mode_summary">Hoy has estado conectado principalmente a:</string>
+    <string name="view_dashboard_conn_mode_wifi">WiFi</string>
+    <string name="view_dashboard_conn_mode_mobile">Móvil</string>
+    <string name="view_dashboard_conn_mode_unknown">Sin Red</string>
+    <string name="view_dashboard_net_type_title">Red</string>
+    <string name="view_dashboard_net_type_summary">La mayor parte del día has tenido señal:</string>
+    <string name="view_dashboard_top_apps_title">Principales Aplicaciones</string>
+    <string name="view_dashboard_top_apps_summary">Las siguientes aplicaciones son las que más han usado tu internet móvil hoy:</string>
+
+    <!-- Notifications Log -->
+    <string name="view_notifications_log_item_no_data">No hay notificaciones para mostrar</string>
+
+    <!-- Status -->
+    <string name="view_status_your_SIM">Tu SIM</string>
+    <string name="view_status_your_network">Tu Red</string>
+    <string name="view_status_your_daily_data_usage">Tu consumo diario de datos móviles</string>
+    <string name="view_status_your_monthly_data_usage">Tu consumo mensual de datos móviles</string>
+    <string name="view_status_no_sim">Sin tarjeta SIM</string>
+    <string name="view_status_no_antenna">Sin Red</string>
+    <string name="view_status_sample_period">Periodo de muestreo: %1$s.</string>
+    <string name="view_status_monthly_sample_period">Periodo de muestreo: DESDE %1$s.</string>
+
+    <string name="view_data_quota_dialog_title">Tu Plan de Datos</string>
+    <string name="view_data_quota_dialog_description">Establece la cuota de navegación provista en tu plan de datos de tu proveedor de telefonía.</string>
+
+    <string name="view_day_of_recharge_dialog_title">Día de Recarga de Datos</string>
+    <string name="view_day_of_recharge_dialog_description">Establece el día de recarga de la cuota de navegación provista en tu plan de datos.</string>
+
+    <!-- Conn mode -->
+    <string name="view_connection_mode_symbology">Leyenda</string>
+    <string name="view_connection_mode_mobile">Conectado a red móvil</string>
+    <string name="view_connection_mode_wifi">Conectado a red wifi</string>
+    <string name="view_connection_mode_start">Inicio de datos registrados</string>
+    <string name="view_connection_mode_no_info">Sin información</string>
+    <string name="view_connection_mode_disconnected">Sin Conexión</string>
+
+    <!-- Network Type -->
+    <string name="view_network_type_g">G</string>
+    <string name="view_network_type_e">E</string>
+    <string name="view_network_type_3g">3G</string>
+    <string name="view_network_type_h">H</string>
+    <string name="view_network_type_hp">H+</string>
+    <string name="view_network_type_4g">4G</string>
+    <string name="view_network_type_disconnected">Sin Conexión</string>
+    <string name="view_network_type_start">Inicio</string>
+
+    <!-- App Traffic -->
+    <string name="view_applications_traffic_wifi">Tráfico WiFi</string>
+    <string name="view_applications_traffic_mobile">Tráfico Móvil</string>
+    <string name="view_applications_traffic_item_no_data">No hay resultados para mostrar</string>
+
+    <!-- Active Connections -->
+    <string name="view_active_connections_reload">Conexiones Activas Actualizadas</string>
+    <string name="view_active_connections_dialog_current_conn">Mostrando conexión #%1$d</string>
+    <string name="view_active_connections_dialog_total_conn">de %1$d conexiones.</string>
+    <string name="view_active_connections_dialog_location_not_found">%1$d localizaciones no encontradas</string>
+
+    <!-- Tutorial Controls -->
+    <string name="tutorial_next">Siguiente</string>
+    <string name="tutorial_close">Cerrar</string>
+
+    <!-- About Us -->
+    <string name="view_aboutus_about_app">Adkintun Mobile es un proyecto de investigación desarrollado específicamente para dispositivos móviles, que busca evaluar la calidad de servicio entregado por los operadores de Internet móvil a través de la utilización de indicadores de rendimiento usados mundialmente. La aplicación permite la medición de la calidad del acceso a internet sin observar el tráfico, midiendo la cantidad de datos enviados y recibidos durante el día, la calidad de la señal en la antena, el tipo de conexión (2g, 3g, etc), y otros datos útiles. Con estos datos se realizarán estudios para describir el estado del internet móvil a nivel nacional.
+\n\nAdkintun Mobile no genera tráfico durante las mediciones, por lo que es necesario que conectes tu dispositivo a una red Wi-Fi, al menos una ves a la semana para obtener las mediciones. La aplicación no inspecciona la información que contienen los paquetes siendo enviados/recibidos por tus dispositivos ni incluyen ningún tipo de información personal del usuario.</string>
+
+
+    <!-- Syncrhonization Service -->
+    <string name="synchronization_report_filename">report</string>
+    <string name="synchronization_report_file_extension">.adkdb</string>
+    <string name="synchronization_report_file_multipartdata">report.gz</string>
+    <string name="synchronization_report_file_post_name_parameter">uploaded_file</string>
+
+
+    <!-- Fonts -->
+    <string name="font_text_view">fonts/caviar_dreams.ttf</string>
+
 </resources>

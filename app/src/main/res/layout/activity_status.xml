@@ -1,0 +1,578 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    tools:context="cl.niclabs.adkintunmobile.views.status.StatusActivity">
+
+    <!-- Toolbar -->
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/appbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"/>
+
+
+    </android.support.design.widget.AppBarLayout>
+
+    <!-- Contenido -->
+    <android.support.v4.widget.NestedScrollView
+        android:id="@+id/sv_activity_status"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            xmlns:gauge="http://schemas.android.com/apk/res-auto"
+            android:background="@mipmap/background3"
+            android:animateLayoutChanges="true">
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingBottom="@dimen/activity_vertical_margin"
+                android:paddingLeft="@dimen/activity_horizontal_margin"
+                android:paddingRight="@dimen/activity_horizontal_margin"
+                android:paddingTop="@dimen/activity_vertical_margin">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <!-- Primera Fila -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        style="@style/floatingBox">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:drawableStart="@drawable/ic_web_white"
+                            android:drawableLeft="@drawable/ic_web_white"
+                            android:gravity="center"
+                            android:text="Tu Internet"
+                            style="@style/floatingBoxLabel"/>
+
+                        <LinearLayout
+                            android:orientation="horizontal"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginBottom="@dimen/separation_min"
+                            android:gravity="center">
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:id="@+id/iv_internet_type"
+                                android:layout_marginEnd="@dimen/separation_little" />
+
+                            <LinearLayout
+                                android:orientation="vertical"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:gravity="center">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textAppearance="?android:attr/textAppearanceSmall"
+                                    android:id="@+id/tv_internet_interface"
+                                    android:text="Conectado a" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textAppearance="?android:attr/textAppearanceLarge"
+                                    style="@style/TextAppearance.AppCompat.Display1"
+                                    android:id="@+id/tv_internet_network"
+                                    android:text="Red" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textAppearance="?android:attr/textAppearanceSmall"
+                                    android:id="@+id/tv_internet_state"
+                                    android:text="Sub info" />
+                            </LinearLayout>
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/doughnut_no_info"/>
+
+                    <!-- Segunda fila -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1.00"
+                        android:orientation="horizontal">
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="0.50"
+                            android:orientation="vertical"
+                            style="@style/floatingBox">
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:drawableLeft="@drawable/ic_sim_card_white"
+                                android:gravity="center"
+                                style="@style/floatingBoxLabel"
+                                android:text="@string/view_status_your_SIM"/>
+
+                            <LinearLayout
+                                android:orientation="vertical"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_marginBottom="@dimen/separation_min">
+
+                                <ImageView
+                                    android:id="@+id/iv_sim"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="@dimen/separation_little"
+                                    android:layout_gravity="center" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textAppearance="?android:attr/textAppearanceSmall"
+                                    android:id="@+id/tv_sim"
+                                    android:layout_gravity="center" />
+                            </LinearLayout>
+
+                        </LinearLayout>
+
+                        <View
+                            android:layout_width="1dp"
+                            android:layout_height="match_parent"
+                            android:background="@color/doughnut_no_info"/>
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="0.50"
+                            android:orientation="vertical"
+                            style="@style/floatingBox">
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:drawableLeft="@drawable/ic_radio_tower_white"
+                                android:gravity="center"
+                                style="@style/floatingBoxLabel"
+                                android:text="@string/view_status_your_network"/>
+
+                            <LinearLayout
+                                android:orientation="vertical"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_marginBottom="@dimen/separation_min">
+
+                                <ImageView
+                                    android:id="@+id/iv_antenna"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:layout_marginTop="@dimen/separation_little"/>
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textAppearance="?android:attr/textAppearanceSmall"
+                                    android:id="@+id/tv_antenna"
+                                    android:layout_gravity="center" />
+                            </LinearLayout>
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/doughnut_no_info"/>
+
+                    <!-- Tercera Fila -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        style="@style/floatingBox">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:drawableStart="@drawable/ic_data_usage_white"
+                            android:drawableLeft="@drawable/ic_data_usage_white"
+                            android:gravity="center"
+                            style="@style/floatingBoxLabel"
+                            android:text="@string/view_status_your_daily_data_usage"/>
+
+                        <TableLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:stretchColumns="0,1,2"
+                            android:layout_marginTop="@dimen/separation_little"
+                            android:id="@+id/tb_daily_consumption">
+
+                            <TableRow
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent">
+
+                                <RelativeLayout
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_column="0"
+                                    android:layout_gravity="center_horizontal">
+
+                                    <pl.pawelkleczkowski.customgauge.CustomGauge
+                                        android:id="@+id/gauge_daily_rx"
+                                        android:layout_width="120dp"
+                                        android:layout_height="120dp"
+                                        android:padding="10dp"
+                                        gauge:pointEndColor="@color/doughnut_mobile"
+                                        gauge:pointStartColor="@color/doughnut_mobile"
+                                        gauge:startAngel="135"
+                                        gauge:startValue="0"
+                                        gauge:endValue="100"
+                                        gauge:strokeCap="ROUND"
+                                        gauge:strokeWidth="10dp"
+                                        gauge:sweepAngel="270" />
+
+                                    <TextView
+                                        android:id="@+id/tv_gauge_daily_rx"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_alignBottom="@+id/gauge_daily_rx"
+                                        android:layout_centerInParent="true"
+                                        android:layout_marginBottom="48dp"
+                                        android:text="0"
+                                        android:textSize="20sp"
+                                        android:textStyle="bold" />
+
+                                    <ImageView
+                                        android:id="@+id/iv_gauge_daily_rx"
+                                        android:layout_width="27dp"
+                                        android:layout_height="27dp"
+                                        android:src="@mipmap/ic_symbology_traffic_download"
+                                        android:layout_alignBottom="@+id/gauge_daily_rx"
+                                        android:layout_marginBottom="20dp"
+                                        android:layout_centerHorizontal="true" />
+                                </RelativeLayout>
+
+                                <RelativeLayout
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_column="1"
+                                    android:layout_gravity="center_horizontal">
+
+                                    <pl.pawelkleczkowski.customgauge.CustomGauge
+                                        android:id="@+id/gauge_daily_tx"
+                                        android:layout_width="120dp"
+                                        android:layout_height="120dp"
+                                        android:padding="10dp"
+                                        gauge:pointEndColor="@color/doughnut_wifi"
+                                        gauge:pointStartColor="@color/doughnut_wifi"
+                                        gauge:startAngel="135"
+                                        gauge:startValue="0"
+                                        gauge:endValue="100"
+                                        gauge:strokeCap="ROUND"
+                                        gauge:strokeWidth="10dp"
+                                        gauge:sweepAngel="270" />
+
+                                    <TextView
+                                        android:id="@+id/tv_gauge_daily_tx"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_alignBottom="@+id/gauge_daily_tx"
+                                        android:layout_centerInParent="true"
+                                        android:layout_marginBottom="48dp"
+                                        android:text="0"
+                                        android:textSize="20sp"
+                                        android:textStyle="bold" />
+
+                                    <ImageView
+                                        android:id="@+id/iv_gauge_daily_tx"
+                                        android:layout_width="27dp"
+                                        android:layout_height="27dp"
+                                        android:src="@mipmap/ic_symbology_traffic_upload"
+                                        android:layout_alignBottom="@+id/gauge_daily_tx"
+                                        android:layout_marginBottom="20dp"
+                                        android:layout_centerHorizontal="true" />
+                                </RelativeLayout>
+
+                            </TableRow>
+                        </TableLayout>
+
+                        <LinearLayout
+                            android:orientation="horizontal"
+                            android:layout_width="fill_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="center_horizontal" >
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textAppearance="?android:attr/textAppearanceSmall"
+                                android:text="@string/view_status_sample_period"
+                                android:textSize="10sp"
+                                android:visibility="visible"
+                                android:layout_gravity="center"
+                                android:id="@+id/tv_daily_sample_period"
+                                />
+
+                        </LinearLayout>
+                    </LinearLayout>
+
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/doughnut_no_info"/>
+
+                    <!-- Cuarta Fila -->
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        style="@style/floatingBox">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:drawableStart="@drawable/ic_data_usage_white"
+                            android:drawableLeft="@drawable/ic_data_usage_white"
+                            android:gravity="center"
+                            style="@style/floatingBoxLabel"
+                            android:text="@string/view_status_your_monthly_data_usage"/>
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:onClick="showDialogMobileQuotaPref">
+                            <ProgressBar
+                                style="@style/CustomProgressBarHorizontal"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:id="@+id/pb_mobile_data_consumption"
+                                android:progress="50"
+                                android:max="100"
+                                android:indeterminate="false"
+                                android:layout_margin="@dimen/activity_vertical_margin" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:gravity="center"
+                                android:layout_height="wrap_content"
+                                android:id="@+id/tv_data_quota_percentage"
+                                android:layout_alignStart="@id/pb_mobile_data_consumption"
+                                android:layout_alignLeft="@id/pb_mobile_data_consumption"
+                                android:layout_alignTop="@id/pb_mobile_data_consumption"
+                                android:layout_alignEnd="@id/pb_mobile_data_consumption"
+                                android:layout_alignRight="@id/pb_mobile_data_consumption"
+                                android:layout_alignBottom="@id/pb_mobile_data_consumption"
+                                android:text="50%"
+                                android:textSize="18sp"
+                                android:textStyle="bold" />
+                        </RelativeLayout>
+
+                        <LinearLayout
+                            android:orientation="horizontal"
+                            android:layout_width="fill_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="center_horizontal"
+                            android:layout_marginLeft="@dimen/margin_horizontal_info_data_quota"
+                            android:layout_marginRight="@dimen/margin_horizontal_info_data_quota">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textAppearance="?android:attr/textAppearanceSmall"
+                                android:text="XX MB"
+                                android:textSize="@dimen/text_info_data_quota"
+                                android:visibility="visible"
+                                android:layout_gravity="center"
+                                android:id="@+id/tv_used_data_quota"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textAppearance="?android:attr/textAppearanceSmall"
+                                android:text=" usados de "
+                                android:textSize="@dimen/text_info_data_quota"
+                                android:visibility="visible"
+                                android:layout_gravity="center" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textAppearance="?android:attr/textAppearanceSmall"
+                                android:text="XXXX MB"
+                                android:textSize="@dimen/text_info_data_quota"
+                                android:visibility="visible"
+                                android:layout_gravity="center"
+                                android:id="@+id/tv_available_data_quota"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textAppearance="?android:attr/textAppearanceSmall"
+                                android:text=" disponibles"
+                                android:textSize="@dimen/text_info_data_quota"
+                                android:visibility="visible"
+                                android:layout_gravity="center" />
+
+                        </LinearLayout>
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_margin="@dimen/separation_little"
+                            android:background="@color/doughnut_no_info"/>
+
+                        <TableLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:stretchColumns="0,1,2"
+                            android:layout_marginTop="@dimen/separation_little">
+
+                            <TableRow
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent">
+
+                                <RelativeLayout
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_column="0"
+                                    android:layout_gravity="center_horizontal">
+
+                                    <pl.pawelkleczkowski.customgauge.CustomGauge
+                                        android:id="@+id/gauge_monthly_rx"
+                                        android:layout_width="120dp"
+                                        android:layout_height="120dp"
+                                        android:padding="10dp"
+                                        gauge:pointEndColor="@color/doughnut_mobile"
+                                        gauge:pointStartColor="@color/doughnut_mobile"
+                                        gauge:startAngel="135"
+                                        gauge:startValue="0"
+                                        gauge:endValue="100"
+                                        gauge:strokeCap="ROUND"
+                                        gauge:strokeWidth="10dp"
+                                        gauge:sweepAngel="270" />
+
+                                    <TextView
+                                        android:id="@+id/tv_gauge_monthly_rx"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_alignBottom="@+id/gauge_monthly_rx"
+                                        android:layout_centerInParent="true"
+                                        android:layout_marginBottom="48dp"
+                                        android:text="0"
+                                        android:textSize="20sp"
+                                        android:textStyle="bold" />
+
+                                    <ImageView
+                                        android:id="@+id/iv_gauge_monthly_rx"
+                                        android:layout_width="27dp"
+                                        android:layout_height="27dp"
+                                        android:src="@mipmap/ic_symbology_traffic_download"
+                                        android:layout_alignBottom="@+id/gauge_monthly_rx"
+                                        android:layout_marginBottom="20dp"
+                                        android:layout_centerHorizontal="true" />
+                                </RelativeLayout>
+
+                                <RelativeLayout
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_column="1"
+                                    android:layout_gravity="center_horizontal">
+
+                                    <pl.pawelkleczkowski.customgauge.CustomGauge
+                                        android:id="@+id/gauge_monthly_tx"
+                                        android:layout_width="120dp"
+                                        android:layout_height="120dp"
+                                        android:padding="10dp"
+                                        gauge:pointEndColor="@color/doughnut_wifi"
+                                        gauge:pointStartColor="@color/doughnut_wifi"
+                                        gauge:startAngel="135"
+                                        gauge:startValue="0"
+                                        gauge:endValue="100"
+                                        gauge:strokeCap="ROUND"
+                                        gauge:strokeWidth="10dp"
+                                        gauge:sweepAngel="270" />
+
+                                    <TextView
+                                        android:id="@+id/tv_gauge_monthly_tx"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_alignBottom="@+id/gauge_monthly_tx"
+                                        android:layout_centerInParent="true"
+                                        android:layout_marginBottom="48dp"
+                                        android:text="0"
+                                        android:textSize="20sp"
+                                        android:textStyle="bold" />
+
+                                    <ImageView
+                                        android:id="@+id/iv_gauge_monthly_tx"
+                                        android:layout_width="27dp"
+                                        android:layout_height="27dp"
+                                        android:src="@mipmap/ic_symbology_traffic_upload"
+                                        android:layout_alignBottom="@+id/gauge_monthly_tx"
+                                        android:layout_marginBottom="20dp"
+                                        android:layout_centerHorizontal="true" />
+                                </RelativeLayout>
+
+                            </TableRow>
+                        </TableLayout>
+
+                        <LinearLayout
+                            android:orientation="horizontal"
+                            android:layout_width="fill_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="center_horizontal">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textAppearance="?android:attr/textAppearanceSmall"
+                                android:text="@string/view_status_sample_period"
+                                android:textSize="10sp"
+                                android:visibility="visible"
+                                android:id="@+id/tv_monthly_sample_period"
+                                android:layout_gravity="center" />
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+
+                </LinearLayout>
+            </ScrollView>
+
+        </FrameLayout>
+
+    </android.support.v4.widget.NestedScrollView>
+
+    <include layout="@layout/loading_panel"/>
+
+</android.support.design.widget.CoordinatorLayout>

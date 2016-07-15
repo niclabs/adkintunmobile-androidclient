@@ -1,6 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#FF4081</color>
+    <color name="colorSoftCard">#91bbdefb</color>
+    <color name="colorLoadingPane">#708e8b</color>
+
+    <color name="colorPrimary">#4fa7a9</color>
+    <color name="colorPrimaryDark">#3b9986</color>
+    <color name="textColorPrimary">#212121</color>
+    <color name="textColorSecondary">#727272</color>
+    <color name="colorAccent">#359bc7</color>
+    <color name="window_background">#a7c4c1</color>
+
+    <!-- Tutorials -->
+    <color name="tutorial_background">#e63b9986</color>
+    <color name="tutorial_action">#359bc7</color>
+    <color name="tutorial_title">#e6ffffff</color>
+    <color name="tutorial_body">#beffffff</color>
+
+
+    <!-- Connection Time -->
+    <color name="doughnut_wifi">#e13b8fb5</color>
+    <color name="doughnut_mobile">#e122b573</color>
+    <color name="doughnut_no_connection">#e1e84643</color>
+    <color name="doughnut_no_info">#4ddadada</color>
+    <color name="doughnut_start">#e1ffffff</color>
+    <color name="doughnut_wifi_soft">#783b8fb5</color>
+    <color name="doughnut_mobile_soft">#9622b573</color>
+    <color name="doughnut_no_connection_soft">#96e84643</color>
+
+    <!-- Network Type -->
+    <color name="network_type_G">#e1e5e588</color>
+    <color name="network_type_G_soft">#78e5e588</color>
+    <color name="network_type_E">#e1b968e0</color>
+    <color name="network_type_E_soft">#78b968e0</color>
+    <color name="network_type_3G">#e11a8ec1</color>
+    <color name="network_type_3G_soft">#781a8ec1</color>
+    <color name="network_type_H">#e133d3a1</color>
+    <color name="network_type_H_soft">#7833d3a1</color>
+    <color name="network_type_Hp">#e1b1d057</color>
+    <color name="network_type_Hp_soft">#78b1d057</color>
+    <color name="network_type_4G">#e1f6ac42</color>
+    <color name="network_type_4G_soft">#78f6ac42</color>
+    <color name="network_type_unknown">#e1f96a51</color>
+    <color name="network_type_unknown_soft">#78f96a51</color>
 </resources>

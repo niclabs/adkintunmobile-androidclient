@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <PreferenceCategory
+        android:title="@string/settings_app_data_category"
+        >
+        <Preference
+            android:key="@string/settings_app_data_quota_total_key"
+            android:title="@string/settings_app_data_quota_total_title"
+            />
+        <Preference
+            android:key="@string/settings_app_day_of_recharge_key"
+            android:title="@string/settings_app_day_of_recharge_title"
+            />
+        <Preference
+            android:key="@string/settings_app_data_clean_ip_location_cache_key"
+            android:title="@string/settings_app_data_clean_ip_location_cache_title"
+            />
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:title="@string/settings_sampling_category"
+        android:key="@string/settings_sampling_category_key"
+        >
+        <EditTextPreference
+            android:key="@string/settings_sampling_hostname_key"
+            android:title="@string/settings_sampling_hostname_title"
+            android:defaultValue="@string/adkintun_hostname_default"
+            android:editable="true"
+            />
+        <ListPreference
+            android:key="@string/settings_sampling_frequency_key"
+            android:title="@string/settings_sampling_frequency_title"
+            android:dialogTitle="@string/settings_sampling_frequency_title"
+            android:defaultValue="30"
+            android:summary="%s"
+            android:entries="@array/sync_sampling_frequency"
+            android:entryValues="@array/sync_sampling_frequency_values"
+            />
+        <Preference
+            android:key="@string/settings_sampling_lastsync_key"
+            android:title="@string/settings_sampling_lastsync_title"
+            />
+    </PreferenceCategory>
+    <PreferenceCategory
+        android:title="@string/settings_app_category"
+        >
+        <Preference
+            android:key="@string/settings_app_version_key"
+            android:title="@string/settings_app_version_title"
+            android:summary="@string/settings_app_version_default"
+            android:defaultValue="@string/settings_app_version_default"
+            />
+    </PreferenceCategory>
+</PreferenceScreen>

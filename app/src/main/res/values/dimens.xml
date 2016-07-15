@@ -2,4 +2,37 @@
     <!-- Default screen margins, per the Android Design guidelines. -->
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
+
+
+    <dimen name="app_traffic_icon_width">50dp</dimen>
+    <dimen name="app_traffic_icon_height">50dp</dimen>
+
+    <dimen name="separation_little">8dp</dimen>
+    <dimen name="separation_min">2dp</dimen>
+
+    <!-- DoughnutChart Visualization Sizes -->
+    <dimen name="connected_time_clock">300dp</dimen>
+    <dimen name="connected_time_doughnut">230dp</dimen>
+
+
+    <!-- Navidation Drawer -->
+    <dimen name="navigation_drawer_header">130dp</dimen>
+    <dimen name="navigation_drawer_header_logo">50dp</dimen>
+
+    <!-- Toolbar -->
+    <dimen name="extended_toolbar_dashboard_height">190dp</dimen>
+    <dimen name="adkintun_icon_toolbar">90dp</dimen>
+
+    <!-- About us -->
+    <dimen name="aboutus_adk_logo_height">70dp</dimen>
+    <dimen name="aboutus_institutions_logo_height">50dp</dimen>
+
+    <!-- Status -->
+    <dimen name="text_info_data_quota">14sp</dimen>
+    <dimen name="margin_horizontal_info_data_quota">14dp</dimen>
+
+    <!--ShowCaseView-->
+    <dimen name="dashboard_first_target_y">112dp</dimen>
+
+    <dimen name="Large">22sp</dimen>
 </resources>

@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="sync_sampling_frequency">
+        <item>Cada 1 Minuto</item>
+        <item>Cada 2 Minutos</item>
+        <item>Cada 5 Minutos</item>
+        <item>Cada 10 Minutos</item>
+        <item>Cada 30 Minutos</item>
+    </string-array>
+    <string-array name="sync_sampling_frequency_values">
+        <item>1</item>
+        <item>2</item>
+        <item>5</item>
+        <item>10</item>
+        <item>30</item>
+    </string-array>
+
+    <!-- Doughnut Chart -->
+    <string-array name="day_of_week">
+        <item>DOMINGO</item>
+        <item>LUNES</item>
+        <item>MARTES</item>
+        <item>MIÉRCOLES</item>
+        <item>JUEVES</item>
+        <item>VIERNES</item>
+        <item>SÁBADO</item>
+    </string-array>
+    <string-array name="month_of_year">
+        <item>ENE</item>
+        <item>FEB</item>
+        <item>MAR</item>
+        <item>ABR</item>
+        <item>MAY</item>
+        <item>JUN</item>
+        <item>JUL</item>
+        <item>AGO</item>
+        <item>SEP</item>
+        <item>OCT</item>
+        <item>NOV</item>
+        <item>DIC</item>
+    </string-array>
+
+    <!-- Network Type Legend -->
+    <array name="network_type_legend_icons">
+        <item>@drawable/ic_10_nored</item>
+        <item>@drawable/ic_04_g</item>
+        <item>@drawable/ic_05_edge</item>
+        <item>@drawable/ic_06_3g</item>
+        <item>@drawable/ic_07_h</item>
+        <item>@drawable/ic_08_hp</item>
+        <item>@drawable/ic_09_4g</item>
+    </array>
+    <array name="network_type_legend_colors">
+        <item>@color/network_type_unknown</item>
+        <item>@color/network_type_G</item>
+        <item>@color/network_type_E</item>
+        <item>@color/network_type_3G</item>
+        <item>@color/network_type_H</item>
+        <item>@color/network_type_Hp</item>
+        <item>@color/network_type_4G</item>
+    </array>
+    <array name="network_type_legend_colors_soft">
+        <item>@color/network_type_unknown_soft</item>
+        <item>@color/network_type_G_soft</item>
+        <item>@color/network_type_E_soft</item>
+        <item>@color/network_type_3G_soft</item>
+        <item>@color/network_type_H_soft</item>
+        <item>@color/network_type_Hp_soft</item>
+        <item>@color/network_type_4G_soft</item>
+    </array>
+
+    <!-- Connection Mode Legend -->
+    <array name="connection_mode_legend_icons">
+        <item>@drawable/ic_03_nowifi</item>
+        <item>@drawable/ic_02_mobile</item>
+        <item>@drawable/ic_01_wifi</item>
+    </array>
+    <array name="connection_mode_legend_colors">
+        <item>@color/doughnut_no_connection</item>
+        <item>@color/doughnut_mobile</item>
+        <item>@color/doughnut_wifi</item>
+    </array>
+    <array name="connection_mode_legend_colors_soft">
+        <item>@color/doughnut_no_connection_soft</item>
+        <item>@color/doughnut_mobile_soft</item>
+        <item>@color/doughnut_wifi_soft</item>
+    </array>
+
+    <!-- Data Quotas -->
+    <string-array name="data_quotas">
+        <item>100000000</item>
+        <item>200000000</item>
+        <item>250000000</item>
+        <item>300000000</item>
+        <item>400000000</item>
+        <item>500000000</item>
+        <item>600000000</item>
+        <item>700000000</item>
+        <item>750000000</item>
+        <item>800000000</item>
+        <item>900000000</item>
+        <item>1000000000</item>
+        <item>1500000000</item>
+        <item>2000000000</item>
+        <item>2500000000</item>
+        <item>3000000000</item>
+        <item>3500000000</item>
+        <item>4000000000</item>
+        <item>5000000000</item>
+        <item>10000000000</item>
+        <item>15000000000</item>
+    </string-array>
+
+    <!-- Operators -->
+    <string-array name="mobile_operators">
+        <item>claro</item>
+        <item>entel</item>
+        <item>falabella</item>
+        <item>gtd</item>
+        <item>movistar</item>
+        <item>nextel</item>
+        <item>virgin</item>
+        <item>vtr</item>
+        <item>wom</item>
+    </string-array>
+
+
+    <!-- Pasos Tutoriales  -->
+    <!-- Dashboard-->
+    <string-array name="tutorial_dashboard_title">
+        <item>Hola!</item>
+        <item>"Tu Estado Ahora"</item>
+        <item>Antena</item>
+        <item>SIM</item>
+        <item>Señal</item>
+        <item>Internet</item>
+        <item>Tarjetas</item>string>
+        <item>Menu Principal</item>
+        <item>Adkintun Mobile</item>
+    </string-array>
+    <string-array name="tutorial_dashboard_body">
+        <item>Bienvenido a Adkintiun Mobile, tu aplicación de monitoreo de internet.\n\nEn el siguiente recorrido se describen las principales vistas de la aplicación.</item>
+        <item>Aquí se muestra un resumen del estado actual de la conexión del teléfono.</item>
+        <item>Indica el nombre del proveedor de servicio que administra la antena a la que estás actualmente conectado.</item>
+        <item>Indica el nombre del proveedor de servicio asociado a tu tarjeta SIM.</item>
+        <item>Reporta la generación tecnológica asociada a la señal actual de tu equipo. Más G es mejor.</item>
+        <item>Indica qué tipo de conexión está usando tu equipo en este momento (WiFi/Móvil).</item>
+        <item>En esta parte se muestran tarjetas con información resumida de las distintas funcionalidades de la aplicación. Para más detalle puedes hacer click en cada una.</item>
+        <item>En el menú principal puedes acceder a cada una de las funcionalidades completas de la aplicación.</item>
+        <item>Para más detalles, presiona el ícono de información <node>&#x24D8;</node> en cada una de las vistas de la aplicación.</item>
+    </string-array>
+
+    <!-- Status -->
+    <string-array name="tutorial_status_title">
+        <item>Tu Estado</item>
+        <item>"Tu Internet"</item>
+        <item>"Tu SIM"</item>
+        <item>"Tu Red"</item>
+        <item>"Tu consumo Diario"</item>
+        <item>"Tu consumo Mensual"</item>
+    </string-array>
+    <string-array name="tutorial_status_body">
+        <item>La vista "Tu Estado" incluye información completa respecto a tu conexión actual y el consumo de tus datos móviles.</item>
+        <item>Indica información sobre tu salida actual de datos.\nSi estás usando datos móviles, se indica la tecnología de transmisión de datos.</item>
+        <item>Indica el nombre del proveedor de servicio asociado a tu tarjeta SIM.</item>
+        <item>Indica el nombre del proveedor de servicio que administra la antena a la que estás actualmente conectado.</item>
+        <item>Muestra información sobre la cantidad de datos subidos y bajados usando datos móviles de tu plan de Internet durante el día de hoy.</item>
+        <item>Muestra información sobre la cantidad de datos subidos y bajados usando datos móviles de tu plan de Internet durante el mes en curso.\nPuedes configurarlo con tu plan de datos para regular qué porcentaje de datos has ocupado.</item>
+    </string-array>
+
+    <!-- Connection Mode -->
+    <string-array name="tutorial_connection_mode_title">
+        <item>Tipo de Conexión</item>
+        <item>Reloj</item>
+        <item>Leyenda</item>
+        <item>Registros Previos</item>
+    </string-array>
+    <string-array name="tutorial_connection_mode_body">
+        <item>La vista "Tipo de Conexión" visualiza los modos de conexion que ha usado tu teléfono para acceder a Internet.</item>
+        <item>Se muestra un reloj de 24 horas donde se reconocen los principales cambios de conexión sufridos a lo largo del día.</item>
+        <item>Se incluye un resumen con el total de tiempo conectado por cada modo.\nPuedes mantener presionado en un tipo de conexión para destacarlo en el reloj.</item>
+        <item>Finalmente, puedes seleccionar una fecha en particular para ver los registros asociados a dicho día.</item>
+    </string-array>
+
+    <!-- Connection Mode -->
+    <string-array name="tutorial_network_type_title">
+        <item>Tipo de Señal</item>
+        <item>Reloj</item>
+        <item>Leyenda</item>
+        <item>Registros Previos</item>
+    </string-array>
+    <string-array name="tutorial_network_type_body">
+        <item>La vista "Tipo de Señal" visualiza los cambios de red que ha experimentado tu teléfono a lo largo de un día.\n\nEl tipo de señal influye directamente en tu calidad de acceso a datos móviles.</item>
+        <item>Se muestra un reloj de 24 horas donde se reconocen los principales cambios de conexión sufridos a lo largo del día.</item>
+        <item>Se incluye un resumen con el total de tiempo conectado por cada modo.\nPuedes mantener presionado en un tipo de conexión para destacarlo en el reloj.</item>
+        <item>Finalmente, puedes seleccionar una fecha en particular para ver los registros asociados a dicho día.</item>
+    </string-array>
+
+    <!-- applications traffic -->
+    <string-array name="tutorial_application_traffic_title">
+        <item>Tráfico por Aplicación</item>
+        <item>Tipo de Consumo de datos</item>
+        <item>Listado de Aplicaciones</item>
+        <item>Registros Previos</item>
+    </string-array>
+    <string-array name="tutorial_application_traffic_body">
+        <item>La vista "Tráfico por Aplicación" muestra el consumo de datos que han efectuado las aplicaciones instaladas en tu equipo.</item>
+        <item>El consumo de las aplicaciones está separado según si usaron datos móviles o WiFi.</item>
+        <item>Aquí se listan las aplicaciones con consumo de datos, diferenciando la cantidad de datos subidos y bajados. Las aplicaciones se muestran ordenadas desde la de mayor a la de menor descarga de datos. Dale click para más información.</item>
+        <item>Finalmente, puedes seleccionar una fecha en particular para ver los registros acumulados a partir de dicho día.</item>
+    </string-array>
+
+    <!-- Active Connections -->
+    <string-array name="tutorial_active_connections_title">
+        <item>Conexiones Activas</item>
+        <item>Listado de Aplicaciones</item>
+    </string-array>
+    <string-array name="tutorial_active_connections_body">
+        <item>La vista "Conexiones Activas" muestra las aplicaciones que reportan conexiones a Intenet activas en este instante.</item>
+        <item>De cada aplicación se muestra el total de conexiones operativas.\nAl hacer click en una aplicación se levanta un mapa que muestra la ubicación geográfica de los servidores a donde se están enviando los datos.</item>
+    </string-array>
+
+</resources>
