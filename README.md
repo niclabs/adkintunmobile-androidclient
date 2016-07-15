@@ -19,4 +19,4 @@ La aplicación está construida empleando las siguientes librerías:
 - [**ShowcaseView**](https://github.com/amlcurran/ShowcaseView) Para tutorial de vistas
 
 ## Licencia
-Especificación de la licencia del software...
+Pendiente.
