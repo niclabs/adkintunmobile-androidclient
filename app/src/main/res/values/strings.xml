@@ -35,7 +35,6 @@
     <string name="settings_sampling_hostname_key">sync_hostname</string>
     <string name="settings_sampling_hostname_title">Dirección del servidor</string>
     <string name="settings_sampling_hostname_summary">Especificar dirección de servidor de datos</string>
-    <string name="settings_sampling_hostname_default">http://172.30.65.207:5000</string>
     <string name="settings_sampling_hostname_token_key">Authorization</string>
     <string name="settings_sampling_frequency_key">sync_frequency</string>
     <string name="settings_sampling_frequency_title">Frencuencia de envío</string>
@@ -45,7 +44,7 @@
     <string name="settings_app_category">Aplicación</string>
     <string name="settings_app_version_key">app_version</string>
     <string name="settings_app_version_title">Versión de la aplicación</string>
-    <string name="settings_app_version_default">2.0a</string>
+    <string name="settings_app_version_default">2.0b</string>
 
     <!-- Dashboard -->
     <string name="view_dashboard_toolbar_slogan">Tu Estado Ahora</string>

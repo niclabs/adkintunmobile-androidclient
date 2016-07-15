@@ -25,7 +25,7 @@
         <EditTextPreference
             android:key="@string/settings_sampling_hostname_key"
             android:title="@string/settings_sampling_hostname_title"
-            android:defaultValue="@string/settings_sampling_hostname_default"
+            android:defaultValue="@string/adkintun_hostname_default"
             android:editable="true"
             />
         <ListPreference

@@ -114,7 +114,7 @@ public class DispatcherDataBroadcastReceiver extends BroadcastReceiver{
         final String requestURL =
                 sharedPreferences.getString(
                         context.getString(R.string.settings_sampling_hostname_key),
-                        context.getString(R.string.settings_sampling_hostname_default));
+                        context.getString(R.string.adkintun_hostname_default));
 
         // Creación multipart request
         HttpMultipartRequest multipartRequest =
