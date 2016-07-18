@@ -205,11 +205,11 @@ public class StatusActivity extends AppCompatActivity {
 
 
         long totalMonthlyQuota = this.monthlyDataQuota;
-        int monthlyQuotaPercentage = (int) (100 * this.rxMonthlyMobile /totalMonthlyQuota);
+        int monthlyQuotaPercentage = (int) (100 * (this.rxMonthlyMobile + this.txMonthlyMobile) /totalMonthlyQuota);
         ((ProgressBar)findViewById(R.id.pb_mobile_data_consumption)).setProgress(monthlyQuotaPercentage);
         ((TextView)findViewById(R.id.tv_data_quota_percentage)).setText(monthlyQuotaPercentage + "%");
 
-        ((TextView)findViewById(R.id.tv_used_data_quota)).setText(Network.formatBytes(this.rxMonthlyMobile));
+        ((TextView)findViewById(R.id.tv_used_data_quota)).setText(Network.formatBytes(this.rxMonthlyMobile + this.txMonthlyMobile));
         ((TextView)findViewById(R.id.tv_available_data_quota)).setText(Network.formatBytes(totalMonthlyQuota));
 
 
