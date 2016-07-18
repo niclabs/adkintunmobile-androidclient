@@ -15,6 +15,7 @@
         <Preference
             android:key="@string/settings_app_data_clean_ip_location_cache_key"
             android:title="@string/settings_app_data_clean_ip_location_cache_title"
+            android:summary="@string/settings_app_data_clean_ip_location_cache_summary"
             />
     </PreferenceCategory>
 
