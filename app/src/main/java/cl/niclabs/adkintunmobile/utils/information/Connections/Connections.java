@@ -1,4 +1,4 @@
-package cl.niclabs.adkintunmobile.utils.information;
+package cl.niclabs.adkintunmobile.utils.information.Connections;
 
 
 import android.content.Context;
@@ -10,7 +10,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class SystemSockets {
+public class Connections {
 
     static final private String TCP_PATH = "/proc/net/tcp";
     static final private String UDP_PATH = "/proc/net/udp";
@@ -23,7 +23,7 @@ public class SystemSockets {
     }
 
     /**
-     * Retorna un número constante de la clase SystemSockets.java identificando el tipo de sockets rescatados
+     * Retorna un número constante de la clase Connections.java identificando el tipo de sockets rescatados
      * @param path
      * @return Type.{TCP, UDP, TCP6, UDP6}
      */
@@ -68,7 +68,7 @@ public class SystemSockets {
      */
     public static HashMap<String, Integer> getTCPActiveAppsConnections(Context context){
         HashMap<String, Integer> totals = new HashMap<String, Integer>();
-        for (SystemSocket socket : SystemSockets.getTCPSockets()){
+        for (SystemSocket socket : Connections.getTCPSockets()){
             if (!totals.containsKey(socket.getAppName(context)))
                 totals.put(socket.getAppName(context), 0);
             totals.put(socket.getAppName(context), totals.get(socket.getAppName(context)) + 1);
@@ -81,7 +81,7 @@ public class SystemSockets {
      */
     public static HashMap<String, Integer> getUDPActiveAppsConnections(Context context){
         HashMap<String, Integer> totals = new HashMap<String, Integer>();
-        for (SystemSocket socket : SystemSockets.getUDPSockets()){
+        for (SystemSocket socket : Connections.getUDPSockets()){
             if (!totals.containsKey(socket.getAppName(context)))
                 totals.put(socket.getAppName(context), 0);
             totals.put(socket.getAppName(context), totals.get(socket.getAppName(context)) + 1);
@@ -101,7 +101,7 @@ public class SystemSockets {
             socketInfoReader.readLine(); // Skip header
 
             while (( line = socketInfoReader.readLine() ) != null) {
-                SystemSocket currentConnection = new SystemSocket(line, SystemSockets.getSocketTypeByPath(path));
+                SystemSocket currentConnection = new SystemSocket(line, Connections.getSocketTypeByPath(path));
                 if ( currentConnection.isOutsideActiveConnection() ){
                     sockets.add(currentConnection);
                 }

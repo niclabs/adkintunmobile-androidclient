@@ -28,8 +28,8 @@ import java.util.List;
 import cl.niclabs.adkintunmobile.R;
 import cl.niclabs.adkintunmobile.utils.display.DisplayManager;
 import cl.niclabs.adkintunmobile.utils.display.ShowCaseTutorial;
-import cl.niclabs.adkintunmobile.utils.information.SystemSocket;
-import cl.niclabs.adkintunmobile.utils.information.SystemSockets;
+import cl.niclabs.adkintunmobile.utils.information.Connections.Connections;
+import cl.niclabs.adkintunmobile.utils.information.Connections.SystemSocket;
 
 public class ActiveConnectionsActivity extends AppCompatActivity {
 
@@ -60,8 +60,8 @@ public class ActiveConnectionsActivity extends AppCompatActivity {
 
                 // Recuperar datos
                 activeSockets = new ArrayList<ActiveConnectionListElement>();
-                AddListElements(activeSockets, SystemSockets.getTCPSockets());
-                AddListElements(activeSockets, SystemSockets.getUDPSockets());
+                AddListElements(activeSockets, Connections.getTCPSockets());
+                AddListElements(activeSockets, Connections.getUDPSockets());
 
                 runOnUiThread(new Runnable() {
                     @Override
@@ -132,8 +132,8 @@ public class ActiveConnectionsActivity extends AppCompatActivity {
 
     private void updateActiveConnections() {
         this.activeSockets.clear();
-        AddListElements(activeSockets, SystemSockets.getTCPSockets());
-        AddListElements(activeSockets, SystemSockets.getUDPSockets());
+        AddListElements(activeSockets, Connections.getTCPSockets());
+        AddListElements(activeSockets, Connections.getUDPSockets());
         this.listAdapter.notifyDataSetChanged();
     }
 

@@ -9,8 +9,8 @@ import android.graphics.drawable.Drawable;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import cl.niclabs.adkintunmobile.utils.information.SystemSocket;
-import cl.niclabs.adkintunmobile.utils.information.SystemSockets;
+import cl.niclabs.adkintunmobile.utils.information.Connections.Connections;
+import cl.niclabs.adkintunmobile.utils.information.Connections.SystemSocket;
 
 public class ActiveConnectionListElement {
 
@@ -18,7 +18,7 @@ public class ActiveConnectionListElement {
     private String label;
     private Drawable logo;
     private int uid;
-    private HashMap<SystemSockets.Type, ArrayList<String>> connAddress;
+    private HashMap<Connections.Type, ArrayList<String>> connAddress;
 
 
     public ActiveConnectionListElement(Context context, SystemSocket systemSocket) {
@@ -42,8 +42,8 @@ public class ActiveConnectionListElement {
         }
 
         // Setup map
-        this.connAddress = new HashMap<SystemSockets.Type, ArrayList<String>>();
-        for (SystemSockets.Type type : SystemSockets.Type.values()){
+        this.connAddress = new HashMap<Connections.Type, ArrayList<String>>();
+        for (Connections.Type type : Connections.Type.values()){
             this.connAddress.put(type, new ArrayList<String>());
         }
         this.addConnection(systemSocket);
@@ -65,19 +65,19 @@ public class ActiveConnectionListElement {
         return logo;
     }
 
-    public ArrayList<String> getIpConnections(SystemSockets.Type type){
+    public ArrayList<String> getIpConnections(Connections.Type type){
         return connAddress.get(type);
     }
 
     public int getTotalActiveConnections(){
         int total = 0;
-        for (SystemSockets.Type type : SystemSockets.Type.values()){
+        for (Connections.Type type : Connections.Type.values()){
             total += this.connAddress.get(type).size();
         }
         return total;
     }
 
-    public int getSpecificTotalActiveConnection(SystemSockets.Type type){
+    public int getSpecificTotalActiveConnection(Connections.Type type){
         return this.connAddress.get(type).size();
     }
 
