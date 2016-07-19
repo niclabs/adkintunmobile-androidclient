@@ -94,7 +94,7 @@
 -keep public enum cl.niclabs.adkmobile.monitor.data.constants.NetworkState{*;}
 -keep public enum cl.niclabs.adkmobile.monitor.data.constants.ConnectionType{*;}
 -keep public enum cl.niclabs.adkmobile.monitor.data.constants.TelephonyStandard{*;}
--keep public enum cl.niclabs.adkintunmobile.utils.information.SystemSockets.Type{*;}
+-keep public enum cl.niclabs.adkintunmobile.utils.information.Connections.Connections.Type{*;}
 
 
 # Remove logging

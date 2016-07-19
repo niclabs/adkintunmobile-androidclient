@@ -1,4 +1,4 @@
-package cl.niclabs.adkintunmobile.utils.information;
+package cl.niclabs.adkintunmobile.utils.information.Connections;
 
 import android.content.Context;
 import android.content.pm.ApplicationInfo;
@@ -15,7 +15,7 @@ public class SystemSocket {
     static final private Pattern fieldsPattern = Pattern.compile("^\\s*(\\d+): ([0-9A-F]+):(....) ([0-9A-F]+):(....) (..) (?:\\S+ ){3}\\s*(\\d+)\\s+\\d+\\s+(\\d+).*$");
 
     //private String slot;
-    private SystemSockets.Type type;
+    private Connections.Type type;
     private String localAddress;
     private int localPort;
     private String remoteAddress;
@@ -24,7 +24,7 @@ public class SystemSocket {
     private int uid;
     private String inode;
 
-    public SystemSocket(String line, SystemSockets.Type type) {
+    public SystemSocket(String line, Connections.Type type) {
         Matcher match = fieldsPattern.matcher(line);
         match.lookingAt();
 
@@ -68,7 +68,7 @@ public class SystemSocket {
 
     @Override
     public String toString() {
-        return "SystemSockets.Socket(" +
+        return "Connections.Socket(" +
                 "localAddress = " + localAddress +
                 ", localPort = " + getLocalPort() +
                 ", remoteAddress = " + remoteAddress +
@@ -86,7 +86,7 @@ public class SystemSocket {
         return localPort;
     }
 
-    public SystemSockets.Type getType() {
+    public Connections.Type getType() {
         return type;
     }
 
