@@ -27,6 +27,7 @@ import java.util.List;
 
 import cl.niclabs.adkintunmobile.R;
 import cl.niclabs.adkintunmobile.utils.display.DisplayManager;
+import cl.niclabs.adkintunmobile.utils.display.ShowCaseTutorial;
 import cl.niclabs.adkintunmobile.utils.information.SystemSocket;
 import cl.niclabs.adkintunmobile.utils.information.SystemSockets;
 
@@ -178,40 +179,33 @@ public class ActiveConnectionsActivity extends AppCompatActivity {
         helpCounter = 0;
         final String[] tutorialTitle = getResources().getStringArray(R.array.tutorial_active_connections_title);
         final String[] tutorialBody = getResources().getStringArray(R.array.tutorial_active_connections_body);
+        Target firstTarget = new ViewTarget(toolbar.getChildAt(0));
+        View.OnClickListener onClickListener = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                helpCounter++;
+                Target mTarget;
 
-        showcaseView = new ShowcaseView.Builder(this)
-                .setTarget(new ViewTarget(toolbar.getChildAt(0)))
-                .setContentTitle(tutorialTitle[helpCounter])
-                .setContentText(tutorialBody[helpCounter])
-                .setStyle(R.style.CustomShowcaseTheme)
-                .setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        helpCounter++;
-                        Target mTarget = Target.NONE;
+                switch (helpCounter) {
+                    case 1:
+                        ListView mListView = (ListView)findViewById(R.id.list);
+                        if (mListView.getChildAt(0) != null) {
+                            mTarget = new ViewTarget(((ViewGroup) mListView.getChildAt(0)).getChildAt(0));
+                            showcaseView.setButtonText(getString(R.string.tutorial_close));
+                            break;
+                        } else
+                            helpCounter++;
 
-                        switch (helpCounter) {
-                            case 1:
-                                ListView mListView = (ListView)findViewById(R.id.list);
-                                if (mListView.getChildAt(0) != null) {
-                                    mTarget = new ViewTarget(((ViewGroup) mListView.getChildAt(0)).getChildAt(0));
-                                    showcaseView.setButtonText(getString(R.string.tutorial_close));
-                                    break;
-                                } else
-                                    helpCounter++;
+                    default:
+                        showcaseView.hide();
+                        return;
+                }
+                showcaseView.setContentTitle(tutorialTitle[helpCounter]);
+                showcaseView.setContentText(tutorialBody[helpCounter]);
+                showcaseView.setShowcase(mTarget, true);
+            }
+        };
 
-                            case 2:
-                                showcaseView.hide();
-                                return;
-                        }
-                        showcaseView.setContentTitle(tutorialTitle[helpCounter]);
-                        showcaseView.setContentText(tutorialBody[helpCounter]);
-                        showcaseView.setShowcase(mTarget, true);
-                    }
-                })
-                .withNewStyleShowcase()
-                .build();
-        showcaseView.setButtonText(getString(R.string.tutorial_next));
-        showcaseView.setHideOnTouchOutside(true);
+        showcaseView = ShowCaseTutorial.createViewTutorial(this, firstTarget, tutorialTitle, tutorialBody, onClickListener);
     }
 }

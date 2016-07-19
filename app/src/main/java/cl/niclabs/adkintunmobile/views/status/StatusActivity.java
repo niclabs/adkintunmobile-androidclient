@@ -35,6 +35,7 @@ import cl.niclabs.adkintunmobile.R;
 import cl.niclabs.adkintunmobile.data.persistent.visualization.ApplicationTraffic;
 import cl.niclabs.adkintunmobile.data.persistent.visualization.ConnectionModeSample;
 import cl.niclabs.adkintunmobile.utils.display.DisplayManager;
+import cl.niclabs.adkintunmobile.utils.display.ShowCaseTutorial;
 import cl.niclabs.adkintunmobile.utils.information.Network;
 import pl.pawelkleczkowski.customgauge.CustomGauge;
 
@@ -322,61 +323,52 @@ public class StatusActivity extends AppCompatActivity {
 
     private void showTutorial() {
         helpCounter = 0;
+        final NestedScrollView mScrollView = (NestedScrollView) findViewById(R.id.sv_activity_status);
         final String[] tutorialTitle = getResources().getStringArray(R.array.tutorial_status_title);
         final String[] tutorialBody = getResources().getStringArray(R.array.tutorial_status_body);
-        final NestedScrollView mScrollView = (NestedScrollView) findViewById(R.id.sv_activity_status);
+        Target firstTarget = new ViewTarget(toolbar.getChildAt(0));
+        View.OnClickListener onClickListener = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                helpCounter++;
+                Target mTarget;
 
-        showcaseView = new ShowcaseView.Builder(this)
-                .setTarget(new ViewTarget(toolbar.getChildAt(0)))
-                .setContentTitle(tutorialTitle[helpCounter])
-                .setContentText(tutorialBody[helpCounter])
-                .setStyle(R.style.CustomShowcaseTheme)
-                .setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        helpCounter++;
-                        showcaseView.setContentTitle("");
-                        showcaseView.setContentText("");
-                        Target mTarget = Target.NONE;
+                switch (helpCounter) {
+                    case 1:
+                        mScrollView.scrollTo(0, 0);
+                        mTarget = new ViewTarget(findViewById(R.id.tv_internet_interface));
+                        break;
 
-                        switch (helpCounter) {
-                            case 1:
-                                mScrollView.scrollTo(0, 0);
-                                mTarget = new ViewTarget(findViewById(R.id.tv_internet_interface));
-                                break;
+                    case 2:
+                        mTarget = new ViewTarget(findViewById(R.id.iv_sim));
+                        showcaseView.forceTextPosition(ShowcaseView.BELOW_SHOWCASE);
+                        break;
 
-                            case 2:
-                                mTarget = new ViewTarget(findViewById(R.id.iv_sim));
-                                showcaseView.forceTextPosition(ShowcaseView.BELOW_SHOWCASE);
-                                break;
+                    case 3:
+                        mTarget = new ViewTarget(findViewById(R.id.iv_antenna));
+                        break;
 
-                            case 3:
-                                mTarget = new ViewTarget(findViewById(R.id.iv_antenna));
-                                break;
+                    case 4:
+                        mScrollView.scrollTo(0, mScrollView.getBottom());
+                        mTarget = new ViewTarget(findViewById(R.id.gauge_daily_rx));
+                        break;
 
-                            case 4:
-                                mScrollView.scrollTo(0, mScrollView.getBottom());
-                                mTarget = new ViewTarget(findViewById(R.id.gauge_daily_rx));
-                                break;
+                    case 5:
+                        mTarget = new ViewTarget(findViewById(R.id.pb_mobile_data_consumption));
+                        showcaseView.forceTextPosition(ShowcaseView.ABOVE_SHOWCASE);
+                        showcaseView.setButtonText(getString(R.string.tutorial_close));
+                        break;
 
-                            case 5:
-                                mTarget = new ViewTarget(findViewById(R.id.pb_mobile_data_consumption));
-                                showcaseView.forceTextPosition(ShowcaseView.ABOVE_SHOWCASE);
-                                showcaseView.setButtonText(getString(R.string.tutorial_close));
-                                break;
+                    default:
+                        showcaseView.hide();
+                        return;
+                }
+                showcaseView.setShowcase(mTarget, true);
+                showcaseView.setContentTitle(tutorialTitle[helpCounter]);
+                showcaseView.setContentText(tutorialBody[helpCounter]);
+            }
+        };
 
-                            default:
-                                showcaseView.hide();
-                                return;
-                        }
-                        showcaseView.setShowcase(mTarget, true);
-                        showcaseView.setContentTitle(tutorialTitle[helpCounter]);
-                        showcaseView.setContentText(tutorialBody[helpCounter]);
-                    }
-                })
-                .withNewStyleShowcase()
-                .build();
-        showcaseView.setButtonText(getString(R.string.tutorial_next));
-        showcaseView.setHideOnTouchOutside(true);
+        showcaseView = ShowCaseTutorial.createViewTutorial(this, firstTarget, tutorialTitle, tutorialBody, onClickListener);
     }
 }

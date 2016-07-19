@@ -31,6 +31,7 @@ import cl.niclabs.adkintunmobile.R;
 import cl.niclabs.adkintunmobile.data.persistent.visualization.ApplicationTraffic;
 import cl.niclabs.adkintunmobile.utils.display.DisplayDateManager;
 import cl.niclabs.adkintunmobile.utils.display.DisplayManager;
+import cl.niclabs.adkintunmobile.utils.display.ShowCaseTutorial;
 
 public class ApplicationsTrafficActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
 
@@ -200,57 +201,50 @@ public class ApplicationsTrafficActivity extends AppCompatActivity implements Da
         helpCounter = 0;
         final String[] tutorialTitle = getResources().getStringArray(R.array.tutorial_application_traffic_title);
         final String[] tutorialBody = getResources().getStringArray(R.array.tutorial_application_traffic_body);
+        Target firstTarget = new ViewTarget(toolbar.getChildAt(0));
+        View.OnClickListener onClickListener = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                TabLayout mTabLayout = (TabLayout) findViewById(R.id.tabs);
+                ViewGroup tabs = ((ViewGroup) mTabLayout.getChildAt(0));
+                helpCounter++;
+                Target mTarget;
 
-        showcaseView = new ShowcaseView.Builder(this)
-                .setTarget(new ViewTarget(toolbar.getChildAt(0)))
-                .setContentTitle(tutorialTitle[helpCounter])
-                .setContentText(tutorialBody[helpCounter])
-                .setStyle(R.style.CustomShowcaseTheme)
-                .setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        TabLayout mTabLayout = (TabLayout) findViewById(R.id.tabs);
-                        ViewGroup tabs = ((ViewGroup) mTabLayout.getChildAt(0));
-                        helpCounter++;
-                        Target mTarget = Target.NONE;
+                switch (helpCounter) {
+                    case 1:
+                        int activeTabIndex = mTabLayout.getSelectedTabPosition();
+                        mTarget = new ViewTarget(tabs.getChildAt(activeTabIndex));
+                        break;
 
-                        switch (helpCounter) {
-                            case 1:
-                                int activeTabIndex = mTabLayout.getSelectedTabPosition();
-                                mTarget = new ViewTarget(tabs.getChildAt(activeTabIndex));
-                                break;
+                    case 2:
+                        ViewPager mViewPager = (ViewPager) findViewById(R.id.viewpager);
+                        int activeListFragmentIndex = mViewPager.getCurrentItem();
+                        ListView mListView = (ListView) mViewPagerAdapter.getItem(activeListFragmentIndex).getView().findViewById(R.id.list_view_traffic);
+                        if (mListView.getChildAt(0) != null) {
+                            if (mListView.getChildAt(1) != null) {
+                                mTarget = new ViewTarget(((ViewGroup)((ViewGroup) mListView.getChildAt(1)).getChildAt(1)).getChildAt(0));
+                            } else
+                                mTarget = new ViewTarget(((ViewGroup)((ViewGroup) mListView.getChildAt(0)).getChildAt(1)).getChildAt(0));
+                            break;
+                        } else
+                            helpCounter++;
 
-                            case 2:
-                                ViewPager mViewPager = (ViewPager) findViewById(R.id.viewpager);
-                                int activeListFragmentIndex = mViewPager.getCurrentItem();
-                                ListView mListView = (ListView) mViewPagerAdapter.getItem(activeListFragmentIndex).getView().findViewById(R.id.list_view_traffic);
-                                if (mListView.getChildAt(0) != null) {
-                                    if (mListView.getChildAt(1) != null) {
-                                        mTarget = new ViewTarget(((ViewGroup)((ViewGroup) mListView.getChildAt(1)).getChildAt(1)).getChildAt(0));
-                                    } else
-                                        mTarget = new ViewTarget(((ViewGroup)((ViewGroup) mListView.getChildAt(0)).getChildAt(1)).getChildAt(0));
-                                    break;
-                                } else
-                                    helpCounter++;
+                    case 3:
+                        mTarget = new ViewTarget(findViewById(R.id.menu_date_picker_btn));
+                        showcaseView.setButtonText(getString(R.string.tutorial_close));
+                        break;
 
-                            case 3:
-                                mTarget = new ViewTarget(findViewById(R.id.menu_date_picker_btn));
-                                showcaseView.setButtonText(getString(R.string.tutorial_close));
-                                break;
+                    default:
+                        showcaseView.hide();
+                        return;
+                }
+                showcaseView.setContentTitle(tutorialTitle[helpCounter]);
+                showcaseView.setContentText(tutorialBody[helpCounter]);
+                showcaseView.setShowcase(mTarget, true);
+            }
+        };
 
-                            case 4:
-                                showcaseView.hide();
-                                return;
-                        }
-                        showcaseView.setContentTitle(tutorialTitle[helpCounter]);
-                        showcaseView.setContentText(tutorialBody[helpCounter]);
-                        showcaseView.setShowcase(mTarget, true);
-                    }
-                })
-                .withNewStyleShowcase()
-                .build();
-        showcaseView.setButtonText(getString(R.string.tutorial_next));
-        showcaseView.setHideOnTouchOutside(true);
+        showcaseView = ShowCaseTutorial.createViewTutorial(this, firstTarget, tutorialTitle, tutorialBody, onClickListener);
     }
 
     @Override

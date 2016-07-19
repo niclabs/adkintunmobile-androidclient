@@ -15,6 +15,7 @@ import com.github.amlcurran.showcaseview.targets.ViewTarget;
 import cl.niclabs.adkintunmobile.R;
 import cl.niclabs.adkintunmobile.data.chart.StatisticInformation;
 import cl.niclabs.adkintunmobile.utils.display.DoughnutChart;
+import cl.niclabs.adkintunmobile.utils.display.ShowCaseTutorial;
 import cl.niclabs.adkintunmobile.views.connectiontype.ConnectionTypeActivity;
 
 public class ConnectionModeActivity extends ConnectionTypeActivity {
@@ -73,45 +74,38 @@ public class ConnectionModeActivity extends ConnectionTypeActivity {
         helpCounter = 0;
         final String[] tutorialTitle = getResources().getStringArray(R.array.tutorial_connection_mode_title);
         final String[] tutorialBody = getResources().getStringArray(R.array.tutorial_connection_mode_body);
+        Target firstTarget = new ViewTarget(toolbar.getChildAt(0));
+        View.OnClickListener onClickListener = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                helpCounter++;
+                Target mTarget;
 
-        showcaseView = new ShowcaseView.Builder(this)
-                .setTarget(new ViewTarget(toolbar.getChildAt(0)))
-                .setContentTitle(tutorialTitle[helpCounter])
-                .setContentText(tutorialBody[helpCounter])
-                .setStyle(R.style.CustomShowcaseTheme)
-                .setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        helpCounter++;
-                        Target mTarget = Target.NONE;
+                switch (helpCounter) {
+                    case 1:
+                        mTarget = new ViewTarget(findViewById(R.id.layout_time));
+                        break;
 
-                        switch (helpCounter) {
-                            case 1:
-                                mTarget = new ViewTarget(findViewById(R.id.layout_time));
-                                break;
+                    case 2:
+                        View mView = ((TableLayout) findViewById(R.id.time_info_table_layout)).getChildAt(0);
+                        mTarget = new ViewTarget(((TableRow) mView).getChildAt(0));
+                        break;
 
-                            case 2:
-                                View mView = ((TableLayout) findViewById(R.id.time_info_table_layout)).getChildAt(0);
-                                mTarget = new ViewTarget(((TableRow) mView).getChildAt(0));
-                                break;
+                    case 3:
+                        mTarget = new ViewTarget(findViewById(R.id.menu_date_picker_btn));
+                        showcaseView.setButtonText(getString(R.string.tutorial_close));
+                        break;
 
-                            case 3:
-                                mTarget = new ViewTarget(findViewById(R.id.menu_date_picker_btn));
-                                showcaseView.setButtonText(getString(R.string.tutorial_close));
-                                break;
+                    default:
+                        showcaseView.hide();
+                        return;
+                }
+                showcaseView.setContentTitle(tutorialTitle[helpCounter]);
+                showcaseView.setContentText(tutorialBody[helpCounter]);
+                showcaseView.setShowcase(mTarget, true);
+            }
+        };
 
-                            case 4:
-                                showcaseView.hide();
-                                return;
-                        }
-                        showcaseView.setContentTitle(tutorialTitle[helpCounter]);
-                        showcaseView.setContentText(tutorialBody[helpCounter]);
-                        showcaseView.setShowcase(mTarget, true);
-                    }
-                })
-                .withNewStyleShowcase()
-                .build();
-        showcaseView.setButtonText(getString(R.string.tutorial_next));
-        showcaseView.setHideOnTouchOutside(true);
+        showcaseView = ShowCaseTutorial.createViewTutorial(this, firstTarget, tutorialTitle, tutorialBody, onClickListener);
     }
 }
