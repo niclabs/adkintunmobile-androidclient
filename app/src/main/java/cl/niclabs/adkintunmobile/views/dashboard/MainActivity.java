@@ -27,6 +27,7 @@ import cl.niclabs.adkintunmobile.R;
 import cl.niclabs.adkintunmobile.data.persistent.visualization.NewsNotification;
 import cl.niclabs.adkintunmobile.services.SetupSystem;
 import cl.niclabs.adkintunmobile.utils.display.NotificationManager;
+import cl.niclabs.adkintunmobile.utils.display.ShowCaseTutorial;
 import cl.niclabs.adkintunmobile.views.aboutus.AboutUsActivity;
 import cl.niclabs.adkintunmobile.views.activeconnections.ActiveConnectionsActivity;
 import cl.niclabs.adkintunmobile.views.applicationstraffic.ApplicationsTrafficActivity;
@@ -232,86 +233,78 @@ public class MainActivity extends AppCompatActivity {
         final String[] tutorialBody = getResources().getStringArray(R.array.tutorial_dashboard_body);
 
         Display display = getWindowManager().getDefaultDisplay();
+        Point firstPoint = new Point();
+        display.getSize(firstPoint);
+        firstPoint.y = (int) getResources().getDimension(R.dimen.dashboard_first_target_y);
+        firstPoint.x /= 2;
+        Target firstTarget = new PointTarget(firstPoint);
 
-        Point initialTarget = new Point();
+        View.OnClickListener onClickListener = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                helpCounter++;
+                Target mTarget;
 
-        display.getSize(initialTarget);
-        initialTarget.y = (int) getResources().getDimension(R.dimen.dashboard_first_target_y);
-        initialTarget.x /= 2;
+                switch (helpCounter) {
+                    case 1:
+                        mTarget = new ViewTarget(findViewById(R.id.shimmer_view_container));
+                        break;
 
-        showcaseView = new ShowcaseView.Builder(this)
-                .setTarget(new PointTarget(initialTarget))
-                .setContentTitle(tutorialTitle[helpCounter])
-                .setContentText(tutorialBody[helpCounter])
-                .setStyle(R.style.CustomShowcaseTheme)
-                .singleShot(37)
-                .setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        helpCounter++;
-                        Target mTarget = Target.NONE;
+                    case 2:
+                        mTarget = new ViewTarget(findViewById(R.id.tv_antenna));
+                        break;
 
-                        switch (helpCounter) {
-                            case 1:
-                                mTarget = new ViewTarget(findViewById(R.id.shimmer_view_container));
-                                break;
+                    case 3:
+                        mTarget = new ViewTarget(findViewById(R.id.tv_sim));
+                        break;
 
-                            case 2:
-                                mTarget = new ViewTarget(findViewById(R.id.tv_antenna));
-                                break;
+                    case 4:
+                        mTarget = new ViewTarget(findViewById(R.id.tv_signal));
+                        break;
 
-                            case 3:
-                                mTarget = new ViewTarget(findViewById(R.id.tv_sim));
-                                break;
+                    case 5:
+                        mTarget = new ViewTarget(findViewById(R.id.tv_internet));
+                        break;
 
-                            case 4:
-                                mTarget = new ViewTarget(findViewById(R.id.tv_signal));
-                                break;
+                    case 6:
+                        mTarget = new ViewTarget(findViewById(R.id.card_mobile_consumption));
+                        break;
 
-                            case 5:
-                                mTarget = new ViewTarget(findViewById(R.id.tv_internet));
-                                break;
+                    case 7:
+                        mDrawer.openDrawer(GravityCompat.START);
+                        Display display = getWindowManager().getDefaultDisplay();
+                        Point pointTarget = new Point();
 
-                            case 6:
-                                mTarget = new ViewTarget(findViewById(R.id.card_mobile_consumption));
-                                break;
+                        display.getSize(pointTarget);
+                        pointTarget.y = (int) getResources().getDimension(R.dimen.extended_toolbar_dashboard_height);
+                        pointTarget.x = 0;
+                        mTarget = new PointTarget(pointTarget);
+                        break;
 
-                            case 7:
-                                mDrawer.openDrawer(GravityCompat.START);
-                                Display display = getWindowManager().getDefaultDisplay();
-                                Point pointTarget = new Point();
+                    case 8:
+                        mDrawer.closeDrawers();
+                        mTarget = new ViewTarget(findViewById(R.id.iv_collapsable_toolbar_app_icon));
+                        showcaseView.setButtonText(getString(R.string.tutorial_close));
+                        break;
 
-                                display.getSize(pointTarget);
-                                pointTarget.y = (int) getResources().getDimension(R.dimen.extended_toolbar_dashboard_height);
-                                pointTarget.x = 0;
-                                mTarget = new PointTarget(pointTarget);
-                                break;
+                    default:
+                        showcaseView.hide();
+                        final FragmentManager fm = getSupportFragmentManager();
+                        DataQuotaDialog.showDialogPreference(fm, new DialogInterface.OnDismissListener() {
+                            @Override
+                            public void onDismiss(DialogInterface dialog) {
+                                DayOfRechargeDialog.showDialogPreference(fm, null);
+                            }
+                        });
+                        return;
+                }
+                showcaseView.setContentTitle(tutorialTitle[helpCounter]);
+                showcaseView.setContentText(tutorialBody[helpCounter]);
+                showcaseView.setShowcase(mTarget, true);
+            }
+        };
 
-                            case 8:
-                                mDrawer.closeDrawers();
-                                mTarget = new ViewTarget(findViewById(R.id.iv_collapsable_toolbar_app_icon));
-                                showcaseView.setButtonText(getString(R.string.tutorial_close));
-                                break;
-
-                            default:
-                                showcaseView.hide();
-                                final FragmentManager fm = getSupportFragmentManager();
-                                DataQuotaDialog.showDialogPreference(fm, new DialogInterface.OnDismissListener() {
-                                    @Override
-                                    public void onDismiss(DialogInterface dialog) {
-                                        DayOfRechargeDialog.showDialogPreference(fm, null);
-                                    }
-                                });
-                                return;
-                        }
-                        showcaseView.setContentTitle(tutorialTitle[helpCounter]);
-                        showcaseView.setContentText(tutorialBody[helpCounter]);
-                        showcaseView.setShowcase(mTarget, true);
-                    }
-                })
-                .withNewStyleShowcase()
-                .build();
-        showcaseView.setButtonText(getString(R.string.tutorial_next));
+        showcaseView = ShowCaseTutorial.createInitialTutorial(this, firstTarget, tutorialTitle, tutorialBody, onClickListener);
     }
 }
 
