@@ -73,7 +73,7 @@
     <string name="view_status_no_sim">Sin tarjeta SIM</string>
     <string name="view_status_no_antenna">Sin Red</string>
     <string name="view_status_sample_period">Periodo de muestreo: %1$s.</string>
-    <string name="view_status_monthly_sample_period">Periodo de muestreo: DESDE %1$s.</string>
+    <string name="view_status_monthly_sample_period">Periodo de muestreo: del %1$s al %2$s.</string>
 
     <string name="view_data_quota_dialog_title">Tu Plan de Datos</string>
     <string name="view_data_quota_dialog_description">Establece la cuota de navegación provista en tu plan de datos de tu proveedor de telefonía.</string>

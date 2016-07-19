@@ -52,7 +52,7 @@ public class StatusActivity extends AppCompatActivity {
     private long monthlyDataQuota;
     private String rxDailyMobileData, txDailyMobileData;
     private String rxMonthlyMobileData, txMonthlyMobileData;
-    private String currentMonth, currentDay;
+    private String currentMonth, currentDay, nextMonth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -167,28 +167,29 @@ public class StatusActivity extends AppCompatActivity {
 
     public void updateActivityView(Context context){
 
+        // Completando "Tu Internet"
         if(Network.getActiveNetwork(context) == ConnectionModeSample.MOBILE){
             ((TextView) findViewById(R.id.tv_internet_interface)).setText(R.string.view_connection_mode_mobile);
             ((ImageView)findViewById(R.id.iv_internet_type)).setImageResource(R.drawable.ic_02_mobile);
-            ((TextView) findViewById(R.id.tv_internet_network)).setText(Network.getConnectionDetails(context)[0]);
-            ((TextView) findViewById(R.id.tv_internet_state)).setText(Network.getConnectionDetails(context)[1]);
         }else if(Network.getActiveNetwork(context) == ConnectionModeSample.WIFI){
             ((TextView) findViewById(R.id.tv_internet_interface)).setText(R.string.view_connection_mode_wifi);
             ((ImageView)findViewById(R.id.iv_internet_type)).setImageResource(R.drawable.ic_01_wifi);
-            ((TextView) findViewById(R.id.tv_internet_network)).setText(Network.getConnectionDetails(context)[0]);
-            ((TextView) findViewById(R.id.tv_internet_state)).setText(Network.getConnectionDetails(context)[1]);
         }else {
             ((TextView) findViewById(R.id.tv_internet_interface)).setText(R.string.view_connection_mode_disconnected);
             ((ImageView)findViewById(R.id.iv_internet_type)).setImageResource(R.drawable.ic_03_nowifi);
-            ((TextView) findViewById(R.id.tv_internet_network)).setText(Network.getConnectionDetails(context)[0]);
-            ((TextView) findViewById(R.id.tv_internet_state)).setText(Network.getConnectionDetails(context)[1]);
         }
+        ((TextView) findViewById(R.id.tv_internet_network)).setText(Network.getConnectionDetails(context)[0]);
+        ((TextView) findViewById(R.id.tv_internet_state)).setText(Network.getConnectionDetails(context)[1]);
 
+        // Completando "Tu SIM"
         ((ImageView)findViewById(R.id.iv_sim)).setImageResource(Network.getSIMIntRes(context));
         ((TextView)findViewById(R.id.tv_sim)).setText(Network.getSimCarrier(context));
+
+        // Completando "Tu Red"
         ((ImageView)findViewById(R.id.iv_antenna)).setImageResource(Network.getConnectedCarrierIntRes(context));
         ((TextView)findViewById(R.id.tv_antenna)).setText(Network.getConnectedCarrrier(context));
 
+        // Completando Tu consumo diario"
         long totalDailyData = (this.rxDailyMobile +this.txDailyMobile) == 0 ? 1: (this.rxDailyMobile +this.txDailyMobile);
         ((CustomGauge)findViewById(R.id.gauge_daily_rx)).setValue((int) (100 * this.rxDailyMobile / totalDailyData));
         ((TextView)findViewById(R.id.tv_gauge_daily_rx)).setText(this.rxDailyMobileData);
@@ -196,26 +197,23 @@ public class StatusActivity extends AppCompatActivity {
         ((TextView)findViewById(R.id.tv_gauge_daily_tx)).setText(this.txDailyMobileData);
         ((TextView)findViewById(R.id.tv_daily_sample_period)).setText(String.format(getString(R.string.view_status_sample_period), this.currentDay));
 
-
-        long totalMonthlyData = (this.rxMonthlyMobile +this.txMonthlyMobile) == 0 ? 1: (this.rxMonthlyMobile +this.txMonthlyMobile);
-        ((CustomGauge)findViewById(R.id.gauge_monthly_rx)).setValue((int) (100 * this.rxMonthlyMobile / totalMonthlyData));
+        // Completando "Tu consumo mensual"
+        long totalMonthlyData = this.rxMonthlyMobile + this.txMonthlyMobile;
+        ((CustomGauge)findViewById(R.id.gauge_monthly_rx)).setValue((int) (100 * this.rxMonthlyMobile / (totalMonthlyData != 0 ? totalMonthlyData : 1)));
         ((TextView)findViewById(R.id.tv_gauge_monthly_rx)).setText(this.rxMonthlyMobileData);
-        ((CustomGauge)findViewById(R.id.gauge_monthly_tx)).setValue((int) (100 * this.txMonthlyMobile / totalMonthlyData));
+        ((CustomGauge)findViewById(R.id.gauge_monthly_tx)).setValue((int) (100 * this.txMonthlyMobile / (totalMonthlyData != 0 ? totalMonthlyData : 1)));
         ((TextView)findViewById(R.id.tv_gauge_monthly_tx)).setText(this.txMonthlyMobileData);
 
-
-        long totalMonthlyQuota = this.monthlyDataQuota;
-        int monthlyQuotaPercentage = (int) (100 * (this.rxMonthlyMobile + this.txMonthlyMobile) /totalMonthlyQuota);
+        int monthlyQuotaPercentage = (int) (100 * totalMonthlyData /this.monthlyDataQuota);
         ((ProgressBar)findViewById(R.id.pb_mobile_data_consumption)).setProgress(monthlyQuotaPercentage);
         ((TextView)findViewById(R.id.tv_data_quota_percentage)).setText(monthlyQuotaPercentage + "%");
 
-        ((TextView)findViewById(R.id.tv_used_data_quota)).setText(Network.formatBytes(this.rxMonthlyMobile + this.txMonthlyMobile));
-        ((TextView)findViewById(R.id.tv_available_data_quota)).setText(Network.formatBytes(totalMonthlyQuota));
+        ((TextView)findViewById(R.id.tv_used_data_quota)).setText(Network.formatBytes(totalMonthlyData));
+        ((TextView)findViewById(R.id.tv_available_data_quota)).setText(Network.formatBytes(this.monthlyDataQuota));
+
+        ((TextView)findViewById(R.id.tv_monthly_sample_period)).setText(String.format(getString(R.string.view_status_monthly_sample_period), this.currentMonth, this.nextMonth));
 
 
-        ((TextView)findViewById(R.id.tv_monthly_sample_period)).setText(String.format(getString(R.string.view_status_monthly_sample_period), this.currentMonth));
-
-        //Snackbar.make(getView(), this.ret, Snackbar.LENGTH_SHORT).show();
     }
 
 
@@ -276,6 +274,11 @@ public class StatusActivity extends AppCompatActivity {
         this.currentMonth += getResources().getStringArray(R.array.month_of_year)[calendar.get(Calendar.MONTH)];
         this.currentMonth += " " + calendar.get(Calendar.YEAR);
 
+        calendar.add(Calendar.MONTH, 1);
+        this.nextMonth = dayOfRecharge + " ";
+        this.nextMonth += getResources().getStringArray(R.array.month_of_year)[calendar.get(Calendar.MONTH)];
+        this.nextMonth += " " + calendar.get(Calendar.YEAR);
+
         Log.d(TAG, "Monthly: rx:"+this.rxMonthlyMobile+" tx:"+this.txMonthlyMobile);
         Log.d(TAG, "Monthly: rx:"+this.rxMonthlyMobileData+" tx:"+this.txMonthlyMobileData);
     }
@@ -325,54 +328,54 @@ public class StatusActivity extends AppCompatActivity {
 
         showcaseView = new ShowcaseView.Builder(this)
                 .setTarget(new ViewTarget(toolbar.getChildAt(0)))
-                        .setContentTitle(tutorialTitle[helpCounter])
-                        .setContentText(tutorialBody[helpCounter])
-                        .setStyle(R.style.CustomShowcaseTheme)
-                        .setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                helpCounter++;
-                                showcaseView.setContentTitle("");
-                                showcaseView.setContentText("");
-                                Target mTarget = Target.NONE;
+                .setContentTitle(tutorialTitle[helpCounter])
+                .setContentText(tutorialBody[helpCounter])
+                .setStyle(R.style.CustomShowcaseTheme)
+                .setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        helpCounter++;
+                        showcaseView.setContentTitle("");
+                        showcaseView.setContentText("");
+                        Target mTarget = Target.NONE;
 
-                                switch (helpCounter) {
-                                    case 1:
-                                        mScrollView.scrollTo(0, 0);
-                                        mTarget = new ViewTarget(findViewById(R.id.tv_internet_interface));
-                                        break;
+                        switch (helpCounter) {
+                            case 1:
+                                mScrollView.scrollTo(0, 0);
+                                mTarget = new ViewTarget(findViewById(R.id.tv_internet_interface));
+                                break;
 
-                                    case 2:
-                                        mTarget = new ViewTarget(findViewById(R.id.iv_sim));
-                                        showcaseView.forceTextPosition(ShowcaseView.BELOW_SHOWCASE);
-                                        break;
+                            case 2:
+                                mTarget = new ViewTarget(findViewById(R.id.iv_sim));
+                                showcaseView.forceTextPosition(ShowcaseView.BELOW_SHOWCASE);
+                                break;
 
-                                    case 3:
-                                        mTarget = new ViewTarget(findViewById(R.id.iv_antenna));
-                                        break;
+                            case 3:
+                                mTarget = new ViewTarget(findViewById(R.id.iv_antenna));
+                                break;
 
-                                    case 4:
-                                        mScrollView.scrollTo(0, mScrollView.getBottom());
-                                        mTarget = new ViewTarget(findViewById(R.id.gauge_daily_rx));
-                                        break;
+                            case 4:
+                                mScrollView.scrollTo(0, mScrollView.getBottom());
+                                mTarget = new ViewTarget(findViewById(R.id.gauge_daily_rx));
+                                break;
 
-                                    case 5:
-                                        mTarget = new ViewTarget(findViewById(R.id.pb_mobile_data_consumption));
-                                        showcaseView.forceTextPosition(ShowcaseView.ABOVE_SHOWCASE);
-                                        showcaseView.setButtonText(getString(R.string.tutorial_close));
-                                        break;
+                            case 5:
+                                mTarget = new ViewTarget(findViewById(R.id.pb_mobile_data_consumption));
+                                showcaseView.forceTextPosition(ShowcaseView.ABOVE_SHOWCASE);
+                                showcaseView.setButtonText(getString(R.string.tutorial_close));
+                                break;
 
-                                    default:
-                                        showcaseView.hide();
-                                        return;
-                                }
-                                showcaseView.setShowcase(mTarget, true);
-                                showcaseView.setContentTitle(tutorialTitle[helpCounter]);
-                                showcaseView.setContentText(tutorialBody[helpCounter]);
-                            }
-                        })
-                        .withNewStyleShowcase()
-                        .build();
+                            default:
+                                showcaseView.hide();
+                                return;
+                        }
+                        showcaseView.setShowcase(mTarget, true);
+                        showcaseView.setContentTitle(tutorialTitle[helpCounter]);
+                        showcaseView.setContentText(tutorialBody[helpCounter]);
+                    }
+                })
+                .withNewStyleShowcase()
+                .build();
         showcaseView.setButtonText(getString(R.string.tutorial_next));
         showcaseView.setHideOnTouchOutside(true);
     }
