@@ -18,6 +18,10 @@
 
 #-dontobfuscate
 
+# Crashlytics
+-keepattributes *Annotation*
+-keepattributes SourceFile,LineNumberTable
+
 # Do not skip public libraries
 -dontskipnonpubliclibraryclasses
 
