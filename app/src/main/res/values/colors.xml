@@ -11,7 +11,7 @@
     <color name="window_background">#a7c4c1</color>
 
     <!-- Tutorials -->
-    <color name="tutorial_background">#e63b9986</color>
+    <color name="tutorial_background">#f03b9986</color>
     <color name="tutorial_action">#359bc7</color>
     <color name="tutorial_title">#e6ffffff</color>
     <color name="tutorial_body">#beffffff</color>
