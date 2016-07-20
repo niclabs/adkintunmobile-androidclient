@@ -139,7 +139,7 @@
         <item>Adkintun Mobile</item>
     </string-array>
     <string-array name="tutorial_dashboard_body">
-        <item>Bienvenido a Adkintiun Mobile, tu aplicación de monitoreo de internet.\n\nEn el siguiente recorrido se describen las principales vistas de la aplicación.</item>
+        <item>Bienvenido a Adkintiun Mobile, tu aplicación de monitoreo de internet.\n\nA partir de este momento podrás registrar el consumo de datos de tu telefono, tu conectividad y muchos datos interesantes más.\n\nEn el siguiente recorrido se describen las principales vistas de la aplicación.</item>
         <item>Aquí se muestra un resumen del estado actual de la conexión del teléfono.</item>
         <item>Indica el nombre del proveedor de servicio que administra la antena a la que estás actualmente conectado.</item>
         <item>Indica el nombre del proveedor de servicio asociado a tu tarjeta SIM.</item>
