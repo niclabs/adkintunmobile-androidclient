@@ -276,7 +276,8 @@ public class StatusActivity extends AppCompatActivity {
         this.currentMonth += " " + calendar.get(Calendar.YEAR);
 
         calendar.add(Calendar.MONTH, 1);
-        this.nextMonth = dayOfRecharge + " ";
+        calendar.add(Calendar.DAY_OF_MONTH, -1);
+        this.nextMonth = calendar.get(Calendar.DAY_OF_MONTH) + " ";
         this.nextMonth += getResources().getStringArray(R.array.month_of_year)[calendar.get(Calendar.MONTH)];
         this.nextMonth += " " + calendar.get(Calendar.YEAR);
 
