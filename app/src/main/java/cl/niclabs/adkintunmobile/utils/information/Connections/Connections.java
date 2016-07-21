@@ -101,9 +101,13 @@ public class Connections {
             socketInfoReader.readLine(); // Skip header
 
             while (( line = socketInfoReader.readLine() ) != null) {
-                SystemSocket currentConnection = new SystemSocket(line, Connections.getSocketTypeByPath(path));
-                if ( currentConnection.isOutsideActiveConnection() ){
-                    sockets.add(currentConnection);
+                try {
+                    SystemSocket currentConnection = new SystemSocket(line, Connections.getSocketTypeByPath(path));
+                    if (currentConnection.isOutsideActiveConnection())
+                        sockets.add(currentConnection);
+
+                } catch (SystemSocketException e) {
+                    e.printStackTrace();
                 }
             }
 

@@ -24,19 +24,21 @@ public class SystemSocket {
     private int uid;
     private String inode;
 
-    public SystemSocket(String line, Connections.Type type) {
+    public SystemSocket(String line, Connections.Type type) throws SystemSocketException {
         Matcher match = fieldsPattern.matcher(line);
-        match.lookingAt();
-
-        //slot            = match.group(1);
-        this.type            = type;
-        this.localAddress    = parseIp(match.group(2));
-        this.localPort       = parsePort(match.group(3));
-        this.remoteAddress   = parseIp(match.group(4));
-        this.remotePort      = parsePort(match.group(5));
-        this.state           = match.group(6);
-        this.uid             = Integer.parseInt(match.group(7));
-        this.inode           = match.group(8);
+        if (match.lookingAt()) {
+            //slot            = match.group(1);
+            this.type = type;
+            this.localAddress = parseIp(match.group(2));
+            this.localPort = parsePort(match.group(3));
+            this.remoteAddress = parseIp(match.group(4));
+            this.remotePort = parsePort(match.group(5));
+            this.state = match.group(6);
+            this.uid = Integer.parseInt(match.group(7));
+            this.inode = match.group(8);
+        } else {
+            throw new SystemSocketException("Error de matcheo: " + line);
+        }
     }
 
     private int parsePort(String port){
