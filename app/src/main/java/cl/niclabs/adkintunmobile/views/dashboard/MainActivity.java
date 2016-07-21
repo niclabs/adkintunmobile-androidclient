@@ -66,7 +66,13 @@ public class MainActivity extends AppCompatActivity {
         setupNavigationDrawer();
 
         // Initial Fragment: DashboardFragment
-        updateMainFragment(new DashboardFragment());
+        DashboardFragment mDashboardFragment;
+        if (savedInstanceState != null){
+            mDashboardFragment = (DashboardFragment) getSupportFragmentManager().findFragmentByTag("DashboardFragment");
+        } else {
+            mDashboardFragment = new DashboardFragment();
+        }
+        updateMainFragment(mDashboardFragment);
 
         // Show tutorial
         showTutorial();
@@ -209,7 +215,7 @@ public class MainActivity extends AppCompatActivity {
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         //fragmentTransaction.setCustomAnimations(R.anim.enter, R.anim.exit);
 
-        fragmentTransaction.replace(R.id.main_content, newFragment);
+        fragmentTransaction.replace(R.id.main_content, newFragment, "DashboardFragment");
         fragmentTransaction.commit();
     }
 
