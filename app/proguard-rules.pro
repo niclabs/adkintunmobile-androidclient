@@ -28,6 +28,9 @@
 # Keep InnerClasses
 -keepattributes Exceptions,InnerClasses
 
+# Keep Exceptions
+-keep public class cl.niclabs.adkintunmobile.utils.information.Connections.SystemSocketException{*;}
+
 # Keep classes mentioned in the manifest
 -keep public class cl.niclabs.adkmobile.AdkintunMobileApp{*;}
 -keep public class cl.niclabs.adkmobile.monitor.Connectivity{*;}
