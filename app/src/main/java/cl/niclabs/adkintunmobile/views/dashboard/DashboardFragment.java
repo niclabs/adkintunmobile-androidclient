@@ -128,32 +128,32 @@ public class DashboardFragment extends BaseToolbarFragment {
                         (ImageView) view.findViewById(R.id.iv_app2),
                         (ImageView) view.findViewById(R.id.iv_app3)};
 
-                getActivity().runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        boolean isEmpty = true;
-                        for (int i=0; i<3; i++){
-                            if (topApps[i]!=null){
-                                isEmpty = false;
-                                rankingIcons[i].setImageDrawable(topApps[i].getLogo());
-                                rankingLabels[i].setText(topApps[i].getLabel());
-                                rankingIcons[i].setVisibility(View.VISIBLE);
-                                rankingLabels[i].setVisibility(View.VISIBLE);
-                                topAppsLayout.setColumnStretchable(i, true);
+                if (getActivity() != null) {
+                    getActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            boolean isEmpty = true;
+                            for (int i = 0; i < 3; i++) {
+                                if (topApps[i] != null) {
+                                    isEmpty = false;
+                                    rankingIcons[i].setImageDrawable(topApps[i].getLogo());
+                                    rankingLabels[i].setText(topApps[i].getLabel());
+                                    rankingIcons[i].setVisibility(View.VISIBLE);
+                                    rankingLabels[i].setVisibility(View.VISIBLE);
+                                    topAppsLayout.setColumnStretchable(i, true);
+                                } else {
+                                    rankingIcons[i].setVisibility(View.GONE);
+                                    rankingLabels[i].setVisibility(View.GONE);
+                                }
                             }
-                            else {
-                                rankingIcons[i].setVisibility(View.GONE);
-                                rankingLabels[i].setVisibility(View.GONE);
-                            }
+                            if (isEmpty) {
+                                (view.findViewById(R.id.empty_dialog)).setVisibility(View.VISIBLE);
+                            } else
+                                (view.findViewById(R.id.empty_dialog)).setVisibility(View.GONE);
+                            view.setVisibility(View.VISIBLE);
                         }
-                        if (isEmpty){
-                            (view.findViewById(R.id.empty_dialog)).setVisibility(View.VISIBLE);
-                        }
-                        else
-                            (view.findViewById(R.id.empty_dialog)).setVisibility(View.GONE);
-                        view.setVisibility(View.VISIBLE);
-                    }
-                });
+                    });
+                }
             }
         }).start();
     }
@@ -164,14 +164,16 @@ public class DashboardFragment extends BaseToolbarFragment {
             public void run() {
                 final long[] monthlyData = ApplicationTraffic.getMonthlyMobileConsumption();
 
-                getActivity().runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        ((TextView) view.findViewById(R.id.tv_download_data)).setText(Network.formatBytes(monthlyData[0]));
-                        ((TextView) view.findViewById(R.id.tv_upload_data)).setText(Network.formatBytes(monthlyData[1]));
-                        view.setVisibility(View.VISIBLE);
-                    }
-                });
+                if (getActivity() != null) {
+                    getActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            ((TextView) view.findViewById(R.id.tv_download_data)).setText(Network.formatBytes(monthlyData[0]));
+                            ((TextView) view.findViewById(R.id.tv_upload_data)).setText(Network.formatBytes(monthlyData[1]));
+                            view.setVisibility(View.VISIBLE);
+                        }
+                    });
+                }
             }
         }).start();
     }
@@ -184,24 +186,26 @@ public class DashboardFragment extends BaseToolbarFragment {
                 final DailyConnectionModeInformation information = new DailyConnectionModeInformation(context, currentTime, currentTime);
                 information.setStatisticsInformation();
 
-                getActivity().runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        TextView tvPrimaryConn = (TextView)view.findViewById(R.id.tv_primary_conn);
-                        switch (information.getPrimaryType()){
-                            case ConnectionModeSample.NONE:
-                                tvPrimaryConn.setText(getString(R.string.view_dashboard_conn_mode_unknown));
-                                break;
-                            case ConnectionModeSample.MOBILE:
-                                tvPrimaryConn.setText(getString(R.string.view_dashboard_conn_mode_mobile));
-                                break;
-                            case ConnectionModeSample.WIFI:
-                                tvPrimaryConn.setText(getString(R.string.view_dashboard_conn_mode_wifi));
-                                break;
+                if (getActivity() != null) {
+                    getActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            TextView tvPrimaryConn = (TextView) view.findViewById(R.id.tv_primary_conn);
+                            switch (information.getPrimaryType()) {
+                                case ConnectionModeSample.NONE:
+                                    tvPrimaryConn.setText(getString(R.string.view_dashboard_conn_mode_unknown));
+                                    break;
+                                case ConnectionModeSample.MOBILE:
+                                    tvPrimaryConn.setText(getString(R.string.view_dashboard_conn_mode_mobile));
+                                    break;
+                                case ConnectionModeSample.WIFI:
+                                    tvPrimaryConn.setText(getString(R.string.view_dashboard_conn_mode_wifi));
+                                    break;
+                            }
+                            view.setVisibility(View.VISIBLE);
                         }
-                        view.setVisibility(View.VISIBLE);
-                    }
-                });
+                    });
+                }
             }
         }).start();
     }
@@ -214,36 +218,38 @@ public class DashboardFragment extends BaseToolbarFragment {
                 final DailyNetworkTypeInformation information = new DailyNetworkTypeInformation(context, currentTime, currentTime);
                 information.setStatisticsInformation();
 
-                getActivity().runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        ImageView ivPrimaryNet = (ImageView)view.findViewById(R.id.iv_primary_net);
-                        switch (information.getPrimaryType()){
-                            case NetworkTypeSample.UNKNOWN:
-                                ivPrimaryNet.setImageResource(R.drawable.ic_10_nored);
-                                break;
-                            case NetworkTypeSample.TYPE_G:
-                                ivPrimaryNet.setImageResource(R.drawable.ic_04_g);
-                                break;
-                            case NetworkTypeSample.TYPE_E:
-                                ivPrimaryNet.setImageResource(R.drawable.ic_05_edge);
-                                break;
-                            case NetworkTypeSample.TYPE_3G:
-                                ivPrimaryNet.setImageResource(R.drawable.ic_06_3g);
-                                break;
-                            case NetworkTypeSample.TYPE_H:
-                                ivPrimaryNet.setImageResource(R.drawable.ic_07_h);
-                                break;
-                            case NetworkTypeSample.TYPE_Hp:
-                                ivPrimaryNet.setImageResource(R.drawable.ic_08_hp);
-                                break;
-                            case NetworkTypeSample.TYPE_4G:
-                                ivPrimaryNet.setImageResource(R.drawable.ic_09_4g);
-                                break;
+                if (getActivity() != null) {
+                    getActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            ImageView ivPrimaryNet = (ImageView) view.findViewById(R.id.iv_primary_net);
+                            switch (information.getPrimaryType()) {
+                                case NetworkTypeSample.UNKNOWN:
+                                    ivPrimaryNet.setImageResource(R.drawable.ic_10_nored);
+                                    break;
+                                case NetworkTypeSample.TYPE_G:
+                                    ivPrimaryNet.setImageResource(R.drawable.ic_04_g);
+                                    break;
+                                case NetworkTypeSample.TYPE_E:
+                                    ivPrimaryNet.setImageResource(R.drawable.ic_05_edge);
+                                    break;
+                                case NetworkTypeSample.TYPE_3G:
+                                    ivPrimaryNet.setImageResource(R.drawable.ic_06_3g);
+                                    break;
+                                case NetworkTypeSample.TYPE_H:
+                                    ivPrimaryNet.setImageResource(R.drawable.ic_07_h);
+                                    break;
+                                case NetworkTypeSample.TYPE_Hp:
+                                    ivPrimaryNet.setImageResource(R.drawable.ic_08_hp);
+                                    break;
+                                case NetworkTypeSample.TYPE_4G:
+                                    ivPrimaryNet.setImageResource(R.drawable.ic_09_4g);
+                                    break;
+                            }
+                            view.setVisibility(View.VISIBLE);
                         }
-                        view.setVisibility(View.VISIBLE);
-                    }
-                });
+                    });
+                }
             }
         }).start();
     }
