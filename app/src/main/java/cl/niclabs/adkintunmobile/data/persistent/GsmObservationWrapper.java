@@ -29,4 +29,10 @@ public class GsmObservationWrapper extends TelephonyObservationWrapper{
             this.signalBer.save();
         super.save();
     }
+
+    public boolean sameAntenna(GsmObservationWrapper sample){
+        return this.gsmCid == sample.gsmCid
+                && this.gsmLac == sample.gsmLac
+                && this.gsmPsc == sample.gsmPsc;
+    }
 }
