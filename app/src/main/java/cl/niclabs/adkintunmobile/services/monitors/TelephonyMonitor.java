@@ -3,12 +3,14 @@ package cl.niclabs.adkintunmobile.services.monitors;
 import android.app.Service;
 import android.content.Intent;
 import android.os.IBinder;
+import android.util.Log;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import cl.niclabs.adkintunmobile.data.persistent.CdmaObservationWrapper;
 import cl.niclabs.adkintunmobile.data.persistent.GsmObservationWrapper;
+import cl.niclabs.adkintunmobile.data.persistent.SampleWrapper;
 import cl.niclabs.adkintunmobile.data.persistent.StateChangeWrapper;
 import cl.niclabs.adkintunmobile.data.persistent.TelephonyObservationWrapper;
 import cl.niclabs.adkmobile.monitor.Monitor;
@@ -20,6 +22,8 @@ import cl.niclabs.adkmobile.monitor.data.TelephonyObservation;
 import cl.niclabs.adkmobile.monitor.listeners.TelephonyListener;
 
 public class TelephonyMonitor extends Service implements TelephonyListener {
+
+    private final String TAG = "AdkM:TelephonyMonitor";
 
     private static boolean running = false;
     private Monitor.Controller<TelephonyListener> phoneController;
@@ -75,7 +79,27 @@ public class TelephonyMonitor extends Service implements TelephonyListener {
     public void onMobileTelephonyChange(TelephonyObservation<?> telephonyState) {
         if (telephonyState instanceof GsmObservation) {
             GsmObservationWrapper sample = this.gson.fromJson(telephonyState.toString(), GsmObservationWrapper.class);
-            sample.save();
+            GsmObservationWrapper lastSample = GsmObservationWrapper.findFirst(GsmObservationWrapper.class, null, null, "id DESC");
+
+            if (sample.signalStrength == null)
+                sample.signalStrength = new SampleWrapper();
+            Log.d(TAG, "this sample: " + sample.getId() + " " + sample.toString() );
+
+            if (lastSample != null && sample.sameAntenna(lastSample)){
+                Log.d(TAG, "last sample: " + lastSample.getId() + " " + lastSample.toString());
+
+                if (sample.signalStrength.size > lastSample.signalStrength.size){
+                    lastSample.signalStrength = sample.signalStrength;
+                    lastSample.save();
+                }
+                else
+                    sample.save();
+                Log.d(TAG, "updated sample: " + lastSample.getId() + " " + lastSample.toString());
+
+            }
+            else {
+                sample.save();
+            }
         } else if (telephonyState instanceof CdmaObservation) {
             CdmaObservationWrapper sample = this.gson.fromJson(telephonyState.toString(), CdmaObservationWrapper.class);
             sample.save();

@@ -4,6 +4,8 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
+import cl.niclabs.android.data.DoNotSerialize;
+
 public class GsmObservationWrapper extends TelephonyObservationWrapper{
 
     @SerializedName("gsm_cid")
@@ -17,6 +19,7 @@ public class GsmObservationWrapper extends TelephonyObservationWrapper{
     public List<NeighborAntennaWrapper> neighborList;
 
     @SerializedName("signal_ber")
+    @DoNotSerialize
     public SampleWrapper signalBer;
 
     public GsmObservationWrapper() {
@@ -28,5 +31,11 @@ public class GsmObservationWrapper extends TelephonyObservationWrapper{
         if(this.signalBer != null)
             this.signalBer.save();
         super.save();
+    }
+
+    public boolean sameAntenna(GsmObservationWrapper sample){
+        return this.gsmCid == sample.gsmCid
+                && this.gsmLac == sample.gsmLac
+                && this.gsmPsc == sample.gsmPsc;
     }
 }
