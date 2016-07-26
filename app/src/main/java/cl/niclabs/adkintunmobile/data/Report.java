@@ -68,6 +68,10 @@ public class Report {
         setUpReport();
     }
 
+    /**
+     * Prepares the report to be sent.
+     * Saves the last GsmObservation to avoid saving incremental records and remove events with the same timestamp.
+     */
     private void setUpReport() {
         int gsmRecordsSize = gsmRecords.size();
         if (gsmRecordsSize > 0) {

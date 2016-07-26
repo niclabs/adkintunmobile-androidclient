@@ -23,6 +23,8 @@ import cl.niclabs.adkmobile.monitor.listeners.TelephonyListener;
 
 public class TelephonyMonitor extends Service implements TelephonyListener {
 
+    private final String TAG = "AdkM:TelephonyMonitor";
+
     private static boolean running = false;
     private Monitor.Controller<TelephonyListener> phoneController;
     private Gson gson;
@@ -81,10 +83,10 @@ public class TelephonyMonitor extends Service implements TelephonyListener {
 
             if (sample.signalStrength == null)
                 sample.signalStrength = new SampleWrapper();
-            Log.d("GsmObs", "this sample: " + sample.getId()+ " "+ sample.toString() );
+            Log.d(TAG, "this sample: " + sample.getId() + " " + sample.toString() );
 
             if (lastSample != null && sample.sameAntenna(lastSample)){
-                Log.d("GsmObs", "last sample: " + lastSample.getId()+" "+lastSample.toString());
+                Log.d(TAG, "last sample: " + lastSample.getId() + " " + lastSample.toString());
 
                 if (sample.signalStrength.size > lastSample.signalStrength.size){
                     lastSample.signalStrength = sample.signalStrength;
@@ -92,7 +94,7 @@ public class TelephonyMonitor extends Service implements TelephonyListener {
                 }
                 else
                     sample.save();
-                Log.d("GsmObs", "updated sample: " + lastSample.getId() + " " + lastSample.toString());
+                Log.d(TAG, "updated sample: " + lastSample.getId() + " " + lastSample.toString());
 
             }
             else {
