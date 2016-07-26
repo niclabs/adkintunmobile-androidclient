@@ -8,8 +8,6 @@ import android.util.Log;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-import java.util.Iterator;
-
 import cl.niclabs.adkintunmobile.data.persistent.CdmaObservationWrapper;
 import cl.niclabs.adkintunmobile.data.persistent.GsmObservationWrapper;
 import cl.niclabs.adkintunmobile.data.persistent.SampleWrapper;
@@ -100,12 +98,6 @@ public class TelephonyMonitor extends Service implements TelephonyListener {
             else {
                 sample.save();
             }
-            Iterator<GsmObservationWrapper> iterator = GsmObservationWrapper.findAll(GsmObservationWrapper.class);
-            while (iterator.hasNext()){
-                GsmObservationWrapper next = iterator.next();
-                Log.d("GsmObs find all ", next.getId()+ " " +next.toString());
-            }
-
         } else if (telephonyState instanceof CdmaObservation) {
             CdmaObservationWrapper sample = this.gson.fromJson(telephonyState.toString(), CdmaObservationWrapper.class);
             sample.save();

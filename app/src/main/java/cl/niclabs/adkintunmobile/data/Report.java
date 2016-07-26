@@ -3,6 +3,7 @@ package cl.niclabs.adkintunmobile.data;
 import android.content.Context;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.annotations.SerializedName;
 
 import java.io.File;
@@ -23,6 +24,7 @@ import cl.niclabs.adkintunmobile.data.persistent.visualization.ApplicationTraffi
 import cl.niclabs.adkintunmobile.data.persistent.visualization.ConnectionModeSample;
 import cl.niclabs.adkintunmobile.data.persistent.visualization.NetworkTypeSample;
 import cl.niclabs.adkintunmobile.utils.compression.CompressionUtils;
+import cl.niclabs.android.data.DoNotSerialize;
 
 /**
  * Clase para manipular los datos de eventos persistidos en el telefono.
@@ -51,15 +53,36 @@ public class Report {
     @SerializedName("traffic_records")
     public List <TrafficObservationWrapper> trafficRecords;
 
+    @DoNotSerialize
+    private GsmObservationWrapper persistentGsmObservation;
+
     public Report(Context context) {
         this.simRecord = SimSingleton.getInstance(context);
         this.deviceRecord = DeviceSingleton.getInstance(context);
         this.cdmaRecords = CdmaObservationWrapper.listAll(CdmaObservationWrapper.class);
         this.connectivityRecords = ConnectivityObservationWrapper.listAll(ConnectivityObservationWrapper.class);
-        this.gsmRecords = GsmObservationWrapper.listAll(GsmObservationWrapper.class);
         this.stateRecords = StateChangeWrapper.listAll(StateChangeWrapper.class);
         this.telephonyRecords = TelephonyObservationWrapper.listAll(TelephonyObservationWrapper.class);
         this.trafficRecords = TrafficObservationWrapper.listAll(TrafficObservationWrapper.class);
+        this.gsmRecords = GsmObservationWrapper.listAll(GsmObservationWrapper.class);
+        setUpReport();
+    }
+
+    private void setUpReport() {
+        int gsmRecordsSize = gsmRecords.size();
+        if (gsmRecordsSize > 0) {
+            GsmObservationWrapper lastObservation = gsmRecords.get(gsmRecordsSize - 1);
+            persistentGsmObservation = (new GsonBuilder().create()).fromJson(lastObservation.toString(), GsmObservationWrapper.class);
+            GsmObservationWrapper previousObservation;
+            gsmRecords.remove(gsmRecordsSize - 1);
+            for (int i = gsmRecordsSize - 2; i >= 0; i--) {     //Remove events with the same timestamp
+                previousObservation = gsmRecords.get(i);
+                if (previousObservation.timestamp == lastObservation.timestamp) {
+                    gsmRecords.remove(i);
+                } else
+                    lastObservation = previousObservation;
+            }
+        }
     }
 
     public boolean recordsToSend(){
@@ -107,6 +130,8 @@ public class Report {
         StateChangeWrapper.deleteAll(StateChangeWrapper.class);
         TelephonyObservationWrapper.deleteAll(TelephonyObservationWrapper.class);
         TrafficObservationWrapper.deleteAll(TrafficObservationWrapper.class);
+
+        persistentGsmObservation.save(); //Last GsmObservation reported is saved again to avoid sending events with the same timestamp (incremental records)
     }
 
     public void saveVisualSamples(){

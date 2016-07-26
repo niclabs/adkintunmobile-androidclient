@@ -4,6 +4,8 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
+import cl.niclabs.android.data.DoNotSerialize;
+
 public class GsmObservationWrapper extends TelephonyObservationWrapper{
 
     @SerializedName("gsm_cid")
@@ -17,6 +19,7 @@ public class GsmObservationWrapper extends TelephonyObservationWrapper{
     public List<NeighborAntennaWrapper> neighborList;
 
     @SerializedName("signal_ber")
+    @DoNotSerialize
     public SampleWrapper signalBer;
 
     public GsmObservationWrapper() {
