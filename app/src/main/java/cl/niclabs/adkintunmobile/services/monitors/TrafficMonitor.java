@@ -15,6 +15,8 @@ import cl.niclabs.adkmobile.monitor.listeners.TrafficListener;
 
 public class TrafficMonitor extends Service implements TrafficListener {
 
+    private final String TAG = "AdkM:TrafficMonitor";
+
     private static boolean running = false;
     private Monitor.Controller<TrafficListener> trafficController;
     private Gson gson;
