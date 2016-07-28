@@ -77,7 +77,6 @@ public class DashboardFragment extends BaseToolbarFragment {
         tvAntenna.setText(Network.getConnectedCarrrier(context));
         tvSignal.setText(Network.getNetworkType(context));
 
-        // TODO: Pasar Strings a strings.xml
         switch (Network.getActiveNetwork(context)){
             case ConnectionModeSample.MOBILE:
                 tvInternet.setText(getString(R.string.view_dashboard_conn_mode_mobile));
