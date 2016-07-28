@@ -55,18 +55,6 @@ public class SettingsFragment extends PreferenceFragment implements SharedPrefer
             PreferenceScreen preferenceScreen = (PreferenceScreen) findPreference(getString(R.string.settings_main_screen_key));
             PreferenceCategory preferenceCategory = (PreferenceCategory) findPreference(getString(R.string.settings_sampling_category_key));
             preferenceScreen.removePreference(preferenceCategory);
-
-            //preferenceCategory.removeAll();
-            /**
-            ArrayList<Preference> debugPreferences = new ArrayList<>();
-            debugPreferences.add(findPreference(getString(R.string.settings_sampling_hostname_key)));
-            debugPreferences.add(findPreference(getString(R.string.settings_sampling_frequency_key)));
-            debugPreferences.add(findPreference(getString(R.string.settings_sampling_startsync_key)));
-            debugPreferences.add(findPreference(getString(R.string.settings_sampling_compression_type_key)));
-
-            for (Preference preferenceToRemove : debugPreferences)
-                preferenceCategory.removePreference(preferenceToRemove);
-            **/
         }
     }
 
