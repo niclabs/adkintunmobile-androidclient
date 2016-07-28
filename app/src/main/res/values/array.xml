@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- Preferences -->
     <string-array name="sync_sampling_frequency">
         <item>Cada 1 Minuto</item>
         <item>Cada 2 Minutos</item>
@@ -13,6 +14,17 @@
         <item>5</item>
         <item>10</item>
         <item>30</item>
+    </string-array>
+
+    <string-array name="sync_sampling_compression_type">
+        <item>Sin Compresión</item>
+        <item>Compresión GZip</item>
+        <item>Compresión ZipDeflater</item>
+    </string-array>
+    <string-array name="sync_sampling_compression_type_values">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
     </string-array>
 
     <!-- Doughnut Chart -->

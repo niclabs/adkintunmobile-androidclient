@@ -46,6 +46,15 @@
             android:key="@string/settings_sampling_startsync_key"
             android:title="@string/settings_sampling_startsync_title"
             />
+        <ListPreference
+            android:key="@string/settings_sampling_compression_type_key"
+            android:title="@string/settings_sampling_compression_type_title"
+            android:dialogTitle="@string/settings_sampling_compression_type_title"
+            android:defaultValue="1"
+            android:summary="%s"
+            android:entries="@array/sync_sampling_compression_type"
+            android:entryValues="@array/sync_sampling_compression_type_values"
+            />
     </PreferenceCategory>
     <PreferenceCategory
         android:title="@string/settings_app_category"

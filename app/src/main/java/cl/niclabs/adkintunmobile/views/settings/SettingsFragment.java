@@ -57,6 +57,7 @@ public class SettingsFragment extends PreferenceFragment implements SharedPrefer
             debugPreferences.add(findPreference(getString(R.string.settings_sampling_hostname_key)));
             debugPreferences.add(findPreference(getString(R.string.settings_sampling_frequency_key)));
             debugPreferences.add(findPreference(getString(R.string.settings_sampling_startsync_key)));
+            debugPreferences.add(findPreference(getString(R.string.settings_sampling_compression_type_key)));
 
             for (Preference preferenceToRemove : debugPreferences)
                 preferenceCategory.removePreference(preferenceToRemove);

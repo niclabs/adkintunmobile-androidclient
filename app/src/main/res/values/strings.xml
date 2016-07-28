@@ -43,6 +43,9 @@
     <string name="settings_sampling_startsync_title">Gatillar Sincronización</string>
     <string name="settings_sampling_lastsync_key">sync_lastsync</string>
     <string name="settings_sampling_lastsync_title">Última Sincronización</string>
+    <string name="settings_sampling_compression_type_key">sync_compression_type</string>
+    <string name="settings_sampling_compression_type_title">Tipo de compresión utilizada</string>
+
 
     <string name="settings_app_category">Aplicación</string>
     <string name="settings_app_version_key">app_version</string>
