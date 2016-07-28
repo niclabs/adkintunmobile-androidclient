@@ -24,7 +24,6 @@ import cl.niclabs.adkintunmobile.data.persistent.visualization.ApplicationTraffi
 import cl.niclabs.adkintunmobile.data.persistent.visualization.ConnectionModeSample;
 import cl.niclabs.adkintunmobile.data.persistent.visualization.NetworkTypeSample;
 import cl.niclabs.adkintunmobile.utils.compression.CompressionUtils;
-import cl.niclabs.android.data.DoNotSerialize;
 
 /**
  * Clase para manipular los datos de eventos persistidos en el telefono.
@@ -53,8 +52,7 @@ public class Report {
     @SerializedName("traffic_records")
     public List <TrafficObservationWrapper> trafficRecords;
 
-    @DoNotSerialize
-    private GsmObservationWrapper persistentGsmObservation;
+    private transient GsmObservationWrapper persistentGsmObservation;
 
     public Report(Context context) {
         this.simRecord = SimSingleton.getInstance(context);
@@ -99,7 +97,7 @@ public class Report {
         return !(cdma && connectivity && gsm && state && telephony && traffic);
     }
 
-    public boolean saveFile(Context context){
+    public boolean saveFile(Context context, CompressionUtils.CompressionType compressionType){
         // Store to String
         Gson gson = new Gson();
         String reportData = gson.toJson(this);
@@ -113,9 +111,21 @@ public class Report {
 
             File outputFile = File.createTempFile(filename, fileExtension, outputDir);
             FileOutputStream outStream = new FileOutputStream(outputFile);
-            //outStream.write(reportData.getBytes());                               // No compression
-            //outStream.write(CompressionUtils.compress(reportData.getBytes()));    // Compress using Deflater
-            outStream.write(CompressionUtils.gzip(reportData.getBytes()));          // Compress using Gzip
+            switch (compressionType){
+                case NOCOMPRESSION:
+                    outStream.write(reportData.getBytes());
+                    break;
+                case GZIP:
+                    outStream.write(CompressionUtils.gzip(reportData.getBytes()));
+                    break;
+                case ZIPDEFLATER:
+                    outStream.write(CompressionUtils.compress(reportData.getBytes()));
+                    break;
+                default:                                /* Use no compression */
+                    outStream.write(reportData.getBytes());
+                    break;
+
+            }
             outStream.flush();
             outStream.close();
             return true;

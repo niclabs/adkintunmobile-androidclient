@@ -7,6 +7,7 @@ import android.os.IBinder;
 import android.util.Log;
 
 import cl.niclabs.adkintunmobile.data.Report;
+import cl.niclabs.adkintunmobile.utils.compression.CompressionUtils;
 
 public class Synchronization extends Service {
 
@@ -29,7 +30,7 @@ public class Synchronization extends Service {
 
         if (report.recordsToSend()){
             // 2.- Save report
-            report.saveFile(context);
+            report.saveFile(context, CompressionUtils.CompressionType.GZIP);
             // 3.- Backup visualization data
             report.saveVisualSamples();
             // 4.- Clean DB
