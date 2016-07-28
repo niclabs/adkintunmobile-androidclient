@@ -63,24 +63,40 @@ public class Report {
         this.telephonyRecords = TelephonyObservationWrapper.listAll(TelephonyObservationWrapper.class);
         this.trafficRecords = TrafficObservationWrapper.listAll(TrafficObservationWrapper.class);
         this.gsmRecords = GsmObservationWrapper.listAll(GsmObservationWrapper.class);
-        setUpReport();
+        cleanRecords();
     }
 
     /**
      * Prepares the report to be sent.
-     * Saves the last GsmObservation to avoid saving incremental records and remove events with the same timestamp.
+     *  Saves the last GsmObservation to avoid saving incremental records and remove events with the same timestamp.
+     *  Removes ConnectivityObservation events with the same timestamp.
      */
-    private void setUpReport() {
+    private void cleanRecords() {
+        //Clean gsmRecords
         int gsmRecordsSize = gsmRecords.size();
         if (gsmRecordsSize > 0) {
             GsmObservationWrapper lastObservation = gsmRecords.get(gsmRecordsSize - 1);
-            persistentGsmObservation = (new GsonBuilder().create()).fromJson(lastObservation.toString(), GsmObservationWrapper.class);
+            persistentGsmObservation = (new GsonBuilder().create()).fromJson(lastObservation.toString(), GsmObservationWrapper.class);  //Last gsmRecord for being saved again after cleaning DB.
             GsmObservationWrapper previousObservation;
-            gsmRecords.remove(gsmRecordsSize - 1);
-            for (int i = gsmRecordsSize - 2; i >= 0; i--) {     //Remove events with the same timestamp
+            gsmRecords.remove(gsmRecordsSize - 1);                  //Removes last observation to avoid sending it.
+            for (int i = gsmRecordsSize - 2; i >= 0; i--) {
                 previousObservation = gsmRecords.get(i);
                 if (previousObservation.timestamp == lastObservation.timestamp) {
-                    gsmRecords.remove(i);
+                    gsmRecords.remove(i);                           //Removes gsmRecords with the same timestamp.
+                } else
+                    lastObservation = previousObservation;
+            }
+        }
+
+        //Clean connectivityRecords
+        int connectivityRecordsSize = connectivityRecords.size();
+        if (connectivityRecordsSize > 0) {
+            ConnectivityObservationWrapper lastObservation = connectivityRecords.get(connectivityRecordsSize - 1);
+            ConnectivityObservationWrapper previousObservation;
+            for (int i = connectivityRecordsSize - 2; i >= 0; i--) {
+                previousObservation = connectivityRecords.get(i);
+                if (previousObservation.timestamp == lastObservation.timestamp) {
+                    connectivityRecords.remove(i);                  //Remove connectivityRecords with the same timestamp
                 } else
                     lastObservation = previousObservation;
             }
