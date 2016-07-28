@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    android:key="@string/settings_main_screen_key">
 
     <PreferenceCategory
         android:title="@string/settings_app_data_category"
@@ -39,10 +40,6 @@
             android:entryValues="@array/sync_sampling_frequency_values"
             />
         <Preference
-            android:key="@string/settings_sampling_lastsync_key"
-            android:title="@string/settings_sampling_lastsync_title"
-            />
-        <Preference
             android:key="@string/settings_sampling_startsync_key"
             android:title="@string/settings_sampling_startsync_title"
             />
@@ -59,6 +56,10 @@
     <PreferenceCategory
         android:title="@string/settings_app_category"
         >
+        <Preference
+            android:key="@string/settings_sampling_lastsync_key"
+            android:title="@string/settings_sampling_lastsync_title"
+            />
         <Preference
             android:key="@string/settings_app_version_key"
             android:title="@string/settings_app_version_title"

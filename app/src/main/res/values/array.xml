@@ -19,12 +19,12 @@
     <string-array name="sync_sampling_compression_type">
         <item>Sin Compresión</item>
         <item>Compresión GZip</item>
-        <item>Compresión ZipDeflater</item>
+        <!-- <item>Compresión ZipDeflater</item> -->
     </string-array>
     <string-array name="sync_sampling_compression_type_values">
         <item>0</item>
         <item>1</item>
-        <item>2</item>
+        <!-- <item>2</item> -->
     </string-array>
 
     <!-- Doughnut Chart -->
