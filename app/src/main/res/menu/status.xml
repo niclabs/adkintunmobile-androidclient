@@ -3,18 +3,17 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <!--TODO: Agregar textos a strings.xml -->
     <item
         android:id="@+id/menu_info_btn"
         android:icon="@drawable/ic_info_outline_white"
         app:showAsAction="ifRoom"
-        android:title="Información sobre esta vista">
+        android:title="@string/tutorial_show_menu">
     </item>
     <item
         android:id="@+id/menu_settings_btn"
         android:icon="@drawable/ic_settings_white"
         app:showAsAction="always"
-        android:title="Configurar datos móviles">
+        android:title="@string/view_status_config_menu">
     </item>
 
 </menu>

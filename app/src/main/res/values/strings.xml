@@ -77,11 +77,16 @@
     <string name="view_status_sample_period">Periodo de muestreo: %1$s.</string>
     <string name="view_status_monthly_sample_period">Periodo de muestreo: del %1$s al %2$s.</string>
 
+    <string name="view_status_config_menu">Configurar datos móviles</string>
+
     <string name="view_data_quota_dialog_title">Tu Plan de Datos</string>
     <string name="view_data_quota_dialog_description">Establece la cuota de navegación provista en tu plan de datos de tu proveedor de telefonía.</string>
 
     <string name="view_day_of_recharge_dialog_title">Día de Recarga de Datos</string>
     <string name="view_day_of_recharge_dialog_description">Establece el día de recarga de la cuota de navegación provista en tu plan de datos.</string>
+
+    <!-- Conn type: Conn Mode and Network Type shared -->
+    <string name="view_connection_type_nemu_datepicker">Seleccionar rango de fechas</string>
 
     <!-- Conn mode -->
     <string name="view_connection_mode_symbology">Leyenda</string>
@@ -105,6 +110,7 @@
     <string name="view_applications_traffic_wifi">Tráfico WiFi</string>
     <string name="view_applications_traffic_mobile">Tráfico Móvil</string>
     <string name="view_applications_traffic_item_no_data">No hay resultados para mostrar</string>
+    <string name="view_applications_traffic_menu_datepicker">Seleccionar fecha de inicio de datos</string>
 
     <!-- Active Connections -->
     <string name="view_active_connections_reload">Conexiones Activas Actualizadas</string>
@@ -113,6 +119,7 @@
     <string name="view_active_connections_dialog_location_not_found">%1$d localizaciones no encontradas</string>
 
     <!-- Tutorial Controls -->
+    <string name="tutorial_show_menu">Información sobre esta vista</string>
     <string name="tutorial_next">Siguiente</string>
     <string name="tutorial_close">Cerrar</string>
 
