@@ -3,8 +3,6 @@ package cl.niclabs.adkintunmobile.views.status;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.FragmentManager;
@@ -29,7 +27,6 @@ import com.github.amlcurran.showcaseview.targets.ViewTarget;
 
 import java.util.Calendar;
 import java.util.Date;
-import java.util.Iterator;
 
 import cl.niclabs.adkintunmobile.R;
 import cl.niclabs.adkintunmobile.data.persistent.visualization.ApplicationTraffic;
@@ -87,12 +84,6 @@ public class StatusActivity extends AppCompatActivity {
             }
         }).start();
 
-
-
-
-        ConnectivityManager connMgr = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo activeNetwork = connMgr.getActiveNetworkInfo();
-
     }
 
     public void setBaseActivityParams(){
@@ -101,7 +92,9 @@ public class StatusActivity extends AppCompatActivity {
         this.loadingPanel = (RelativeLayout) findViewById(R.id.loading_panel);
         ShimmerFrameLayout container =
                 (ShimmerFrameLayout) findViewById(R.id.shimmer_view_container);
-        container.startShimmerAnimation();
+        if (container != null) {
+            container.startShimmerAnimation();
+        }
     }
 
     public void setupToolbar(){
@@ -109,8 +102,10 @@ public class StatusActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         ActionBar ab = getSupportActionBar();
-        ab.setTitle(this.title);
-        ab.setDisplayHomeAsUpEnabled(true);
+        if (ab != null) {
+            ab.setTitle(this.title);
+            ab.setDisplayHomeAsUpEnabled(true);
+        }
     }
 
     @Override
@@ -161,10 +156,10 @@ public class StatusActivity extends AppCompatActivity {
         });
     }
 
+
     public void showDialogMobileQuotaPref(View view){
         showDialogMobileQuotaPref();
     }
-
 
     public void updateActivityView(Context context){
 
@@ -217,7 +212,6 @@ public class StatusActivity extends AppCompatActivity {
 
     }
 
-
     public void setCurrentDayMobileData(){
         Date today = new Date(System.currentTimeMillis());
         Calendar calendar = Calendar.getInstance();
@@ -227,7 +221,7 @@ public class StatusActivity extends AppCompatActivity {
         calendar.set(Calendar.SECOND, 0);
         calendar.set(Calendar.MILLISECOND, 0);
 
-        long[] dailyData = getTransferedData(ApplicationTraffic.MOBILE, calendar.getTimeInMillis());
+        long[] dailyData = ApplicationTraffic.getTransferedData(ApplicationTraffic.MOBILE,calendar.getTimeInMillis());
 
         this.rxDailyMobile = dailyData[0];
         this.txDailyMobile = dailyData[1];
@@ -264,7 +258,7 @@ public class StatusActivity extends AppCompatActivity {
         calendar.set(Calendar.SECOND, 0);
         calendar.set(Calendar.MILLISECOND, 0);
 
-        long[] dailyData = getTransferedData(ApplicationTraffic.MOBILE, calendar.getTimeInMillis());
+        long[] dailyData = ApplicationTraffic.getTransferedData(ApplicationTraffic.MOBILE, calendar.getTimeInMillis());
 
         this.rxMonthlyMobile = dailyData[0];
         this.txMonthlyMobile = dailyData[1];
@@ -290,34 +284,6 @@ public class StatusActivity extends AppCompatActivity {
         int optionSelected = Integer.parseInt(sharedPreferences.getString(getString(R.string.settings_app_data_quota_total_key), "0"));
         this.monthlyDataQuota = Long.parseLong(getResources().getStringArray(R.array.data_quotas)[optionSelected]);
     }
-
-    /**
-     *
-     * @param appTrafficType Seleccionar ApplicationTraffic.MOBILE o ApplicationTraffic.WIFI
-     * @param initialTimestamp Tiempo desde el cual recuperar datos
-     * @return Arreglo con [DownloadedBytes, UploadedBytes]
-     */
-    //TODO: Move to ApplicationTraffic.java
-    public long[] getTransferedData(int appTrafficType, long initialTimestamp){
-        long rxData = 0, txData = 0;
-
-        Iterator<ApplicationTraffic> iterator = ApplicationTraffic.findAsIterator(
-                ApplicationTraffic.class, "network_type = ? and timestamp >= ?",
-                Integer.toString(appTrafficType),
-                Long.toString(initialTimestamp));
-
-        while (iterator.hasNext()){
-            ApplicationTraffic current = iterator.next();
-            rxData += current.rxBytes;
-            txData += current.txBytes;
-        }
-
-        long[] ret = new long[2];
-        ret[0] = rxData;
-        ret[1] = txData;
-        return ret;
-    }
-
 
     private int helpCounter;
     private ShowcaseView showcaseView;

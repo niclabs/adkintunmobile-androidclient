@@ -88,4 +88,30 @@ public class ApplicationTraffic extends Persistent<ApplicationTraffic>{
 
         return dataUsage;
     }
+
+    /**
+     *
+     * @param appTrafficType Seleccionar ApplicationTraffic.MOBILE o ApplicationTraffic.WIFI
+     * @param initialTimestamp Tiempo desde el cual recuperar datos
+     * @return Arreglo con [DownloadedBytes, UploadedBytes]
+     */
+    public static long[] getTransferedData(int appTrafficType, long initialTimestamp){
+        long rxData = 0, txData = 0;
+
+        Iterator<ApplicationTraffic> iterator = findAsIterator(
+                ApplicationTraffic.class, "network_type = ? and timestamp >= ?",
+                Integer.toString(appTrafficType),
+                Long.toString(initialTimestamp));
+
+        while (iterator.hasNext()){
+            ApplicationTraffic current = iterator.next();
+            rxData += current.rxBytes;
+            txData += current.txBytes;
+        }
+
+        long[] ret = new long[2];
+        ret[0] = rxData;
+        ret[1] = txData;
+        return ret;
+    }
 }
