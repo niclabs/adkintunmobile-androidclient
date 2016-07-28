@@ -52,15 +52,9 @@ public class SettingsFragment extends PreferenceFragment implements SharedPrefer
 
         /* Remove preferences available only in debug mode */
         if (!BuildConfig.DEBUG_MODE) {
+            PreferenceScreen preferenceScreen = (PreferenceScreen) findPreference(getString(R.string.settings_main_screen_key));
             PreferenceCategory preferenceCategory = (PreferenceCategory) findPreference(getString(R.string.settings_sampling_category_key));
-            ArrayList<Preference> debugPreferences = new ArrayList<>();
-            debugPreferences.add(findPreference(getString(R.string.settings_sampling_hostname_key)));
-            debugPreferences.add(findPreference(getString(R.string.settings_sampling_frequency_key)));
-            debugPreferences.add(findPreference(getString(R.string.settings_sampling_startsync_key)));
-
-            for (Preference preferenceToRemove : debugPreferences)
-                preferenceCategory.removePreference(preferenceToRemove);
-
+            preferenceScreen.removePreference(preferenceCategory);
         }
     }
 

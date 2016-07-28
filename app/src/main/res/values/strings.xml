@@ -21,6 +21,7 @@
     <!-- Preferences Strings -->
     <string name="settings_updated">Preferencias actualizadas</string>
 
+    <string name="settings_main_screen_key">settings_main</string>
     <string name="settings_app_data_category">Ajustes de la aplicación</string>
     <string name="settings_app_data_quota_total_key">plan_data_quota</string>
     <string name="settings_app_data_quota_total_title">Cuota de navegación de tu plan de datos</string>
@@ -31,7 +32,7 @@
     <string name="settings_app_data_clean_ip_location_cache_summary">Elimina los datos descargados para desplegar el mapa de conexiones activas.</string>
     <string name="settings_app_data_clean_ip_location_cache_message">Datos temporales borrados</string>
 
-    <string name="settings_sampling_category">Ajustes de sincronización</string>
+    <string name="settings_sampling_category">Opciones de Debug</string>
     <string name="settings_sampling_category_key">sync_category_key</string>
     <string name="settings_sampling_hostname_key">sync_hostname</string>
     <string name="settings_sampling_hostname_title">Dirección del servidor</string>
@@ -43,6 +44,9 @@
     <string name="settings_sampling_startsync_title">Gatillar Sincronización</string>
     <string name="settings_sampling_lastsync_key">sync_lastsync</string>
     <string name="settings_sampling_lastsync_title">Última Sincronización</string>
+    <string name="settings_sampling_compression_type_key">sync_compression_type</string>
+    <string name="settings_sampling_compression_type_title">Tipo de compresión utilizada</string>
+
 
     <string name="settings_app_category">Aplicación</string>
     <string name="settings_app_version_key">app_version</string>

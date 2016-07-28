@@ -3,9 +3,12 @@ package cl.niclabs.adkintunmobile.services.sync;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.IBinder;
+import android.preference.PreferenceManager;
 import android.util.Log;
 
+import cl.niclabs.adkintunmobile.R;
 import cl.niclabs.adkintunmobile.data.Report;
 import cl.niclabs.adkintunmobile.utils.compression.CompressionUtils;
 
@@ -25,12 +28,17 @@ public class Synchronization extends Service {
         this.context = this;
         Log.d(this.TAG, "Creado El servicio de sincronización");
 
-        // 1.- Build a report
+        // 1.- Build a report and get CompressionType
         Report report = new Report(getApplicationContext());
+
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        int selectedCompressionType = Integer.parseInt(sharedPreferences.getString(getString(R.string.settings_sampling_compression_type_key), "0"));
+        CompressionUtils.CompressionType compressionType = CompressionUtils.CompressionType.getCompressionType(selectedCompressionType);
+        Log.d(TAG, "Usando compresión: " + compressionType);
 
         if (report.recordsToSend()){
             // 2.- Save report
-            report.saveFile(context, CompressionUtils.CompressionType.GZIP);
+            report.saveFile(context, compressionType);
             // 3.- Backup visualization data
             report.saveVisualSamples();
             // 4.- Clean DB

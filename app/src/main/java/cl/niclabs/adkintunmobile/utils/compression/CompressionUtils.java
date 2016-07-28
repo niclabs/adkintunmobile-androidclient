@@ -12,7 +12,11 @@ import java.util.zip.Inflater;
 public class CompressionUtils {
 
     public enum CompressionType{
-        NOCOMPRESSION, GZIP, ZIPDEFLATER
+        NOCOMPRESSION, GZIP, ZIPDEFLATER;
+
+        public static CompressionType getCompressionType(int type){
+            return CompressionType.values()[type];
+        }
     }
 
     private static final String TAG = "AdkM:CompressionUtils";
