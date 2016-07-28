@@ -42,6 +42,10 @@
             android:key="@string/settings_sampling_lastsync_key"
             android:title="@string/settings_sampling_lastsync_title"
             />
+        <Preference
+            android:key="@string/settings_sampling_startsync_key"
+            android:title="@string/settings_sampling_startsync_title"
+            />
     </PreferenceCategory>
     <PreferenceCategory
         android:title="@string/settings_app_category"

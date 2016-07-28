@@ -2,6 +2,7 @@ package cl.niclabs.adkintunmobile.views.settings;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
@@ -15,12 +16,14 @@ import android.support.v4.app.FragmentManager;
 import android.util.Log;
 import android.widget.Toast;
 
+import java.util.ArrayList;
 import java.util.Map;
 
 import cl.niclabs.adkintunmobile.BuildConfig;
 import cl.niclabs.adkintunmobile.R;
 import cl.niclabs.adkintunmobile.data.persistent.IpLocation;
 import cl.niclabs.adkintunmobile.services.SetupSystem;
+import cl.niclabs.adkintunmobile.services.sync.Synchronization;
 import cl.niclabs.adkintunmobile.utils.information.Network;
 import cl.niclabs.adkintunmobile.views.status.DayOfRechargeDialog;
 import cl.niclabs.adkintunmobile.views.status.DataQuotaDialog;
@@ -40,20 +43,24 @@ public class SettingsFragment extends PreferenceFragment implements SharedPrefer
 
         this.context = getActivity();
 
-        // Load the preferences from xml
+        /* Load the preferences from xml */
         addPreferencesFromResource(R.xml.preferences);
 
         getPreferenceManager().getSharedPreferences().registerOnSharedPreferenceChangeListener(this);
 
         updateSummaries();
 
+        /* Remove preferences available only in debug mode */
         if (!BuildConfig.DEBUG_MODE) {
             PreferenceCategory preferenceCategory = (PreferenceCategory) findPreference(getString(R.string.settings_sampling_category_key));
-            Preference syncHostname = findPreference(getString(R.string.settings_sampling_hostname_key));
-            Preference syncFrequency = findPreference(getString(R.string.settings_sampling_frequency_key));
+            ArrayList<Preference> debugPreferences = new ArrayList<>();
+            debugPreferences.add(findPreference(getString(R.string.settings_sampling_hostname_key)));
+            debugPreferences.add(findPreference(getString(R.string.settings_sampling_frequency_key)));
+            debugPreferences.add(findPreference(getString(R.string.settings_sampling_startsync_key)));
 
-            preferenceCategory.removePreference(syncHostname);
-            preferenceCategory.removePreference(syncFrequency);
+            for (Preference preferenceToRemove : debugPreferences)
+                preferenceCategory.removePreference(preferenceToRemove);
+
         }
     }
 
@@ -72,18 +79,26 @@ public class SettingsFragment extends PreferenceFragment implements SharedPrefer
         String key = preference.getKey();
 
         if (key.equals(getString(R.string.settings_app_data_quota_total_key))) {
+            /* Dialog for choose plan quota */
             FragmentManager fm = ((SettingsActivity) getActivity()).getSupportFragmentManager();
             DataQuotaDialog.showDialogPreference(fm, null);
         }
         if (key.equals(getString(R.string.settings_app_day_of_recharge_key))) {
+            /* Dialog for choose recharge data plan quota */
             FragmentManager fm = ((SettingsActivity) getActivity()).getSupportFragmentManager();
             DayOfRechargeDialog.showDialogPreference(fm, null);
         }
+        if (key.equals(getString(R.string.settings_sampling_startsync_key))){
+            /* Start Sync process: create new report and try to send it */
+            context.startService(new Intent(context, Synchronization.class));
+        }
         if (key.equals(getString(R.string.settings_sampling_lastsync_key)) && BuildConfig.DEBUG_MODE){
+            /* Dialog to show details of last sync process */
             FragmentManager fm = ((SettingsActivity) getActivity()).getSupportFragmentManager();
             SynchronizationLogDialog.showDialog(fm);
         }
         if (key.equals(getString(R.string.settings_app_data_clean_ip_location_cache_key))){
+            /* Delete ipLocation records cached */
             IpLocation.cleanDB();
             Toast.makeText(this.context, getString(R.string.settings_app_data_clean_ip_location_cache_message), Toast.LENGTH_SHORT).show();
         }
