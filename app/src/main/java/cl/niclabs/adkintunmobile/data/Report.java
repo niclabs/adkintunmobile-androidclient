@@ -93,7 +93,7 @@ public class Report {
         if (connectivityRecordsSize > 0) {
             ConnectivityObservationWrapper lastObservation = connectivityRecords.get(connectivityRecordsSize - 1);
             ConnectivityObservationWrapper previousObservation;
-            for (int i = gsmRecordsSize - 2; i >= 0; i--) {
+            for (int i = connectivityRecordsSize - 2; i >= 0; i--) {
                 previousObservation = connectivityRecords.get(i);
                 if (previousObservation.timestamp == lastObservation.timestamp) {
                     connectivityRecords.remove(i);                  //Remove connectivityRecords with the same timestamp
