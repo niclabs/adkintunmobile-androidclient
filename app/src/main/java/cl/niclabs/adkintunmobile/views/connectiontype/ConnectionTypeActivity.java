@@ -8,6 +8,8 @@ import android.graphics.drawable.ColorDrawable;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.util.TypedValue;
@@ -30,6 +32,8 @@ import java.util.Comparator;
 import java.util.HashMap;
 
 import cl.niclabs.adkintunmobile.R;
+import cl.niclabs.adkintunmobile.data.persistent.visualization.ConnectionTypeSample;
+import cl.niclabs.adkintunmobile.data.persistent.visualization.NetworkTypeSample;
 import cl.niclabs.adkintunmobile.utils.display.DisplayDateManager;
 import cl.niclabs.adkintunmobile.utils.display.DisplayManager;
 import cl.niclabs.adkintunmobile.utils.display.DoughnutChart;
@@ -42,6 +46,8 @@ public abstract class ConnectionTypeActivity extends AppCompatActivity implement
     protected Toolbar toolbar;
     protected RelativeLayout loadingPanel;
 
+    protected RecyclerView timeLineView;
+    protected TimeLineAdapter timeLineAdapter;
     protected DoughnutChart chart;
     protected DoughnutChartBuilder chartBuilder;
     protected long[] timeByType;
@@ -218,6 +224,14 @@ public abstract class ConnectionTypeActivity extends AppCompatActivity implement
         return super.onOptionsItemSelected(item);
     }
 
+    public void setUpTimeLine(){
+        timeLineView = (RecyclerView) findViewById(R.id.timeline);
+        timeLineView.setHasFixedSize(true);
+        timeLineView.setLayoutManager(new LinearLayoutManager(this));
+        timeLineAdapter = new TimeLineAdapter(context);
+        timeLineView.setAdapter(timeLineAdapter);
+    }
+
     public void setUpDoughnutChart(){
         dayText = (TextView) findViewById(R.id.text_day);
         dateText = (TextView) findViewById(R.id.text_date);
@@ -298,6 +312,7 @@ public abstract class ConnectionTypeActivity extends AppCompatActivity implement
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
+                        timeLineAdapter.notifyDataSetChanged();
                         refreshLegend(initTime);
                         //Acá la lógica para modificar el donutchart con los nuevos datos
                         dateManager.refreshDate(dayText, dateText, initTime);

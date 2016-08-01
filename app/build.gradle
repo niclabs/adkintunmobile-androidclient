@@ -56,4 +56,5 @@ dependencies {
     compile 'com.google.android.gms:play-services-maps:9.2.0'
     compile 'com.loopj.android:android-async-http:1.4.9'
     compile 'com.github.amlcurran.showcaseview:library:5.4.3'
+    compile 'com.github.vipulasri:timelineview:1.0.3'
 }

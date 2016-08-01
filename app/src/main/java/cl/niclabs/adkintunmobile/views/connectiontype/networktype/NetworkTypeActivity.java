@@ -12,11 +12,17 @@ import com.github.amlcurran.showcaseview.ShowcaseView;
 import com.github.amlcurran.showcaseview.targets.Target;
 import com.github.amlcurran.showcaseview.targets.ViewTarget;
 
+import java.util.ArrayList;
+
 import cl.niclabs.adkintunmobile.R;
 import cl.niclabs.adkintunmobile.data.chart.StatisticInformation;
+import cl.niclabs.adkintunmobile.data.persistent.visualization.ConnectionModeSample;
+import cl.niclabs.adkintunmobile.data.persistent.visualization.ConnectionTypeSample;
+import cl.niclabs.adkintunmobile.data.persistent.visualization.NetworkTypeSample;
 import cl.niclabs.adkintunmobile.utils.display.DoughnutChart;
 import cl.niclabs.adkintunmobile.utils.display.ShowCaseTutorial;
 import cl.niclabs.adkintunmobile.views.connectiontype.ConnectionTypeActivity;
+import cl.niclabs.adkintunmobile.views.connectiontype.TimeLineAdapter;
 
 public class NetworkTypeActivity extends ConnectionTypeActivity {
 
@@ -28,6 +34,7 @@ public class NetworkTypeActivity extends ConnectionTypeActivity {
         setContentView(R.layout.activity_network_type);
         setBaseActivityParams();
         setUpToolbar();
+        setUpTimeLine();
         //setUpDoughnutChart();
     }
 
@@ -43,10 +50,12 @@ public class NetworkTypeActivity extends ConnectionTypeActivity {
     @Override
     public void loadData(long initialTime) {
         long currentTime = System.currentTimeMillis();
-        StatisticInformation statistic = new DailyNetworkTypeInformation(context, initialTime, currentTime);
+        DailyNetworkTypeInformation statistic = new DailyNetworkTypeInformation(context, initialTime, currentTime);
         statistic.setStatisticsInformation();
         this.chart = (DoughnutChart) this.chartBuilder.createGraphicStatistic(statistic);
         this.timeByType = statistic.getTimeByType();
+
+        timeLineAdapter.updateData(statistic.getSamples());
     }
 
     @Override
