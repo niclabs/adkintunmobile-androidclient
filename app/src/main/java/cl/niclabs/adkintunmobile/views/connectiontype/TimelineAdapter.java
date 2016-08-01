@@ -2,7 +2,6 @@ package cl.niclabs.adkintunmobile.views.connectiontype;
 
 import android.content.Context;
 import android.content.res.TypedArray;
-import android.graphics.drawable.Drawable;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,28 +13,29 @@ import java.util.ArrayList;
 import java.util.List;
 
 import cl.niclabs.adkintunmobile.R;
+import cl.niclabs.adkintunmobile.data.persistent.visualization.ConnectionModeSample;
 import cl.niclabs.adkintunmobile.data.persistent.visualization.ConnectionTypeSample;
 import cl.niclabs.adkintunmobile.data.persistent.visualization.NetworkTypeSample;
 import cl.niclabs.adkintunmobile.utils.display.DisplayDateManager;
 
-public class TimeLineAdapter extends RecyclerView.Adapter<TimeLineAdapter.TimeLineViewHolder>{
+public class TimelineAdapter extends RecyclerView.Adapter<TimelineAdapter.TimelineViewHolder>{
     private List<ConnectionTypeSample> mFeedList;
     Context context;
 
-    protected static class TimeLineViewHolder extends RecyclerView.ViewHolder{
+    protected static class TimelineViewHolder extends RecyclerView.ViewHolder{
         TextView initTime;
         TextView endTime;
-        TimelineView timeLineMarker;
+        TimelineView timelineMarker;
 
-        public TimeLineViewHolder(View itemView) {
+        public TimelineViewHolder(View itemView) {
             super(itemView);
             initTime = (TextView) itemView.findViewById(R.id.tv_timeline_init_time);
             endTime = (TextView) itemView.findViewById(R.id.tv_timeline_end_time);
-            timeLineMarker = (TimelineView) itemView.findViewById(R.id.time_marker);
+            timelineMarker = (TimelineView) itemView.findViewById(R.id.time_marker);
         }
     }
 
-    public TimeLineAdapter(Context context){
+    public TimelineAdapter(Context context){
         this.context = context;
     }
 
@@ -44,22 +44,24 @@ public class TimeLineAdapter extends RecyclerView.Adapter<TimeLineAdapter.TimeLi
     }
 
     @Override
-    public TimeLineViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public TimelineViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = View.inflate(parent.getContext(), R.layout.item_timeline, null);
-        return new TimeLineViewHolder(view);
+        return new TimelineViewHolder(view);
 
     }
 
     @Override
-    public void onBindViewHolder(TimeLineViewHolder holder, int position) {
+    public void onBindViewHolder(TimelineViewHolder holder, int position) {
         ConnectionTypeSample connectionTypeSample = mFeedList.get(position);
         holder.initTime.setText(DisplayDateManager.getDateString(connectionTypeSample.getInitialTime()));
         if (connectionTypeSample instanceof NetworkTypeSample){
             TypedArray icons = context.getResources().obtainTypedArray(R.array.network_type_legend_icons);
-
-            holder.timeLineMarker.setMarker(icons.getDrawable(connectionTypeSample.getType()));
+            holder.timelineMarker.setMarker(icons.getDrawable(connectionTypeSample.getType()));
         }
-        //TODO completar tipo
+        else if (connectionTypeSample instanceof ConnectionModeSample){
+            TypedArray icons = context.getResources().obtainTypedArray(R.array.connection_mode_legend_icons);
+            holder.timelineMarker.setMarker(icons.getDrawable(connectionTypeSample.getType()));
+        }
         //TODO completar endtime
     }
 

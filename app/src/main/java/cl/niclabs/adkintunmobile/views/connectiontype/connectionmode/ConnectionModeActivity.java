@@ -13,7 +13,6 @@ import com.github.amlcurran.showcaseview.targets.Target;
 import com.github.amlcurran.showcaseview.targets.ViewTarget;
 
 import cl.niclabs.adkintunmobile.R;
-import cl.niclabs.adkintunmobile.data.chart.StatisticInformation;
 import cl.niclabs.adkintunmobile.utils.display.DoughnutChart;
 import cl.niclabs.adkintunmobile.utils.display.ShowCaseTutorial;
 import cl.niclabs.adkintunmobile.views.connectiontype.ConnectionTypeActivity;
@@ -28,6 +27,7 @@ public class ConnectionModeActivity extends ConnectionTypeActivity {
         setContentView(R.layout.activity_connection_mode);
         setBaseActivityParams();
         setUpToolbar();
+        setUpTimeLine();
         //setUpDoughnutChart();
     }
 
@@ -43,10 +43,12 @@ public class ConnectionModeActivity extends ConnectionTypeActivity {
     @Override
     public void loadData(long initialTime) {
         long currentTime = System.currentTimeMillis();
-        StatisticInformation statistic = new DailyConnectionModeInformation(context, initialTime, currentTime);
+        DailyConnectionModeInformation statistic = new DailyConnectionModeInformation(context, initialTime, currentTime);
         statistic.setStatisticsInformation();
         this.chart = (DoughnutChart) this.chartBuilder.createGraphicStatistic(statistic);
         this.timeByType = statistic.getTimeByType();
+
+        timelineAdapter.updateData(statistic.getSamples());
     }
 
     @Override
