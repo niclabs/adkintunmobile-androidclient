@@ -161,7 +161,8 @@ public class Report {
         TelephonyObservationWrapper.deleteAll(TelephonyObservationWrapper.class);
         TrafficObservationWrapper.deleteAll(TrafficObservationWrapper.class);
 
-        persistentGsmObservation.save(); //Last GsmObservation reported is saved again to avoid sending events with the same timestamp (incremental records)
+        if (persistentGsmObservation != null)
+            persistentGsmObservation.save(); //Last GsmObservation reported is saved again to avoid sending events with the same timestamp (incremental records)
     }
 
     public void saveVisualSamples(){
