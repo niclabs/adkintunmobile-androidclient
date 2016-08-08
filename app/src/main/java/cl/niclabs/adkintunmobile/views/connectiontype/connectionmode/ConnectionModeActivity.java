@@ -101,12 +101,11 @@ public class ConnectionModeActivity extends ConnectionTypeActivity {
         this.mViewPagerAdapter = new ConnectionTypeViewPagerAdapter(getSupportFragmentManager());
         ConnectionTypeViewFragment donutchartFragment, timelineFragment;
 
-        // TODO: PASAR A STRINGS.XML
         donutchartFragment = new DonutchartConnectionModeViewFragment();
-        donutchartFragment.setTitle("Resumen Diario");
+        donutchartFragment.setTitle(getString(R.string.view_connection_type_summary));
 
         timelineFragment = new TimelineViewFragment();
-        timelineFragment.setTitle("Informe Detallado");
+        timelineFragment.setTitle(getString(R.string.view_connection_type_detailed));
 
         this.mViewPagerAdapter.addFragment(donutchartFragment);
         this.mViewPagerAdapter.addFragment(timelineFragment);

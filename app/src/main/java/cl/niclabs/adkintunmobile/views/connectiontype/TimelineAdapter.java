@@ -110,7 +110,6 @@ public class TimelineAdapter extends RecyclerView.Adapter<TimelineAdapter.Timeli
             TypedArray icons = context.getResources().obtainTypedArray(R.array.connection_mode_legend_icons);
             holder.timelineMarker.setMarker(icons.getDrawable(connectionTypeSample.getType()));
         }
-        //TODO completar endtime
     }
 
     @Override

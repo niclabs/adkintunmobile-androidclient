@@ -93,6 +93,8 @@
 
     <!-- Conn type: Conn Mode and Network Type shared -->
     <string name="view_connection_type_nemu_datepicker">Seleccionar rango de fechas</string>
+    <string name="view_connection_type_summary">Resumen Diario</string>
+    <string name="view_connection_type_detailed">Informe Detallado</string>
 
     <!-- Conn mode -->
     <string name="view_connection_mode_symbology">Leyenda</string>
