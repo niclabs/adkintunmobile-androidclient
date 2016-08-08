@@ -1,7 +1,7 @@
 package cl.niclabs.adkintunmobile.views.connectiontype.connectionmode;
 
-import android.content.res.TypedArray;
 import android.os.Bundle;
+import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TableLayout;
@@ -13,59 +13,33 @@ import com.github.amlcurran.showcaseview.targets.Target;
 import com.github.amlcurran.showcaseview.targets.ViewTarget;
 
 import cl.niclabs.adkintunmobile.R;
-import cl.niclabs.adkintunmobile.utils.display.DoughnutChart;
 import cl.niclabs.adkintunmobile.utils.display.ShowCaseTutorial;
 import cl.niclabs.adkintunmobile.views.connectiontype.ConnectionTypeActivity;
+import cl.niclabs.adkintunmobile.views.connectiontype.ConnectionTypeViewFragment;
+import cl.niclabs.adkintunmobile.views.connectiontype.ConnectionTypeViewPagerAdapter;
+import cl.niclabs.adkintunmobile.views.connectiontype.TimelineViewFragment;
 
 public class ConnectionModeActivity extends ConnectionTypeActivity {
 
-    private final String TAG = "AdkM:ConnectionModeActivity";
+    /* Android Lifecycle */
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_connection_mode);
+
         setBaseActivityParams();
         setUpToolbar();
-        setUpTimeLine();
-        //setUpDoughnutChart();
+        setUpViewPager();
     }
 
-    public void setBaseActivityParams() {
-        this.title = getString(R.string.view_connection_mode);
-        this.context = this;
-        this.loadingPanel = (RelativeLayout) findViewById(R.id.loading_panel);
-        ShimmerFrameLayout container =
-                (ShimmerFrameLayout) findViewById(R.id.shimmer_view_container);
-        container.startShimmerAnimation();
-    }
-
+    // Responsabilidad de la herencia
+    // Métodos a implementar de ConnectionTypeActivity
     @Override
     public void loadData(long initialTime) {
         long currentTime = System.currentTimeMillis();
-        DailyConnectionModeInformation statistic = new DailyConnectionModeInformation(context, initialTime, currentTime);
-        statistic.setStatisticsInformation();
-        this.chart = (DoughnutChart) this.chartBuilder.createGraphicStatistic(statistic);
-        this.timeByType = statistic.getTimeByType();
-
-        timelineAdapter.updateData(statistic.getSamples());
-    }
-
-    @Override
-    public void refreshLegend(long initialTime){
-        TypedArray icons = context.getResources().obtainTypedArray(R.array.connection_mode_legend_icons);
-        TypedArray colors = context.getResources().obtainTypedArray(R.array.connection_mode_legend_colors_soft);
-        setNewLegend(icons, colors);
-    }
-
-    @Override
-    public TypedArray getSaturatedColors(){
-        return  context.getResources().obtainTypedArray(R.array.connection_mode_legend_colors);
-    }
-
-    @Override
-    public TypedArray getSoftColors(){
-        return context.getResources().obtainTypedArray(R.array.connection_mode_legend_colors_soft);
+        this.statistic = new DailyConnectionModeInformation(context, initialTime, currentTime);
+        this.statistic.setStatisticsInformation();
     }
 
     private int helpCounter;
@@ -98,6 +72,7 @@ public class ConnectionModeActivity extends ConnectionTypeActivity {
                         showcaseView.setButtonText(getString(R.string.tutorial_close));
                         break;
 
+                    //TODO: COMPLETAR TUTORIAL
                     default:
                         showcaseView.hide();
                         return;
@@ -109,5 +84,34 @@ public class ConnectionModeActivity extends ConnectionTypeActivity {
         };
 
         showcaseView = ShowCaseTutorial.createViewTutorial(this, firstTarget, tutorialTitle, tutorialBody, onClickListener);
+    }
+
+    @Override
+    protected void setBaseActivityParams() {
+        this.title = getString(R.string.view_connection_mode);
+        this.context = this;
+        this.loadingPanel = (RelativeLayout) findViewById(R.id.loading_panel);
+        ShimmerFrameLayout container =
+                (ShimmerFrameLayout) findViewById(R.id.shimmer_view_container);
+        container.startShimmerAnimation();
+    }
+
+    @Override
+    protected void setUpViewPager(){
+        this.mViewPagerAdapter = new ConnectionTypeViewPagerAdapter(getSupportFragmentManager());
+        ConnectionTypeViewFragment donutchartFragment, timelineFragment;
+
+        // TODO: PASAR A STRINGS.XML
+        donutchartFragment = new DonutchartConnectionModeViewFragment();
+        donutchartFragment.setTitle("Resumen Diario");
+
+        timelineFragment = new TimelineViewFragment();
+        timelineFragment.setTitle("Informe Detallado");
+
+        this.mViewPagerAdapter.addFragment(donutchartFragment);
+        this.mViewPagerAdapter.addFragment(timelineFragment);
+
+        ViewPager mViewPager = (ViewPager) findViewById(R.id.viewpager);
+        mViewPager.setAdapter(this.mViewPagerAdapter);
     }
 }
