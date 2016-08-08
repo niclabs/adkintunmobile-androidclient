@@ -67,6 +67,8 @@
     <string name="view_dashboard_net_type_summary">La mayor parte del día has tenido señal:</string>
     <string name="view_dashboard_top_apps_title">Principales Aplicaciones</string>
     <string name="view_dashboard_top_apps_summary">Las siguientes aplicaciones son las que más han usado tu internet móvil hoy:</string>
+    <string name="view_dashboard_active_connections_title">Conexiones activas</string>
+    <string name="view_dashboard_active_connections_summary">En este momento las conexiones de internet activas en tu celular llegan a un total de:</string>
 
     <!-- Notifications Log -->
     <string name="view_notifications_log_item_no_data">No hay notificaciones para mostrar</string>
