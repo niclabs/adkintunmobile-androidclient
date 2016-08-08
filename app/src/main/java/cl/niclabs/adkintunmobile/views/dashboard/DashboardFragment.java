@@ -289,8 +289,12 @@ public class DashboardFragment extends BaseToolbarFragment {
                     getActivity().runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            ((TextView) view.findViewById(R.id.tv_active_connections)).setText(Integer.toString(numberOfConnections));
-                            view.setVisibility(View.VISIBLE);
+                            if (numberOfConnections > 0) {
+                                ((TextView) view.findViewById(R.id.tv_active_connections)).setText(Integer.toString(numberOfConnections));
+                                view.setVisibility(View.VISIBLE);
+                            }
+                            else
+                                view.setVisibility(View.GONE);
                         }
                     });
                 }
