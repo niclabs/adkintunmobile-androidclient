@@ -2,6 +2,7 @@ package cl.niclabs.adkintunmobile.views.connectiontype.connectionmode;
 
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TableLayout;
@@ -59,6 +60,7 @@ public class ConnectionModeActivity extends ConnectionTypeActivity {
 
                 switch (helpCounter) {
                     case 1:
+                        mViewPager.setCurrentItem(0);
                         mTarget = new ViewTarget(findViewById(R.id.layout_time));
                         break;
 
@@ -68,11 +70,19 @@ public class ConnectionModeActivity extends ConnectionTypeActivity {
                         break;
 
                     case 3:
+                        mViewPager.setCurrentItem(1);
+                        View mTimelineLegend = findViewById(R.id.timeline);
+                        mTimelineLegend = ((RecyclerView)mTimelineLegend).getChildAt(0) != null ?
+                                ((RecyclerView)mTimelineLegend).getChildAt(0) :
+                                mTimelineLegend;
+                        mTarget = new ViewTarget(mTimelineLegend);
+                        break;
+
+                    case 4:
                         mTarget = new ViewTarget(findViewById(R.id.menu_date_picker_btn));
                         showcaseView.setButtonText(getString(R.string.tutorial_close));
                         break;
 
-                    //TODO: COMPLETAR TUTORIAL
                     default:
                         showcaseView.hide();
                         return;
@@ -92,7 +102,7 @@ public class ConnectionModeActivity extends ConnectionTypeActivity {
         this.context = this;
         this.loadingPanel = (RelativeLayout) findViewById(R.id.loading_panel);
         ShimmerFrameLayout container =
-                (ShimmerFrameLayout) findViewById(R.id.shimmer_view_container);
+                (ShimmerFrameLayout) findViewById(R.id.shimmer_loading);
         container.startShimmerAnimation();
     }
 
@@ -110,7 +120,7 @@ public class ConnectionModeActivity extends ConnectionTypeActivity {
         this.mViewPagerAdapter.addFragment(donutchartFragment);
         this.mViewPagerAdapter.addFragment(timelineFragment);
 
-        ViewPager mViewPager = (ViewPager) findViewById(R.id.viewpager);
-        mViewPager.setAdapter(this.mViewPagerAdapter);
+        this.mViewPager = (ViewPager) findViewById(R.id.viewpager);
+        this.mViewPager.setAdapter(this.mViewPagerAdapter);
     }
 }

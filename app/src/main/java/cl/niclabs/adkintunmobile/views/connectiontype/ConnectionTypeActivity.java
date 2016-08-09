@@ -3,6 +3,7 @@ package cl.niclabs.adkintunmobile.views.connectiontype;
 import android.app.DatePickerDialog;
 import android.content.Context;
 import android.os.Bundle;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -28,6 +29,7 @@ public abstract class ConnectionTypeActivity extends AppCompatActivity implement
 
     protected DailyConnectionTypeInformation statistic;
     protected ConnectionTypeViewPagerAdapter mViewPagerAdapter;
+    protected ViewPager mViewPager;
 
     /* ¿Qué debe implementar cada clase que extienda de NewConnectionTypeActivity? */
 
