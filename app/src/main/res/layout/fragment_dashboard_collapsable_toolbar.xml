@@ -148,7 +148,7 @@
                             android:background="@drawable/rounded_shadow" />
 
                         <com.facebook.shimmer.ShimmerFrameLayout
-                            android:id="@+id/shimmer_view_container"
+                            android:id="@+id/shimmer_dashboard_logo"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             >
