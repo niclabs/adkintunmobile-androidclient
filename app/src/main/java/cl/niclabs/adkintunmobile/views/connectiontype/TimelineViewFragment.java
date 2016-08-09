@@ -23,7 +23,7 @@ public class TimelineViewFragment extends ConnectionTypeViewFragment{
     // Métodos a implementar de NewConnectionTypeViewFragment
     @Override
     public void updateView(DailyConnectionTypeInformation statistic) {
-        this.timelineAdapter.updateData(statistic.getSamples());
+        this.timelineAdapter.updateData(statistic);
         DisplayDateManager dateManager = new DisplayDateManager(context);
         dateManager.refreshDate(this.dayText, this.dateText, statistic.initialTime);
 
