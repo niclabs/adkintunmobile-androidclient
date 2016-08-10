@@ -16,6 +16,8 @@ import android.support.v4.app.FragmentManager;
 import android.util.Log;
 import android.widget.Toast;
 
+import java.io.File;
+import java.io.FilenameFilter;
 import java.util.ArrayList;
 import java.util.Map;
 
@@ -85,6 +87,22 @@ public class SettingsFragment extends PreferenceFragment implements SharedPrefer
         if (key.equals(getString(R.string.settings_sampling_startsync_key))){
             /* Start Sync process: create new report and try to send it */
             context.startService(new Intent(context, Synchronization.class));
+        }
+        if (key.equals(getString(R.string.settings_sampling_delete_backup_key))){
+            /* Delete Local Reports */
+            File outputDir = context.getFilesDir();
+            File[] reportFiles = outputDir.listFiles(new FilenameFilter() {
+                @Override
+                public boolean accept(File dir, String filename) {
+                    return filename.startsWith(context.getString(R.string.synchronization_report_filename)) &&
+                            filename.endsWith(context.getString(R.string.synchronization_report_file_extension));
+                }
+            });
+            Toast.makeText(context, "A borrar " + reportFiles.length + " reportes", Toast.LENGTH_SHORT).show();
+            for (int i=0; i<reportFiles.length; i++){
+                File reportFile = reportFiles[i];
+                reportFile.delete();
+            }
         }
         if (key.equals(getString(R.string.settings_sampling_lastsync_key)) && BuildConfig.DEBUG_MODE){
             /* Dialog to show details of last sync process */

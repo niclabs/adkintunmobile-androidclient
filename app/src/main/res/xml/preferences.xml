@@ -43,6 +43,10 @@
             android:key="@string/settings_sampling_startsync_key"
             android:title="@string/settings_sampling_startsync_title"
             />
+        <Preference
+            android:key="@string/settings_sampling_delete_backup_key"
+            android:title="@string/settings_sampling_delete_backup_title"
+            />
         <ListPreference
             android:key="@string/settings_sampling_compression_type_key"
             android:title="@string/settings_sampling_compression_type_title"
