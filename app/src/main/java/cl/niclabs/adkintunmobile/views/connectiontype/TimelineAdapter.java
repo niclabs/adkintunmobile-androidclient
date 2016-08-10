@@ -100,8 +100,10 @@ public class TimelineAdapter extends RecyclerView.Adapter<TimelineAdapter.Timeli
             //  -el getInitialTime() del registro, si es un registro del día consultado
             mCalendar.add(Calendar.DAY_OF_MONTH, -1);
             if (connectionTypeSample.getInitialTime() < mCalendar.getTimeInMillis()){
+                // es de un día previo al consultado
                 millis -= mCalendar.getTimeInMillis();
             } else {
+                // es un registro del día consultado
                 millis -= connectionTypeSample.getInitialTime();
             }
 
