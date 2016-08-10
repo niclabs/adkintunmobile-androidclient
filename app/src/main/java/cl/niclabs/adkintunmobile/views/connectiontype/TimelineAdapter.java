@@ -23,6 +23,7 @@ import cl.niclabs.adkintunmobile.data.persistent.visualization.NetworkTypeSample
 import cl.niclabs.adkintunmobile.utils.display.DisplayDateManager;
 
 public class TimelineAdapter extends RecyclerView.Adapter<TimelineAdapter.TimelineViewHolder>{
+    private long queriedTimestamp;
     private List<ConnectionTypeSample> mFeedList;
     Context context;
 
@@ -45,8 +46,9 @@ public class TimelineAdapter extends RecyclerView.Adapter<TimelineAdapter.Timeli
         this.context = context;
     }
 
-    public void updateData(ArrayList<ConnectionTypeSample> samples) {
-        mFeedList = samples;
+    public void updateData(DailyConnectionTypeInformation statistic) {
+        queriedTimestamp = statistic.initialTime;
+        mFeedList = statistic.getSamples();
         notifyDataSetChanged();
     }
 
@@ -73,23 +75,41 @@ public class TimelineAdapter extends RecyclerView.Adapter<TimelineAdapter.Timeli
         if (position + 1 < mFeedList.size()){
             ConnectionTypeSample connectionNextTypeSample = mFeedList.get(position+1);
             millis = connectionNextTypeSample.getInitialTime() - connectionTypeSample.getInitialTime();
-        }else{      // Es el último registro del día
-            Calendar c = Calendar.getInstance();
-            c.setTimeInMillis(connectionTypeSample.getInitialTime());
-            c.set(Calendar.HOUR_OF_DAY, 0);
-            c.set(Calendar.MINUTE, 0);
-            c.set(Calendar.SECOND, 0);
-            c.set(Calendar.MILLISECOND, 0);
-            c.add(Calendar.DAY_OF_MONTH, 1);
-            if (System.currentTimeMillis() < c.getTimeInMillis())
-                millis = System.currentTimeMillis() - connectionTypeSample.getInitialTime();
-            else
-                millis = c.getTimeInMillis() - connectionTypeSample.getInitialTime();
+        }else{
+            Calendar mCalendar = Calendar.getInstance();
+            mCalendar.setTimeInMillis(queriedTimestamp);
+            mCalendar.add(Calendar.DAY_OF_MONTH, 1);
+
+            // Este es el último registro y debe completar:
+
+            // hasta:
+            //  -El tiempo actual si se consultó el día de hoy
+            //  -El final del día , si se consultó un día previo
+
+            if (mCalendar.getTimeInMillis() > System.currentTimeMillis()){
+                // se consultó el día de hoy
+                millis = System.currentTimeMillis();
+
+            } else {
+                // se consultó un día previo
+                millis = mCalendar.getTimeInMillis();
+            }
+
+            // desde:
+            //  -las 0 Horas, si dicho registro es de un día previo al consultado
+            //  -el getInitialTime() del registro, si es un registro del día consultado
+            mCalendar.add(Calendar.DAY_OF_MONTH, -1);
+            if (connectionTypeSample.getInitialTime() < mCalendar.getTimeInMillis()){
+                millis -= mCalendar.getTimeInMillis();
+            } else {
+                millis -= connectionTypeSample.getInitialTime();
+            }
+
         }
 
         long second = (millis / 1000) % 60;
         long minute = (millis / (1000 * 60)) % 60;
-        long hour = (millis / (1000 * 60 * 60)) % 24;
+        long hour = (millis / (1000 * 60 * 60)) % 25;
 
         if (hour > 0)
             durationText += String.format(" %d Hr.", hour);
@@ -105,10 +125,12 @@ public class TimelineAdapter extends RecyclerView.Adapter<TimelineAdapter.Timeli
         if (connectionTypeSample instanceof NetworkTypeSample){
             TypedArray icons = context.getResources().obtainTypedArray(R.array.network_type_legend_icons);
             holder.timelineMarker.setMarker(icons.getDrawable(connectionTypeSample.getType()));
+            icons.recycle();
         }
         else if (connectionTypeSample instanceof ConnectionModeSample){
             TypedArray icons = context.getResources().obtainTypedArray(R.array.connection_mode_legend_icons);
             holder.timelineMarker.setMarker(icons.getDrawable(connectionTypeSample.getType()));
+            icons.recycle();
         }
     }
 
