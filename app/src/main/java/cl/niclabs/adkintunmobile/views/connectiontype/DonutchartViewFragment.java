@@ -79,21 +79,24 @@ public abstract class DonutchartViewFragment extends ConnectionTypeViewFragment 
 
     private void setUpDoughnutChart() {
         //TODO: getView() puede dar null si se sale rápido de la vista
-        dayText = (TextView) getView().findViewById(R.id.text_day);
-        dateText = (TextView) getView().findViewById(R.id.text_date);
-        dateManager = new DisplayDateManager(context);
+        View mView = getView();
+        if (mView != null){
+            dayText = (TextView) mView.findViewById(R.id.text_day);
+            dateText = (TextView) mView.findViewById(R.id.text_date);
+            dateManager = new DisplayDateManager(context);
 
-        Typeface tf1 = Typeface.createFromAsset(context.getAssets(),
-                getString(R.string.font_text_view));
-        dayText.setTypeface(tf1);
-        dateText.setTypeface(tf1);
+            Typeface tf1 = Typeface.createFromAsset(context.getAssets(),
+                    getString(R.string.font_text_view));
+            dayText.setTypeface(tf1);
+            dateText.setTypeface(tf1);
 
-        DoughnutChart chartElement = (DoughnutChart) getView().findViewById(R.id.doughnut);
+            DoughnutChart chartElement = (DoughnutChart) mView.findViewById(R.id.doughnut);
 
-        float chartDiameter = getResources().getDimension(
-                R.dimen.connected_time_doughnut);
-        this.chartBuilder = new DoughnutChartBuilder(chartElement, chartDiameter);
-        chartElement.setRotation(180f);
+            float chartDiameter = getResources().getDimension(
+                    R.dimen.connected_time_doughnut);
+            this.chartBuilder = new DoughnutChartBuilder(chartElement, chartDiameter);
+            chartElement.setRotation(180f);
+        }
     }
 
     private void setUpHashMap() {
