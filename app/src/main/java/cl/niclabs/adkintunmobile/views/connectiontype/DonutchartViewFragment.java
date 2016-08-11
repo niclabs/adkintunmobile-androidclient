@@ -150,7 +150,6 @@ public abstract class DonutchartViewFragment extends ConnectionTypeViewFragment 
                     public boolean onTouch(View v, MotionEvent event) {
                         switch (event.getActionMasked()) {
                             case MotionEvent.ACTION_DOWN:
-                                Log.d("PRESS", "down");
                                 int typeColor = ((ColorDrawable) v.getBackground()).getColor();
                                 TypedArray saturatedColors = getSaturatedColors();
                                 TypedArray softColors = getSoftColors();
@@ -180,7 +179,6 @@ public abstract class DonutchartViewFragment extends ConnectionTypeViewFragment 
                                 return true;
                             case MotionEvent.ACTION_UP:
                             case MotionEvent.ACTION_CANCEL:
-                                Log.d("PRESS", "up");
                                 chart.draw();
                                 return true;
 

@@ -65,7 +65,6 @@ public class TimelineAdapter extends RecyclerView.Adapter<TimelineAdapter.Timeli
                 context.getString(R.string.font_text_view));
 
         ConnectionTypeSample connectionTypeSample = mFeedList.get(position);
-        Log.d("CACA", connectionTypeSample.getInitialTime() +" ba");
 
         holder.initTime.setText(DisplayDateManager.getDateString(connectionTypeSample.getInitialTime()));
         holder.initTime.setTypeface(tf1);
@@ -82,11 +81,9 @@ public class TimelineAdapter extends RecyclerView.Adapter<TimelineAdapter.Timeli
             if (connectionTypeSample.getInitialTime() < queriedTimestamp){
                 // es de un día previo al consultado
                 millis = connectionNextTypeSample.getInitialTime() - queriedTimestamp;
-                Log.d("CACA", "prmiero " +millis);
             } else {
                 // es de éste día
                 millis = connectionNextTypeSample.getInitialTime() - connectionTypeSample.getInitialTime();
-                Log.d("CACA", "otro " +millis);
             }
 
         }else{

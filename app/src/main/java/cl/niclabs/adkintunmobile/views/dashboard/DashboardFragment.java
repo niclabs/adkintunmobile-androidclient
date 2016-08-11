@@ -333,7 +333,6 @@ public class DashboardFragment extends BaseToolbarFragment {
 
             ApplicationsTrafficListElement elem = new ApplicationsTrafficListElement(context, current);
             ret[i++] = elem;
-            Log.d("OK", elem.toString());
         }
 
         return ret;
