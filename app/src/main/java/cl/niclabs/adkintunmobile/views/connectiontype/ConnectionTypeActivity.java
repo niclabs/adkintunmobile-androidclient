@@ -54,24 +54,6 @@ public abstract class ConnectionTypeActivity extends AppCompatActivity implement
         this.timestampToQuery = System.currentTimeMillis();
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        DisplayManager.enableLoadingPanel(this.loadingPanel);
-        (new Thread() {
-            @Override
-            public void run() {
-                loadData(timestampToQuery);
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        updateFragmentsAttached();
-                        DisplayManager.dismissLoadingPanel(loadingPanel, context);
-                    }
-                });
-            }
-        }).start();
-    }
 
     /* Android UI */
 
@@ -103,20 +85,7 @@ public abstract class ConnectionTypeActivity extends AppCompatActivity implement
         c.set(Calendar.DAY_OF_MONTH, dayOfMonth);
         timestampToQuery = c.getTimeInMillis();
 
-        DisplayManager.enableLoadingPanel(this.loadingPanel);
-        (new Thread(){
-            @Override
-            public void run() {
-                loadData(timestampToQuery);
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        updateFragmentsAttached();
-                        DisplayManager.dismissLoadingPanel(loadingPanel, context);
-                    }
-                });
-            }
-        }).start();
+        startUpdateUIThread();
     }
 
     /* Métodos provistos desde acá para construcción de la actividad */
@@ -135,5 +104,22 @@ public abstract class ConnectionTypeActivity extends AppCompatActivity implement
             ConnectionTypeViewFragment mFragment = (ConnectionTypeViewFragment) this.mViewPagerAdapter.getItem(i);
             mFragment.updateView(this.statistic);
         }
+    }
+
+    protected void startUpdateUIThread(){
+        DisplayManager.enableLoadingPanel(this.loadingPanel);
+        (new Thread(){
+            @Override
+            public void run() {
+                loadData(timestampToQuery);
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        updateFragmentsAttached();
+                        DisplayManager.dismissLoadingPanel(loadingPanel, context);
+                    }
+                });
+            }
+        }).start();
     }
 }

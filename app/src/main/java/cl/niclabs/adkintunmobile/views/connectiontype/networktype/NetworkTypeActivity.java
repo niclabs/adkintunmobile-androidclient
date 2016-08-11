@@ -32,6 +32,8 @@ public class NetworkTypeActivity extends ConnectionTypeActivity {
         setBaseActivityParams();
         setUpToolbar();
         setUpViewPager();
+
+        startUpdateUIThread();
     }
 
     // Responsabilidad de la herencia
