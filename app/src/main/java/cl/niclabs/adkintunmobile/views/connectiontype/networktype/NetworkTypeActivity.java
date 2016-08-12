@@ -113,7 +113,7 @@ public class NetworkTypeActivity extends ConnectionTypeActivity {
         this.mViewPagerAdapter = new ConnectionTypeViewPagerAdapter(getSupportFragmentManager());
         ConnectionTypeViewFragment donutchartFragment, timelineFragment;
 
-        donutchartFragment = new DonutchartNetworkTypeViewFragment();
+        donutchartFragment = new DoughnutChartNetworkTypeViewFragment();
         donutchartFragment.setTitle(getString(R.string.view_connection_type_summary));
 
         timelineFragment = new TimelineViewFragment();

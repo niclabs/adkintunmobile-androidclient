@@ -24,7 +24,7 @@ import cl.niclabs.adkintunmobile.utils.display.DisplayDateManager;
 import cl.niclabs.adkintunmobile.utils.display.DoughnutChart;
 import cl.niclabs.adkintunmobile.utils.display.DoughnutChartBuilder;
 
-public abstract class DonutchartViewFragment extends ConnectionTypeViewFragment {
+public abstract class DoughnutChartViewFragment extends ConnectionTypeViewFragment {
 
     protected DoughnutChart chart;
     protected DoughnutChartBuilder chartBuilder;
@@ -74,7 +74,7 @@ public abstract class DonutchartViewFragment extends ConnectionTypeViewFragment 
 
     // Utilitarios
 
-    public DonutchartViewFragment() {
+    public DoughnutChartViewFragment() {
     }
 
     private void setUpDoughnutChart() {

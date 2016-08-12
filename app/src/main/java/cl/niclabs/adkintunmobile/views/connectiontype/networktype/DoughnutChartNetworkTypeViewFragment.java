@@ -8,9 +8,9 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import cl.niclabs.adkintunmobile.R;
-import cl.niclabs.adkintunmobile.views.connectiontype.DonutchartViewFragment;
+import cl.niclabs.adkintunmobile.views.connectiontype.DoughnutChartViewFragment;
 
-public class DonutchartNetworkTypeViewFragment extends DonutchartViewFragment {
+public class DoughnutChartNetworkTypeViewFragment extends DoughnutChartViewFragment {
 
     // Responsabilidad de la herencia
     // Métodos a implementar de NewDonutchartViewFragment
@@ -34,7 +34,7 @@ public class DonutchartNetworkTypeViewFragment extends DonutchartViewFragment {
 
     // Utilitarios
 
-    public DonutchartNetworkTypeViewFragment() {
+    public DoughnutChartNetworkTypeViewFragment() {
     }
 
     @Override
