@@ -8,8 +8,10 @@ import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -24,7 +26,7 @@ import cl.niclabs.adkintunmobile.utils.display.DisplayDateManager;
 import cl.niclabs.adkintunmobile.utils.display.DoughnutChart;
 import cl.niclabs.adkintunmobile.utils.display.DoughnutChartBuilder;
 
-public abstract class DoughnutChartViewFragment extends ConnectionTypeViewFragment {
+public class DoughnutChartViewFragment extends ConnectionTypeViewFragment {
 
     protected DoughnutChart chart;
     protected DoughnutChartBuilder chartBuilder;
@@ -34,17 +36,10 @@ public abstract class DoughnutChartViewFragment extends ConnectionTypeViewFragme
     protected HashMap<Integer, Integer> colorHashMap;
     protected DisplayDateManager dateManager;
 
-
-    /* ¿Qué debe implementar cada clase que extienda de NewDonutchartViewFragment? */
-
-    // 1.- Cómo actualizar la leyenda
-    public abstract void refreshLegend();
-
-    // 2.- Cómo obtener los colores saturados
-    public abstract TypedArray getSaturatedColors();
-
-    // 3.- Cómo obtener los colores suaves
-    public abstract TypedArray getSoftColors();
+    private int colorsResInt, softColorsResInt, iconsResInt;
+    static private final String colorsResIntKey = "colorRes";
+    static private final String softColorsResIntKey = "softColorRes";
+    static private final String iconResIntKey = "iconRes";
 
 
     // Responsabilidad de la herencia
@@ -52,14 +47,17 @@ public abstract class DoughnutChartViewFragment extends ConnectionTypeViewFragme
     @Override
     public void updateView(DailyConnectionTypeInformation statistic) {
 
-        setUpDoughnutChart();
-        this.chart = (DoughnutChart) this.chartBuilder.createGraphicStatistic(statistic);
-        this.timeByType = statistic.getTimeByType();
+        View mView = getView();
+        if (mView != null) {
+            setUpDoughnutChart(mView);
+            this.chart = (DoughnutChart) this.chartBuilder.createGraphicStatistic(statistic);
+            this.timeByType = statistic.getTimeByType();
 
-        refreshLegend();
-        dateManager.refreshDate(dayText, dateText, statistic.initialTime);
-        chart.draw();
-        setUpHashMap();
+            refreshLegend();
+            dateManager.refreshDate(dayText, dateText, statistic.initialTime);
+            chart.draw();
+            setUpHashMap();
+        }
     }
 
     /* Android Lifecycle */
@@ -69,34 +67,67 @@ public abstract class DoughnutChartViewFragment extends ConnectionTypeViewFragme
         super.onCreate(savedInstanceState);
 
         this.context = getContext();
+        Bundle args = getArguments();
+        colorsResInt = args.getInt(colorsResIntKey);
+        softColorsResInt = args.getInt(softColorsResIntKey);
+        iconsResInt = args.getInt(iconResIntKey);
     }
 
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        return inflater.inflate(R.layout.fragment_donutchart_view, container, false);
+    }
 
     // Utilitarios
 
     public DoughnutChartViewFragment() {
     }
 
-    private void setUpDoughnutChart() {
-        //TODO: getView() puede dar null si se sale rápido de la vista
-        View mView = getView();
-        if (mView != null){
-            dayText = (TextView) mView.findViewById(R.id.text_day);
-            dateText = (TextView) mView.findViewById(R.id.text_date);
-            dateManager = new DisplayDateManager(context);
+    static public DoughnutChartViewFragment newInstance(int legendColors,
+                                                        int legendSoftColors,
+                                                        int legendIcons) {
+        DoughnutChartViewFragment mDoughnutChartViewFragment = new DoughnutChartViewFragment();
 
-            Typeface tf1 = Typeface.createFromAsset(context.getAssets(),
-                    getString(R.string.font_text_view));
-            dayText.setTypeface(tf1);
-            dateText.setTypeface(tf1);
+        Bundle args = new Bundle();
+        args.putInt(colorsResIntKey, legendColors);
+        args.putInt(softColorsResIntKey, legendSoftColors);
+        args.putInt(iconResIntKey, legendIcons);
+        mDoughnutChartViewFragment.setArguments(args);
 
-            DoughnutChart chartElement = (DoughnutChart) mView.findViewById(R.id.doughnut);
+        return mDoughnutChartViewFragment;
+    }
 
-            float chartDiameter = getResources().getDimension(
-                    R.dimen.connected_time_doughnut);
-            this.chartBuilder = new DoughnutChartBuilder(chartElement, chartDiameter);
-            chartElement.setRotation(180f);
-        }
+    public void refreshLegend() {
+        TypedArray icons = context.getResources().obtainTypedArray(iconsResInt);
+        TypedArray colors = context.getResources().obtainTypedArray(softColorsResInt);
+        setNewLegend(icons, colors);
+    }
+
+    public TypedArray getSaturatedColors() {
+        return  context.getResources().obtainTypedArray(colorsResInt);
+    }
+
+    public TypedArray getSoftColors() {
+        return context.getResources().obtainTypedArray(softColorsResInt);
+    }
+
+    private void setUpDoughnutChart(View view) {
+        dayText = (TextView) view.findViewById(R.id.text_day);
+        dateText = (TextView) view.findViewById(R.id.text_date);
+        dateManager = new DisplayDateManager(context);
+
+        Typeface tf1 = Typeface.createFromAsset(context.getAssets(),
+                getString(R.string.font_text_view));
+        dayText.setTypeface(tf1);
+        dateText.setTypeface(tf1);
+
+        DoughnutChart chartElement = (DoughnutChart) view.findViewById(R.id.doughnut);
+
+        float chartDiameter = getResources().getDimension(
+                R.dimen.connected_time_doughnut);
+        this.chartBuilder = new DoughnutChartBuilder(chartElement, chartDiameter);
+        chartElement.setRotation(180f);
     }
 
     private void setUpHashMap() {

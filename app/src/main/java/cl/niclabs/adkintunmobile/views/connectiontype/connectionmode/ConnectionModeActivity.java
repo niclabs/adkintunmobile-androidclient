@@ -18,6 +18,7 @@ import cl.niclabs.adkintunmobile.utils.display.ShowCaseTutorial;
 import cl.niclabs.adkintunmobile.views.connectiontype.ConnectionTypeActivity;
 import cl.niclabs.adkintunmobile.views.connectiontype.ConnectionTypeViewFragment;
 import cl.niclabs.adkintunmobile.views.connectiontype.ConnectionTypeViewPagerAdapter;
+import cl.niclabs.adkintunmobile.views.connectiontype.DoughnutChartViewFragment;
 import cl.niclabs.adkintunmobile.views.connectiontype.TimelineViewFragment;
 
 public class ConnectionModeActivity extends ConnectionTypeActivity {
@@ -113,7 +114,11 @@ public class ConnectionModeActivity extends ConnectionTypeActivity {
         this.mViewPagerAdapter = new ConnectionTypeViewPagerAdapter(getSupportFragmentManager());
         ConnectionTypeViewFragment donutchartFragment, timelineFragment;
 
-        donutchartFragment = new DoughnutChartConnectionModeViewFragment();
+        donutchartFragment =
+                DoughnutChartViewFragment.newInstance(
+                        R.array.connection_mode_legend_colors,
+                        R.array.connection_mode_legend_colors_soft,
+                        R.array.connection_mode_legend_icons);
         donutchartFragment.setTitle(getString(R.string.view_connection_type_summary));
 
         timelineFragment = new TimelineViewFragment();
