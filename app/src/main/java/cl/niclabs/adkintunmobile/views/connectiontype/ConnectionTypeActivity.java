@@ -31,7 +31,7 @@ public abstract class ConnectionTypeActivity extends AppCompatActivity implement
     protected ConnectionTypeViewPagerAdapter mViewPagerAdapter;
     protected ViewPager mViewPager;
 
-    /* ¿Qué debe implementar cada clase que extienda de NewConnectionTypeActivity? */
+    /* ¿Qué debe implementar cada clase que extienda de ConnectionTypeActivity? */
 
     // 1.- Cómo cargar los datos para el día especificado
     protected abstract void loadData(long initialTime);
