@@ -33,7 +33,7 @@ public class ConnectionModeActivity extends ConnectionTypeActivity {
         setUpToolbar();
         setUpViewPager();
 
-        startUpdateUIThread();
+        startUpdateUiThread();
     }
 
     // Responsabilidad de la herencia

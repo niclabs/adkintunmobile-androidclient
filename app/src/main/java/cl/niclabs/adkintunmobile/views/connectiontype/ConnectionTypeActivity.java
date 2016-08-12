@@ -85,7 +85,7 @@ public abstract class ConnectionTypeActivity extends AppCompatActivity implement
         c.set(Calendar.DAY_OF_MONTH, dayOfMonth);
         timestampToQuery = c.getTimeInMillis();
 
-        startUpdateUIThread();
+        startUpdateUiThread();
     }
 
     /* Métodos provistos desde acá para construcción de la actividad */
@@ -106,7 +106,7 @@ public abstract class ConnectionTypeActivity extends AppCompatActivity implement
         }
     }
 
-    protected void startUpdateUIThread(){
+    protected void startUpdateUiThread(){
         DisplayManager.enableLoadingPanel(this.loadingPanel);
         (new Thread(){
             @Override
