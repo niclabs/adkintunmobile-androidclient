@@ -4,7 +4,6 @@ package cl.niclabs.adkintunmobile.views.settings;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.os.Build;
 import android.os.Bundle;
 import android.preference.EditTextPreference;
 import android.preference.ListPreference;
@@ -16,9 +15,6 @@ import android.support.v4.app.FragmentManager;
 import android.util.Log;
 import android.widget.Toast;
 
-import java.io.File;
-import java.io.FilenameFilter;
-import java.util.ArrayList;
 import java.util.Map;
 
 import cl.niclabs.adkintunmobile.BuildConfig;
@@ -26,9 +22,10 @@ import cl.niclabs.adkintunmobile.R;
 import cl.niclabs.adkintunmobile.data.persistent.IpLocation;
 import cl.niclabs.adkintunmobile.services.SetupSystem;
 import cl.niclabs.adkintunmobile.services.sync.Synchronization;
+import cl.niclabs.adkintunmobile.utils.files.FileManager;
 import cl.niclabs.adkintunmobile.utils.information.Network;
-import cl.niclabs.adkintunmobile.views.status.DayOfRechargeDialog;
 import cl.niclabs.adkintunmobile.views.status.DataQuotaDialog;
+import cl.niclabs.adkintunmobile.views.status.DayOfRechargeDialog;
 
 public class SettingsFragment extends PreferenceFragment implements SharedPreferences.OnSharedPreferenceChangeListener{
 
@@ -66,6 +63,10 @@ public class SettingsFragment extends PreferenceFragment implements SharedPrefer
         if (key.equals(this.context.getString(R.string.settings_sampling_frequency_key))){
             SetupSystem.schedulleBroadcastReceivers(this.context);
         }
+        if (key.equals(getString(R.string.settings_sampling_compression_type_key))){
+            int deletedFiles = FileManager.deleteStoredReports(context);
+            Toast.makeText(context, "Borrados " + deletedFiles + " reportes almacenados", Toast.LENGTH_SHORT).show();
+        }
 
         updateSummary(key);
     }
@@ -90,19 +91,8 @@ public class SettingsFragment extends PreferenceFragment implements SharedPrefer
         }
         if (key.equals(getString(R.string.settings_sampling_delete_backup_key))){
             /* Delete Local Reports */
-            File outputDir = context.getFilesDir();
-            File[] reportFiles = outputDir.listFiles(new FilenameFilter() {
-                @Override
-                public boolean accept(File dir, String filename) {
-                    return filename.startsWith(context.getString(R.string.synchronization_report_filename)) &&
-                            filename.endsWith(context.getString(R.string.synchronization_report_file_extension));
-                }
-            });
-            Toast.makeText(context, "A borrar " + reportFiles.length + " reportes", Toast.LENGTH_SHORT).show();
-            for (int i=0; i<reportFiles.length; i++){
-                File reportFile = reportFiles[i];
-                reportFile.delete();
-            }
+            int deletedFiles = FileManager.deleteStoredReports(context);
+            Toast.makeText(context, "Borrados " + deletedFiles + " reportes almacenados", Toast.LENGTH_SHORT).show();
         }
         if (key.equals(getString(R.string.settings_sampling_lastsync_key)) && BuildConfig.DEBUG_MODE){
             /* Dialog to show details of last sync process */
