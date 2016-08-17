@@ -4,15 +4,12 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Typeface;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.vipul.hp_hp.timelineview.TimelineView;
 
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
@@ -49,6 +46,21 @@ public class TimelineAdapter extends RecyclerView.Adapter<TimelineAdapter.Timeli
     public void updateData(DailyConnectionTypeInformation statistic) {
         queriedTimestamp = statistic.initialTime;
         mFeedList = statistic.getSamples();
+
+        // Remover items con duración < 1 segundo
+        for (int i = 0; i < mFeedList.size(); ++i){
+            if (i+1 < mFeedList.size()){
+                long delta = mFeedList.get(i+1).getInitialTime() - mFeedList.get(i).getInitialTime();
+
+                long second = (delta / 1000) % 60;
+                long minute = (delta / (1000 * 60)) % 60;
+                long hour = (delta / (1000 * 60 * 60)) % 25;
+
+                if (second+minute+hour == 0){
+                    mFeedList.remove(i);
+                }
+            }
+        }
         notifyDataSetChanged();
     }
 
@@ -74,8 +86,6 @@ public class TimelineAdapter extends RecyclerView.Adapter<TimelineAdapter.Timeli
 
         if (position + 1 < mFeedList.size()){
             ConnectionTypeSample connectionNextTypeSample = mFeedList.get(position+1);
-            //millis = connectionNextTypeSample.getInitialTime() - connectionTypeSample.getInitialTime();
-
 
             // Si es el primero, se debe verificar si ese registro es de un día previo o del actual
             if (connectionTypeSample.getInitialTime() < queriedTimestamp){
@@ -130,8 +140,9 @@ public class TimelineAdapter extends RecyclerView.Adapter<TimelineAdapter.Timeli
             durationText += String.format(" %d Min.", minute);
         if (second > 0)
             durationText += String.format(" %d Seg.", second);
-        if ( (hour+minute+second) == 0)
+        if ( (hour+minute+second) == 0) {
             durationText += "< 1 Seg.";
+        }
 
         holder.duration.setText(durationText);
 
@@ -151,5 +162,7 @@ public class TimelineAdapter extends RecyclerView.Adapter<TimelineAdapter.Timeli
     public int getItemCount() {
         return (mFeedList!=null ? mFeedList.size() : 0);
     }
+
+
 
 }
