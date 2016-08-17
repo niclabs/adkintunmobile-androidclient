@@ -68,7 +68,7 @@ public class DashboardFragment extends BaseToolbarFragment {
     public void updateStatusToolbar(View view){
 
         ShimmerFrameLayout container =
-                (ShimmerFrameLayout) view.findViewById(R.id.shimmer_view_container);
+                (ShimmerFrameLayout) view.findViewById(R.id.shimmer_dashboard_logo);
         container.startShimmerAnimation();
 
         TextView tvSim, tvAntenna, tvSignal, tvInternet;
@@ -333,7 +333,6 @@ public class DashboardFragment extends BaseToolbarFragment {
 
             ApplicationsTrafficListElement elem = new ApplicationsTrafficListElement(context, current);
             ret[i++] = elem;
-            Log.d("OK", elem.toString());
         }
 
         return ret;

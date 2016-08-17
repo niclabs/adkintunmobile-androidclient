@@ -42,6 +42,8 @@
     <string name="settings_sampling_frequency_title">Frencuencia de envío</string>
     <string name="settings_sampling_startsync_key">start_sync</string>
     <string name="settings_sampling_startsync_title">Gatillar Sincronización</string>
+    <string name="settings_sampling_delete_backup_key">delete_backup_reports</string>
+    <string name="settings_sampling_delete_backup_title">Eliminar reportes almacenados</string>
     <string name="settings_sampling_lastsync_key">sync_lastsync</string>
     <string name="settings_sampling_lastsync_title">Última Sincronización</string>
     <string name="settings_sampling_compression_type_key">sync_compression_type</string>
@@ -51,7 +53,7 @@
     <string name="settings_app_category">Aplicación</string>
     <string name="settings_app_version_key">app_version</string>
     <string name="settings_app_version_title">Versión de la aplicación</string>
-    <string name="settings_app_version_default">2.0.5b</string>
+    <string name="settings_app_version_default">2.0.6b</string>
 
     <!-- Dashboard -->
     <string name="view_dashboard_toolbar_slogan">Tu Estado Ahora</string>
@@ -93,6 +95,8 @@
 
     <!-- Conn type: Conn Mode and Network Type shared -->
     <string name="view_connection_type_nemu_datepicker">Seleccionar rango de fechas</string>
+    <string name="view_connection_type_summary">Resumen Diario</string>
+    <string name="view_connection_type_detailed">Informe Detallado</string>
 
     <!-- Conn mode -->
     <string name="view_connection_mode_symbology">Leyenda</string>

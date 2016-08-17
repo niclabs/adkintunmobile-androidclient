@@ -190,12 +190,14 @@
         <item>Tipo de Conexión</item>
         <item>Reloj</item>
         <item>Leyenda</item>
+        <item>Informe Detallado</item>
         <item>Registros Previos</item>
     </string-array>
     <string-array name="tutorial_connection_mode_body">
-        <item>La vista "Tipo de Conexión" visualiza los modos de conexion que ha usado tu teléfono para acceder a Internet.</item>
-        <item>Se muestra un reloj de 24 horas donde se reconocen los principales cambios de conexión sufridos a lo largo del día.</item>
+        <item>La vista "Tipo de Conexión" visualiza los modos de conexion que ha usado tu teléfono para acceder a Internet.\nLa información se separa en 2 pestañas:</item>
+        <item>En la primera, se muestra un reloj de 24 horas donde se reconocen los principales cambios de conexión sufridos a lo largo del día.</item>
         <item>Se incluye un resumen con el total de tiempo conectado por cada modo.\nPuedes mantener presionado en un tipo de conexión para destacarlo en el reloj.</item>
+        <item>En la segunda pestaña se incluye el detalle de los distintos cambios de conexión de red detectados en el día y la duración de cada uno.</item>
         <item>Finalmente, puedes seleccionar una fecha en particular para ver los registros asociados a dicho día.</item>
     </string-array>
 
@@ -204,12 +206,14 @@
         <item>Tipo de Señal</item>
         <item>Reloj</item>
         <item>Leyenda</item>
+        <item>Informe Detallado</item>
         <item>Registros Previos</item>
     </string-array>
     <string-array name="tutorial_network_type_body">
-        <item>La vista "Tipo de Señal" visualiza los cambios de red que ha experimentado tu teléfono a lo largo de un día.\n\nEl tipo de señal influye directamente en tu calidad de acceso a datos móviles.</item>
-        <item>Se muestra un reloj de 24 horas donde se reconocen los principales cambios de conexión sufridos a lo largo del día.</item>
+        <item>La vista "Tipo de Señal" visualiza los cambios de red que ha experimentado tu teléfono a lo largo de un día.\n\nEl tipo de señal influye directamente en tu calidad de acceso a datos móviles.\nLa información se separa en 2 pestañas</item>
+        <item>En la primera, se muestra un reloj de 24 horas donde se reconocen los principales cambios de conexión sufridos a lo largo del día.</item>
         <item>Se incluye un resumen con el total de tiempo conectado por cada modo.\nPuedes mantener presionado en un tipo de conexión para destacarlo en el reloj.</item>
+        <item>En la segunda pestaña se incluye el detalle de los distintos cambios de conexión de red detectados en el día y la duración de cada uno.</item>
         <item>Finalmente, puedes seleccionar una fecha en particular para ver los registros asociados a dicho día.</item>
     </string-array>
 
@@ -225,6 +229,7 @@
         <item>El consumo de las aplicaciones está separado según si usaron datos móviles o WiFi.</item>
         <item>Aquí se listan las aplicaciones con consumo de datos, diferenciando la cantidad de datos subidos y bajados. Las aplicaciones se muestran ordenadas desde la de mayor a la de menor descarga de datos. Dale click para más información.</item>
         <item>Finalmente, puedes seleccionar una fecha en particular para ver los registros acumulados a partir de dicho día.</item>
+        <item>Además, se incluye el detalle de los distintos cambios de conexión de red registrados en el día, y la duración de cada uno.</item>
     </string-array>
 
     <!-- Active Connections -->
