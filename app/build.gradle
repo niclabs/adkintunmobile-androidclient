@@ -23,8 +23,8 @@ android {
         applicationId "cl.niclabs.adkintunmobile"
         minSdkVersion 16
         targetSdkVersion 22
-        versionCode 5
-        versionName "2.0.5b"
+        versionCode 6
+        versionName "2.0.6b"
     }
     buildTypes {
         debug {
@@ -33,7 +33,7 @@ android {
         release {
             buildConfigField "Boolean", "DEBUG_MODE", "false"
             minifyEnabled true
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
     sourceSets { main { assets.srcDirs = ['src/main/assets', 'src/main/assets/'] } }
@@ -56,4 +56,5 @@ dependencies {
     compile 'com.google.android.gms:play-services-maps:9.2.0'
     compile 'com.loopj.android:android-async-http:1.4.9'
     compile 'com.github.amlcurran.showcaseview:library:5.4.3'
+    compile 'com.github.vipulasri:timelineview:1.0.3'
 }
