@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import com.facebook.shimmer.ShimmerFrameLayout;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Iterator;
@@ -22,8 +23,11 @@ import cl.niclabs.adkintunmobile.R;
 import cl.niclabs.adkintunmobile.data.persistent.visualization.ApplicationTraffic;
 import cl.niclabs.adkintunmobile.data.persistent.visualization.ConnectionModeSample;
 import cl.niclabs.adkintunmobile.data.persistent.visualization.NetworkTypeSample;
+import cl.niclabs.adkintunmobile.utils.information.Connections.Connections;
+import cl.niclabs.adkintunmobile.utils.information.Connections.SystemSocket;
 import cl.niclabs.adkintunmobile.utils.information.Network;
 import cl.niclabs.adkintunmobile.views.BaseToolbarFragment;
+import cl.niclabs.adkintunmobile.views.activeconnections.ActiveConnectionListElement;
 import cl.niclabs.adkintunmobile.views.applicationstraffic.ApplicationsTrafficListElement;
 import cl.niclabs.adkintunmobile.views.connectiontype.connectionmode.DailyConnectionModeInformation;
 import cl.niclabs.adkintunmobile.views.connectiontype.networktype.DailyNetworkTypeInformation;
@@ -58,12 +62,13 @@ public class DashboardFragment extends BaseToolbarFragment {
         updateConnectionMode(view.findViewById(R.id.card_connection_mode));
         updateNetworkType(view.findViewById(R.id.card_network_type));
         updateTopApps(view.findViewById(R.id.card_top_apps));
+        updateActiveConnections(view.findViewById(R.id.card_active_connections));
     }
 
     public void updateStatusToolbar(View view){
 
         ShimmerFrameLayout container =
-                (ShimmerFrameLayout) view.findViewById(R.id.shimmer_view_container);
+                (ShimmerFrameLayout) view.findViewById(R.id.shimmer_dashboard_logo);
         container.startShimmerAnimation();
 
         TextView tvSim, tvAntenna, tvSignal, tvInternet;
@@ -253,6 +258,50 @@ public class DashboardFragment extends BaseToolbarFragment {
         }).start();
     }
 
+    private void updateActiveConnections(final View view) {
+        (new Thread(){
+            @Override
+            public void run() {
+                ArrayList<ActiveConnectionListElement> activeSockets = new ArrayList<>();
+
+                ArrayList<SystemSocket> totalSockets = new ArrayList<>(Connections.getTCPSockets());
+                totalSockets.addAll(Connections.getUDPSockets());
+
+                for (SystemSocket socket : totalSockets){
+                    ActiveConnectionListElement element =  new ActiveConnectionListElement(context, socket);
+                    if (element.isValidElement()){
+                        if (!activeSockets.contains(element)){
+                            activeSockets.add(element);
+                        }else{
+                            activeSockets.get(activeSockets.indexOf(element)).addConnection(socket);
+                        }
+                    }
+                }
+
+                int aux = 0;
+                for (ActiveConnectionListElement element : activeSockets){
+                    aux += element.getTotalActiveConnections();
+                }
+
+                final int numberOfConnections = aux;
+
+                if (getActivity() != null) {
+                    getActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            if (numberOfConnections > 0) {
+                                ((TextView) view.findViewById(R.id.tv_active_connections)).setText(Integer.toString(numberOfConnections));
+                                view.setVisibility(View.VISIBLE);
+                            }
+                            else
+                                view.setVisibility(View.GONE);
+                        }
+                    });
+                }
+            }
+        }).start();
+    }
+
     public ApplicationsTrafficListElement[] getTop3AppsToday(){
         ApplicationsTrafficListElement[] ret = new ApplicationsTrafficListElement[3];
 
@@ -284,7 +333,6 @@ public class DashboardFragment extends BaseToolbarFragment {
 
             ApplicationsTrafficListElement elem = new ApplicationsTrafficListElement(context, current);
             ret[i++] = elem;
-            Log.d("OK", elem.toString());
         }
 
         return ret;

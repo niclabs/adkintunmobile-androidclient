@@ -89,7 +89,7 @@ public class ApplicationsTrafficActivity extends AppCompatActivity implements Da
         this.context = this;
         this.loadingPanel = (RelativeLayout) findViewById(R.id.loading_panel);
         ShimmerFrameLayout container =
-                (ShimmerFrameLayout) findViewById(R.id.shimmer_view_container);
+                (ShimmerFrameLayout) findViewById(R.id.shimmer_loading);
         container.startShimmerAnimation();
 
         this.mViewPagerAdapter = new ApplicationsTrafficViewPagerAdapter(getSupportFragmentManager());

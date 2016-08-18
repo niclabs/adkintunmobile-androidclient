@@ -42,6 +42,8 @@
     <string name="settings_sampling_frequency_title">Frencuencia de envío</string>
     <string name="settings_sampling_startsync_key">start_sync</string>
     <string name="settings_sampling_startsync_title">Gatillar Sincronización</string>
+    <string name="settings_sampling_delete_backup_key">delete_backup_reports</string>
+    <string name="settings_sampling_delete_backup_title">Eliminar reportes almacenados</string>
     <string name="settings_sampling_lastsync_key">sync_lastsync</string>
     <string name="settings_sampling_lastsync_title">Última Sincronización</string>
     <string name="settings_sampling_compression_type_key">sync_compression_type</string>
@@ -67,6 +69,8 @@
     <string name="view_dashboard_net_type_summary">La mayor parte del día has tenido señal:</string>
     <string name="view_dashboard_top_apps_title">Principales Aplicaciones</string>
     <string name="view_dashboard_top_apps_summary">Las siguientes aplicaciones son las que más han usado tu internet móvil hoy:</string>
+    <string name="view_dashboard_active_connections_title">Conexiones activas</string>
+    <string name="view_dashboard_active_connections_summary">En este momento las conexiones de internet activas en tu celular llegan a un total de:</string>
 
     <!-- Notifications Log -->
     <string name="view_notifications_log_item_no_data">No hay notificaciones para mostrar</string>
@@ -91,6 +95,8 @@
 
     <!-- Conn type: Conn Mode and Network Type shared -->
     <string name="view_connection_type_nemu_datepicker">Seleccionar rango de fechas</string>
+    <string name="view_connection_type_summary">Resumen Diario</string>
+    <string name="view_connection_type_detailed">Informe Detallado</string>
 
     <!-- Conn mode -->
     <string name="view_connection_mode_symbology">Leyenda</string>

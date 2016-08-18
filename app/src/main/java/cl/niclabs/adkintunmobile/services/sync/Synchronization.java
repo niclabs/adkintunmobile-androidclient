@@ -32,7 +32,7 @@ public class Synchronization extends Service {
         Report report = new Report(getApplicationContext());
 
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-        int selectedCompressionType = Integer.parseInt(sharedPreferences.getString(getString(R.string.settings_sampling_compression_type_key), "0"));
+        int selectedCompressionType = Integer.parseInt(sharedPreferences.getString(getString(R.string.settings_sampling_compression_type_key), "1"));
         CompressionUtils.CompressionType compressionType = CompressionUtils.CompressionType.getCompressionType(selectedCompressionType);
         Log.d(TAG, "Usando compresión: " + compressionType);
 

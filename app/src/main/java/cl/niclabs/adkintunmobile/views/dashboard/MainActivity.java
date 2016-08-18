@@ -253,7 +253,7 @@ public class MainActivity extends AppCompatActivity {
 
                 switch (helpCounter) {
                     case 1:
-                        mTarget = new ViewTarget(findViewById(R.id.shimmer_view_container));
+                        mTarget = new ViewTarget(findViewById(R.id.shimmer_dashboard_logo));
                         break;
 
                     case 2:

@@ -165,7 +165,7 @@ public class ActiveConnectionMapBottomSheetDialogFragment extends BottomSheetDia
     private void setUpLayoutElements(View contentView) {
         this.loadingPanel = (RelativeLayout) contentView.findViewById(R.id.loading_panel);
         ShimmerFrameLayout container =
-                (ShimmerFrameLayout) contentView.findViewById(R.id.shimmer_view_container);
+                (ShimmerFrameLayout) contentView.findViewById(R.id.shimmer_loading);
         container.startShimmerAnimation();
 
         this.tvCurrentConnection = (TextView) contentView.findViewById(R.id.tv_current_connection);

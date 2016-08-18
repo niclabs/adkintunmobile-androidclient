@@ -20,6 +20,7 @@ public abstract class DailyConnectionTypeInformation extends StatisticInformatio
     protected long initialTime;
     protected long currentTime;
     protected Context context;
+    protected ArrayList<ConnectionTypeSample> samples;
 
     public DailyConnectionTypeInformation(Context context, long initialTime, long currentTime) {
         this.context = context;
@@ -68,6 +69,8 @@ public abstract class DailyConnectionTypeInformation extends StatisticInformatio
         values.add(initialBar);
         colors.add(startColor);
 
+        samples = new ArrayList<>();
+
         //Info del primer sample del día
         if (todaySamples.hasNext()){
             sample = todaySamples.next();
@@ -100,12 +103,16 @@ public abstract class DailyConnectionTypeInformation extends StatisticInformatio
             }
             values.add((lastTime - initialTime) * anglePerMillisecond);
         }
+        if (sample!= null)
+            samples.add(sample);
 
         Float angle;
 
         //Samples del día seleccionado
         while (todaySamples.hasNext()){
             sample = todaySamples.next();
+            if (sample.getType() != samples.get(samples.size() -1 ).getType())
+                samples.add(sample);
             if (lastColor == connectionTypeColors.getColor(sample.getType(), 0))
                 continue;
             colors.add( lastColor );
@@ -163,4 +170,7 @@ public abstract class DailyConnectionTypeInformation extends StatisticInformatio
         return (ArrayList<Float>) super.getInformation().get(1);
     }
 
+    public ArrayList<ConnectionTypeSample> getSamples(){
+        return samples;
+    }
 }

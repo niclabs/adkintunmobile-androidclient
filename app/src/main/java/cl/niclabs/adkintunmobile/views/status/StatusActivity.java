@@ -91,7 +91,7 @@ public class StatusActivity extends AppCompatActivity {
         this.context = this;
         this.loadingPanel = (RelativeLayout) findViewById(R.id.loading_panel);
         ShimmerFrameLayout container =
-                (ShimmerFrameLayout) findViewById(R.id.shimmer_view_container);
+                (ShimmerFrameLayout) findViewById(R.id.shimmer_loading);
         if (container != null) {
             container.startShimmerAnimation();
         }

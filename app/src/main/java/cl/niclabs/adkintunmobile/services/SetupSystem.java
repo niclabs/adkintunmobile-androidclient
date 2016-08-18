@@ -3,6 +3,8 @@ package cl.niclabs.adkintunmobile.services;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.preference.PreferenceManager;
 import android.util.Log;
 
@@ -13,6 +15,7 @@ import cl.niclabs.adkintunmobile.services.monitors.ConnectivityMonitor;
 import cl.niclabs.adkintunmobile.services.monitors.TelephonyMonitor;
 import cl.niclabs.adkintunmobile.services.monitors.TrafficMonitor;
 import cl.niclabs.adkintunmobile.services.sync.SynchronizationBroadcastReceiver;
+import cl.niclabs.adkintunmobile.utils.files.FileManager;
 import cl.niclabs.adkmobile.monitor.Device;
 import cl.niclabs.adkmobile.monitor.data.constants.ConnectionType;
 import cl.niclabs.adkmobile.monitor.data.constants.NetworkType;
@@ -90,9 +93,31 @@ public class SetupSystem extends Device {
 
     static public void setAppVersionCode(Context context) {
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString(context.getString(R.string.settings_app_version_key), context.getString(R.string.settings_app_version_default));
-        editor.apply();
+
+        PackageInfo packageInfo = null;
+        try {
+            packageInfo = context.getPackageManager()
+                    .getPackageInfo(context.getPackageName(), 0);
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        String currentAppVersion = sharedPreferences.getString(context.getString(R.string.settings_app_version_key), packageInfo.versionName);
+
+        Log.d(TAG,"current saved: " + currentAppVersion + ", current build: " + packageInfo.versionName);
+        if (!currentAppVersion.equals(packageInfo.versionName)){
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putString(context.getString(R.string.settings_app_version_key), packageInfo.versionName);
+            editor.apply();
+            Log.d(TAG,"app version updated");
+            /* Al cambio de version, borrar reportes aun no mandados */
+            FileManager.deleteStoredReports(context);
+        }else{
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putString(context.getString(R.string.settings_app_version_key), packageInfo.versionName);
+            editor.apply();
+        }
+
     }
 
 

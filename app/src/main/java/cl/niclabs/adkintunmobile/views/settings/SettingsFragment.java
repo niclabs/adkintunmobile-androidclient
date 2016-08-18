@@ -4,7 +4,6 @@ package cl.niclabs.adkintunmobile.views.settings;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.os.Build;
 import android.os.Bundle;
 import android.preference.EditTextPreference;
 import android.preference.ListPreference;
@@ -16,7 +15,6 @@ import android.support.v4.app.FragmentManager;
 import android.util.Log;
 import android.widget.Toast;
 
-import java.util.ArrayList;
 import java.util.Map;
 
 import cl.niclabs.adkintunmobile.BuildConfig;
@@ -24,9 +22,10 @@ import cl.niclabs.adkintunmobile.R;
 import cl.niclabs.adkintunmobile.data.persistent.IpLocation;
 import cl.niclabs.adkintunmobile.services.SetupSystem;
 import cl.niclabs.adkintunmobile.services.sync.Synchronization;
+import cl.niclabs.adkintunmobile.utils.files.FileManager;
 import cl.niclabs.adkintunmobile.utils.information.Network;
-import cl.niclabs.adkintunmobile.views.status.DayOfRechargeDialog;
 import cl.niclabs.adkintunmobile.views.status.DataQuotaDialog;
+import cl.niclabs.adkintunmobile.views.status.DayOfRechargeDialog;
 
 public class SettingsFragment extends PreferenceFragment implements SharedPreferences.OnSharedPreferenceChangeListener{
 
@@ -64,6 +63,10 @@ public class SettingsFragment extends PreferenceFragment implements SharedPrefer
         if (key.equals(this.context.getString(R.string.settings_sampling_frequency_key))){
             SetupSystem.schedulleBroadcastReceivers(this.context);
         }
+        if (key.equals(getString(R.string.settings_sampling_compression_type_key))){
+            int deletedFiles = FileManager.deleteStoredReports(context);
+            Toast.makeText(context, "Borrados " + deletedFiles + " reportes almacenados", Toast.LENGTH_SHORT).show();
+        }
 
         updateSummary(key);
     }
@@ -85,6 +88,11 @@ public class SettingsFragment extends PreferenceFragment implements SharedPrefer
         if (key.equals(getString(R.string.settings_sampling_startsync_key))){
             /* Start Sync process: create new report and try to send it */
             context.startService(new Intent(context, Synchronization.class));
+        }
+        if (key.equals(getString(R.string.settings_sampling_delete_backup_key))){
+            /* Delete Local Reports */
+            int deletedFiles = FileManager.deleteStoredReports(context);
+            Toast.makeText(context, "Borrados " + deletedFiles + " reportes almacenados", Toast.LENGTH_SHORT).show();
         }
         if (key.equals(getString(R.string.settings_sampling_lastsync_key)) && BuildConfig.DEBUG_MODE){
             /* Dialog to show details of last sync process */

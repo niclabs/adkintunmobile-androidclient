@@ -2,201 +2,60 @@ package cl.niclabs.adkintunmobile.views.connectiontype;
 
 import android.app.DatePickerDialog;
 import android.content.Context;
-import android.content.res.TypedArray;
-import android.graphics.Typeface;
-import android.graphics.drawable.ColorDrawable;
-import android.support.v4.content.ContextCompat;
+import android.os.Bundle;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
-import android.util.TypedValue;
-import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.MotionEvent;
-import android.view.View;
 import android.widget.DatePicker;
 import android.widget.RelativeLayout;
-import android.widget.TableLayout;
-import android.widget.TableRow;
-import android.widget.TextView;
 
-import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.HashMap;
 
 import cl.niclabs.adkintunmobile.R;
-import cl.niclabs.adkintunmobile.utils.display.DisplayDateManager;
 import cl.niclabs.adkintunmobile.utils.display.DisplayManager;
-import cl.niclabs.adkintunmobile.utils.display.DoughnutChart;
-import cl.niclabs.adkintunmobile.utils.display.DoughnutChartBuilder;
 
-public abstract class ConnectionTypeActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener{
+public abstract class ConnectionTypeActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
 
     protected String title;
     protected Context context;
     protected Toolbar toolbar;
     protected RelativeLayout loadingPanel;
 
-    protected DoughnutChart chart;
-    protected DoughnutChartBuilder chartBuilder;
-    protected long[] timeByType;
-    protected TextView dayText;
-    protected TextView dateText;
-    protected DisplayDateManager dateManager;
-    protected HashMap<Integer, Integer> colorHashMap;
+    protected long timestampToQuery;
 
-    public abstract void loadData(long initialTime);
+    protected DailyConnectionTypeInformation statistic;
+    protected ConnectionTypeViewPagerAdapter mViewPagerAdapter;
+    protected ViewPager mViewPager;
 
-    public abstract void refreshLegend(long initialTime);
+    /* ¿Qué debe implementar cada clase que extienda de ConnectionTypeActivity? */
 
-    public abstract TypedArray getSaturatedColors();
+    // 1.- Cómo cargar los datos para el día especificado
+    protected abstract void loadData(long initialTime);
 
-    public abstract TypedArray getSoftColors();
+    // 2.- El tutorial
+    protected abstract void showTutorial();
 
-    public abstract void showTutorial();
+    // 3.- Seteo de elementos basicos de la vista
+    protected abstract void setBaseActivityParams();
+
+    // 4.- Preparar el ViewPager
+    protected abstract void setUpViewPager();
+
+
+    /* Android Lifecycle */
 
     @Override
-    protected void onResume() {
-        super.onResume();
-        setUpDoughnutChart();
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        this.timestampToQuery = System.currentTimeMillis();
     }
 
-    public TextView createLegendTextView(int icon, int color, String text){
-        TextView tv = new TextView(this);
-        tv.setText(text);
-        tv.setCompoundDrawablesWithIntrinsicBounds(0, icon, 0, 0);
-        tv.setBackgroundColor(ContextCompat.getColor(this, color));
-        int marginHorizontal = 0;
-        int marginVertical = (int)getResources().getDimension(R.dimen.separation_little);
-        tv.setPadding(marginHorizontal, marginVertical, marginHorizontal, marginVertical);
-        tv.setGravity(Gravity.CENTER_HORIZONTAL);
-        Typeface tf1 = Typeface.createFromAsset(context.getAssets(),
-                getString(R.string.font_text_view));
-        tv.setTypeface(tf1);
-        tv.setTextColor(ContextCompat.getColor(context, android.R.color.white));
 
-        return tv;
-    }
-
-    public void setNewLegend(TypedArray icons, TypedArray colors){
-        TableLayout tableLayout = (TableLayout) findViewById(R.id.time_info_table_layout);
-        tableLayout.removeAllViews();
-        ArrayList<TimeLegend> timeLegend = new ArrayList<>();
-
-        for (int i=0; i<timeByType.length; i++){
-            long hours = timeByType[i]/(3600*1000);
-            long minutes = (timeByType[i] - hours*3600*1000)/(60*1000);
-
-            if (hours != 0 || minutes != 0){
-                String legend = "";
-                legend += hours > 0 ? + hours + " Hr. " : "";
-                legend += minutes > 0 ? minutes + " Min." : "";
-                TextView legendTextView = createLegendTextView(icons.getResourceId(i, 0), colors.getResourceId(i, 0), legend);
-                legendTextView.setOnTouchListener(new View.OnTouchListener() {
-                    @Override
-                    public boolean onTouch(View v, MotionEvent event) {
-                        switch (event.getActionMasked()) {
-                            case MotionEvent.ACTION_DOWN:
-                                Log.d("PRESS", "down");
-                                int typeColor = ((ColorDrawable) v.getBackground()).getColor();
-                                TypedArray saturatedColors = getSaturatedColors();
-                                TypedArray softColors = getSoftColors();
-                                int index;
-
-                                for (index=0; index<softColors.length(); index++){
-                                    if (typeColor == ContextCompat.getColor(context, softColors.getResourceId(index, 0))){
-                                        typeColor = ContextCompat.getColor(context, saturatedColors.getResourceId(index, 0));
-                                        //v.setBackgroundColor(typeColor);
-                                        break;
-                                    }
-                                }
-                                ArrayList<Integer> chartColors = new ArrayList<>();
-                                ArrayList<Integer> newColors = chart.getColors();
-                                for (int i=0; i<newColors.size(); i++) {
-                                    chartColors.add(newColors.get(i));
-
-                                    if (newColors.get(i) != typeColor){
-                                        int newColor = colorHashMap.get(newColors.get(i));
-                                        newColors.remove(i);
-                                        newColors.add(i, newColor);
-                                    }
-                                }
-                                chart.setColors(newColors);
-                                chart.draw();
-                                chart.setColors(chartColors);
-                                return true;
-                            case MotionEvent.ACTION_UP:
-                            case MotionEvent.ACTION_CANCEL:
-                                Log.d("PRESS", "up");
-                                chart.draw();
-                                return true;
-
-                        }
-                        return false;
-                    }
-                });
-                timeLegend.add(new TimeLegend(legendTextView, timeByType[i]) );
-            }
-        }
-        Collections.sort(timeLegend, new Comparator<TimeLegend>() {
-            @Override
-            public int compare(TimeLegend lhs, TimeLegend rhs) {
-                return (int) (rhs.getTotalTime() - lhs.getTotalTime());
-            }
-        });
-
-        int rowWidth = 3;
-        if (timeLegend.size() == 4 || timeLegend.size() == 5 ){
-            rowWidth = 2;
-        }
-        TableRow tableRow = new TableRow(this);
-        tableRow.setLayoutParams(new TableRow.LayoutParams(
-                TableRow.LayoutParams.MATCH_PARENT,
-                TableRow.LayoutParams.WRAP_CONTENT));
-
-        for (int i=0; i<timeLegend.size(); i++){
-            tableRow.addView( timeLegend.get(i).getLegendTextView(), new TableRow.LayoutParams(0, TableRow.LayoutParams.WRAP_CONTENT, 1f));
-            if (tableRow.getChildCount() == rowWidth){
-                tableLayout.addView(tableRow, new TableLayout.LayoutParams(
-                        TableRow.LayoutParams.MATCH_PARENT,
-                        TableRow.LayoutParams.WRAP_CONTENT));
-
-                tableRow = new TableRow(this);
-                tableRow.setLayoutParams(new TableRow.LayoutParams(
-                        TableRow.LayoutParams.MATCH_PARENT,
-                        TableRow.LayoutParams.WRAP_CONTENT));
-                if(rowWidth == 2 )
-                    ++rowWidth;
-            }
-        }
-        if (!timeLegend.isEmpty())
-            tableLayout.addView(tableRow, new TableLayout.LayoutParams(
-                    TableRow.LayoutParams.MATCH_PARENT,
-                    TableRow.LayoutParams.WRAP_CONTENT));
-        else{
-            TextView empty = new TextView(this);
-            empty.setGravity(Gravity.CENTER_HORIZONTAL);
-            empty.setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimension(R.dimen.Large));
-            empty.setText(R.string.view_applications_traffic_item_no_data);
-            empty.setTextColor(ContextCompat.getColor(this, R.color.textColorPrimary));
-            tableRow.addView(empty, new TableRow.LayoutParams(
-                    TableRow.LayoutParams.MATCH_PARENT,
-                    TableRow.LayoutParams.WRAP_CONTENT));
-            tableRow.setHorizontalGravity(View.TEXT_ALIGNMENT_CENTER);
-            tableLayout.addView(tableRow, new TableLayout.LayoutParams(
-                    TableRow.LayoutParams.MATCH_PARENT,
-                    TableRow.LayoutParams.WRAP_CONTENT));
-        }
-
-        icons.recycle();
-        colors.recycle();
-    }
-
+    /* Android UI */
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -218,59 +77,18 @@ public abstract class ConnectionTypeActivity extends AppCompatActivity implement
         return super.onOptionsItemSelected(item);
     }
 
-    public void setUpDoughnutChart(){
-        dayText = (TextView) findViewById(R.id.text_day);
-        dateText = (TextView) findViewById(R.id.text_date);
-        dateManager = new DisplayDateManager(context);
+    @Override
+    public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+        Calendar c = Calendar.getInstance();
+        c.set(Calendar.YEAR, year);
+        c.set(Calendar.MONTH, monthOfYear);
+        c.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+        timestampToQuery = c.getTimeInMillis();
 
-        Typeface tf1 = Typeface.createFromAsset(context.getAssets(),
-                getString(R.string.font_text_view));
-        dayText.setTypeface(tf1);
-        dateText.setTypeface(tf1);
-
-        DoughnutChart chartElement = (DoughnutChart) findViewById(R.id.doughnut);
-
-        float chartDiameter = getResources().getDimension(
-                R.dimen.connected_time_doughnut);
-        this.chartBuilder = new DoughnutChartBuilder(chartElement, chartDiameter);
-        chartElement.setRotation(180f);
-
-        // Cargar datos de tipo de conexion de las últimas 24 horas
-        DisplayManager.enableLoadingPanel(this.loadingPanel);
-        (new Thread(){
-            @Override
-            public void run() {
-                final long currentTime = System.currentTimeMillis();
-
-                loadData(currentTime);
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        refreshLegend(currentTime);
-                        dateManager.refreshDate(dayText, dateText, currentTime);
-                        chart.draw();
-                        DisplayManager.dismissLoadingPanel(loadingPanel, context);
-                    }
-                });
-            }
-        }).start();
-        setUpHashMap();
+        startUpdateUiThread();
     }
 
-    private void setUpHashMap() {
-        TypedArray saturatedColors = getSaturatedColors();
-        TypedArray softColors = getSoftColors();
-
-        colorHashMap = new HashMap<>();
-        colorHashMap.put(ContextCompat.getColor(context, R.color.doughnut_no_info),
-                ContextCompat.getColor(context, R.color.doughnut_no_info));
-        colorHashMap.put(ContextCompat.getColor(context, R.color.doughnut_start),
-                ContextCompat.getColor(context, R.color.doughnut_start));
-        for (int i=0; i< saturatedColors.length(); i++){
-            colorHashMap.put(ContextCompat.getColor(context, saturatedColors.getResourceId(i, 0)),
-                    (ContextCompat.getColor(context,R.color.doughnut_no_info)));
-        }
-    }
+    /* Métodos provistos desde acá para construcción de la actividad */
 
     public void setUpToolbar(){
         this.toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -281,50 +99,27 @@ public abstract class ConnectionTypeActivity extends AppCompatActivity implement
         ab.setDisplayHomeAsUpEnabled(true);
     }
 
-    @Override
-    public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-        Calendar c = Calendar.getInstance();
-        c.set(Calendar.YEAR, year);
-        c.set(Calendar.MONTH, monthOfYear);
-        c.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-        final long initTime = c.getTimeInMillis();
+    private void updateFragmentsAttached() {
+        for (int i=0; i<this.mViewPagerAdapter.getCount(); i++){
+            ConnectionTypeViewFragment mFragment = (ConnectionTypeViewFragment) this.mViewPagerAdapter.getItem(i);
+            mFragment.updateView(this.statistic);
+        }
+    }
 
+    protected void startUpdateUiThread(){
         DisplayManager.enableLoadingPanel(this.loadingPanel);
         (new Thread(){
             @Override
             public void run() {
-                // Acá la lógica de recuperar datos para el día seleccionado en initTime
-                loadData(initTime);
+                loadData(timestampToQuery);
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        refreshLegend(initTime);
-                        //Acá la lógica para modificar el donutchart con los nuevos datos
-                        dateManager.refreshDate(dayText, dateText, initTime);
-                        chart.draw();
+                        updateFragmentsAttached();
                         DisplayManager.dismissLoadingPanel(loadingPanel, context);
                     }
                 });
             }
         }).start();
-    }
-
-    protected class TimeLegend{
-        private TextView legendTextView;
-        private long totalTime;
-
-
-        public TimeLegend(TextView legendTextView, long totalTime) {
-            this.legendTextView = legendTextView;
-            this.totalTime = totalTime;
-        }
-
-        public TextView getLegendTextView() {
-            return legendTextView;
-        }
-
-        public long getTotalTime() {
-            return totalTime;
-        }
     }
 }
