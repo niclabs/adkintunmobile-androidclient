@@ -88,6 +88,14 @@ public class ActiveConnectionMapBottomSheetDialogFragment extends BottomSheetDia
         this.nextButton.setOnClickListener(this);
         this.prevButton.setOnClickListener(this);
 
+        if (activeConnectionListElement.getTotalActiveConnections() > 1) {
+            this.nextButton.setVisibility(View.VISIBLE);
+            this.prevButton.setVisibility(View.VISIBLE);
+        }else{
+            this.nextButton.setVisibility(View.GONE);
+            this.prevButton.setVisibility(View.GONE);
+        }
+
         setUpLayoutElements(contentView);
 
         initDialog();
