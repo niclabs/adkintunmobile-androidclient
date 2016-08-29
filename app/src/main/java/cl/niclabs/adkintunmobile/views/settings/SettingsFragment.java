@@ -59,16 +59,19 @@ public class SettingsFragment extends PreferenceFragment implements SharedPrefer
 
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+        if (isAdded()) {
 
-        if (key.equals(this.context.getString(R.string.settings_sampling_frequency_key))){
-            SetupSystem.schedulleBroadcastReceivers(this.context);
-        }
-        if (key.equals(getString(R.string.settings_sampling_compression_type_key))){
-            int deletedFiles = FileManager.deleteStoredReports(context);
-            Toast.makeText(context, "Borrados " + deletedFiles + " reportes almacenados", Toast.LENGTH_SHORT).show();
-        }
+            if (key.equals(this.context.getString(R.string.settings_sampling_frequency_key))) {
+                SetupSystem.schedulleBroadcastReceivers(this.context);
+            }
 
-        updateSummary(key);
+            if (key.equals(getString(R.string.settings_sampling_compression_type_key))) {
+                int deletedFiles = FileManager.deleteStoredReports(context);
+                Toast.makeText(context, "Borrados " + deletedFiles + " reportes almacenados", Toast.LENGTH_SHORT).show();
+            }
+
+            updateSummary(key);
+        }
     }
 
     @Override
