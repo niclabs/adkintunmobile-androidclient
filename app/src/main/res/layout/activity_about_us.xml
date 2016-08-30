@@ -35,7 +35,9 @@
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 android:text="@string/view_aboutus_about_app"
-                android:id="@+id/textView2" />
+                android:id="@+id/textView2"
+                android:layout_marginBottom="@dimen/abc_action_bar_overflow_padding_end_material"
+                android:layout_marginTop="@dimen/abc_action_bar_overflow_padding_end_material" />
 
             <Button
                 style="@style/Base.Widget.AppCompat.Button.Borderless.Colored"
@@ -66,7 +68,13 @@
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="@dimen/aboutus_institutions_logo_height"
-                    android:src="@mipmap/niclabs_logo" />
+                    android:src="@mipmap/niclabs_logo"
+                    android:paddingTop="12dp" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/aboutus_institutions_logo_height"
+                    android:src="@mipmap/uchile_logo" />
             </LinearLayout>
 
         </LinearLayout>

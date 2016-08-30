@@ -25,7 +25,7 @@
 
     <!-- About us -->
     <dimen name="aboutus_adk_logo_height">70dp</dimen>
-    <dimen name="aboutus_institutions_logo_height">50dp</dimen>
+    <dimen name="aboutus_institutions_logo_height">60dp</dimen>
 
     <!-- Status -->
     <dimen name="text_info_data_quota">14sp</dimen>
