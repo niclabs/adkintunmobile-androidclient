@@ -10,6 +10,7 @@ import android.util.Log;
 
 import cl.niclabs.adkintunmobile.R;
 import cl.niclabs.adkintunmobile.data.Report;
+import cl.niclabs.adkintunmobile.services.SetupSystem;
 import cl.niclabs.adkintunmobile.utils.compression.CompressionUtils;
 
 public class Synchronization extends Service {
@@ -60,6 +61,7 @@ public class Synchronization extends Service {
     public void onDestroy() {
         super.onDestroy();
         Log.d(this.TAG, "Detenido El servicio de sincronización");
+        SetupSystem.startUpSystem(context);
     }
 
     @Override
