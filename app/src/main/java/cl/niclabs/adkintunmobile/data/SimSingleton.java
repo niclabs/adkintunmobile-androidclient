@@ -31,8 +31,15 @@ public class SimSingleton {
 
         if(telephonyManager.getSimState() == TelephonyManager.SIM_STATE_READY){
             this.mCarrier = telephonyManager.getSimOperator();
-            this.mMcc = this.mCarrier.substring(0, 3);
-            this.mMnc = this.mCarrier.substring(3);
+
+            if (this.mCarrier.length() < 5){
+                this.mMcc = this.mCarrier;
+                this.mMnc = "KO";
+            }else{
+                this.mMcc = this.mCarrier.substring(0, 3);
+                this.mMnc = this.mCarrier.substring(3);
+            }
+
         }
     }
 
