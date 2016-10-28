@@ -29,6 +29,7 @@ import cl.niclabs.adkintunmobile.services.SetupSystem;
 import cl.niclabs.adkintunmobile.utils.display.NotificationManager;
 import cl.niclabs.adkintunmobile.utils.display.ShowCaseTutorial;
 import cl.niclabs.adkintunmobile.views.aboutus.AboutUsActivity;
+import cl.niclabs.adkintunmobile.views.activemeasurements.ActiveMeasurementsActivity;
 import cl.niclabs.adkintunmobile.views.activeconnections.ActiveConnectionsActivity;
 import cl.niclabs.adkintunmobile.views.applicationstraffic.ApplicationsTrafficActivity;
 import cl.niclabs.adkintunmobile.views.connectiontype.connectionmode.ConnectionModeActivity;
@@ -146,6 +147,9 @@ public class MainActivity extends AppCompatActivity {
                     case R.id.nav_active_connections:
                         openActiveConnectionsView(null);
                         break;
+                    case R.id.nav_active_measurements:
+                        openActiveMeasurementsView(null);
+                        break;
                     case R.id.nav_settings:
                         myIntent = new Intent(getApplicationContext(), SettingsActivity.class);
                         startActivity(myIntent);
@@ -189,6 +193,11 @@ public class MainActivity extends AppCompatActivity {
 
     public void openActiveConnectionsView(View view) {
         Intent myIntent = new Intent(getApplicationContext(), ActiveConnectionsActivity.class);
+        startActivity(myIntent);
+    }
+
+    public void openActiveMeasurementsView(View view) {
+        Intent myIntent = new Intent(getApplicationContext(), ActiveMeasurementsActivity.class);
         startActivity(myIntent);
     }
     /*

@@ -57,4 +57,6 @@ dependencies {
     compile 'com.loopj.android:android-async-http:1.4.9'
     compile 'com.github.amlcurran.showcaseview:library:5.4.3'
     compile 'com.github.vipulasri:timelineview:1.0.3'
+    compile 'com.github.akinaru:speedtest:1.15'
+    compile 'com.jjoe64:graphview:4.1.1'
 }

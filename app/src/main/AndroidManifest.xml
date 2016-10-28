@@ -86,6 +86,14 @@
                 android:value=".views.dashboard.MainActivity" />
         </activity>
         <activity
+            android:name=".views.activemeasurements.ActiveMeasurementsActivity"
+            android:parentActivityName=".views.dashboard.MainActivity"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".views.dashboard.MainActivity" />
+        </activity>
+        <activity
             android:name=".views.settings.SettingsActivity"
             android:parentActivityName=".views.dashboard.MainActivity"
             android:screenOrientation="portrait"

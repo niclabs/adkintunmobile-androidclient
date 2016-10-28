@@ -37,6 +37,10 @@
             android:id="@+id/nav_active_connections"
             android:title="@string/view_active_connections"
             android:icon="@drawable/ic_lan_connect_black"/>
+        <item
+            android:id="@+id/nav_active_measurements"
+            android:title="@string/view_active_measurements"
+            android:icon="@drawable/ic_lan_connect_black"/>
 
     </group>
 
