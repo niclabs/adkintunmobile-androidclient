@@ -11,14 +11,15 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
 import cl.niclabs.adkintunmobile.utils.activemeasurements.ActiveMeasurementsTest;
+import cl.niclabs.adkintunmobile.views.activemeasurements.VideoTestDialog;
 
 public class VideoTest {
-    private ActiveMeasurementsTest mainTest;
+    private VideoTestDialog mainTest;
     private WebView webView;
     private long previousRxBytes = -1;
     private long previousTxBytes = -1;
 
-    public VideoTest(ActiveMeasurementsTest mainTest, WebView webView) {
+    public VideoTest(VideoTestDialog mainTest, WebView webView) {
         this.mainTest = mainTest;
         this.webView = webView;
     }
@@ -84,7 +85,12 @@ public class VideoTest {
     }
 
     public void finish() {
-        mainTest.onVideoTestFinish();
+        mainTest.getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                webView.loadUrl("about:blank");
+            }
+        });
     }
 
     public void startCountingBytes() {

@@ -1,14 +1,15 @@
 package cl.niclabs.adkintunmobile.utils.activemeasurements.speedtest;
 
 import cl.niclabs.adkintunmobile.utils.activemeasurements.ActiveMeasurementsTest;
+import cl.niclabs.adkintunmobile.views.activemeasurements.SpeedTestDialog;
 import fr.bmartel.speedtest.SpeedTestMode;
 
 public class SpeedTest {
-    private ActiveMeasurementsTest mainTest;
+    private SpeedTestDialog mainTest;
     private int fileOctetSize;
     private String host;
 
-    public SpeedTest(ActiveMeasurementsTest mainTest, int fileOctetSize, String currentServer) {
+    public SpeedTest(SpeedTestDialog mainTest, int fileOctetSize, String currentServer) {
         this.fileOctetSize = fileOctetSize;
         this.mainTest = mainTest;
         host = currentServer;
@@ -28,7 +29,7 @@ public class SpeedTest {
                 startSpeedTest(SpeedTestMode.UPLOAD, host, fileOctetSize);
                 break;
             case UPLOAD:
-                mainTest.onSpeedTestFinish();
+                //mainTest.onSpeedTestFinish();
                 break;
         }
     }

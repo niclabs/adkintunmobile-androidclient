@@ -23,10 +23,11 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 import cl.niclabs.adkintunmobile.utils.activemeasurements.ActiveMeasurementsTest;
+import cl.niclabs.adkintunmobile.views.activemeasurements.WebPagesTestDialog;
 import cz.msebera.android.httpclient.Header;
 
 public class WebPagesTest {
-    private ActiveMeasurementsTest mainTest;
+    private WebPagesTestDialog mainTest;
     private WebView webView;
     private ArrayList<String> urls = new ArrayList<>();
     private ArrayList<String> names = new ArrayList<>();
@@ -34,7 +35,7 @@ public class WebPagesTest {
     private long sizeBytes[];
     private int i = 0;
 
-    public WebPagesTest(ActiveMeasurementsTest mainTest, WebView webView) {
+    public WebPagesTest(WebPagesTestDialog mainTest, WebView webView) {
         this.mainTest = mainTest;
         this.webView = webView;
     }
@@ -67,7 +68,7 @@ public class WebPagesTest {
             public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
                 //manejo en caso de falla
                 Log.d("JSON", "API FAIL...");
-                mainTest.onWebPageTestFinish();
+                //mainTest.onWebPageTestFinish();
             }
             @Override
             public boolean getUseSynchronousMode() {
@@ -81,13 +82,13 @@ public class WebPagesTest {
             new WebPagesTestTask(this).execute(urls.get(i));
         }
         else {
-            mainTest.onWebPageTestFinish();
+            //mainTest.onWebPageTestFinish();
         }
     }
 
     private void startLoading() {
-        Activity testActivity = (Activity) webView.getContext();
-        testActivity.runOnUiThread(new Runnable() {
+
+        mainTest.getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
                 setUpWebView();
@@ -145,8 +146,7 @@ public class WebPagesTest {
     }
 
     protected void onResponseReceived(final int responseCode) {
-        Activity testActivity = (Activity) webView.getContext();
-        testActivity.runOnUiThread(new Runnable() {
+        mainTest.getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
                 if (responseCode >= 200 && responseCode < 400) {

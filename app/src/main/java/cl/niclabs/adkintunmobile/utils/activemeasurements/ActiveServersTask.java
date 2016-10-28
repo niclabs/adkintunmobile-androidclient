@@ -55,7 +55,7 @@ public class ActiveServersTask extends AsyncTask<String, Void, Void> {
                             Log.d("ASD", serverUrl + " " + responseCode);
                             urlConnection.disconnect();
                             if (responseCode >= 200 && responseCode<400){
-                                serverUrl = serverUrl.substring(7, serverUrl.indexOf(":"));
+                                serverUrl = serverUrl.substring(7, serverUrl.indexOf(":5000"));
                                 serversUrlList.add(serverUrl);
                             }
                         }
