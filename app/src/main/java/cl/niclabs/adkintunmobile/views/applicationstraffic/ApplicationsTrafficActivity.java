@@ -22,6 +22,7 @@ import com.github.amlcurran.showcaseview.ShowcaseView;
 import com.github.amlcurran.showcaseview.targets.Target;
 import com.github.amlcurran.showcaseview.targets.ViewTarget;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -66,7 +67,7 @@ public class ApplicationsTrafficActivity extends AppCompatActivity implements Da
                 calendar.set(Calendar.MINUTE, 0);
                 calendar.set(Calendar.SECOND, 0);
                 calendar.set(Calendar.MILLISECOND, 0);
-                long yesterday = calendar.getTimeInMillis();
+                final long yesterday = calendar.getTimeInMillis();
 
                 loadAppTrafficEventsData(yesterday);
 
@@ -75,6 +76,7 @@ public class ApplicationsTrafficActivity extends AppCompatActivity implements Da
                     public void run() {
                         setupViewPager();
                         DisplayManager.dismissLoadingPanel(loadingPanel, context);
+                        updateSubtitle(yesterday);
                     }
                 });
 
@@ -270,12 +272,35 @@ public class ApplicationsTrafficActivity extends AppCompatActivity implements Da
                     @Override
                     public void run() {
                         trafficListsUpdate(initTime);
-                        DisplayDateManager d = new DisplayDateManager(context);
-
                         DisplayManager.dismissLoadingPanel(loadingPanel, context);
+                        updateSubtitle(initTime);
                     }
                 });
             }
         }).start();
+    }
+
+    public void updateSubtitle(long timestampShowingData){
+        String date = DisplayDateManager.getDateString(timestampShowingData, new SimpleDateFormat("dd/MM"));
+        int daysCount = DisplayDateManager.daysBetweenTimestamps(timestampShowingData, System.currentTimeMillis());
+
+        String daysCountString = "";
+        if (daysCount < 1){
+            daysCountString = "";
+        } else if (daysCount < 2){
+            daysCountString = "(1 día)";
+        }else {
+            daysCountString = "("+daysCount+" días)";
+        }
+
+        String subtitle = String.format(
+                getString(R.string.view_applications_traffic_subtitle),
+                date,
+                daysCountString);
+
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setShowHideAnimationEnabled(true);
+        actionBar.setSubtitle(subtitle);
+
     }
 }

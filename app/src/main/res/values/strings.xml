@@ -121,6 +121,7 @@
     <string name="view_applications_traffic_mobile">Tráfico Móvil</string>
     <string name="view_applications_traffic_item_no_data">No hay resultados para mostrar</string>
     <string name="view_applications_traffic_menu_datepicker">Seleccionar fecha de inicio de datos</string>
+    <string name="view_applications_traffic_subtitle">desde %1$s %2$s</string>
 
     <!-- Active Connections -->
     <string name="view_active_connections_reload">Conexiones Activas Actualizadas</string>
