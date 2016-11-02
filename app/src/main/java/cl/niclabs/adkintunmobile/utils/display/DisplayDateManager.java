@@ -49,4 +49,9 @@ public class DisplayDateManager {
     static public String getDateString(long timestamp){
         return DisplayDateManager.getDateString(timestamp, new SimpleDateFormat("yyyy/MM/dd HH:mm:ss"));
     }
+
+    static public int daysBetweenTimestamps(long t1, long t2){
+        long diff = Math.abs(t1-t2);
+        return (int)((((diff/1000)/60)/60)/24);
+    }
 }
