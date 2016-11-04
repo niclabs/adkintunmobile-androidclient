@@ -11,6 +11,7 @@ import android.preference.Preference;
 import android.preference.PreferenceCategory;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceScreen;
+import android.preference.SwitchPreference;
 import android.support.v4.app.FragmentManager;
 import android.util.Log;
 import android.widget.Toast;
@@ -70,6 +71,10 @@ public class SettingsFragment extends PreferenceFragment implements SharedPrefer
                 Toast.makeText(context, "Borrados " + deletedFiles + " reportes almacenados", Toast.LENGTH_SHORT).show();
             }
 
+            if (key.equals(getString(R.string.settings_app_daily_notification_key))){
+                SetupSystem.setupDailyNotifications(this.context);
+            }
+
             updateSummary(key);
         }
     }
@@ -127,15 +132,17 @@ public class SettingsFragment extends PreferenceFragment implements SharedPrefer
             EditTextPreference editTextPreference = (EditTextPreference) pref;
             pref.setSummary(editTextPreference.getText());
             Log.d(TAG, "Cambiada las preferencia de EditText");
+        } else if (pref instanceof SwitchPreference){
+            Log.d(TAG, "Cambiada las preferencia de Switch");
         } else {
             if (pref != null){
                 boolean inActivity = getActivity() != null;
-                if (inActivity && pref.getKey() == getActivity().getString(R.string.settings_app_data_quota_total_key)){
+                if (inActivity && pref.getKey().equals(getActivity().getString(R.string.settings_app_data_quota_total_key))){
                     int selectedOption = Integer.parseInt(getPreferenceManager().getSharedPreferences().getString(pref.getKey(), "0"));
                     long quota = Long.parseLong(getResources().getStringArray(R.array.data_quotas)[selectedOption]);
                     pref.setSummary(Network.formatBytes(quota));
                 }
-                else if (inActivity && pref.getKey() == getActivity().getString(R.string.settings_app_day_of_recharge_key)){
+                else if (inActivity && pref.getKey().equals(getActivity().getString(R.string.settings_app_day_of_recharge_key))){
                     int selectedOption = Integer.parseInt(getPreferenceManager().getSharedPreferences().getString(pref.getKey(), "0"));
                     pref.setSummary(Integer.toString(selectedOption + 1));
                 }else{
