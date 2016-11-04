@@ -45,7 +45,7 @@ public class WebPagesTest {
 
         AsyncHttpClient client = new AsyncHttpClient();
 
-        client.get("http://blasco.duckdns.org:5000/pingSites/", new JsonHttpResponseHandler(){
+        client.get("pingSites", new JsonHttpResponseHandler(){
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                 try {
@@ -92,6 +92,7 @@ public class WebPagesTest {
             @Override
             public void run() {
                 setUpWebView();
+                mainTest.setUpTextView(names);
                 loadNextPage();
             }
         });
@@ -109,11 +110,18 @@ public class WebPagesTest {
         webView.setWebViewClient(new WebViewClient() {
             private long startTime = -1;
             private long finishTime;
+            private String lastFinished;
 
             @Override
             public void onPageStarted(WebView view, String url, Bitmap favicon) {
-                if (startTime == -1)
+                if (url=="about:blank"){
+                    return;
+                }
+                if (startTime == -1) {
                     startTime = System.currentTimeMillis();
+                    mainTest.onWebPageStarted(i);
+                }
+
             }
 
             @Override
@@ -123,6 +131,14 @@ public class WebPagesTest {
 
             @Override
             public void onPageFinished(WebView view, String url) {
+                if (url.equals("about:blank")){
+                    return;
+                }
+                if (url.equals(lastFinished)){
+                    return;
+                }
+                lastFinished = url;
+                webView.loadUrl("about:blank");
                 finishTime = System.currentTimeMillis();
                 loadingTime[i] = finishTime - startTime;
 
@@ -132,7 +148,7 @@ public class WebPagesTest {
 
                 sizeBytes[i] = (currentRxBytes - WebPagesTestTask.previousRxBytes) + (currentTxBytes - WebPagesTestTask.previousTxBytes);
 
-                mainTest.onWebPageLoaded(names.get(i), loadingTime[i], sizeBytes[i]);
+                mainTest.onWebPageLoaded(i, loadingTime[i], sizeBytes[i]);
                 i++;
                 startTime = -1;
                 loadNextPage();
@@ -157,7 +173,7 @@ public class WebPagesTest {
                 }
                 else{
                     loadingTime[i] = -1;
-                    mainTest.onWebPageLoaded(names.get(i), loadingTime[i], sizeBytes[i]);
+                    mainTest.onWebPageLoaded(i, loadingTime[i], sizeBytes[i]);
                     i++;
                     loadNextPage();
                 }

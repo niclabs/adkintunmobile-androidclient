@@ -24,8 +24,8 @@ public class VideoTestDialog extends DialogFragment{
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout
-        view = inflater.inflate(R.layout.fragment_web_pages_test_dialog, container, false);
-        getDialog().setTitle("SpeedTest");
+        view = inflater.inflate(R.layout.fragment_video_test_dialog, container, false);
+        getDialog().setTitle("VideoTest");
 
         // Get visual elements
         urlsTime = (TextView) view.findViewById(R.id.urls);
