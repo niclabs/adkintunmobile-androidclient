@@ -48,6 +48,7 @@ public class ActiveServersTask extends AsyncTask<String, Void, Void> {
                         try {
                             url = new URL(serverUrl + "status");
                             urlConnection = (HttpURLConnection) url.openConnection();
+                            urlConnection.setConnectTimeout(1000);
                             responseCode = urlConnection.getResponseCode();
                         } catch (IOException e) {
                             e.printStackTrace();
