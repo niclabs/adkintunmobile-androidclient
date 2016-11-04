@@ -2,7 +2,6 @@ package cl.niclabs.adkintunmobile.views.dashboard;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,14 +14,13 @@ import android.widget.TextView;
 import com.facebook.shimmer.ShimmerFrameLayout;
 
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.Iterator;
 
 import cl.niclabs.adkintunmobile.R;
 import cl.niclabs.adkintunmobile.data.persistent.visualization.ApplicationTraffic;
 import cl.niclabs.adkintunmobile.data.persistent.visualization.ConnectionModeSample;
 import cl.niclabs.adkintunmobile.data.persistent.visualization.NetworkTypeSample;
+import cl.niclabs.adkintunmobile.utils.display.DisplayDateManager;
 import cl.niclabs.adkintunmobile.utils.information.Connections.Connections;
 import cl.niclabs.adkintunmobile.utils.information.Connections.SystemSocket;
 import cl.niclabs.adkintunmobile.utils.information.Network;
@@ -166,7 +164,10 @@ public class DashboardFragment extends BaseToolbarFragment {
         (new Thread(){
             @Override
             public void run() {
-                final long[] monthlyData = ApplicationTraffic.getMonthlyMobileConsumption();
+
+
+
+                final long[] monthlyData = ApplicationTraffic.getMonthlyMobileConsumption(context);
 
                 if (getActivity() != null) {
                     getActivity().runOnUiThread(new Runnable() {
@@ -306,14 +307,7 @@ public class DashboardFragment extends BaseToolbarFragment {
         ApplicationsTrafficListElement[] ret = new ApplicationsTrafficListElement[3];
 
         // Obtener aplicaciones con actividad de hoy
-        Date today = new Date(System.currentTimeMillis());
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTime(today);
-        calendar.set(Calendar.HOUR_OF_DAY, 0);
-        calendar.set(Calendar.MINUTE, 0);
-        calendar.set(Calendar.SECOND, 0);
-        calendar.set(Calendar.MILLISECOND, 0);
-        long initTime = calendar.getTimeInMillis();
+        long initTime = DisplayDateManager.timestampAtStartDay(System.currentTimeMillis());
 
         String sqlStatements[] = new String[2];
         sqlStatements[0] = Long.toString(initTime);
