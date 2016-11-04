@@ -31,6 +31,9 @@
     <string name="settings_app_data_clean_ip_location_cache_title">Borrar datos temporales</string>
     <string name="settings_app_data_clean_ip_location_cache_summary">Elimina los datos descargados para desplegar el mapa de conexiones activas.</string>
     <string name="settings_app_data_clean_ip_location_cache_message">Datos temporales borrados</string>
+    <string name="settings_app_daily_notification_key">daily_notification</string>
+    <string name="settings_app_daily_notification_title">Notificaciones Diarias</string>
+    <string name="settings_app_daily_notification_summary">Programar una notificación diaria para el final del día con el resumen del consumo de datos móviles.</string>
 
     <string name="settings_sampling_category">Opciones de Debug</string>
     <string name="settings_sampling_category_key">sync_category_key</string>
@@ -59,7 +62,7 @@
     <string name="view_dashboard_toolbar_slogan">Tu Estado Ahora</string>
     <string name="view_dashboard_news">Novedades</string>
     <string name="view_dashboard_mobile_data_title">Consumo de datos móviles</string>
-    <string name="view_dashboard_mobile_data_summary">Consumo aproximado de datos móviles del día actual:</string>
+    <string name="view_dashboard_mobile_data_summary">Consumo aproximado de datos móviles del mes actual:</string>
     <string name="view_dashboard_conn_mode_title">Datos</string>
     <string name="view_dashboard_conn_mode_summary">Hoy has estado conectado principalmente a:</string>
     <string name="view_dashboard_conn_mode_wifi">WiFi</string>
@@ -70,7 +73,7 @@
     <string name="view_dashboard_top_apps_title">Principales Aplicaciones</string>
     <string name="view_dashboard_top_apps_summary">Las siguientes aplicaciones son las que más han usado tu internet móvil hoy:</string>
     <string name="view_dashboard_active_connections_title">Conexiones activas</string>
-    <string name="view_dashboard_active_connections_summary">En este momento las conexiones de internet activas en tu celular llegan a un total de:</string>
+    <string name="view_dashboard_active_connections_summary">En este instante las conexiones de internet activas en tu celular llegan a un total de:</string>
 
     <!-- Notifications Log -->
     <string name="view_notifications_log_item_no_data">No hay notificaciones para mostrar</string>
@@ -143,6 +146,11 @@
     <string name="synchronization_report_file_extension">.adkdb</string>
     <string name="synchronization_report_file_multipartdata">report.gz</string>
     <string name="synchronization_report_file_post_name_parameter">uploaded_file</string>
+
+
+    <!-- Notifications -->
+    <string name="notification_daily_report_title">Resumen de tu consumo diario.</string>
+    <string name="notification_daily_report_body">El día de hoy (%1$s) has utilizado %2$s de datos por tráfico móvil.</string>
 
 
     <!-- Fonts -->
