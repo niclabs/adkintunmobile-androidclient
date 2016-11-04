@@ -22,12 +22,17 @@ import com.github.amlcurran.showcaseview.targets.PointTarget;
 import com.github.amlcurran.showcaseview.targets.Target;
 import com.github.amlcurran.showcaseview.targets.ViewTarget;
 
+import java.text.SimpleDateFormat;
+
 import cl.niclabs.adkintunmobile.BuildConfig;
 import cl.niclabs.adkintunmobile.R;
+import cl.niclabs.adkintunmobile.data.persistent.visualization.ApplicationTraffic;
 import cl.niclabs.adkintunmobile.data.persistent.visualization.NewsNotification;
 import cl.niclabs.adkintunmobile.services.SetupSystem;
+import cl.niclabs.adkintunmobile.utils.display.DisplayDateManager;
 import cl.niclabs.adkintunmobile.utils.display.NotificationManager;
 import cl.niclabs.adkintunmobile.utils.display.ShowCaseTutorial;
+import cl.niclabs.adkintunmobile.utils.information.Network;
 import cl.niclabs.adkintunmobile.views.aboutus.AboutUsActivity;
 import cl.niclabs.adkintunmobile.views.activeconnections.ActiveConnectionsActivity;
 import cl.niclabs.adkintunmobile.views.applicationstraffic.ApplicationsTrafficActivity;
@@ -35,9 +40,9 @@ import cl.niclabs.adkintunmobile.views.connectiontype.connectionmode.ConnectionM
 import cl.niclabs.adkintunmobile.views.connectiontype.networktype.NetworkTypeActivity;
 import cl.niclabs.adkintunmobile.views.rankings.RankingFragment;
 import cl.niclabs.adkintunmobile.views.settings.SettingsActivity;
+import cl.niclabs.adkintunmobile.views.status.DataQuotaDialog;
 import cl.niclabs.adkintunmobile.views.status.DayOfRechargeDialog;
 import cl.niclabs.adkintunmobile.views.status.StatusActivity;
-import cl.niclabs.adkintunmobile.views.status.DataQuotaDialog;
 import io.fabric.sdk.android.Fabric;
 
 public class MainActivity extends AppCompatActivity {
@@ -220,14 +225,21 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void notif(View view){
-        NewsNotification notification = new NewsNotification(NewsNotification.INFO, "Probandolos", "Hasta el fin del fin");
+
+        long[] dailyData = ApplicationTraffic.getTransferedData(ApplicationTraffic.MOBILE, DisplayDateManager.timestampAtStartDay(System.currentTimeMillis()));
+        String dataUsage = Network.formatBytes(dailyData[0] + dailyData[1]);
+        String date = DisplayDateManager.getDateString(System.currentTimeMillis(), new SimpleDateFormat("dd/MM"));
+        String title = getString(R.string.notification_daily_report_title);
+        String body = String.format(getString(R.string.notification_daily_report_body) , date, dataUsage);
+
+        NewsNotification notification = new NewsNotification(NewsNotification.INFO, title, body);
         notification.save();
 
         NewsNotification n = NewsNotification.findFirst(
                 NewsNotification.class,
                 "timestamp = ?",
                 NewsNotification.mostRecentlyTimestamp()+"");
-        NotificationManager.showNotification(this, n.title, n.content);
+        NotificationManager.showNotification(this, n.title, n.content, new Intent(context, ApplicationsTrafficActivity.class));
     }
 
     private int helpCounter;
