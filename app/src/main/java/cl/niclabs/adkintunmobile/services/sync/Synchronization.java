@@ -61,7 +61,8 @@ public class Synchronization extends Service {
     public void onDestroy() {
         super.onDestroy();
         Log.d(this.TAG, "Detenido El servicio de sincronización");
-        SetupSystem.startUpSystem(context);
+        //SetupSystem.startUpSystem(context);
+        SetupSystem.schedulleBroadcastReceivers(context);
     }
 
     @Override
