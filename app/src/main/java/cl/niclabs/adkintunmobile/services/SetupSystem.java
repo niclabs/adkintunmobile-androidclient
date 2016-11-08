@@ -14,6 +14,7 @@ import cl.niclabs.adkintunmobile.data.persistent.GsmObservationWrapper;
 import cl.niclabs.adkintunmobile.services.monitors.ConnectivityMonitor;
 import cl.niclabs.adkintunmobile.services.monitors.TelephonyMonitor;
 import cl.niclabs.adkintunmobile.services.monitors.TrafficMonitor;
+import cl.niclabs.adkintunmobile.services.notifications.DailyNotificationBroadcastReceiver;
 import cl.niclabs.adkintunmobile.services.sync.SynchronizationBroadcastReceiver;
 import cl.niclabs.adkintunmobile.utils.files.FileManager;
 import cl.niclabs.adkmobile.monitor.Device;
@@ -52,6 +53,9 @@ public class SetupSystem extends Device {
 
         // Register preferences
         SetupSystem.setAppVersionCode(context);
+
+        // Daily Notification System
+        SetupSystem.setupDailyNotifications(context);
     }
 
     static public void startMonitoringServices(Context context) {
@@ -118,6 +122,17 @@ public class SetupSystem extends Device {
             editor.apply();
         }
 
+    }
+
+    static public void setupDailyNotifications(Context context){
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
+        boolean enableNotifications = sharedPreferences.getBoolean(context.getString(R.string.settings_app_daily_notification_key), true);
+
+        if (enableNotifications){
+            DailyNotificationBroadcastReceiver.setSchedule(context);
+        }else {
+            DailyNotificationBroadcastReceiver.cancelSchedule(context);
+        }
     }
 
 

@@ -25,7 +25,6 @@ import com.github.amlcurran.showcaseview.targets.ViewTarget;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.Iterator;
 
 import cl.niclabs.adkintunmobile.R;
@@ -60,14 +59,7 @@ public class ApplicationsTrafficActivity extends AppCompatActivity implements Da
         (new Thread(){
             @Override
             public void run() {
-                Date today = new Date(System.currentTimeMillis());
-                Calendar calendar = Calendar.getInstance();
-                calendar.setTime(today);
-                calendar.set(Calendar.HOUR_OF_DAY, 0);
-                calendar.set(Calendar.MINUTE, 0);
-                calendar.set(Calendar.SECOND, 0);
-                calendar.set(Calendar.MILLISECOND, 0);
-                final long yesterday = calendar.getTimeInMillis();
+                final long yesterday = DisplayDateManager.timestampAtStartDay(System.currentTimeMillis());
 
                 loadAppTrafficEventsData(yesterday);
 

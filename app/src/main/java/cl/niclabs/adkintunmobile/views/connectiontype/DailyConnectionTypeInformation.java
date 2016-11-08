@@ -5,14 +5,13 @@ import android.content.res.TypedArray;
 import android.support.v4.content.ContextCompat;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Iterator;
-import java.util.Locale;
 
 import cl.niclabs.adkintunmobile.R;
 import cl.niclabs.adkintunmobile.data.chart.StatisticInformation;
 import cl.niclabs.adkintunmobile.data.persistent.visualization.ConnectionTypeSample;
 import cl.niclabs.adkintunmobile.data.persistent.visualization.DailyConnectionTypeSummary;
+import cl.niclabs.adkintunmobile.utils.display.DisplayDateManager;
 
 public abstract class DailyConnectionTypeInformation extends StatisticInformation{
     protected final long period = 3600L * 24L * 1000L;
@@ -25,13 +24,7 @@ public abstract class DailyConnectionTypeInformation extends StatisticInformatio
     public DailyConnectionTypeInformation(Context context, long initialTime, long currentTime) {
         this.context = context;
         this.currentTime = currentTime;
-        Calendar calendar = Calendar.getInstance(Locale.getDefault());
-        calendar.setTimeInMillis(initialTime);
-        calendar.set(Calendar.HOUR_OF_DAY, 0);
-        calendar.set(Calendar.MINUTE, 0);
-        calendar.set(Calendar.SECOND, 0);
-        calendar.set(Calendar.MILLISECOND, 0);
-        this.initialTime = calendar.getTimeInMillis();
+        this.initialTime = DisplayDateManager.timestampAtStartDay(initialTime);
     }
 
     public abstract DailyConnectionTypeSummary getSummary(long timestamp);
@@ -147,7 +140,7 @@ public abstract class DailyConnectionTypeInformation extends StatisticInformatio
             colors.add(noInfoColor);
             values.add((initialTime + period - currentTime - initialBar) * anglePerMillisecond);
             if (lastType != -1)
-               timeByType[lastType] += (currentTime - lastTime);
+                timeByType[lastType] += (currentTime - lastTime);
         }
 
         super.setTimeByType(timeByType);
