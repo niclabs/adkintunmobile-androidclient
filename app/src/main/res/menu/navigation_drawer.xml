@@ -40,7 +40,7 @@
         <item
             android:id="@+id/nav_active_measurements"
             android:title="@string/view_active_measurements"
-            android:icon="@drawable/ic_lan_connect_black"/>
+            android:icon="@drawable/ic_speedometer_black"/>
 
     </group>
 

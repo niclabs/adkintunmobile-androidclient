@@ -286,7 +286,7 @@
         android:layout_width="wrap_content"
         app:layout_anchor="@id/appbar"
         app:layout_anchorGravity="bottom|right|end"
-        android:src="@drawable/ic_lan_connect_black"
+        android:src="@drawable/ic_speedometer_white"
         android:layout_margin="@dimen/margin_horizontal_info_data_quota"
         android:clickable="true"/>
 
