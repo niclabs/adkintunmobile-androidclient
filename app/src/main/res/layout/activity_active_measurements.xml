@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:fitsSystemWindows="true"
     tools:context="cl.niclabs.adkintunmobile.views.activemeasurements.ActiveMeasurementsActivity">
 
@@ -17,40 +18,36 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"/>
 
+        <android.support.design.widget.TabLayout
+            android:id="@+id/tabs"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimary"
+            app:tabGravity="fill"
+            app:tabMode="fixed" />
+
     </android.support.design.widget.AppBarLayout>
 
-    <TableLayout
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/viewpager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:stretchColumns="*"
-        android:focusable="true"
-        android:focusableInTouchMode="true"
-        android:gravity="center">
-        <TableRow
-            android:layout_width="0dp"
-            android:layout_height="match_parent">
-            <Button
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="SpeedTest"
-                android:layout_weight="0"
-                android:onClick="onSpeedTestClick" />
-            <Button
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="WebTest"
-                android:layout_weight="0"
-                android:onClick="onWebPagesTestClick" />
-            <Button
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="VideoTest"
-                android:layout_weight="0"
-                android:onClick="onVideoTestClick" />
-        </TableRow>
-    </TableLayout>
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        android:background="@mipmap/background3">
+
+        <!--
+        <android.support.v4.view.PagerTitleStrip
+            android:id="@+id/pager_title_strip"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top"
+            android:background="@color/colorSoftCard"
+            android:textColor="#fff"
+            android:paddingTop="4dp"
+            android:paddingBottom="4dp" />
+            -->
+
+    </android.support.v4.view.ViewPager>
 
 </android.support.design.widget.CoordinatorLayout>

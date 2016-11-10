@@ -3,12 +3,16 @@ package cl.niclabs.adkintunmobile.views.activemeasurements;
 import android.content.Context;
 import android.os.Bundle;
 import android.os.SystemClock;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.webkit.WebView;
@@ -18,6 +22,9 @@ import android.widget.TextView;
 import cl.niclabs.adkintunmobile.R;
 import cl.niclabs.adkintunmobile.utils.activemeasurements.ActiveServersDialog;
 import cl.niclabs.adkintunmobile.utils.activemeasurements.ActiveServersTask;
+import cl.niclabs.adkintunmobile.views.activemeasurements.viewfragments.ConnectivitytestFragment;
+import cl.niclabs.adkintunmobile.views.activemeasurements.viewfragments.SpeedtestFragment;
+import cl.niclabs.adkintunmobile.views.activemeasurements.viewfragments.MediatestFragment;
 
 public class ActiveMeasurementsActivity extends AppCompatActivity{
 
@@ -27,12 +34,16 @@ public class ActiveMeasurementsActivity extends AppCompatActivity{
     protected Context context;
     protected Toolbar toolbar;
 
+    protected ActiveMeasurementsViewPagerAdapter mViewPagerAdapter;
+    protected ViewPager mViewPager;
+
+
+    /* Estos elementos deben sacarse de aquí para ser parte de cada Fragment según corresponda */
     private TextView urlsTime;
     private EditText serverUrl;
     private EditText editTextFileSize;
     private WebView webView;
     private int i = 0;
-
     static String[] serversUrl;
 
     public static String[] getServers() {
@@ -46,6 +57,7 @@ public class ActiveMeasurementsActivity extends AppCompatActivity{
 
         setBaseActivityParams();
         setupToolbar();
+        setUpViewPager();
 
         urlsTime = (TextView) findViewById(R.id.urls);
         webView = (WebView) findViewById(R.id.webView);
@@ -84,6 +96,7 @@ public class ActiveMeasurementsActivity extends AppCompatActivity{
         webview.postDelayed(tapup, delay);
 
     }
+
     public void onSpeedTestClick(View view){
 /*
         downloadGraph.removeAllSeries();
@@ -101,7 +114,6 @@ public class ActiveMeasurementsActivity extends AppCompatActivity{
         //startWebPagesTest();
         //startVideoTest();
     }
-
     public void onWebPagesTestClick(View view){
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         Fragment prev = getSupportFragmentManager().findFragmentByTag("webPagesTestDialog");
@@ -114,7 +126,6 @@ public class ActiveMeasurementsActivity extends AppCompatActivity{
         newFragment.show(ft, "webPagesTestDialog");
     }
 
-
     public void onVideoTestClick(View view){
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         Fragment prev = getSupportFragmentManager().findFragmentByTag("videoTestDialog");
@@ -126,6 +137,7 @@ public class ActiveMeasurementsActivity extends AppCompatActivity{
         VideoTestDialog newFragment = new VideoTestDialog();
         newFragment.show(ft, "videoTestDialog");
     }
+
 
     private void selectServer() {
         new ActiveServersTask(this).execute();
@@ -146,7 +158,6 @@ public class ActiveMeasurementsActivity extends AppCompatActivity{
         //new SpeedTest(this, fileOctetSize, currentServer).start();
     }
 
-
     public void setupToolbar(){
         this.toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -156,9 +167,37 @@ public class ActiveMeasurementsActivity extends AppCompatActivity{
         ab.setDisplayHomeAsUpEnabled(true);
     }
 
+
     public void setBaseActivityParams(){
         this.title = getString(R.string.view_active_measurements);
         this.context = this;
+    }
+
+    private void setUpViewPager() {
+        this.mViewPagerAdapter = new ActiveMeasurementsViewPagerAdapter(getSupportFragmentManager());
+        SpeedtestFragment f1 = new SpeedtestFragment();
+        MediatestFragment f2 = new MediatestFragment();
+        ConnectivitytestFragment f3 = new ConnectivitytestFragment();
+
+        this.mViewPagerAdapter.addFragment(f1);
+        this.mViewPagerAdapter.addFragment(f2);
+        this.mViewPagerAdapter.addFragment(f3);
+
+        this.mViewPager = (ViewPager) findViewById(R.id.viewpager);
+        TabLayout mTabLayout = (TabLayout) findViewById(R.id.tabs);
+        this.mViewPager.setAdapter(this.mViewPagerAdapter);
+        mTabLayout.setupWithViewPager(mViewPager);
+
+        mTabLayout.getTabAt(0).setIcon(R.drawable.ic_speedometer_white);
+        mTabLayout.getTabAt(1).setIcon(R.drawable.ic_ondemand_video_white);
+        mTabLayout.getTabAt(2).setIcon(R.drawable.ic_link_white);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.active_tests, menu);
+        return true;
     }
 
     public void onActiveServersReceived(String[] serversUrl) {
@@ -167,3 +206,4 @@ public class ActiveMeasurementsActivity extends AppCompatActivity{
         ActiveServersDialog.showDialogPreference(fm, null);
     }
 }
+
