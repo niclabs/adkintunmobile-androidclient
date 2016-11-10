@@ -1,0 +1,104 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context="cl.niclabs.adkintunmobile.views.activemeasurements.viewfragments.SpeedtestFragment">
+
+
+    <android.support.v4.widget.NestedScrollView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_margin="@dimen/abc_edit_text_inset_top_material">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="Prueba de Velocidad"
+                android:layout_marginTop="@dimen/abc_edit_text_inset_top_material"
+                android:gravity="center"
+                android:textColor="@android:color/white"
+                android:textSize="25sp"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_margin="@dimen/button_margin"
+                android:background="@color/doughnut_no_info"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Descripción de la prueba de Velocidad Descripción de la prueba de Velocidad Descripción de la prueba de Velocidad Descripción de la prueba de Velocidad Descripción de la prueba de Velocidad"/>
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="Parámetros de la prueba"
+                android:layout_marginTop="@dimen/abc_edit_text_inset_top_material"
+                android:textColor="@android:color/white"
+                android:textSize="18sp"/>
+
+            <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:stretchColumns="*"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:gravity="center">
+                <TableRow
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent">
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:text="Tamaño archivo de Bajada"
+                        android:layout_weight="0"/>
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:text="10 Mb"
+                        android:layout_weight="0"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Body2" />
+                </TableRow>
+                <TableRow
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent">
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:text="Tamaño archivo de Subida"
+                        android:layout_weight="0"/>
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:text="10 Mb"
+                        android:layout_weight="0"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Body2" />
+                </TableRow>
+            </TableLayout>
+
+
+            <Button
+                android:text="Iniciar Prueba"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/button2"
+                style="@style/Widget.AppCompat.Button.Colored"
+                android:onClick="onSpeedTestClick"/>
+
+
+        </LinearLayout>
+
+    </android.support.v4.widget.NestedScrollView>
+</FrameLayout>
