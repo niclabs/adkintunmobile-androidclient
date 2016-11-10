@@ -1,8 +1,8 @@
 package cl.niclabs.adkintunmobile.utils.activemeasurements.webpagestest;
 
-import android.app.Activity;
 import android.graphics.Bitmap;
 import android.net.TrafficStats;
+import android.os.AsyncTask;
 import android.os.Process;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -23,7 +23,6 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 import cl.niclabs.adkintunmobile.R;
-import cl.niclabs.adkintunmobile.utils.activemeasurements.ActiveMeasurementsTest;
 import cl.niclabs.adkintunmobile.views.activemeasurements.WebPagesTestDialog;
 import cz.msebera.android.httpclient.Header;
 
@@ -35,6 +34,7 @@ public class WebPagesTest {
     private long loadingTime[];
     private long sizeBytes[];
     private int i = 0;
+    private AsyncTask currentTask;
 
     public WebPagesTest(WebPagesTestDialog mainTest, WebView webView) {
         this.mainTest = mainTest;
@@ -80,7 +80,7 @@ public class WebPagesTest {
 
     private void loadNextPage(){
         if (i<urls.size()) {
-            new WebPagesTestTask(this).execute(urls.get(i));
+            currentTask = new WebPagesTestTask(this).execute(urls.get(i));
         }
         else {
             //mainTest.onWebPageTestFinish();
@@ -88,15 +88,15 @@ public class WebPagesTest {
     }
 
     private void startLoading() {
-
-        mainTest.getActivity().runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                setUpWebView();
-                mainTest.setUpTextView(names);
-                loadNextPage();
-            }
-        });
+        if (mainTest.getActivity()!=null)
+            mainTest.getActivity().runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    setUpWebView();
+                    mainTest.setUpTextView(names);
+                    loadNextPage();
+                }
+            });
     }
 
     private void setUpWebView() {
@@ -127,7 +127,7 @@ public class WebPagesTest {
 
             @Override
             public void onReceivedError(WebView view, WebResourceRequest request, WebResourceError error) {
-                Log.d("ERRORview", request.toString() + " " + error.toString());
+                Log.d("Error View", request.toString() + " " + error.toString());
             }
 
             @Override
@@ -145,7 +145,6 @@ public class WebPagesTest {
 
                 long currentRxBytes = TrafficStats.getUidRxBytes(Process.myUid());
                 long currentTxBytes = TrafficStats.getUidTxBytes(Process.myUid());
-                Log.d("ASDASD", "FINAL "+url+" "+currentRxBytes);
 
                 sizeBytes[i] = (currentRxBytes - WebPagesTestTask.previousRxBytes) + (currentTxBytes - WebPagesTestTask.previousTxBytes);
 
@@ -163,26 +162,28 @@ public class WebPagesTest {
     }
 
     protected void onResponseReceived(final int responseCode) {
-        mainTest.getActivity().runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                if (responseCode >= 200 && responseCode < 400) {
-                    WebPagesTestTask.previousRxBytes = TrafficStats.getUidRxBytes(Process.myUid());
-                    WebPagesTestTask.previousTxBytes = TrafficStats.getUidTxBytes(Process.myUid());
-                    Log.d("ASDASD", "INICIAL  " + WebPagesTestTask.previousRxBytes);
-                    webView.loadUrl(urls.get(i));
+        if (mainTest.getActivity()!=null)
+            mainTest.getActivity().runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    if (responseCode >= 200 && responseCode < 400) {
+                        WebPagesTestTask.previousRxBytes = TrafficStats.getUidRxBytes(Process.myUid());
+                        WebPagesTestTask.previousTxBytes = TrafficStats.getUidTxBytes(Process.myUid());
+                        webView.loadUrl(urls.get(i));
+                    }
+                    else{
+                        loadingTime[i] = -1;
+                        mainTest.onWebPageLoaded(i, loadingTime[i], sizeBytes[i]);
+                        i++;
+                        loadNextPage();
+                    }
                 }
-                else{
-                    loadingTime[i] = -1;
-                    mainTest.onWebPageLoaded(i, loadingTime[i], sizeBytes[i]);
-                    i++;
-                    loadNextPage();
-                }
-            }
-        });
-
+            });
     }
 
+    public void cancelTask() {
+        currentTask.cancel(true);
+    }
 }
 
 

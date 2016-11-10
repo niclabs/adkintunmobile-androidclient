@@ -25,7 +25,6 @@ public class WebPagesTestTask extends AsyncTask<String, Void, Void> {
         int responseCode = -1;
         previousRxBytes = TrafficStats.getUidRxBytes(Process.myUid());
         previousTxBytes = TrafficStats.getUidTxBytes(Process.myUid());
-        Log.d("ASDASD", "INICIALP " + params[0]+" "+previousRxBytes);
         try {
             url = new URL(params[0]);
             urlConnection = (HttpURLConnection) url.openConnection();
@@ -35,10 +34,7 @@ public class WebPagesTestTask extends AsyncTask<String, Void, Void> {
             e.printStackTrace();
         } finally {
             urlConnection.disconnect();
-            long currentRxBytes = TrafficStats.getUidRxBytes(Process.myUid());
-            Log.d("ASDASD", "FINALP "+params[0]+" "+currentRxBytes);
             webPagesTest.onResponseReceived(responseCode);
-            Log.d("STATUS", params[0] + " " + responseCode);
         }
         return null;
     }

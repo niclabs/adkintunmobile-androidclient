@@ -2,56 +2,66 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <ScrollView
+
+    <TableLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-        <TableLayout
+        android:layout_height="match_parent"
+        android:stretchColumns="*"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:gravity="center"
+        android:padding="10dp">
+        <TableRow
+            android:id="@+id/webView_tableRow"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:stretchColumns="*"
-            android:focusable="true"
-            android:focusableInTouchMode="true"
-            android:gravity="center"
-            android:padding="10dp"
-            android:id="@+id/web_pages_table_layout">
-            <TableRow
-                android:id="@+id/webView_tableRow"
-                android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:padding="1dp"
+            android:background="#000000">
+            <WebView
+                android:layout_width="200dp"
                 android:layout_height="200dp"
-                android:padding="1dp"
-                android:background="#000000">
-                <WebView
-                    android:layout_width="200dp"
-                    android:layout_height="200dp"
-                    android:layout_weight="1"
-                    android:id="@+id/webView"/>
-            </TableRow>
+                android:layout_weight="1"
+                android:id="@+id/webView"/>
+        </TableRow>
 
-            <TableRow
-                android:layout_margin="10dp">
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="4"
-                    android:id="@+id/sites"
-                    android:gravity="center_horizontal"
-                    android:text="Sitios" />
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="2"
-                    android:id="@+id/loading_time"
-                    android:gravity="center_horizontal"
-                    android:text="Tiempo de carga" />
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="2"
-                    android:id="@+id/page_size"
-                    android:gravity="center_horizontal"
-                    android:text="Tamaño" />
-            </TableRow>
-        </TableLayout>
-    </ScrollView>
+        <TableRow
+            android:layout_margin="10dp">
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="4"
+                android:id="@+id/sites"
+                android:gravity="center_horizontal"
+                android:text="Sitios" />
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:id="@+id/loading_time"
+                android:gravity="center_horizontal"
+                android:text="Tiempo de carga" />
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:id="@+id/page_size"
+                android:gravity="center_horizontal"
+                android:text="Tamaño" />
+        </TableRow>
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:stretchColumns="*"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:gravity="center"
+                android:id="@+id/web_pages_table_layout">
 
+            </TableLayout>
+        </ScrollView>
+
+    </TableLayout>
 </LinearLayout>
