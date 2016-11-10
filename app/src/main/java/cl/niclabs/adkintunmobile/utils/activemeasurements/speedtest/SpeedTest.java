@@ -1,6 +1,7 @@
 package cl.niclabs.adkintunmobile.utils.activemeasurements.speedtest;
 
-import cl.niclabs.adkintunmobile.utils.activemeasurements.ActiveMeasurementsTest;
+import android.os.AsyncTask;
+
 import cl.niclabs.adkintunmobile.views.activemeasurements.SpeedTestDialog;
 import fr.bmartel.speedtest.SpeedTestMode;
 
@@ -8,6 +9,7 @@ public class SpeedTest {
     private SpeedTestDialog mainTest;
     private int fileOctetSize;
     private String host;
+    private AsyncTask currentTask;
 
     public SpeedTest(SpeedTestDialog mainTest, int fileOctetSize, String currentServer) {
         this.fileOctetSize = fileOctetSize;
@@ -20,7 +22,7 @@ public class SpeedTest {
     }
 
     private void startSpeedTest(SpeedTestMode mode, String host, int fileOctetSize) {
-        new SpeedTestTask(this, host, fileOctetSize).execute(mode);
+        currentTask = new SpeedTestTask(this, host, fileOctetSize).execute(mode);
     }
 
     protected void onSpeedTestTaskFinish(SpeedTestMode mode) {
@@ -36,5 +38,9 @@ public class SpeedTest {
 
     protected void onProgress(SpeedTestMode mode, int progressPercent, float transferRateBit) {
         mainTest.onSpeedTestProgress(mode, progressPercent, transferRateBit);
+    }
+
+    public void cancelTask() {
+        currentTask.cancel(true);
     }
 }

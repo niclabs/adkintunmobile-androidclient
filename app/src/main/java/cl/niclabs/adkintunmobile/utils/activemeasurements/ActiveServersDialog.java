@@ -39,7 +39,7 @@ public class ActiveServersDialog extends DialogFragment {
         builder.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                ((ActiveMeasurementsActivity) getActivity()).startSpeedTest(1, selectedServer);
+                ((ActiveMeasurementsActivity) getActivity()).startSpeedTest(5, selectedServer);
             }
         });
         return builder.create();

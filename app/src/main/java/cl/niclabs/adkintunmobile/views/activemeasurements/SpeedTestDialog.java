@@ -1,11 +1,13 @@
 package cl.niclabs.adkintunmobile.views.activemeasurements;
 
 
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
+import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.jjoe64.graphview.GraphView;
@@ -27,43 +29,7 @@ public class SpeedTestDialog extends DialogFragment{
     private LineGraphSeries<DataPoint> uploadSeries;
     private TextView downloadTransferRate;
     private TextView uploadTransferRate;
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        // Inflate the layout
-        view = inflater.inflate(R.layout.fragment_speed_test_dialog, container, false);
-        getDialog().setTitle("SpeedTest");
-
-        // Get visual elements
-        downloadTransferRate = (TextView) view.findViewById(R.id.downloadTransferRate);
-        uploadTransferRate = (TextView) view.findViewById(R.id.uploadTransferRate);
-        downloadGraph = (GraphView) view.findViewById(R.id.download_graph);
-        downloadGraph.getViewport().setXAxisBoundsManual(true);
-        downloadGraph.getViewport().setYAxisBoundsManual(true);
-        downloadGraph.getViewport().setMinX(0);
-        downloadGraph.getViewport().setMaxX(100);
-
-        downloadGraph.getGridLabelRenderer().setVerticalLabelsVisible(false);
-        downloadGraph.getGridLabelRenderer().setHorizontalLabelsVisible(false);
-
-        uploadGraph = (GraphView) view.findViewById(R.id.upload_graph);
-        uploadGraph.getViewport().setXAxisBoundsManual(true);
-        uploadGraph.getViewport().setYAxisBoundsManual(true);
-        uploadGraph.getViewport().setMinX(0);
-        uploadGraph.getViewport().setMaxX(100);
-
-        uploadGraph.getGridLabelRenderer().setVerticalLabelsVisible(false);
-        uploadGraph.getGridLabelRenderer().setHorizontalLabelsVisible(false);
-
-        downloadSeries = new LineGraphSeries<DataPoint>();
-        uploadSeries = new LineGraphSeries<DataPoint>();
-        downloadGraph.addSeries(downloadSeries);
-        uploadGraph.addSeries(uploadSeries);
-
-        new SpeedTest(this, fileOctetSize, serverUrl).start();
-
-        return view;
-    }
+    private SpeedTest speedTest;
 
     public void onSpeedTestProgress(SpeedTestMode mode, int progressPercent, float transferRateBit) {
         switch (mode){
@@ -115,5 +81,50 @@ public class SpeedTestDialog extends DialogFragment{
     public void setSpeedTestParams(int fileOctetSize, String serverUrl){
         this.fileOctetSize = fileOctetSize;
         this.serverUrl = serverUrl;
+    }
+
+    @Override
+    public Dialog onCreateDialog(Bundle savedInstanceState) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                speedTest.cancelTask();
+            }
+        });
+
+        LayoutInflater inflater = getActivity().getLayoutInflater();
+        view = inflater.inflate(R.layout.fragment_speed_test_dialog, null);
+
+        // Get visual elements
+        downloadTransferRate = (TextView) view.findViewById(R.id.downloadTransferRate);
+        uploadTransferRate = (TextView) view.findViewById(R.id.uploadTransferRate);
+        downloadGraph = (GraphView) view.findViewById(R.id.download_graph);
+        downloadGraph.getViewport().setXAxisBoundsManual(true);
+        downloadGraph.getViewport().setYAxisBoundsManual(true);
+        downloadGraph.getViewport().setMinX(0);
+        downloadGraph.getViewport().setMaxX(100);
+
+        downloadGraph.getGridLabelRenderer().setVerticalLabelsVisible(false);
+        downloadGraph.getGridLabelRenderer().setHorizontalLabelsVisible(false);
+
+        uploadGraph = (GraphView) view.findViewById(R.id.upload_graph);
+        uploadGraph.getViewport().setXAxisBoundsManual(true);
+        uploadGraph.getViewport().setYAxisBoundsManual(true);
+        uploadGraph.getViewport().setMinX(0);
+        uploadGraph.getViewport().setMaxX(100);
+
+        uploadGraph.getGridLabelRenderer().setVerticalLabelsVisible(false);
+        uploadGraph.getGridLabelRenderer().setHorizontalLabelsVisible(false);
+
+        downloadSeries = new LineGraphSeries<>();
+        uploadSeries = new LineGraphSeries<>();
+        downloadGraph.addSeries(downloadSeries);
+        uploadGraph.addSeries(uploadSeries);
+
+        speedTest = new SpeedTest(this, fileOctetSize, serverUrl);
+        speedTest.start();
+
+        builder.setView(view);
+        return builder.create();
     }
 }
