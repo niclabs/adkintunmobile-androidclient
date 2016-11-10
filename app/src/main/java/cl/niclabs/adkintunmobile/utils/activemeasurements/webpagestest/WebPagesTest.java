@@ -22,6 +22,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
+import cl.niclabs.adkintunmobile.R;
 import cl.niclabs.adkintunmobile.utils.activemeasurements.ActiveMeasurementsTest;
 import cl.niclabs.adkintunmobile.views.activemeasurements.WebPagesTestDialog;
 import cz.msebera.android.httpclient.Header;
@@ -45,7 +46,7 @@ public class WebPagesTest {
 
         AsyncHttpClient client = new AsyncHttpClient();
 
-        client.get("pingSites", new JsonHttpResponseHandler(){
+        client.get(mainTest.getString(R.string.speed_test_server) + ":5000/pingSites/", new JsonHttpResponseHandler(){
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                 try {

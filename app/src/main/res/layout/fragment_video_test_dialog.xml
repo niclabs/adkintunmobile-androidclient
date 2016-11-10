@@ -8,12 +8,14 @@
         android:stretchColumns="*"
         android:focusable="true"
         android:focusableInTouchMode="true"
+        android:padding="10dp"
         android:gravity="center">
         <TableRow
             android:id="@+id/webView_tableRow"
             android:layout_width="match_parent"
             android:layout_height="200dp"
-            android:padding="10dp">
+            android:padding="1dp"
+            android:background="#000000">
             <WebView
                 android:layout_width="200dp"
                 android:layout_height="200dp"

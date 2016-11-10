@@ -29,6 +29,7 @@ public class WebPagesTestTask extends AsyncTask<String, Void, Void> {
         try {
             url = new URL(params[0]);
             urlConnection = (HttpURLConnection) url.openConnection();
+            urlConnection.setConnectTimeout(3000);
             responseCode = urlConnection.getResponseCode();
         } catch (IOException e) {
             e.printStackTrace();
