@@ -63,6 +63,7 @@ public class ActiveMeasurementsActivity extends AppCompatActivity{
         webView = (WebView) findViewById(R.id.webView);
     }
 
+    // TODO: Borrar y subir minsdk
     private void emulateClick(final WebView webview) {
         long delta = 100;
         long downTime = SystemClock.uptimeMillis();
@@ -97,6 +98,7 @@ public class ActiveMeasurementsActivity extends AppCompatActivity{
 
     }
 
+    // TODO: Mover a fragment
     public void onSpeedTestClick(View view){
 /*
         downloadGraph.removeAllSeries();
@@ -114,6 +116,8 @@ public class ActiveMeasurementsActivity extends AppCompatActivity{
         //startWebPagesTest();
         //startVideoTest();
     }
+
+    // TODO: Mover a fragment
     public void onWebPagesTestClick(View view){
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         Fragment prev = getSupportFragmentManager().findFragmentByTag("webPagesTestDialog");
@@ -126,6 +130,7 @@ public class ActiveMeasurementsActivity extends AppCompatActivity{
         newFragment.show(ft, "webPagesTestDialog");
     }
 
+    // TODO: Mover a fragment
     public void onVideoTestClick(View view){
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         Fragment prev = getSupportFragmentManager().findFragmentByTag("videoTestDialog");
