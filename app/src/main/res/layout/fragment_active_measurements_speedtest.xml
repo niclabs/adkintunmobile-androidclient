@@ -28,6 +28,16 @@
                 android:textColor="@android:color/white"
                 android:textSize="25sp"/>
 
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="Velocidad de Subida y Bajada"
+                android:layout_marginTop="@dimen/abc_edit_text_inset_top_material"
+                android:gravity="center"
+                android:textColor="@android:color/white"
+                android:textSize="15sp"/>
+
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
