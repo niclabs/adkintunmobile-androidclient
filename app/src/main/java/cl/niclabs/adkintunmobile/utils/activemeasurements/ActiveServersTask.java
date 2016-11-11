@@ -1,6 +1,8 @@
 package cl.niclabs.adkintunmobile.utils.activemeasurements;
 
+import android.content.Context;
 import android.os.AsyncTask;
+import android.os.Bundle;
 import android.util.Log;
 
 import com.loopj.android.http.AsyncHttpClient;
@@ -16,19 +18,18 @@ import java.net.URL;
 import java.util.ArrayList;
 
 import cl.niclabs.adkintunmobile.R;
-import cl.niclabs.adkintunmobile.views.activemeasurements.ActiveMeasurementsActivity;
 import cz.msebera.android.httpclient.Header;
 
-public class ActiveServersTask extends AsyncTask<String, Void, Void> {
+public abstract class ActiveServersTask extends AsyncTask<String, Void, Void> {
     private ArrayList<String> serversUrlList;
-    ActiveMeasurementsActivity activity;
+    Context context;
 
-    public ActiveServersTask(ActiveMeasurementsActivity activity){
-        this.activity = activity;
+    public ActiveServersTask(Context context){
+        this.context = context;
     }
     @Override
     protected Void doInBackground(String... params) {
-        final String url = activity.getString(R.string.speed_test_server) + ":5000/activeServers/";
+        final String url = context.getString(R.string.speed_test_server) + ":5000/activeServers/";
         AsyncHttpClient client = new AsyncHttpClient();
         client.get(url, new JsonHttpResponseHandler() {
 
@@ -61,12 +62,13 @@ public class ActiveServersTask extends AsyncTask<String, Void, Void> {
                             }
                         }
                     }
-                    String[] serversUrl = new String[serversUrlList.size()];
+                    Bundle activeServersBundle = new Bundle();
                     for (int i=0; i<serversUrlList.size(); i++){
-                        serversUrl[i] = serversUrlList.get(i);
+                        activeServersBundle.putString("serverUrl" + i, serversUrlList.get(i));
                     }
-
-                    activity.onActiveServersReceived(serversUrl);
+                    activeServersBundle.putInt("count", serversUrlList.size());
+                    activeServersBundle.putBoolean("shouldExecute", false);
+                    handleActiveServers(activeServersBundle);
 
                 } catch (JSONException e) {
                     Log.d("JSON", "API JSONException");
@@ -83,6 +85,8 @@ public class ActiveServersTask extends AsyncTask<String, Void, Void> {
         });
         return null;
     }
+
+    public abstract void handleActiveServers(Bundle bundle);
 
 
 }

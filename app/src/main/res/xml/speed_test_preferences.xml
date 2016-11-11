@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    android:key="@string/settings_main_screen_key">
+
+    <PreferenceCategory
+        android:title="@string/settings_speed_test_category"
+        android:key="@string/settings_sampling_category_key"
+        >
+        <ListPreference
+            android:key="@string/settings_speed_test_download_size_key"
+            android:title="@string/settings_speed_test_download_size_title"
+            android:dialogTitle="@string/settings_speed_test_download_size_title"
+            android:defaultValue="10"
+            android:summary="%s"
+            android:entries="@array/speed_test_file_size"
+            android:entryValues="@array/speed_test_file_size_values"
+            />
+        <ListPreference
+            android:key="@string/settings_speed_test_upload_size_key"
+            android:title="@string/settings_speed_test_upload_size_title"
+            android:dialogTitle="@string/settings_speed_test_upload_size_title"
+            android:defaultValue="10"
+            android:summary="%s"
+            android:entries="@array/speed_test_file_size"
+            android:entryValues="@array/speed_test_file_size_values"
+            />
+        <Preference
+            android:key="@string/settings_speed_test_server_key"
+            android:title="@string/settings_speed_test_server_title"
+            />
+    </PreferenceCategory>
+</PreferenceScreen>

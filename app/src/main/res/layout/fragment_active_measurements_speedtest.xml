@@ -77,7 +77,7 @@
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:text="10 Mb"
+                        android:id="@+id/download_size"
                         android:layout_weight="0"
                         android:textAppearance="@style/TextAppearance.AppCompat.Body2" />
                 </TableRow>
@@ -92,7 +92,7 @@
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:text="10 Mb"
+                        android:id="@+id/upload_size"
                         android:layout_weight="0"
                         android:textAppearance="@style/TextAppearance.AppCompat.Body2" />
                 </TableRow>

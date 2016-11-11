@@ -19,9 +19,6 @@ import cl.niclabs.adkintunmobile.utils.activemeasurements.speedtest.SpeedTest;
 import fr.bmartel.speedtest.SpeedTestMode;
 
 public class SpeedTestDialog extends DialogFragment{
-    protected static int fileOctetSize;
-    protected static String serverUrl;
-
     private View view;
     private GraphView downloadGraph;
     private GraphView uploadGraph;
@@ -78,11 +75,6 @@ public class SpeedTestDialog extends DialogFragment{
         });
     }
 
-    public void setSpeedTestParams(int fileOctetSize, String serverUrl){
-        this.fileOctetSize = fileOctetSize;
-        this.serverUrl = serverUrl;
-    }
-
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
@@ -121,7 +113,7 @@ public class SpeedTestDialog extends DialogFragment{
         downloadGraph.addSeries(downloadSeries);
         uploadGraph.addSeries(uploadSeries);
 
-        speedTest = new SpeedTest(this, fileOctetSize, serverUrl);
+        speedTest = new SpeedTest(this);
         speedTest.start();
 
         builder.setView(view);

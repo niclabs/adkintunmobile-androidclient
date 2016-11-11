@@ -1,24 +1,31 @@
 package cl.niclabs.adkintunmobile.utils.activemeasurements.speedtest;
 
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
+import android.preference.PreferenceManager;
 
+import cl.niclabs.adkintunmobile.R;
 import cl.niclabs.adkintunmobile.views.activemeasurements.SpeedTestDialog;
 import fr.bmartel.speedtest.SpeedTestMode;
 
 public class SpeedTest {
     private SpeedTestDialog mainTest;
-    private int fileOctetSize;
-    private String host;
+    private int downloadSize, uploadSize;
+    private String server;
     private AsyncTask currentTask;
 
-    public SpeedTest(SpeedTestDialog mainTest, int fileOctetSize, String currentServer) {
-        this.fileOctetSize = fileOctetSize;
+    public SpeedTest(SpeedTestDialog mainTest) {
         this.mainTest = mainTest;
-        host = currentServer;
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(mainTest.getContext());
+        String downloadSizeValue = sharedPreferences.getString(mainTest.getString(R.string.settings_speed_test_download_size_key), "10");
+        String uploadSizeValue = sharedPreferences.getString(mainTest.getString(R.string.settings_speed_test_upload_size_key), "10");
+        server = sharedPreferences.getString(mainTest.getString(R.string.settings_speed_test_server_key), "");
+        downloadSize = Integer.parseInt(downloadSizeValue);
+        uploadSize = Integer.parseInt(uploadSizeValue);
     }
 
     public void start(){
-        startSpeedTest(SpeedTestMode.DOWNLOAD, host, fileOctetSize);
+        startSpeedTest(SpeedTestMode.DOWNLOAD, server, downloadSize);
     }
 
     private void startSpeedTest(SpeedTestMode mode, String host, int fileOctetSize) {
@@ -28,7 +35,7 @@ public class SpeedTest {
     protected void onSpeedTestTaskFinish(SpeedTestMode mode) {
         switch (mode){
             case DOWNLOAD:
-                startSpeedTest(SpeedTestMode.UPLOAD, host, fileOctetSize);
+                startSpeedTest(SpeedTestMode.UPLOAD, server, uploadSize);
                 break;
             case UPLOAD:
                 //mainTest.onSpeedTestFinish();

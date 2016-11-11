@@ -27,6 +27,23 @@
         <!-- <item>2</item> -->
     </string-array>
 
+    <string-array name="speed_test_file_size">
+        <item>1 MB</item>
+        <item>2 MB</item>
+        <item>5 MB</item>
+        <item>10 MB</item>
+        <item>30 MB</item>
+    </string-array>
+    <string-array name="speed_test_file_size_values">
+        <item>1</item>
+        <item>2</item>
+        <item>5</item>
+        <item>10</item>
+        <item>30</item>
+    </string-array>
+
+
+
     <!-- Doughnut Chart -->
     <string-array name="day_of_week">
         <item>DOMINGO</item>
