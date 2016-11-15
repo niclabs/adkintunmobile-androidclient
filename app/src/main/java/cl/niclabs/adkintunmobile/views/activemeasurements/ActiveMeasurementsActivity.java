@@ -16,15 +16,13 @@ import android.view.MenuInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.webkit.WebView;
-import android.widget.EditText;
-import android.widget.TextView;
 
 import cl.niclabs.adkintunmobile.R;
 import cl.niclabs.adkintunmobile.utils.activemeasurements.ActiveServersDialog;
 import cl.niclabs.adkintunmobile.utils.activemeasurements.ActiveServersTask;
 import cl.niclabs.adkintunmobile.views.activemeasurements.viewfragments.ConnectivitytestFragment;
-import cl.niclabs.adkintunmobile.views.activemeasurements.viewfragments.SpeedtestFragment;
 import cl.niclabs.adkintunmobile.views.activemeasurements.viewfragments.MediatestFragment;
+import cl.niclabs.adkintunmobile.views.activemeasurements.viewfragments.SpeedtestFragment;
 
 public class ActiveMeasurementsActivity extends AppCompatActivity{
 
@@ -37,19 +35,6 @@ public class ActiveMeasurementsActivity extends AppCompatActivity{
     protected ActiveMeasurementsViewPagerAdapter mViewPagerAdapter;
     protected ViewPager mViewPager;
 
-
-    /* Estos elementos deben sacarse de aquí para ser parte de cada Fragment según corresponda */
-    private TextView urlsTime;
-    private EditText serverUrl;
-    private EditText editTextFileSize;
-    private WebView webView;
-    private int i = 0;
-    static String[] serversUrl;
-
-    public static String[] getServers() {
-        return serversUrl;
-    }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,9 +43,6 @@ public class ActiveMeasurementsActivity extends AppCompatActivity{
         setBaseActivityParams();
         setupToolbar();
         setUpViewPager();
-
-        urlsTime = (TextView) findViewById(R.id.urls);
-        webView = (WebView) findViewById(R.id.webView);
     }
 
     // TODO: Borrar y subir minsdk
@@ -100,21 +82,7 @@ public class ActiveMeasurementsActivity extends AppCompatActivity{
 
     // TODO: Mover a fragment
     public void onSpeedTestClick(View view){
-/*
-        downloadGraph.removeAllSeries();
-        uploadGraph.removeAllSeries();
-
-        downloadSeries = new LineGraphSeries<DataPoint>();
-        uploadSeries = new LineGraphSeries<DataPoint>();
-        downloadGraph.addSeries(downloadSeries);
-        uploadGraph.addSeries(uploadSeries);
-*/
-
         selectServer();
-
-        //startSpeedTest(fileOctetSize);
-        //startWebPagesTest();
-        //startVideoTest();
     }
 
     // TODO: Mover a fragment
@@ -145,10 +113,20 @@ public class ActiveMeasurementsActivity extends AppCompatActivity{
 
 
     private void selectServer() {
-        new ActiveServersTask(this).execute();
+        ActiveServersTask activeServersTask = new ActiveServersTask(this) {
+            @Override
+            public void handleActiveServers(Bundle bundle) {
+                bundle.putBoolean("shouldExecute", true);
+                FragmentManager fm = getSupportFragmentManager();
+                ActiveServersDialog dialog = new ActiveServersDialog();
+                dialog.setArguments(bundle);
+                dialog.show(fm, null);
+            }
+        };
+        activeServersTask.execute();
     }
 
-    public void startSpeedTest(int fileOctetSize, String currentServer) {
+    public void startSpeedTest() {
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         Fragment prev = getSupportFragmentManager().findFragmentByTag("speedTestDialog");
         if (prev != null) {
@@ -157,10 +135,7 @@ public class ActiveMeasurementsActivity extends AppCompatActivity{
         ft.addToBackStack(null);
 
         SpeedTestDialog newFragment = new SpeedTestDialog();
-        newFragment.setSpeedTestParams(fileOctetSize, currentServer);
         newFragment.show(ft, "speedTestDialog");
-
-        //new SpeedTest(this, fileOctetSize, currentServer).start();
     }
 
     public void setupToolbar(){
@@ -203,12 +178,6 @@ public class ActiveMeasurementsActivity extends AppCompatActivity{
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.active_tests, menu);
         return true;
-    }
-
-    public void onActiveServersReceived(String[] serversUrl) {
-        this.serversUrl = serversUrl;
-        FragmentManager fm = getSupportFragmentManager();
-        ActiveServersDialog.showDialogPreference(fm, null);
     }
 }
 

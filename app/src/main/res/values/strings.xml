@@ -56,6 +56,18 @@
     <string name="settings_app_version_title">Versión de la aplicación</string>
     <string name="settings_app_version_default">2.0.6b</string>
 
+    <string name="settings_active_measurements_key">active_measurements_key</string>
+
+    <string name="settings_speed_test_category">Test de Velocidad</string>
+    <string name="settings_speed_test_category_key">speed_test_key</string>
+    <string name="settings_speed_test_download_size_key">download_size</string>
+    <string name="settings_speed_test_download_size_title">Tamaño de archivo de bajada</string>
+    <string name="settings_speed_test_upload_size_key">upload_size</string>
+    <string name="settings_speed_test_upload_size_title">Tamaño de archivo de subida</string>
+    <string name="settings_speed_test_server_key">speed_test_server</string>
+    <string name="settings_speed_test_server_title">Servidor de prueba</string>
+
+
     <!-- Dashboard -->
     <string name="view_dashboard_toolbar_slogan">Tu Estado Ahora</string>
     <string name="view_dashboard_news">Novedades</string>
