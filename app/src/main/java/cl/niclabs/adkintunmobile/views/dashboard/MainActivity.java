@@ -34,6 +34,7 @@ import cl.niclabs.adkintunmobile.views.activeconnections.ActiveConnectionsActivi
 import cl.niclabs.adkintunmobile.views.applicationstraffic.ApplicationsTrafficActivity;
 import cl.niclabs.adkintunmobile.views.connectiontype.connectionmode.ConnectionModeActivity;
 import cl.niclabs.adkintunmobile.views.connectiontype.networktype.NetworkTypeActivity;
+import cl.niclabs.adkintunmobile.views.notificationlog.NotificationLogActivity;
 import cl.niclabs.adkintunmobile.views.rankings.RankingFragment;
 import cl.niclabs.adkintunmobile.views.settings.SettingsActivity;
 import cl.niclabs.adkintunmobile.views.status.DayOfRechargeDialog;
@@ -167,8 +168,8 @@ public class MainActivity extends AppCompatActivity {
 
     // TODO: Habilitar método cuando estén operativas las notificaciones
     public void openNotificationView(View view){
-        //Intent myIntent = new Intent(getApplicationContext(), NotificationLogActivity.class);
-        //startActivity(myIntent);
+        Intent myIntent = new Intent(getApplicationContext(), NotificationLogActivity.class);
+        startActivity(myIntent);
     }
 
     public void openStatusView(View view){
