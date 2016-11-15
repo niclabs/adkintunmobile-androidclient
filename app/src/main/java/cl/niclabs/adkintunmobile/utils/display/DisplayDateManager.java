@@ -49,4 +49,19 @@ public class DisplayDateManager {
     static public String getDateString(long timestamp){
         return DisplayDateManager.getDateString(timestamp, new SimpleDateFormat("yyyy/MM/dd HH:mm:ss"));
     }
+
+    static public int daysBetweenTimestamps(long t1, long t2){
+        long diff = Math.abs(t1-t2);
+        return (int)((((diff/1000)/60)/60)/24);
+    }
+
+    static public long timestampAtStartDay(long timestamp){
+        Calendar calendar = Calendar.getInstance(Locale.getDefault());
+        calendar.setTimeInMillis(timestamp);
+        calendar.set(Calendar.HOUR_OF_DAY, 0);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.SECOND, 0);
+        calendar.set(Calendar.MILLISECOND, 0);
+        return calendar.getTimeInMillis();
+    }
 }

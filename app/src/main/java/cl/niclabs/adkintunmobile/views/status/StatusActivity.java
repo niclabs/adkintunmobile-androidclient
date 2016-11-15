@@ -31,6 +31,7 @@ import java.util.Date;
 import cl.niclabs.adkintunmobile.R;
 import cl.niclabs.adkintunmobile.data.persistent.visualization.ApplicationTraffic;
 import cl.niclabs.adkintunmobile.data.persistent.visualization.ConnectionModeSample;
+import cl.niclabs.adkintunmobile.utils.display.DisplayDateManager;
 import cl.niclabs.adkintunmobile.utils.display.DisplayManager;
 import cl.niclabs.adkintunmobile.utils.display.ShowCaseTutorial;
 import cl.niclabs.adkintunmobile.utils.information.Network;
@@ -213,15 +214,12 @@ public class StatusActivity extends AppCompatActivity {
     }
 
     public void setCurrentDayMobileData(){
-        Date today = new Date(System.currentTimeMillis());
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTime(today);
-        calendar.set(Calendar.HOUR_OF_DAY, 0);
-        calendar.set(Calendar.MINUTE, 0);
-        calendar.set(Calendar.SECOND, 0);
-        calendar.set(Calendar.MILLISECOND, 0);
 
-        long[] dailyData = ApplicationTraffic.getTransferedData(ApplicationTraffic.MOBILE,calendar.getTimeInMillis());
+        long todayTimestamp = DisplayDateManager.timestampAtStartDay(System.currentTimeMillis());
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(todayTimestamp);
+
+        long[] dailyData = ApplicationTraffic.getTransferedData(ApplicationTraffic.MOBILE, todayTimestamp);
 
         this.rxDailyMobile = dailyData[0];
         this.txDailyMobile = dailyData[1];
@@ -237,6 +235,7 @@ public class StatusActivity extends AppCompatActivity {
     }
 
     public void setCurrentMonthMobileData(){
+
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         String value = sharedPreferences.getString(getString(R.string.settings_app_day_of_recharge_key), "0");
         int dayOfRecharge = Integer.parseInt(value) + 1;
@@ -258,7 +257,9 @@ public class StatusActivity extends AppCompatActivity {
         calendar.set(Calendar.SECOND, 0);
         calendar.set(Calendar.MILLISECOND, 0);
 
-        long[] dailyData = ApplicationTraffic.getTransferedData(ApplicationTraffic.MOBILE, calendar.getTimeInMillis());
+        //long[] dailyData = ApplicationTraffic.getTransferedData(ApplicationTraffic.MOBILE, calendar.getTimeInMillis());
+
+        long[] dailyData = ApplicationTraffic.getMonthlyMobileConsumption(getApplicationContext());
 
         this.rxMonthlyMobile = dailyData[0];
         this.txMonthlyMobile = dailyData[1];

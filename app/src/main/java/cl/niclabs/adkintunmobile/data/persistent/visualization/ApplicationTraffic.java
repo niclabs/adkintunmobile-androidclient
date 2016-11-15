@@ -1,6 +1,8 @@
 package cl.niclabs.adkintunmobile.data.persistent.visualization;
 
-import android.util.Log;
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 
 import com.google.gson.annotations.SerializedName;
 
@@ -8,7 +10,9 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Iterator;
 
+import cl.niclabs.adkintunmobile.R;
 import cl.niclabs.adkintunmobile.data.persistent.TrafficObservationWrapper;
+import cl.niclabs.adkintunmobile.utils.display.DisplayDateManager;
 import cl.niclabs.android.data.Persistent;
 
 public class ApplicationTraffic extends Persistent<ApplicationTraffic>{
@@ -37,18 +41,10 @@ public class ApplicationTraffic extends Persistent<ApplicationTraffic>{
 
     public ApplicationTraffic(TrafficObservationWrapper trafficObservationWrapper){
         // Actualiza forma de guardar, ahora los timestamp serán diarios
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTimeInMillis(trafficObservationWrapper.timestamp);
-        calendar.set(Calendar.HOUR_OF_DAY, 0);
-        calendar.set(Calendar.MINUTE, 0);
-        calendar.set(Calendar.SECOND, 0);
-        calendar.set(Calendar.MILLISECOND, 0);
-
-        Log.d("KEP", trafficObservationWrapper.uid+"");
 
         this.uid = trafficObservationWrapper.uid;
         //this.timestamp = trafficObservationWrapper.timestamp;
-        this.timestamp = calendar.getTimeInMillis();
+        this.timestamp = DisplayDateManager.timestampAtStartDay(trafficObservationWrapper.timestamp);
         this.networkType = trafficObservationWrapper.networkType;
         this.rxBytes = trafficObservationWrapper.rxBytes;
         this.txBytes = trafficObservationWrapper.txBytes;
@@ -59,34 +55,29 @@ public class ApplicationTraffic extends Persistent<ApplicationTraffic>{
     /**
      * @return Arreglo con [rxData, txData] de datos móviles del mes actual
      */
-    static public long[] getMonthlyMobileConsumption(){
-        long[] dataUsage = new long[2];
-        long rxMobile = 0L;
-        long txMobile = 0L;
+    static public long[] getMonthlyMobileConsumption(Context context){
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
+        String value = sharedPreferences.getString(context.getString(R.string.settings_app_day_of_recharge_key), "0");
+        int dayOfRecharge = Integer.parseInt(value) + 1;
 
         Date today = new Date(System.currentTimeMillis());
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(today);
+        if (dayOfRecharge > calendar.get(Calendar.DAY_OF_MONTH)) {
+            int month = calendar.get(Calendar.MONTH) - 1;
+            if (month < 0)
+                month = Calendar.DECEMBER;
+            calendar.set(Calendar.MONTH, month);
+        }
+        if (dayOfRecharge > calendar.getActualMaximum(Calendar.DAY_OF_MONTH))
+            dayOfRecharge = calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
+        calendar.set(Calendar.DAY_OF_MONTH, dayOfRecharge);
         calendar.set(Calendar.HOUR_OF_DAY, 0);
         calendar.set(Calendar.MINUTE, 0);
         calendar.set(Calendar.SECOND, 0);
         calendar.set(Calendar.MILLISECOND, 0);
 
-        Iterator<ApplicationTraffic> iterator = ApplicationTraffic.findAsIterator(
-                ApplicationTraffic.class, "network_type = ? and timestamp >= ?",
-                Integer.toString(ApplicationTraffic.MOBILE),
-                Long.toString(calendar.getTimeInMillis()));
-
-        while (iterator.hasNext()){
-            ApplicationTraffic current = iterator.next();
-            rxMobile += current.rxBytes;
-            txMobile += current.txBytes;
-        }
-
-        dataUsage[0] = rxMobile;
-        dataUsage[1] = txMobile;
-
-        return dataUsage;
+        return ApplicationTraffic.getTransferedData(ApplicationTraffic.MOBILE, calendar.getTimeInMillis());
     }
 
     /**

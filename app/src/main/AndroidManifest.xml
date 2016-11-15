@@ -142,6 +142,7 @@
         <service android:name=".services.sync.Synchronization" />
 
         <!-- Our Receivers -->
+        <receiver android:name=".services.notifications.DailyNotificationBroadcastReceiver" />
         <receiver android:name=".services.sync.SynchronizationBroadcastReceiver" />
         <receiver
             android:name=".services.SetupSystem"
@@ -166,6 +167,7 @@
         <meta-data
             android:name="com.google.android.maps.v2.API_KEY"
             android:value="@string/google_api_key" />
+
     </application>
 
 </manifest>
