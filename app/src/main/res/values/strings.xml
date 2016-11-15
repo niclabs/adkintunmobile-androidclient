@@ -145,6 +145,24 @@
     <string name="view_active_connections_dialog_total_conn">de %1$d conexiones.</string>
     <string name="view_active_connections_dialog_location_not_found">%1$d localizaciones no encontradas</string>
 
+    <!-- Active Measurements -->
+    <string name="view_active_measurements_start_test">Iniciar Prueba</string>
+    <string name="view_active_measurements_speedtest">Velocidad</string>
+    <string name="view_active_measurements_speedtest_title">Prueba de Velocidad</string>
+    <string name="view_active_measurements_speedtest_subtitle">Velocidad de subida y bajada</string>
+    <string name="view_active_measurements_speedtest_description">Esta prueba permite determinar la velocidad efectiva de tu conexión a internet para subir y bajar datos. El resultado permite identificar que tan estable y rápida es tu conexión.</string>
+    <string name="view_active_measurements_speedtest_param_title">Parámetros de la prueba</string>
+    <string name="view_active_measurements_mediatest">Media</string>
+    <string name="view_active_measurements_mediatest_title">Prueba de Videos</string>
+    <string name="view_active_measurements_mediatest_subtitle">Evaluación de carga multimedia</string>
+    <string name="view_active_measurements_mediatest_description">En esta prueba se evalúa el rendimiento de carga de videos desde youtube en distintas calidades. El resultado incluye la cantidad de datos descargados para reproducir el video y cuanto tiempo se pasó cargando datos, ambos para cada calidad evaluada.</string>
+    <string name="view_active_measurements_mediatest_param_title">Parámetros de la prueba</string>
+    <string name="view_active_measurements_connectivitytest">Conectividad</string>
+    <string name="view_active_measurements_connectivitytest_title">Prueba de Conectividad</string>
+    <string name="view_active_measurements_connectivitytest_subtitle">Acceso a sitios web preferidos</string>
+    <string name="view_active_measurements_connectivitytest_description">Esta prueba verifica una lista de sitios web configurable, determinando el tamaño y tiempo de carga de cada uno de los sitios. El resultado permite estudiar la disponibilidad para acceder a cada sitio.</string>
+    <string name="view_active_measurements_connectivitytest_param_title">Lista de sitios web a evaluar</string>
+
     <!-- Tutorial Controls -->
     <string name="tutorial_show_menu">Información sobre esta vista</string>
     <string name="tutorial_next">Siguiente</string>

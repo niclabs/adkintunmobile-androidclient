@@ -22,7 +22,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="Prueba de Velocidad"
+                android:text="@string/view_active_measurements_speedtest_title"
                 android:layout_marginTop="@dimen/abc_edit_text_inset_top_material"
                 android:gravity="center"
                 android:textColor="@android:color/white"
@@ -32,7 +32,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceSmall"
-                android:text="Velocidad de Subida y Bajada"
+                android:text="@string/view_active_measurements_speedtest_subtitle"
                 android:layout_marginTop="@dimen/abc_edit_text_inset_top_material"
                 android:gravity="center"
                 android:textColor="@android:color/white"
@@ -47,14 +47,14 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Descripción de la prueba de Velocidad Descripción de la prueba de Velocidad Descripción de la prueba de Velocidad Descripción de la prueba de Velocidad Descripción de la prueba de Velocidad"/>
+                android:text="@string/view_active_measurements_speedtest_description"/>
 
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceSmall"
-                android:text="Parámetros de la prueba"
+                android:text="@string/view_active_measurements_speedtest_param_title"
                 android:layout_marginTop="@dimen/abc_edit_text_inset_top_material"
                 android:textColor="@android:color/white"
                 android:textSize="18sp"/>
@@ -100,7 +100,7 @@
 
 
             <Button
-                android:text="Iniciar Prueba"
+                android:text="@string/view_active_measurements_start_test"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/button2"
