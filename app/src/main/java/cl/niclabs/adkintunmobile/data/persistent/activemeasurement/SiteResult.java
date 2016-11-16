@@ -1,0 +1,20 @@
+package cl.niclabs.adkintunmobile.data.persistent.activemeasurement;
+
+import com.google.gson.annotations.SerializedName;
+
+import cl.niclabs.android.data.Persistent;
+
+public class SiteResult extends Persistent<SiteResult>{
+
+    @SerializedName("url")
+    public String url;
+    @SerializedName("loaded")
+    public boolean loaded;
+    @SerializedName("loading_time")
+    public long loadingTime;
+    @SerializedName("downloaded_bytes")
+    public long downloadedBytes;
+
+    public SiteResult() {
+    }
+}
