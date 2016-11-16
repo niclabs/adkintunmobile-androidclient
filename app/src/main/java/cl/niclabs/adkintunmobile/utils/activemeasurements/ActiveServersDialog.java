@@ -17,8 +17,6 @@ public class ActiveServersDialog extends DialogFragment {
 
     private String selectedServer;
 
-    private DialogInterface.OnDismissListener onDismissListener;
-
     public ActiveServersDialog() {
         // Required empty public constructor
     }
@@ -57,17 +55,5 @@ public class ActiveServersDialog extends DialogFragment {
             }
         });
         return builder.create();
-    }
-
-    public void setOnDismissListener(DialogInterface.OnDismissListener onDismissListener) {
-        this.onDismissListener = onDismissListener;
-    }
-
-    @Override
-    public void onDismiss(DialogInterface dialog) {
-        super.onDismiss(dialog);
-        if (onDismissListener != null) {
-            onDismissListener.onDismiss(dialog);
-        }
     }
 }

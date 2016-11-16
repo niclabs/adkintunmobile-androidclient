@@ -113,6 +113,8 @@ public class SpeedTestDialog extends DialogFragment{
         downloadGraph.addSeries(downloadSeries);
         uploadGraph.addSeries(uploadSeries);
 
+        setCancelable(false);
+
         speedTest = new SpeedTest(this);
         speedTest.start();
 

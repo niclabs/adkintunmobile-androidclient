@@ -71,7 +71,6 @@ public class ActiveMeasurementsSettingsFragment extends PreferenceFragment imple
         String key = preference.getKey();
 
         if (key.equals(getString(R.string.settings_speed_test_server_key))) {
-            /* Dialog for choose plan quota */
             ActiveServersTask activeServersTask = new ActiveServersTask(getActivity()) {
                 @Override
                 public void handleActiveServers(Bundle bundle) {

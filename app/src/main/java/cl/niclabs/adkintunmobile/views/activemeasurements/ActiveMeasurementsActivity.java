@@ -17,9 +17,12 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.webkit.WebView;
 
+import java.net.HttpURLConnection;
+
 import cl.niclabs.adkintunmobile.R;
 import cl.niclabs.adkintunmobile.utils.activemeasurements.ActiveServersDialog;
 import cl.niclabs.adkintunmobile.utils.activemeasurements.ActiveServersTask;
+import cl.niclabs.adkintunmobile.utils.activemeasurements.CheckServerTask;
 import cl.niclabs.adkintunmobile.views.activemeasurements.viewfragments.ConnectivitytestFragment;
 import cl.niclabs.adkintunmobile.views.activemeasurements.viewfragments.MediatestFragment;
 import cl.niclabs.adkintunmobile.views.activemeasurements.viewfragments.SpeedtestFragment;
@@ -82,7 +85,7 @@ public class ActiveMeasurementsActivity extends AppCompatActivity{
 
     // TODO: Mover a fragment
     public void onSpeedTestClick(View view){
-        selectServer();
+        checkServer();
     }
 
     // TODO: Mover a fragment
@@ -112,7 +115,20 @@ public class ActiveMeasurementsActivity extends AppCompatActivity{
     }
 
 
-    private void selectServer() {
+    private void checkServer() {
+        CheckServerTask checkServerTask = new CheckServerTask(this) {
+            @Override
+            public void handleResponse(int responseCode) {
+                if (responseCode == HttpURLConnection.HTTP_OK)
+                    startSpeedTest();
+                else
+                    selectServer();
+            }
+        };
+        checkServerTask.execute();
+    }
+
+    private void selectServer(){
         ActiveServersTask activeServersTask = new ActiveServersTask(this) {
             @Override
             public void handleActiveServers(Bundle bundle) {

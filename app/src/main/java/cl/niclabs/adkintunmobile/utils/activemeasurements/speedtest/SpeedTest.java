@@ -9,17 +9,17 @@ import cl.niclabs.adkintunmobile.views.activemeasurements.SpeedTestDialog;
 import fr.bmartel.speedtest.SpeedTestMode;
 
 public class SpeedTest {
-    private SpeedTestDialog mainTest;
+    private SpeedTestDialog testDialog;
     private int downloadSize, uploadSize;
     private String server;
     private AsyncTask currentTask;
 
-    public SpeedTest(SpeedTestDialog mainTest) {
-        this.mainTest = mainTest;
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(mainTest.getContext());
-        String downloadSizeValue = sharedPreferences.getString(mainTest.getString(R.string.settings_speed_test_download_size_key), "10");
-        String uploadSizeValue = sharedPreferences.getString(mainTest.getString(R.string.settings_speed_test_upload_size_key), "10");
-        server = sharedPreferences.getString(mainTest.getString(R.string.settings_speed_test_server_key), "");
+    public SpeedTest(SpeedTestDialog testDialog) {
+        this.testDialog = testDialog;
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(testDialog.getContext());
+        String downloadSizeValue = sharedPreferences.getString(testDialog.getString(R.string.settings_speed_test_download_size_key), "10");
+        String uploadSizeValue = sharedPreferences.getString(testDialog.getString(R.string.settings_speed_test_upload_size_key), "10");
+        server = sharedPreferences.getString(testDialog.getString(R.string.settings_speed_test_server_key), "");
         downloadSize = Integer.parseInt(downloadSizeValue);
         uploadSize = Integer.parseInt(uploadSizeValue);
     }
@@ -38,13 +38,13 @@ public class SpeedTest {
                 startSpeedTest(SpeedTestMode.UPLOAD, server, uploadSize);
                 break;
             case UPLOAD:
-                //mainTest.onSpeedTestFinish();
+                //testDialog.onSpeedTestFinish();
                 break;
         }
     }
 
     protected void onProgress(SpeedTestMode mode, int progressPercent, float transferRateBit) {
-        mainTest.onSpeedTestProgress(mode, progressPercent, transferRateBit);
+        testDialog.onSpeedTestProgress(mode, progressPercent, transferRateBit);
     }
 
     public void cancelTask() {

@@ -49,13 +49,14 @@ public abstract class ActiveServersTask extends AsyncTask<String, Void, Void> {
                         try {
                             url = new URL(serverUrl + "status");
                             urlConnection = (HttpURLConnection) url.openConnection();
+                            urlConnection.setRequestMethod("HEAD");
                             urlConnection.setConnectTimeout(1000);
                             responseCode = urlConnection.getResponseCode();
                         } catch (IOException e) {
                             e.printStackTrace();
                         } finally {
-                            Log.d("ASD", serverUrl + " " + responseCode);
-                            urlConnection.disconnect();
+                            if (urlConnection != null)
+                                urlConnection.disconnect();
                             if (responseCode >= 200 && responseCode<400){
                                 serverUrl = serverUrl.substring(7, serverUrl.indexOf(":5000"));
                                 serversUrlList.add(serverUrl);
