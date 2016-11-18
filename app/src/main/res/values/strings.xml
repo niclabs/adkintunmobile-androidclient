@@ -70,6 +70,18 @@
     <string name="settings_speed_test_server_key">speed_test_server</string>
     <string name="settings_speed_test_server_title">Servidor de prueba</string>
 
+    <string name="settings_video_test_category">Calidades de prueba</string>
+    <string name="settings_video_test_category_key">media_test_key</string>
+    <string name="settings_video_test_quality_tiny_title">144p</string>
+    <string name="settings_video_test_quality_tiny_key">media_test_quality_tiny</string>
+    <string name="settings_video_test_quality_small_title">240p</string>
+    <string name="settings_video_test_quality_small_key">media_test_quality_small</string>
+    <string name="settings_video_test_quality_medium_title">360p</string>
+    <string name="settings_video_test_quality_medium_key">media_test_quality_medium</string>
+    <string name="settings_video_test_quality_large_title">480p</string>
+    <string name="settings_video_test_quality_large_key">media_test_quality_large</string>
+    <string name="settings_video_test_quality_hd720_title">720p</string>
+    <string name="settings_video_test_quality_hd720_key">media_test_quality_hd720</string>
 
     <!-- Dashboard -->
     <string name="view_dashboard_toolbar_slogan">Tu Estado Ahora</string>

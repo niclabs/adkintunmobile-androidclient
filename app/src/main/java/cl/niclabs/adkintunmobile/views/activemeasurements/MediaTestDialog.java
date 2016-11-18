@@ -11,27 +11,25 @@ import android.webkit.WebView;
 import android.widget.TextView;
 
 import cl.niclabs.adkintunmobile.R;
-import cl.niclabs.adkintunmobile.utils.activemeasurements.VideoTest.VideoTest;
-import cl.niclabs.adkintunmobile.utils.activemeasurements.webpagestest.WebPagesTest;
+import cl.niclabs.adkintunmobile.utils.activemeasurements.VideoTest.MediaTest;
 
-public class VideoTestDialog extends DialogFragment{
+public class MediaTestDialog extends DialogFragment{
 
     private View view;
     private TextView urlsTime;
     private WebView webView;
-    private int i = 0;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout
         view = inflater.inflate(R.layout.fragment_video_test_dialog, container, false);
-        getDialog().setTitle("VideoTest");
+        getDialog().setTitle("MediaTest");
 
         // Get visual elements
         urlsTime = (TextView) view.findViewById(R.id.urls);
         webView = (WebView) view.findViewById(R.id.webView);
 
-        new VideoTest(this, webView).start();
+        new MediaTest(this, webView).start();
 
         return view;
     }

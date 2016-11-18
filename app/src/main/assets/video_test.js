@@ -5,14 +5,23 @@
         var firstScriptTag = document.getElementsByTagName('script')[0];
         firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
         var player;
-        var quality = ['tiny', 'small', 'medium', 'large', 'hd720'];
+        var qualities = ['hd720'];;//['tiny', 'small', 'medium', 'large', 'hd720'];
         var lastState = -1;
         var i = 0;
         var timesBuffering = 0;
         var lastTime;
         var timeout;
 
+        function getQualities(){
+            var options = ['tiny', 'small', 'medium', 'large', 'hd720'];
+            for (var i=0; i < options.length; i++) {
+                if (window.JSInterface.getQuality(options[i]))
+                    qualities.push(options[i]);
+            }
+        }
+
         function onYouTubeIframeAPIReady() {
+            getQualities();
             player = new YT.Player('player', {
                 height: '100%',
                 width: '100%',
@@ -42,25 +51,25 @@
             player.loadVideoById({'videoId': 'gPmbH8eCUj4',
                 //'startSeconds': 360,
                 //'endSeconds': 97,
-                'suggestedQuality': quality[i]});
+                'suggestedQuality': qualities[i]});
             player.mute();
         }
 
         function playNextVideo(){
             clearTimeout(timeout);
             var loadedFraction = player.getVideoLoadedFraction()
-            window.JSInterface.onVideoEnded(quality[i], timesBuffering, loadedFraction);
+            window.JSInterface.onVideoEnded(qualities[i], timesBuffering, loadedFraction);
             i = i + 1;
             window.JSInterface.startCountingBytes();
             timeout = setTimeout(playNextVideo, 15000);
             player.loadVideoById({'videoId': 'gPmbH8eCUj4',
                 //'startSeconds': 360,
                 //'endSeconds': 97,
-                'suggestedQuality': quality[i]});
+                'suggestedQuality': qualities[i]});
         }
         function onPlayerStateChange(event){
             testEcho(event.data);
-            if (event.data == YT.PlayerState.ENDED ) {//&& i < quality.length - 1) {
+            if (event.data == YT.PlayerState.ENDED ) {//&& i < qualities.length - 1) {
                 if (lastState == YT.PlayerState.PAUSED){
                     playNextVideo();
                 }
@@ -80,7 +89,7 @@
         }
 
         function onPlayerPlaybackQualityChange(event){
-            if (i>0 && event.data == quality[i-1]){
+            if (i>0 && event.data == qualities[i-1]){
                 player.stopVideo();
                 window.JSInterface.onVideoTestFinish();
                 return;

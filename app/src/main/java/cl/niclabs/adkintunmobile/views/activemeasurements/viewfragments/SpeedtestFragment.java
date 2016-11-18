@@ -46,7 +46,7 @@ public class SpeedtestFragment extends ActiveMeasurementViewFragment {
                 Intent myIntent = new Intent(getContext(), ActiveMeasurementsSettingsActivity.class);
                 myIntent.putExtra(getString(R.string.settings_active_measurements_key), R.string.settings_speed_test_category_key);
                 startActivity(myIntent);
-
+                return true;
         }
         return super.onOptionsItemSelected(item);
     }

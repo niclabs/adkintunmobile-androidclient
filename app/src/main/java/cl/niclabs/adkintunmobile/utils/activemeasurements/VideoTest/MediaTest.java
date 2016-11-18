@@ -10,16 +10,15 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
-import cl.niclabs.adkintunmobile.utils.activemeasurements.ActiveMeasurementsTest;
-import cl.niclabs.adkintunmobile.views.activemeasurements.VideoTestDialog;
+import cl.niclabs.adkintunmobile.views.activemeasurements.MediaTestDialog;
 
-public class VideoTest {
-    private VideoTestDialog mainTest;
+public class MediaTest {
+    private MediaTestDialog mainTest;
     private WebView webView;
     private long previousRxBytes = -1;
     private long previousTxBytes = -1;
 
-    public VideoTest(VideoTestDialog mainTest, WebView webView) {
+    public MediaTest(MediaTestDialog mainTest, WebView webView) {
         this.mainTest = mainTest;
         this.webView = webView;
     }
@@ -39,7 +38,7 @@ public class VideoTest {
         webView.getSettings().setCacheMode(WebSettings.LOAD_NO_CACHE);
         webView.getSettings().setMediaPlaybackRequiresUserGesture(false);
 
-        webView.addJavascriptInterface(new VideoTestJavascriptInterface(this), "JSInterface");
+        webView.addJavascriptInterface(new MediaTestJavascriptInterface(this), "JSInterface");
         webView.loadUrl("file:///android_asset/video_test.js");
     }
 
@@ -48,7 +47,6 @@ public class VideoTest {
         long currentRxBytes = TrafficStats.getUidRxBytes(Process.myUid());
         long currentTxBytes = TrafficStats.getUidTxBytes(Process.myUid());
         long totalBytes = (currentRxBytes - previousRxBytes) + (currentTxBytes - previousTxBytes);
-        Log.d("ASDASD", "Final Video " + currentRxBytes);
         previousRxBytes = -1;
 
         mainTest.onVideoEnded(getQuality(quality), timesBuffering, loadedFraction, totalBytes);
@@ -97,7 +95,6 @@ public class VideoTest {
         if (previousRxBytes == -1) {
             previousRxBytes = TrafficStats.getUidRxBytes(Process.myUid());
             previousTxBytes = TrafficStats.getUidTxBytes(Process.myUid());
-            Log.d("ASDASD", "INICIAL Video " + previousRxBytes);
         }
     }
 }

@@ -1,6 +1,7 @@
 package cl.niclabs.adkintunmobile.views.activemeasurements.viewfragments;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -11,9 +12,9 @@ import android.view.ViewGroup;
 
 import cl.niclabs.adkintunmobile.R;
 
-public class MediatestFragment extends ActiveMeasurementViewFragment {
+public class MediaTestFragment extends ActiveMeasurementViewFragment {
 
-    public MediatestFragment() {
+    public MediaTestFragment() {
         this.title = "Media";
     }
 
@@ -32,6 +33,9 @@ public class MediatestFragment extends ActiveMeasurementViewFragment {
             case R.id.menu_history_btn:
                 return true;
             case R.id.menu_settings_btn:
+                Intent myIntent = new Intent(getContext(), ActiveMeasurementsSettingsActivity.class);
+                myIntent.putExtra(getString(R.string.settings_active_measurements_key), R.string.settings_video_test_category_key);
+                startActivity(myIntent);
                 return true;
         }
         return super.onOptionsItemSelected(item);

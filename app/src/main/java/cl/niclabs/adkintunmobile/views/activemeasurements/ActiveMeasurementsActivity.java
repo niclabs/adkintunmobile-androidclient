@@ -24,7 +24,7 @@ import cl.niclabs.adkintunmobile.utils.activemeasurements.ActiveServersDialog;
 import cl.niclabs.adkintunmobile.utils.activemeasurements.ActiveServersTask;
 import cl.niclabs.adkintunmobile.utils.activemeasurements.CheckServerTask;
 import cl.niclabs.adkintunmobile.views.activemeasurements.viewfragments.ConnectivitytestFragment;
-import cl.niclabs.adkintunmobile.views.activemeasurements.viewfragments.MediatestFragment;
+import cl.niclabs.adkintunmobile.views.activemeasurements.viewfragments.MediaTestFragment;
 import cl.niclabs.adkintunmobile.views.activemeasurements.viewfragments.SpeedtestFragment;
 
 public class ActiveMeasurementsActivity extends AppCompatActivity{
@@ -110,7 +110,7 @@ public class ActiveMeasurementsActivity extends AppCompatActivity{
         }
         ft.addToBackStack(null);
 
-        VideoTestDialog newFragment = new VideoTestDialog();
+        MediaTestDialog newFragment = new MediaTestDialog();
         newFragment.show(ft, "videoTestDialog");
     }
 
@@ -172,7 +172,7 @@ public class ActiveMeasurementsActivity extends AppCompatActivity{
     private void setUpViewPager() {
         this.mViewPagerAdapter = new ActiveMeasurementsViewPagerAdapter(getSupportFragmentManager());
         SpeedtestFragment f1 = new SpeedtestFragment();
-        MediatestFragment f2 = new MediatestFragment();
+        MediaTestFragment f2 = new MediaTestFragment();
         ConnectivitytestFragment f3 = new ConnectivitytestFragment();
 
         this.mViewPagerAdapter.addFragment(f1);

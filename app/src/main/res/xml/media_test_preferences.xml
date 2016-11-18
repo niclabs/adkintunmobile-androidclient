@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    android:key="@string/settings_main_screen_key">
+
+    <PreferenceCategory
+        android:title="@string/settings_video_test_category"
+        android:key="@string/settings_video_test_category_key"
+        >
+        <CheckBoxPreference
+            android:key="@string/settings_video_test_quality_tiny_key"
+            android:title="@string/settings_video_test_quality_tiny_title"
+            android:defaultValue="true"/>
+        <CheckBoxPreference
+            android:key="@string/settings_video_test_quality_small_key"
+            android:title="@string/settings_video_test_quality_small_title"
+            android:defaultValue="true"/>
+        <CheckBoxPreference
+            android:key="@string/settings_video_test_quality_medium_key"
+            android:title="@string/settings_video_test_quality_medium_title"
+            android:defaultValue="true"/>
+        <CheckBoxPreference
+            android:key="@string/settings_video_test_quality_large_key"
+            android:title="@string/settings_video_test_quality_large_title"
+            android:defaultValue="true"/>
+        <CheckBoxPreference
+            android:key="@string/settings_video_test_quality_hd720_key"
+            android:title="@string/settings_video_test_quality_hd720_title"
+            android:defaultValue="true"/>
+    </PreferenceCategory>
+</PreferenceScreen>

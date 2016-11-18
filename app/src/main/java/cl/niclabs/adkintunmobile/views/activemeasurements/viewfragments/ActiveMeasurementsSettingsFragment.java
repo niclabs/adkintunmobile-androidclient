@@ -3,6 +3,7 @@ package cl.niclabs.adkintunmobile.views.activemeasurements.viewfragments;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.CheckBoxPreference;
 import android.preference.EditTextPreference;
 import android.preference.ListPreference;
 import android.preference.Preference;
@@ -41,7 +42,10 @@ public class ActiveMeasurementsSettingsFragment extends PreferenceFragment imple
         switch (activeMeasurementsKey){
             case R.string.settings_speed_test_category_key:
                 addPreferencesFromResource(R.xml.speed_test_preferences);
-
+                break;
+            case R.string.settings_video_test_category_key:
+                addPreferencesFromResource(R.xml.media_test_preferences);
+                break;
         }
 
         getPreferenceManager().getSharedPreferences().registerOnSharedPreferenceChangeListener(this);
@@ -102,20 +106,11 @@ public class ActiveMeasurementsSettingsFragment extends PreferenceFragment imple
             EditTextPreference editTextPreference = (EditTextPreference) pref;
             pref.setSummary(editTextPreference.getText());
             Log.d(TAG, "Cambiada las preferencia de EditText");
+        } else if (pref instanceof CheckBoxPreference) {
+
         } else {
             if (pref != null){
-                boolean inActivity = getActivity() != null;
-                if (inActivity && pref.getKey() == getActivity().getString(R.string.settings_app_data_quota_total_key)){
-                    int selectedOption = Integer.parseInt(getPreferenceManager().getSharedPreferences().getString(pref.getKey(), "0"));
-                    long quota = Long.parseLong(getResources().getStringArray(R.array.data_quotas)[selectedOption]);
-                    pref.setSummary(Network.formatBytes(quota));
-                }
-                else if (inActivity && pref.getKey() == getActivity().getString(R.string.settings_app_day_of_recharge_key)){
-                    int selectedOption = Integer.parseInt(getPreferenceManager().getSharedPreferences().getString(pref.getKey(), "0"));
-                    pref.setSummary(Integer.toString(selectedOption + 1));
-                }else{
-                    pref.setSummary(getPreferenceManager().getSharedPreferences().getString(pref.getKey(), "-"));
-                }
+                pref.setSummary(getPreferenceManager().getSharedPreferences().getString(pref.getKey(), "-"));
                 Log.d(TAG, "Cambiada las preferencia de sistema");
             }
         }

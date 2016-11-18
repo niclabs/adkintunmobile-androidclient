@@ -13,11 +13,10 @@
         <TableRow
             android:id="@+id/webView_tableRow"
             android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:padding="1dp"
-            android:background="#000000">
+            android:layout_height="match_parent"
+            android:padding="1dp">
             <WebView
-                android:layout_width="200dp"
+                android:layout_width="match_parent"
                 android:layout_height="200dp"
                 android:layout_weight="1"
                 android:id="@+id/webView"/>

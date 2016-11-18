@@ -4,7 +4,7 @@
 
     <PreferenceCategory
         android:title="@string/settings_speed_test_category"
-        android:key="@string/settings_sampling_category_key"
+        android:key="@string/settings_speed_test_category_key"
         >
         <ListPreference
             android:key="@string/settings_speed_test_download_size_key"
