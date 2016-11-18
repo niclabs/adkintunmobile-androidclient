@@ -2,7 +2,9 @@ package cl.niclabs.adkintunmobile.views.activemeasurements.viewfragments;
 
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -11,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import cl.niclabs.adkintunmobile.R;
+import cl.niclabs.adkintunmobile.views.activemeasurements.ActiveMeasurementsActivity;
 
 public class MediaTestFragment extends ActiveMeasurementViewFragment {
 
@@ -33,9 +36,15 @@ public class MediaTestFragment extends ActiveMeasurementViewFragment {
             case R.id.menu_history_btn:
                 return true;
             case R.id.menu_settings_btn:
-                Intent myIntent = new Intent(getContext(), ActiveMeasurementsSettingsActivity.class);
-                myIntent.putExtra(getString(R.string.settings_active_measurements_key), R.string.settings_video_test_category_key);
-                startActivity(myIntent);
+                SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getContext());
+                String maxQuality = sharedPreferences.getString(getString(R.string.settings_video_test_max_quality_key), "None");
+                if (maxQuality.equals("None"))
+                    ((ActiveMeasurementsActivity) getActivity()).startMediaTest();
+                else {
+                    Intent myIntent = new Intent(getContext(), ActiveMeasurementsSettingsActivity.class);
+                    myIntent.putExtra(getString(R.string.settings_active_measurements_key), R.string.settings_video_test_category_key);
+                    startActivity(myIntent);
+                }
                 return true;
         }
         return super.onOptionsItemSelected(item);

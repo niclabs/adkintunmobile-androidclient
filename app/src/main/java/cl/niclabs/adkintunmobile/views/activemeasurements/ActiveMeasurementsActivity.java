@@ -114,7 +114,7 @@ public class ActiveMeasurementsActivity extends AppCompatActivity{
         //checkMaxQuality();
     }
 
-    private void startMediaTest() {
+    public void startMediaTest() {
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         Fragment prev = getSupportFragmentManager().findFragmentByTag("videoTestDialog");
         if (prev != null) {
