@@ -49,19 +49,16 @@ public class ActiveMeasurementsSettingsFragment extends PreferenceFragment imple
                 addPreferencesFromResource(R.xml.media_test_preferences);
                 SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
                 String maxQuality = sharedPreferences.getString(getString(R.string.settings_video_test_max_quality_key), "240p");
-
                 PreferenceCategory preferenceCategory = (PreferenceCategory) findPreference(getString(R.string.settings_video_test_category_key));
                 Preference preference = findPreference(getString(R.string.settings_video_test_max_quality_key));
                 preferenceCategory.removePreference(preference);
-                boolean shouldRemove = false;
-                for (int i=0; i< preferenceCategory.getPreferenceCount(); i++){
-                    preference = preferenceCategory.getPreference(i);
-                    if (shouldRemove)
-                        preferenceCategory.removePreference(preference);
-                    if (preference.getTitle().equals(maxQuality))
-                        shouldRemove = true;
-                }
 
+                for (int i=preferenceCategory.getPreferenceCount()-1; i>0; i--){
+                    preference = preferenceCategory.getPreference(i);
+                    if (preference.getTitle().equals(maxQuality))
+                        break;
+                    preferenceCategory.removePreference(preference);
+                }
                 break;
         }
 
