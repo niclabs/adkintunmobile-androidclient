@@ -1,11 +1,9 @@
-package cl.niclabs.adkintunmobile.utils.activemeasurements.VideoTest;
+package cl.niclabs.adkintunmobile.utils.activemeasurements.mediatest;
 
 import android.content.Context;
 import android.content.Intent;
 import android.net.TrafficStats;
 import android.os.Process;
-import android.support.annotation.Nullable;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.webkit.WebSettings;

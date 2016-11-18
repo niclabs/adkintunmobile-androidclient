@@ -1,4 +1,4 @@
-package cl.niclabs.adkintunmobile.utils.activemeasurements.webpagestest;
+package cl.niclabs.adkintunmobile.utils.activemeasurements.connectivitytest;
 
 import android.graphics.Bitmap;
 import android.net.TrafficStats;
@@ -23,11 +23,11 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 import cl.niclabs.adkintunmobile.R;
-import cl.niclabs.adkintunmobile.views.activemeasurements.WebPagesTestDialog;
+import cl.niclabs.adkintunmobile.views.activemeasurements.ConnectivityTestDialog;
 import cz.msebera.android.httpclient.Header;
 
-public class WebPagesTest {
-    private WebPagesTestDialog mainTest;
+public class ConnectivityTest {
+    private ConnectivityTestDialog mainTest;
     private WebView webView;
     private ArrayList<String> urls = new ArrayList<>();
     private ArrayList<String> names = new ArrayList<>();
@@ -36,7 +36,7 @@ public class WebPagesTest {
     private int i = 0;
     private AsyncTask currentTask;
 
-    public WebPagesTest(WebPagesTestDialog mainTest, WebView webView) {
+    public ConnectivityTest(ConnectivityTestDialog mainTest, WebView webView) {
         this.mainTest = mainTest;
         this.webView = webView;
     }
@@ -80,7 +80,7 @@ public class WebPagesTest {
 
     private void loadNextPage(){
         if (i<urls.size()) {
-            currentTask = new WebPagesTestTask(this).execute(urls.get(i));
+            currentTask = new ConnectivityTestTask(this).execute(urls.get(i));
         }
         else {
             //mainTest.onWebPageTestFinish();
@@ -146,7 +146,7 @@ public class WebPagesTest {
                 long currentRxBytes = TrafficStats.getUidRxBytes(Process.myUid());
                 long currentTxBytes = TrafficStats.getUidTxBytes(Process.myUid());
 
-                sizeBytes[i] = (currentRxBytes - WebPagesTestTask.previousRxBytes) + (currentTxBytes - WebPagesTestTask.previousTxBytes);
+                sizeBytes[i] = (currentRxBytes - ConnectivityTestTask.previousRxBytes) + (currentTxBytes - ConnectivityTestTask.previousTxBytes);
 
                 mainTest.onWebPageLoaded(i, loadingTime[i], sizeBytes[i]);
                 i++;
@@ -167,8 +167,8 @@ public class WebPagesTest {
                 @Override
                 public void run() {
                     if (responseCode >= 200 && responseCode < 400) {
-                        WebPagesTestTask.previousRxBytes = TrafficStats.getUidRxBytes(Process.myUid());
-                        WebPagesTestTask.previousTxBytes = TrafficStats.getUidTxBytes(Process.myUid());
+                        ConnectivityTestTask.previousRxBytes = TrafficStats.getUidRxBytes(Process.myUid());
+                        ConnectivityTestTask.previousTxBytes = TrafficStats.getUidTxBytes(Process.myUid());
                         webView.loadUrl(urls.get(i));
                     }
                     else{

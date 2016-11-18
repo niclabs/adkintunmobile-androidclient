@@ -2,7 +2,7 @@ package cl.niclabs.adkintunmobile.data.persistent.activemeasurement;
 
 import com.google.gson.annotations.SerializedName;
 
-public class SpeedtestReport extends ActiveMeasurement {
+public class SpeedTestReport extends ActiveMeasurement {
 
     @SerializedName("host")
     public String host;
@@ -21,6 +21,6 @@ public class SpeedtestReport extends ActiveMeasurement {
     @SerializedName("elapsed_download_time")
     public long elapsedDownloadTime;
 
-    public SpeedtestReport() {
+    public SpeedTestReport() {
     }
 }

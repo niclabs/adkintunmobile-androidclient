@@ -13,9 +13,9 @@ import android.widget.TextView;
 
 import cl.niclabs.adkintunmobile.R;
 
-public class SpeedtestFragment extends ActiveMeasurementViewFragment {
+public class SpeedTestFragment extends ActiveMeasurementViewFragment {
 
-    public SpeedtestFragment() {
+    public SpeedTestFragment() {
         this.title = "Velocidad";
     }
 

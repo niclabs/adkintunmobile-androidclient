@@ -17,14 +17,14 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import cl.niclabs.adkintunmobile.R;
-import cl.niclabs.adkintunmobile.utils.activemeasurements.webpagestest.WebPagesTest;
+import cl.niclabs.adkintunmobile.utils.activemeasurements.connectivitytest.ConnectivityTest;
 
-public class WebPagesTestDialog extends DialogFragment{
+public class ConnectivityTestDialog extends DialogFragment{
 
     private View view;
     private WebView webView;
     TableLayout tableLayout;
-    private WebPagesTest webPagesTest;
+    private ConnectivityTest connectivityTest;
 
     public void onWebPageStarted(int index){
         TableRow tableRow = (TableRow) tableLayout.getChildAt(index);
@@ -57,7 +57,7 @@ public class WebPagesTestDialog extends DialogFragment{
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        webPagesTest.cancelTask();
+                        connectivityTest.cancelTask();
                     }
                 });
 
@@ -68,8 +68,8 @@ public class WebPagesTestDialog extends DialogFragment{
         webView = (WebView) view.findViewById(R.id.webView);
         tableLayout = (TableLayout) view.findViewById(R.id.web_pages_table_layout);
         setCancelable(false);
-        webPagesTest = new WebPagesTest(this, webView);
-        webPagesTest.start();
+        connectivityTest = new ConnectivityTest(this, webView);
+        connectivityTest.start();
 
         builder.setView(view);
         return builder.create();

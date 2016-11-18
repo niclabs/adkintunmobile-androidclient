@@ -1,10 +1,8 @@
 package cl.niclabs.adkintunmobile.views.activemeasurements;
 
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.SystemClock;
-import android.preference.PreferenceManager;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -17,10 +15,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MotionEvent;
 import android.view.View;
-import android.webkit.WebSettings;
 import android.webkit.WebView;
-import android.webkit.WebViewClient;
-import android.widget.LinearLayout;
 
 import java.net.HttpURLConnection;
 
@@ -28,11 +23,9 @@ import cl.niclabs.adkintunmobile.R;
 import cl.niclabs.adkintunmobile.utils.activemeasurements.ActiveServersDialog;
 import cl.niclabs.adkintunmobile.utils.activemeasurements.ActiveServersTask;
 import cl.niclabs.adkintunmobile.utils.activemeasurements.CheckServerTask;
-import cl.niclabs.adkintunmobile.utils.activemeasurements.VideoTest.MediaTest;
-import cl.niclabs.adkintunmobile.utils.activemeasurements.VideoTest.MediaTestJavascriptInterface;
-import cl.niclabs.adkintunmobile.views.activemeasurements.viewfragments.ConnectivitytestFragment;
+import cl.niclabs.adkintunmobile.views.activemeasurements.viewfragments.ConnectivityTestFragment;
 import cl.niclabs.adkintunmobile.views.activemeasurements.viewfragments.MediaTestFragment;
-import cl.niclabs.adkintunmobile.views.activemeasurements.viewfragments.SpeedtestFragment;
+import cl.niclabs.adkintunmobile.views.activemeasurements.viewfragments.SpeedTestFragment;
 
 public class ActiveMeasurementsActivity extends AppCompatActivity{
 
@@ -104,7 +97,7 @@ public class ActiveMeasurementsActivity extends AppCompatActivity{
         }
         ft.addToBackStack(null);
 
-        WebPagesTestDialog newFragment = new WebPagesTestDialog();
+        ConnectivityTestDialog newFragment = new ConnectivityTestDialog();
         newFragment.show(ft, "webPagesTestDialog");
     }
 
@@ -184,9 +177,9 @@ public class ActiveMeasurementsActivity extends AppCompatActivity{
 
     private void setUpViewPager() {
         this.mViewPagerAdapter = new ActiveMeasurementsViewPagerAdapter(getSupportFragmentManager());
-        SpeedtestFragment f1 = new SpeedtestFragment();
+        SpeedTestFragment f1 = new SpeedTestFragment();
         MediaTestFragment f2 = new MediaTestFragment();
-        ConnectivitytestFragment f3 = new ConnectivitytestFragment();
+        ConnectivityTestFragment f3 = new ConnectivityTestFragment();
 
         this.mViewPagerAdapter.addFragment(f1);
         this.mViewPagerAdapter.addFragment(f2);

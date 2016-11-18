@@ -9,9 +9,9 @@ import android.view.ViewGroup;
 
 import cl.niclabs.adkintunmobile.R;
 
-public class ConnectivitytestFragment extends ActiveMeasurementViewFragment {
+public class ConnectivityTestFragment extends ActiveMeasurementViewFragment {
 
-    public ConnectivitytestFragment() {
+    public ConnectivityTestFragment() {
         this.title = "Conectividad";
     }
 

@@ -13,12 +13,11 @@ import android.view.ViewGroup;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import cl.niclabs.adkintunmobile.R;
-import cl.niclabs.adkintunmobile.utils.activemeasurements.VideoTest.MediaTest;
-import cl.niclabs.adkintunmobile.utils.activemeasurements.VideoTest.MediaTestJavascriptInterface;
+import cl.niclabs.adkintunmobile.utils.activemeasurements.mediatest.MediaTest;
+import cl.niclabs.adkintunmobile.utils.activemeasurements.mediatest.MediaTestJavascriptInterface;
 
 public class MediaTestDialog extends DialogFragment{
 

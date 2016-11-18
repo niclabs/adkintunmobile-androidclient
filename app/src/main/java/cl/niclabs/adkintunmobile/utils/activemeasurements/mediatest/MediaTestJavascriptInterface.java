@@ -1,17 +1,13 @@
-package cl.niclabs.adkintunmobile.utils.activemeasurements.VideoTest;
+package cl.niclabs.adkintunmobile.utils.activemeasurements.mediatest;
 
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.util.Log;
 import android.webkit.JavascriptInterface;
 import android.widget.Toast;
 
-import java.util.ArrayList;
-
 import cl.niclabs.adkintunmobile.R;
-import cl.niclabs.adkintunmobile.views.activemeasurements.viewfragments.ActiveMeasurementsSettingsActivity;
 
 public class MediaTestJavascriptInterface {
     private MediaTest mediaTest;
