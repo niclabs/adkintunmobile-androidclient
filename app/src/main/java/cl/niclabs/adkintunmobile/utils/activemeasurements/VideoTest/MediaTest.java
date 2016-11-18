@@ -1,8 +1,10 @@
 package cl.niclabs.adkintunmobile.utils.activemeasurements.VideoTest;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.TrafficStats;
 import android.os.Process;
+import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
@@ -10,7 +12,9 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
+import cl.niclabs.adkintunmobile.R;
 import cl.niclabs.adkintunmobile.views.activemeasurements.MediaTestDialog;
+import cl.niclabs.adkintunmobile.views.activemeasurements.viewfragments.ActiveMeasurementsSettingsActivity;
 
 public class MediaTest {
     private MediaTestDialog mainTest;
@@ -38,7 +42,7 @@ public class MediaTest {
         webView.getSettings().setCacheMode(WebSettings.LOAD_NO_CACHE);
         webView.getSettings().setMediaPlaybackRequiresUserGesture(false);
 
-        webView.addJavascriptInterface(new MediaTestJavascriptInterface(this), "JSInterface");
+        webView.addJavascriptInterface(new MediaTestJavascriptInterface(this, getContext()), "JSInterface");
         webView.loadUrl("file:///android_asset/video_test.js");
     }
 
@@ -49,32 +53,8 @@ public class MediaTest {
         long totalBytes = (currentRxBytes - previousRxBytes) + (currentTxBytes - previousTxBytes);
         previousRxBytes = -1;
 
-        mainTest.onVideoEnded(getQuality(quality), timesBuffering, loadedFraction, totalBytes);
-    }
-
-    public String getQuality(String quality){
-        String text;
-        switch (quality){
-            case "tiny":
-                text = "144p";
-                break;
-            case "small":
-                text = "240p";
-                break;
-            case "medium":
-                text = "360p";
-                break;
-            case "large":
-                text = "480p";
-                break;
-            case "hd720":
-                text = "720p";
-                break;
-            default:
-                text = "unknown";
-                break;
-        }
-        return text;
+        if (mainTest != null)
+            mainTest.onVideoEnded(quality, timesBuffering, loadedFraction, totalBytes);
     }
 
 
@@ -83,12 +63,13 @@ public class MediaTest {
     }
 
     public void finish() {
-        mainTest.getActivity().runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                webView.loadUrl("about:blank");
-            }
-        });
+        if (mainTest != null)
+            mainTest.getActivity().runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    webView.loadUrl("about:blank");
+                }
+            });
     }
 
     public void startCountingBytes() {
@@ -96,5 +77,13 @@ public class MediaTest {
             previousRxBytes = TrafficStats.getUidRxBytes(Process.myUid());
             previousTxBytes = TrafficStats.getUidTxBytes(Process.myUid());
         }
+    }
+
+    public void noneSelectedQuality() {
+        Intent myIntent = new Intent(getContext(), ActiveMeasurementsSettingsActivity.class);
+        myIntent.putExtra(getContext().getString(R.string.settings_active_measurements_key), R.string.settings_video_test_category_key);
+        getContext().startActivity(myIntent);
+        if (mainTest != null)
+            mainTest.dismiss();
     }
 }

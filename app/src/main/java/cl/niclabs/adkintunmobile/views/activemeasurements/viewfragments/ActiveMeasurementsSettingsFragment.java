@@ -7,7 +7,9 @@ import android.preference.CheckBoxPreference;
 import android.preference.EditTextPreference;
 import android.preference.ListPreference;
 import android.preference.Preference;
+import android.preference.PreferenceCategory;
 import android.preference.PreferenceFragment;
+import android.preference.PreferenceManager;
 import android.preference.PreferenceScreen;
 import android.support.v4.app.FragmentManager;
 import android.util.Log;
@@ -45,6 +47,21 @@ public class ActiveMeasurementsSettingsFragment extends PreferenceFragment imple
                 break;
             case R.string.settings_video_test_category_key:
                 addPreferencesFromResource(R.xml.media_test_preferences);
+                SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
+                String maxQuality = sharedPreferences.getString(getString(R.string.settings_video_test_max_quality_key), "240p");
+
+                PreferenceCategory preferenceCategory = (PreferenceCategory) findPreference(getString(R.string.settings_video_test_category_key));
+                Preference preference = findPreference(getString(R.string.settings_video_test_max_quality_key));
+                preferenceCategory.removePreference(preference);
+                boolean shouldRemove = false;
+                for (int i=0; i< preferenceCategory.getPreferenceCount(); i++){
+                    preference = preferenceCategory.getPreference(i);
+                    if (shouldRemove)
+                        preferenceCategory.removePreference(preference);
+                    if (preference.getTitle().equals(maxQuality))
+                        shouldRemove = true;
+                }
+
                 break;
         }
 

@@ -1,6 +1,7 @@
 package cl.niclabs.adkintunmobile.utils.activemeasurements.VideoTest;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.util.Log;
@@ -10,14 +11,15 @@ import android.widget.Toast;
 import java.util.ArrayList;
 
 import cl.niclabs.adkintunmobile.R;
+import cl.niclabs.adkintunmobile.views.activemeasurements.viewfragments.ActiveMeasurementsSettingsActivity;
 
 public class MediaTestJavascriptInterface {
     private MediaTest mediaTest;
     private Context context;
 
-    public MediaTestJavascriptInterface(MediaTest mediaTest) {
+    public MediaTestJavascriptInterface(MediaTest mediaTest, Context context) {
         this.mediaTest = mediaTest;
-        this.context = mediaTest.getContext();
+        this.context = context;
     }
 
     @JavascriptInterface
@@ -32,7 +34,7 @@ public class MediaTestJavascriptInterface {
 
     @JavascriptInterface
     public void onVideoEnded(String quality, int timesBuffering, float loadedFraction) {
-        mediaTest.onVideoEnded(quality, timesBuffering, loadedFraction);
+        mediaTest.onVideoEnded(getPixelsFromQuality(quality), timesBuffering, loadedFraction);
     }
 
     @JavascriptInterface
@@ -42,7 +44,7 @@ public class MediaTestJavascriptInterface {
 
     @JavascriptInterface
     public void makeToast(String quality) {
-        String text = mediaTest.getQuality(quality);
+        String text = getPixelsFromQuality(quality);
         Toast.makeText(context, text,
                 Toast.LENGTH_SHORT).show();
     }
@@ -70,5 +72,44 @@ public class MediaTestJavascriptInterface {
             default:
                 return false;
         }
+    }
+
+    @JavascriptInterface
+    public void noneSelectedQuality(){
+        mediaTest.noneSelectedQuality();
+    }
+
+    @JavascriptInterface
+    public void setMaxQuality(String maxQuality){
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString(context.getString(R.string.settings_video_test_max_quality_key), getPixelsFromQuality(maxQuality));
+        editor.apply();
+        noneSelectedQuality();
+    }
+
+    public String getPixelsFromQuality(String quality){
+        String text;
+        switch (quality){
+            case "tiny":
+                text = "144p";
+                break;
+            case "small":
+                text = "240p";
+                break;
+            case "medium":
+                text = "360p";
+                break;
+            case "large":
+                text = "480p";
+                break;
+            case "hd720":
+                text = "720p";
+                break;
+            default:
+                text = "unknown";
+                break;
+        }
+        return text;
     }
 }

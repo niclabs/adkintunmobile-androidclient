@@ -1,8 +1,10 @@
 package cl.niclabs.adkintunmobile.views.activemeasurements;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.SystemClock;
+import android.preference.PreferenceManager;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -15,7 +17,10 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MotionEvent;
 import android.view.View;
+import android.webkit.WebSettings;
 import android.webkit.WebView;
+import android.webkit.WebViewClient;
+import android.widget.LinearLayout;
 
 import java.net.HttpURLConnection;
 
@@ -23,6 +28,8 @@ import cl.niclabs.adkintunmobile.R;
 import cl.niclabs.adkintunmobile.utils.activemeasurements.ActiveServersDialog;
 import cl.niclabs.adkintunmobile.utils.activemeasurements.ActiveServersTask;
 import cl.niclabs.adkintunmobile.utils.activemeasurements.CheckServerTask;
+import cl.niclabs.adkintunmobile.utils.activemeasurements.VideoTest.MediaTest;
+import cl.niclabs.adkintunmobile.utils.activemeasurements.VideoTest.MediaTestJavascriptInterface;
 import cl.niclabs.adkintunmobile.views.activemeasurements.viewfragments.ConnectivitytestFragment;
 import cl.niclabs.adkintunmobile.views.activemeasurements.viewfragments.MediaTestFragment;
 import cl.niclabs.adkintunmobile.views.activemeasurements.viewfragments.SpeedtestFragment;
@@ -103,6 +110,11 @@ public class ActiveMeasurementsActivity extends AppCompatActivity{
 
     // TODO: Mover a fragment
     public void onVideoTestClick(View view){
+        startMediaTest();
+        //checkMaxQuality();
+    }
+
+    private void startMediaTest() {
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         Fragment prev = getSupportFragmentManager().findFragmentByTag("videoTestDialog");
         if (prev != null) {
@@ -113,6 +125,7 @@ public class ActiveMeasurementsActivity extends AppCompatActivity{
         MediaTestDialog newFragment = new MediaTestDialog();
         newFragment.show(ft, "videoTestDialog");
     }
+
 
 
     private void checkServer() {

@@ -82,6 +82,7 @@
     <string name="settings_video_test_quality_large_key">media_test_quality_large</string>
     <string name="settings_video_test_quality_hd720_title">720p</string>
     <string name="settings_video_test_quality_hd720_key">media_test_quality_hd720</string>
+    <string name="settings_video_test_max_quality_key">media_test_max_quality</string>
 
     <!-- Dashboard -->
     <string name="view_dashboard_toolbar_slogan">Tu Estado Ahora</string>

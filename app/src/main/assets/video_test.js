@@ -1,11 +1,14 @@
 <html><body><div id="player"></div>
     <script type="text/javascript">
+
+        var qualities = [];//['tiny', 'small', 'medium', 'large', 'hd720'];
+        getQualities();
+
         var tag = document.createElement('script');
         tag.src = 'https://www.youtube.com/iframe_api';
         var firstScriptTag = document.getElementsByTagName('script')[0];
         firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
         var player;
-        var qualities = ['hd720'];;//['tiny', 'small', 'medium', 'large', 'hd720'];
         var lastState = -1;
         var i = 0;
         var timesBuffering = 0;
@@ -18,10 +21,13 @@
                 if (window.JSInterface.getQuality(options[i]))
                     qualities.push(options[i]);
             }
+            if (qualities.length == 0){
+                window.JSInterface.noneSelectedQuality();
+                throw new Error("Something went badly wrong!");
+            }
         }
 
         function onYouTubeIframeAPIReady() {
-            getQualities();
             player = new YT.Player('player', {
                 height: '100%',
                 width: '100%',
