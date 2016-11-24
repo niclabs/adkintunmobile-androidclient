@@ -66,12 +66,18 @@
             var loadedFraction = player.getVideoLoadedFraction()
             window.JSInterface.onVideoEnded(qualities[i], timesBuffering, loadedFraction);
             i = i + 1;
-            window.JSInterface.startCountingBytes();
-            timeout = setTimeout(playNextVideo, 15000);
-            player.loadVideoById({'videoId': 'gPmbH8eCUj4',
-                //'startSeconds': 360,
-                //'endSeconds': 97,
-                'suggestedQuality': qualities[i]});
+            if (i == qualities.length){
+                player.stopVideo();
+                window.JSInterface.onVideoTestFinish();
+            }
+            else{
+                window.JSInterface.startCountingBytes();
+                timeout = setTimeout(playNextVideo, 15000);
+                player.loadVideoById({'videoId': 'gPmbH8eCUj4',
+                    //'startSeconds': 360,
+                    //'endSeconds': 97,
+                    'suggestedQuality': qualities[i]});
+            }
         }
         function onPlayerStateChange(event){
             testEcho(event.data);
