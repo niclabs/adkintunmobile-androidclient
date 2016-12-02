@@ -1,6 +1,7 @@
 package cl.niclabs.adkintunmobile.views.activemeasurements.viewfragments;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -8,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import cl.niclabs.adkintunmobile.R;
+import cl.niclabs.adkintunmobile.views.activemeasurements.viewfragments.settingsfragments.ActiveMeasurementsSettingsActivity;
 
 public class ConnectivityTestFragment extends ActiveMeasurementViewFragment {
 
@@ -30,6 +32,9 @@ public class ConnectivityTestFragment extends ActiveMeasurementViewFragment {
             case R.id.menu_history_btn:
                 return true;
             case R.id.menu_settings_btn:
+                Intent myIntent = new Intent(getContext(), ActiveMeasurementsSettingsActivity.class);
+                myIntent.putExtra(getString(R.string.settings_active_measurements_key), R.string.settings_connectivity_test_category_key);
+                startActivity(myIntent);
                 return true;
         }
         return super.onOptionsItemSelected(item);

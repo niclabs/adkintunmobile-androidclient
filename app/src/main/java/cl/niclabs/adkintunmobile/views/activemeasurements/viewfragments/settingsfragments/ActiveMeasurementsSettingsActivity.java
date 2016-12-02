@@ -1,7 +1,7 @@
-package cl.niclabs.adkintunmobile.views.activemeasurements.viewfragments;
+package cl.niclabs.adkintunmobile.views.activemeasurements.viewfragments.settingsfragments;
 
-import android.content.Context;
 import android.os.Bundle;
+import android.preference.PreferenceFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
@@ -10,24 +10,33 @@ import cl.niclabs.adkintunmobile.R;
 public class ActiveMeasurementsSettingsActivity extends AppCompatActivity {
 
     private Toolbar toolbar;
-    private Context context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
 
-        this.context = this;
-
         setupToolBar();
 
         Bundle bundle = getIntent().getExtras();
+        int activeMeasurementsKey = bundle.getInt(getString(R.string.settings_active_measurements_key));
 
-        ActiveMeasurementsSettingsFragment fragment = new ActiveMeasurementsSettingsFragment();
-        fragment.setArguments(bundle);
+        PreferenceFragment fragment = null;
+        switch (activeMeasurementsKey){
+            case R.string.settings_speed_test_category_key:
+                fragment = new SpeedTestSettingsFragment();
+                break;
+            case R.string.settings_video_test_category_key:
+                fragment = new MediaTestSettingsFragment();
+                break;
+            case R.string.settings_connectivity_test_category_key:
+                fragment = new ConnectivityTestSettingsFragment();
+                break;
+        }
 
         // display fragment for settings
-        getFragmentManager().beginTransaction().replace(R.id.main_fragment, fragment).commit();
+        if (fragment != null)
+            getFragmentManager().beginTransaction().replace(R.id.main_fragment, fragment).commit();
     }
 
     /**
