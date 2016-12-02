@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import cl.niclabs.adkintunmobile.R;
+import cl.niclabs.adkintunmobile.views.activemeasurements.viewfragments.settingsfragments.ActiveMeasurementsSettingsActivity;
 
 public class SpeedTestFragment extends ActiveMeasurementViewFragment {
 

@@ -12,7 +12,7 @@ import android.webkit.WebViewClient;
 
 import cl.niclabs.adkintunmobile.R;
 import cl.niclabs.adkintunmobile.views.activemeasurements.MediaTestDialog;
-import cl.niclabs.adkintunmobile.views.activemeasurements.viewfragments.ActiveMeasurementsSettingsActivity;
+import cl.niclabs.adkintunmobile.views.activemeasurements.viewfragments.settingsfragments.ActiveMeasurementsSettingsActivity;
 
 public class MediaTest {
     private MediaTestDialog mainTest;

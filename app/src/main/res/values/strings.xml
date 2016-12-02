@@ -61,7 +61,7 @@
 
     <string name="settings_active_measurements_key">active_measurements_key</string>
 
-    <string name="settings_speed_test_category">Test de Velocidad</string>
+    <string name="settings_speed_test_category_title">Test de Velocidad</string>
     <string name="settings_speed_test_category_key">speed_test_key</string>
     <string name="settings_speed_test_download_size_key">download_size</string>
     <string name="settings_speed_test_download_size_title">Tamaño de archivo de bajada</string>
@@ -70,7 +70,7 @@
     <string name="settings_speed_test_server_key">speed_test_server</string>
     <string name="settings_speed_test_server_title">Servidor de prueba</string>
 
-    <string name="settings_video_test_category">Calidades de prueba</string>
+    <string name="settings_video_test_category_title">Calidades de prueba</string>
     <string name="settings_video_test_category_key">media_test_key</string>
     <string name="settings_video_test_quality_tiny_title">144p</string>
     <string name="settings_video_test_quality_tiny_key">media_test_quality_tiny</string>
@@ -83,6 +83,21 @@
     <string name="settings_video_test_quality_hd720_title">720p</string>
     <string name="settings_video_test_quality_hd720_key">media_test_quality_hd720</string>
     <string name="settings_video_test_max_quality_key">media_test_max_quality</string>
+
+    <string name="settings_connectivity_test_category_title">Sitios</string>
+    <string name="settings_connectivity_test_category_key">connectivity_test_key</string>
+    <string name="settings_connectivity_sites_count_key">sites_count_key</string>
+    <string name="settings_connectivity_test_site_">site_</string>
+    <string name="settings_connectivity_test_site_2">site_2</string>
+    <string name="settings_connectivity_test_site_3">site_3</string>
+    <string name="settings_connectivity_test_site_4">site_4</string>
+    <string name="settings_connectivity_test_site_5">site_5</string>
+    <string name="settings_connectivity_test_site_6">site_6</string>
+    <string name="settings_connectivity_test_site_7">site_7</string>
+    <string name="settings_connectivity_test_site_8">site_8</string>
+    <string name="settings_connectivity_test_site_9">site_9</string>
+    <string name="settings_connectivity_test_site_10">site_10</string>
+
 
     <!-- Dashboard -->
     <string name="view_dashboard_toolbar_slogan">Tu Estado Ahora</string>

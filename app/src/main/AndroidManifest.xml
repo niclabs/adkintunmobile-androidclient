@@ -112,7 +112,7 @@
                 android:value=".views.dashboard.MainActivity" />
         </activity>
         <activity
-            android:name=".views.activemeasurements.viewfragments.ActiveMeasurementsSettingsActivity"
+            android:name=".views.activemeasurements.viewfragments.settingsfragments.ActiveMeasurementsSettingsActivity"
             android:parentActivityName=".views.activemeasurements.ActiveMeasurementsActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan">
