@@ -10,4 +10,11 @@ public class ActiveMeasurement extends Persistent<ActiveMeasurement> {
     public NetworkInterface networkInterface;
     @SerializedName("timestamp")
     public long timestamp;
+    @SerializedName("sent")
+    public boolean sent;
+
+    public ActiveMeasurement() {
+        super();
+        this.sent = false;
+    }
 }
