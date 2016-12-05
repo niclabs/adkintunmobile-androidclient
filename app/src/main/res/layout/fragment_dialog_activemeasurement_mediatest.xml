@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/soft_icon_background">
+
+    <TableLayout
+        android:paddingTop="@dimen/activity_vertical_margin"
+        android:paddingLeft="@dimen/activity_vertical_margin"
+        android:paddingRight="@dimen/activity_vertical_margin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:stretchColumns="*"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:gravity="center">
+        <TableRow
+            android:layout_width="0dp"
+            android:layout_height="match_parent">
+            <TextView
+                android:text="@string/view_connection_mode"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0"
+                android:gravity="center_vertical" />
+            <TextView
+                android:text="--"
+                android:id="@+id/tv_internet_network"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_weight="0"
+                android:drawableLeft="@drawable/ic_03_nowifi"
+                android:textAppearance="@style/TextAppearance.AppCompat.Widget.ActionMode.Title.Inverse"/>
+        </TableRow>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_margin="@dimen/separation_little"
+            android:background="@color/doughnut_no_info"/>
+        <TableRow
+            android:layout_width="0dp"
+            android:layout_height="match_parent">
+            <TextView
+                android:text="@string/view_active_measurements_history_videoid"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0"
+                android:gravity="center_vertical" />
+            <TextView
+                android:text="--"
+                android:id="@+id/tv_host"
+                android:gravity="center"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0"
+                android:textAppearance="@style/TextAppearance.AppCompat.Widget.PopupMenu.Small" />
+        </TableRow>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_margin="@dimen/separation_little"
+            android:background="@color/doughnut_no_info"/>
+        <TableRow
+            android:layout_width="0dp"
+            android:layout_height="match_parent">
+            <TextView
+                android:text="@string/view_active_measurements_history_timestamp"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0"
+                android:gravity="center_vertical" />
+            <TextView
+                android:text="--"
+                android:id="@+id/tv_date"
+                android:gravity="center"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0"
+                android:textAppearance="@style/TextAppearance.AppCompat.Widget.ActionMode.Subtitle.Inverse" />
+        </TableRow>
+    </TableLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_margin="@dimen/separation_little"
+        android:background="@color/doughnut_no_info"/>.
+
+    <TableLayout
+        android:paddingLeft="@dimen/activity_vertical_margin"
+        android:paddingRight="@dimen/activity_vertical_margin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:stretchColumns="*"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:gravity="center">
+        <TableRow
+            android:layout_width="0dp"
+            android:layout_height="match_parent">
+            <TextView
+                android:text="@string/view_active_measurements_history_quality"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0"
+                android:gravity="center_vertical" />
+            <TextView
+                android:text="--"
+                android:id="@+id/tv_quality"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_weight="0"
+                android:textAppearance="@style/TextAppearance.AppCompat.Widget.ActionMode.Title.Inverse"/>
+            <TextView
+                android:text="@string/view_active_measurements_history_size"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0"
+                android:gravity="center_vertical" />
+            <TextView
+                android:text="--"
+                android:id="@+id/tv_size"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:layout_weight="0"
+                android:textAppearance="@style/TextAppearance.AppCompat.Widget.ActionMode.Title.Inverse"/>
+        </TableRow>
+        <TableRow
+            android:layout_width="0dp"
+            android:layout_height="wrap_content">
+            <TextView
+                android:text="@string/view_active_measurements_history_percentage"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0"
+                android:gravity="center_vertical" />
+            <TextView
+                android:text="--"
+                android:id="@+id/tv_buffering_percentage"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:layout_weight="0"
+                android:textAppearance="@style/TextAppearance.AppCompat.Widget.ActionMode.Title.Inverse"/>
+            <TextView
+                android:text="@string/view_active_measurements_history_buffering"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0"
+                android:gravity="center_vertical" />
+            <TextView
+                android:text="--"
+                android:id="@+id/tv_buffering_time"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:layout_weight="0"
+                android:textAppearance="@style/TextAppearance.AppCompat.Widget.ActionMode.Title.Inverse"/>
+        </TableRow>
+    </TableLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_margin="@dimen/separation_little"
+        android:background="@color/doughnut_no_info"/>
+
+
+
+</LinearLayout>

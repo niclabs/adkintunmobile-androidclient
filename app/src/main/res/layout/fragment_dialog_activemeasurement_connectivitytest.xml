@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/soft_icon_background">
+
+    <TableLayout
+        android:paddingTop="@dimen/activity_vertical_margin"
+        android:paddingLeft="@dimen/activity_vertical_margin"
+        android:paddingRight="@dimen/activity_vertical_margin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:stretchColumns="*"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:gravity="center">
+        <TableRow
+            android:layout_width="0dp"
+            android:layout_height="match_parent">
+            <TextView
+                android:text="@string/view_connection_mode"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0"
+                android:gravity="center_vertical" />
+            <TextView
+                android:text="--"
+                android:id="@+id/tv_internet_network"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_weight="0"
+                android:drawableLeft="@drawable/ic_03_nowifi"
+                android:textAppearance="@style/TextAppearance.AppCompat.Widget.ActionMode.Title.Inverse"/>
+        </TableRow>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_margin="@dimen/separation_little"
+            android:background="@color/doughnut_no_info"/>
+        <TableRow
+            android:layout_width="0dp"
+            android:layout_height="match_parent">
+            <TextView
+                android:text="@string/view_active_measurements_history_timestamp"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0"
+                android:gravity="center_vertical" />
+            <TextView
+                android:text="--"
+                android:id="@+id/tv_date"
+                android:gravity="center"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0"
+                android:textAppearance="@style/TextAppearance.AppCompat.Widget.ActionMode.Subtitle.Inverse" />
+        </TableRow>
+    </TableLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_margin="@dimen/separation_little"
+        android:background="@color/doughnut_no_info"/>
+
+    <TableLayout
+        android:paddingBottom="@dimen/activity_vertical_margin"
+        android:paddingLeft="@dimen/activity_vertical_margin"
+        android:paddingRight="@dimen/activity_vertical_margin"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:stretchColumns="*"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:gravity="center">
+        <TableRow
+            android:layout_width="0dp"
+            android:layout_height="match_parent">
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="4"
+                android:id="@+id/sites"
+                android:gravity="center_horizontal"
+                android:text="Sitios" />
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:id="@+id/loading_time"
+                android:gravity="center_horizontal"
+                android:text="Tiempo de carga" />
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="2"
+                android:id="@+id/page_size"
+                android:gravity="center_horizontal"
+                android:text="Tamaño" />
+        </TableRow>
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:stretchColumns="*"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:gravity="center"
+                android:id="@+id/web_pages_table_layout">
+
+            </TableLayout>
+        </ScrollView>
+
+    </TableLayout>
+
+</LinearLayout>

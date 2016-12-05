@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import cl.niclabs.adkintunmobile.R;
+import cl.niclabs.adkintunmobile.views.activemeasurements.ActiveMeasurementsHistoryActivity;
 import cl.niclabs.adkintunmobile.views.activemeasurements.viewfragments.settingsfragments.ActiveMeasurementsSettingsActivity;
 
 public class SpeedTestFragment extends ActiveMeasurementViewFragment {
@@ -40,11 +41,15 @@ public class SpeedTestFragment extends ActiveMeasurementViewFragment {
     // TODO: Implementar
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        Intent myIntent;
         switch (item.getItemId()){
             case R.id.menu_history_btn:
+                myIntent = new Intent(getContext(), ActiveMeasurementsHistoryActivity.class);
+                myIntent.putExtra(getString(R.string.settings_active_measurements_key), getString(R.string.settings_speed_test_category_key));
+                startActivity(myIntent);
                 return true;
             case R.id.menu_settings_btn:
-                Intent myIntent = new Intent(getContext(), ActiveMeasurementsSettingsActivity.class);
+                myIntent = new Intent(getContext(), ActiveMeasurementsSettingsActivity.class);
                 myIntent.putExtra(getString(R.string.settings_active_measurements_key), R.string.settings_speed_test_category_key);
                 startActivity(myIntent);
                 return true;
