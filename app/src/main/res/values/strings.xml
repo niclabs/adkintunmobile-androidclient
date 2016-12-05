@@ -84,7 +84,7 @@
     <string name="settings_video_test_quality_hd720_key">media_test_quality_hd720</string>
     <string name="settings_video_test_max_quality_key">media_test_max_quality</string>
 
-    <string name="settings_connectivity_test_category_title">Sitios</string>
+    <string name="settings_connectivity_test_category_title">Sitios a evaluar</string>
     <string name="settings_connectivity_test_category_key">connectivity_test_key</string>
     <string name="settings_connectivity_sites_count_key">sites_count_key</string>
     <string name="settings_connectivity_test_site_">site_</string>
@@ -180,16 +180,26 @@
     <string name="view_active_measurements_speedtest_subtitle">Velocidad de subida y bajada</string>
     <string name="view_active_measurements_speedtest_description">Esta prueba permite determinar la velocidad efectiva de tu conexión a internet para subir y bajar datos. El resultado permite identificar que tan estable y rápida es tu conexión.</string>
     <string name="view_active_measurements_speedtest_param_title">Parámetros de la prueba</string>
+    <string name="view_active_measurements_speedtest_upload_speed">Velocidad de Subida</string>
+    <string name="view_active_measurements_speedtest_download_speed">Velocidad de Bajada</string>
     <string name="view_active_measurements_mediatest">Media</string>
     <string name="view_active_measurements_mediatest_title">Prueba de Videos</string>
     <string name="view_active_measurements_mediatest_subtitle">Evaluación de carga multimedia</string>
     <string name="view_active_measurements_mediatest_description">En esta prueba se evalúa el rendimiento de carga de videos desde youtube en distintas calidades. El resultado incluye la cantidad de datos descargados para reproducir el video y cuanto tiempo se pasó cargando datos, ambos para cada calidad evaluada.</string>
     <string name="view_active_measurements_mediatest_param_title">Parámetros de la prueba</string>
-    <string name="view_active_measurements_connectivitytest">Conectividad</string>
+    <string name="view_active_measurements_connectivitytest">Prueba de Conectividad</string>
     <string name="view_active_measurements_connectivitytest_title">Prueba de Conectividad</string>
     <string name="view_active_measurements_connectivitytest_subtitle">Acceso a sitios web preferidos</string>
     <string name="view_active_measurements_connectivitytest_description">Esta prueba verifica una lista de sitios web configurable, determinando el tamaño y tiempo de carga de cada uno de los sitios. El resultado permite estudiar la disponibilidad para acceder a cada sitio.</string>
     <string name="view_active_measurements_connectivitytest_param_title">Lista de sitios web a evaluar</string>
+
+    <string name="view_active_measurements_history_title">Reportes Almacenados</string>
+    <string name="view_active_measurements_history_timestamp">Fecha y hora</string>
+    <string name="view_active_measurements_history_videoid">Video ID</string>
+    <string name="view_active_measurements_history_quality">Resolución</string>
+    <string name="view_active_measurements_history_size">Tamaño</string>
+    <string name="view_active_measurements_history_percentage">Porcentaje Cargado</string>
+    <string name="view_active_measurements_history_buffering">Tiempo de Carga</string>
 
     <!-- Tutorial Controls -->
     <string name="tutorial_show_menu">Información sobre esta vista</string>
