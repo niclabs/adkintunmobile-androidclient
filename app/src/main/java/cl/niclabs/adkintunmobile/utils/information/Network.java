@@ -112,6 +112,11 @@ public class Network {
         return ret;
     }
 
+    /**
+     * recupera el lac y cid de la zona gsm activa
+     * @param context
+     * @return int array [LAC, CID]
+     */
     static public int[] getLacCid(Context context){
         TelephonyManager telephonyManager = (TelephonyManager)context.getSystemService(Context.TELEPHONY_SERVICE);
         GsmCellLocation cellLocation = (GsmCellLocation) telephonyManager.getCellLocation();
