@@ -38,7 +38,7 @@ public class SpeedTest {
                 startSpeedTest(SpeedTestMode.UPLOAD, server, uploadSize);
                 break;
             case UPLOAD:
-                //testDialog.onSpeedTestFinish();
+                testDialog.onSpeedTestFinish();
                 break;
         }
     }

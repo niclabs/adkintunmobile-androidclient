@@ -53,7 +53,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceSmall"
-                android:text="@string/view_active_measurements_mediatest_param_title"
+                android:text="@string/view_active_measurements_mediatest_qualities_title"
                 android:layout_marginTop="@dimen/abc_edit_text_inset_top_material"
                 android:textColor="@android:color/white"
                 android:textSize="18sp"/>
@@ -61,42 +61,11 @@
             <TableLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:id="@+id/qualities_table_layout"
                 android:stretchColumns="*"
                 android:focusable="true"
                 android:focusableInTouchMode="true"
-                android:gravity="center">
-                <TableRow
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent">
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:text="Video a evaluar"
-                        android:layout_weight="0"/>
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:text="youtube://cosaasc"
-                        android:layout_weight="0"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Body2" />
-                </TableRow>
-                <TableRow
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent">
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:text="Resoluciones a probar"
-                        android:layout_weight="0"/>
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:text="Low, Mid, Hi, SuperHi"
-                        android:layout_weight="0"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Body2" />
-                </TableRow>
-            </TableLayout>
-
+                android:gravity="center"/>
 
             <Button
                 android:text="@string/view_active_measurements_start_test"

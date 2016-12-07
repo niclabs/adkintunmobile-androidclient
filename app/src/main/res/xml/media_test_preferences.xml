@@ -8,23 +8,23 @@
         >
         <CheckBoxPreference
             android:key="@string/settings_video_test_quality_tiny_key"
-            android:title="@string/settings_video_test_quality_tiny_title"
+            android:title="@string/settings_video_test_quality_tiny_pixels"
             android:defaultValue="false"/>
         <CheckBoxPreference
             android:key="@string/settings_video_test_quality_small_key"
-            android:title="@string/settings_video_test_quality_small_title"
+            android:title="@string/settings_video_test_quality_small_pixels"
             android:defaultValue="false"/>
         <CheckBoxPreference
             android:key="@string/settings_video_test_quality_medium_key"
-            android:title="@string/settings_video_test_quality_medium_title"
+            android:title="@string/settings_video_test_quality_medium_pixels"
             android:defaultValue="false"/>
         <CheckBoxPreference
             android:key="@string/settings_video_test_quality_large_key"
-            android:title="@string/settings_video_test_quality_large_title"
+            android:title="@string/settings_video_test_quality_large_pixels"
             android:defaultValue="false"/>
         <CheckBoxPreference
             android:key="@string/settings_video_test_quality_hd720_key"
-            android:title="@string/settings_video_test_quality_hd720_title"
+            android:title="@string/settings_video_test_quality_hd720_pixels"
             android:defaultValue="false"/>
         <Preference
             android:key="@string/settings_video_test_max_quality_key"
