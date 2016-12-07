@@ -1,5 +1,7 @@
 package cl.niclabs.adkintunmobile.data.persistent.activemeasurement;
 
+import android.content.Context;
+
 import com.google.gson.annotations.SerializedName;
 
 public class SpeedTestReport extends ActiveMeasurement {
@@ -21,6 +23,7 @@ public class SpeedTestReport extends ActiveMeasurement {
     @SerializedName("elapsed_download_time")
     public long elapsedDownloadTime;
 
-    public SpeedTestReport() {
+    public SpeedTestReport(Context context){
+        super(context);
     }
 }

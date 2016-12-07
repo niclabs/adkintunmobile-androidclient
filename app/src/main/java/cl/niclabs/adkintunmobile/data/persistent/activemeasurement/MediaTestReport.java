@@ -1,5 +1,7 @@
 package cl.niclabs.adkintunmobile.data.persistent.activemeasurement;
 
+import android.content.Context;
+
 import com.google.gson.annotations.SerializedName;
 
 import java.util.ArrayList;
@@ -12,8 +14,8 @@ public class MediaTestReport extends ActiveMeasurement {
     @SerializedName("video_results")
     public List<VideoResult> videoResults;
 
-    public MediaTestReport() {
-        super();
+    public MediaTestReport(Context context) {
+        super(context);
         this.videoResults = new ArrayList<VideoResult>();
     }
 
