@@ -9,4 +9,6 @@ public abstract class NetworkInterface extends Persistent<NetworkInterface> {
     @SerializedName("active_interface")
     public int activeInterface;
 
+    public NetworkInterface() {
+    }
 }
