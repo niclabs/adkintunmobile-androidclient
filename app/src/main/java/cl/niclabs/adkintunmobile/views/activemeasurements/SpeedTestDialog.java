@@ -6,8 +6,10 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AlertDialog;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.jjoe64.graphview.GraphView;
@@ -27,6 +29,8 @@ public class SpeedTestDialog extends DialogFragment{
     private TextView downloadTransferRate;
     private TextView uploadTransferRate;
     private SpeedTest speedTest;
+    private AlertDialog alert;
+    private AlertDialog.Builder builder;
 
     public void onSpeedTestProgress(SpeedTestMode mode, int progressPercent, float transferRateBit) {
         switch (mode){
@@ -77,7 +81,7 @@ public class SpeedTestDialog extends DialogFragment{
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder = new AlertDialog.Builder(getActivity());
         builder.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
                 speedTest.cancelTask();
@@ -119,6 +123,28 @@ public class SpeedTestDialog extends DialogFragment{
         speedTest.start();
 
         builder.setView(view);
-        return builder.create();
+        alert = builder.create();
+        return alert;
+    }
+
+    public void onSpeedTestFinish() {
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                builder.setPositiveButton(android.R.string.ok, null);
+                AlertDialog dialog = builder.create();
+                dialog.setOnShowListener(new DialogInterface.OnShowListener()
+                {
+                    @Override
+                    public void onShow(DialogInterface dialog)
+                    {
+                        if(true)
+                            ((AlertDialog)dialog).getButton(AlertDialog.BUTTON_NEGATIVE).setEnabled(false);
+                    }
+                });
+                ((ViewGroup) view.getParent()).removeAllViews();
+                dialog.show();
+            }
+        });
     }
 }

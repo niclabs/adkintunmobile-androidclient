@@ -5,10 +5,14 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TableLayout;
+import android.widget.TableRow;
+import android.widget.TextView;
 
 import cl.niclabs.adkintunmobile.R;
 import cl.niclabs.adkintunmobile.views.activemeasurements.ActiveMeasurementsActivity;
@@ -26,10 +30,36 @@ public class MediaTestFragment extends ActiveMeasurementViewFragment {
                              Bundle savedInstanceState) {
         setHasOptionsMenu(true);
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_active_measurements_mediatest, container, false);
+        View view = inflater.inflate(R.layout.fragment_active_measurements_mediatest, container, false);
+
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getContext());
+
+        TableLayout tableLayout = (TableLayout) view.findViewById(R.id.qualities_table_layout);
+
+        String[] qualitiesName = getResources().getStringArray(R.array.qualities_name);
+        String[] qualitiesPixels = getResources().getStringArray(R.array.qualities_pixels);
+
+        boolean qualityTiny = sharedPreferences.getBoolean(getString(R.string.settings_video_test_quality_tiny_key), false);
+        boolean qualitySmall = sharedPreferences.getBoolean(getString(R.string.settings_video_test_quality_small_key), false);
+        boolean qualityMedium = sharedPreferences.getBoolean(getString(R.string.settings_video_test_quality_medium_key), false);
+        boolean qualityLarge = sharedPreferences.getBoolean(getString(R.string.settings_video_test_quality_large_key), false);
+        boolean qualityHd720 = sharedPreferences.getBoolean(getString(R.string.settings_video_test_quality_hd720_key), false);
+
+        boolean[] qualitiesToTest = {qualityTiny, qualitySmall, qualityMedium, qualityLarge, qualityHd720};
+
+        for (int i = 0; i < qualitiesToTest.length; i++){
+            if(qualitiesToTest[i]){
+                TableRow tableRow = new TableRow(getContext());
+                TextView textView = new TextView(getContext());
+                textView.setText(qualitiesName[i] + ": " + qualitiesPixels[i]);
+                tableRow.addView(textView);
+                tableLayout.addView(tableRow);
+            }
+        }
+
+        return view;
     }
 
-    // TODO: Implementar
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         Intent myIntent;

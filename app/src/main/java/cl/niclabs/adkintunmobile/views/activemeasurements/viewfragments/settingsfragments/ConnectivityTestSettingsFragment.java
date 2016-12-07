@@ -30,6 +30,7 @@ import cl.niclabs.adkintunmobile.utils.activemeasurements.ActiveServersDialog;
 import cl.niclabs.adkintunmobile.utils.activemeasurements.ActiveServersTask;
 import cl.niclabs.adkintunmobile.utils.activemeasurements.connectivitytest.AddSiteDialog;
 import cl.niclabs.adkintunmobile.utils.files.FileManager;
+import cl.niclabs.adkintunmobile.views.activemeasurements.ActiveMeasurementsActivity;
 
 public class ConnectivityTestSettingsFragment extends ActiveMeasurementsSettingsFragment{
 

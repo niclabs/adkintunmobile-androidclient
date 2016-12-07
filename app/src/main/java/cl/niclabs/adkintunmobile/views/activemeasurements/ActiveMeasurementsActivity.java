@@ -11,6 +11,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MotionEvent;
@@ -27,9 +28,7 @@ import cl.niclabs.adkintunmobile.views.activemeasurements.viewfragments.Connecti
 import cl.niclabs.adkintunmobile.views.activemeasurements.viewfragments.MediaTestFragment;
 import cl.niclabs.adkintunmobile.views.activemeasurements.viewfragments.SpeedTestFragment;
 
-public class ActiveMeasurementsActivity extends AppCompatActivity{
-
-    private final String TAG = "AdkM:ActiveMeasurActivity";
+public class ActiveMeasurementsActivity extends AppCompatActivity {
 
     protected String title;
     protected Context context;
@@ -38,6 +37,13 @@ public class ActiveMeasurementsActivity extends AppCompatActivity{
     protected ActiveMeasurementsViewPagerAdapter mViewPagerAdapter;
     protected ViewPager mViewPager;
 
+    protected static int currentItem = 0;
+
+    public static int getCurrentItem() {
+        return currentItem;
+    }
+
+    /*
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,9 +52,31 @@ public class ActiveMeasurementsActivity extends AppCompatActivity{
         setBaseActivityParams();
         setupToolbar();
         setUpViewPager();
+    }*/
+
+    @Override
+    protected void onPostResume() {
+        super.onPostResume();
+        setContentView(R.layout.activity_active_measurements);
+
+        setBaseActivityParams();
+        setupToolbar();
+        setUpViewPager();
+        mViewPager.setCurrentItem(currentItem);
     }
 
-    // TODO: Borrar y subir minsdk
+    public static void setCurrentItem(int i) {
+        currentItem = i;
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        currentItem = 0;
+    }
+
+
+        // TODO: Borrar y subir minsdk
     private void emulateClick(final WebView webview) {
         long delta = 100;
         long downTime = SystemClock.uptimeMillis();
@@ -188,6 +216,22 @@ public class ActiveMeasurementsActivity extends AppCompatActivity{
         this.mViewPager = (ViewPager) findViewById(R.id.viewpager);
         TabLayout mTabLayout = (TabLayout) findViewById(R.id.tabs);
         this.mViewPager.setAdapter(this.mViewPagerAdapter);
+        this.mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                currentItem = position;
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
         mTabLayout.setupWithViewPager(mViewPager);
 
         mTabLayout.getTabAt(0).setIcon(R.drawable.ic_speedometer_white);

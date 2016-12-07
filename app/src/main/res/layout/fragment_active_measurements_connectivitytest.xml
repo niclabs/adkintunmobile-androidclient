@@ -48,7 +48,6 @@
                 android:layout_height="wrap_content"
                 android:text="@string/view_active_measurements_connectivitytest_description"/>
 
-
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -61,42 +60,11 @@
             <TableLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:id="@+id/sites_table_layout"
                 android:stretchColumns="*"
                 android:focusable="true"
                 android:focusableInTouchMode="true"
-                android:gravity="center">
-                <TableRow
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent">
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:text="Las Últimas Noticias"
-                        android:layout_weight="0"/>
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:text="http://www.lun.com"
-                        android:layout_weight="0"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Body2" />
-                </TableRow>
-                <TableRow
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent">
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:text="Live"
-                        android:layout_weight="0"/>
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:text="http://www.live.com"
-                        android:layout_weight="0"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Body2" />
-                </TableRow>
-            </TableLayout>
-
+                android:gravity="center"/>
 
             <Button
                 android:text="@string/view_active_measurements_start_test"
@@ -105,7 +73,6 @@
                 android:id="@+id/button2"
                 style="@style/Widget.AppCompat.Button.Colored"
                 android:onClick="onWebPagesTestClick"/>
-
 
         </LinearLayout>
 

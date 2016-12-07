@@ -158,6 +158,21 @@
         <item>wom</item>
     </string-array>
 
+    <!-- Video Qualities -->
+    <string-array name="qualities_name">
+        <item>tiny</item>
+        <item>small</item>
+        <item>medium</item>
+        <item>large</item>
+        <item>hd720</item>
+    </string-array>
+    <string-array name="qualities_pixels">
+        <item>144p</item>
+        <item>240p</item>
+        <item>360p</item>
+        <item>480p</item>
+        <item>720p</item>
+    </string-array>
 
     <!-- Pasos Tutoriales  -->
     <!-- Dashboard-->

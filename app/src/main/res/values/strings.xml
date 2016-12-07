@@ -72,32 +72,27 @@
 
     <string name="settings_video_test_category_title">Calidades de prueba</string>
     <string name="settings_video_test_category_key">media_test_key</string>
-    <string name="settings_video_test_quality_tiny_title">144p</string>
-    <string name="settings_video_test_quality_tiny_key">media_test_quality_tiny</string>
-    <string name="settings_video_test_quality_small_title">240p</string>
-    <string name="settings_video_test_quality_small_key">media_test_quality_small</string>
-    <string name="settings_video_test_quality_medium_title">360p</string>
-    <string name="settings_video_test_quality_medium_key">media_test_quality_medium</string>
-    <string name="settings_video_test_quality_large_title">480p</string>
-    <string name="settings_video_test_quality_large_key">media_test_quality_large</string>
-    <string name="settings_video_test_quality_hd720_title">720p</string>
-    <string name="settings_video_test_quality_hd720_key">media_test_quality_hd720</string>
     <string name="settings_video_test_max_quality_key">media_test_max_quality</string>
+    <string name="settings_video_test_quality_tiny_pixels">144p</string>
+    <string name="settings_video_test_quality_tiny_name">tiny</string>
+    <string name="settings_video_test_quality_tiny_key">media_test_quality_tiny</string>
+    <string name="settings_video_test_quality_small_pixels">240p</string>
+    <string name="settings_video_test_quality_small_name">small</string>
+    <string name="settings_video_test_quality_small_key">media_test_quality_small</string>
+    <string name="settings_video_test_quality_medium_pixels">360p</string>
+    <string name="settings_video_test_quality_medium_name">medium</string>
+    <string name="settings_video_test_quality_medium_key">media_test_quality_medium</string>
+    <string name="settings_video_test_quality_large_pixels">480p</string>
+    <string name="settings_video_test_quality_large_name">large</string>
+    <string name="settings_video_test_quality_large_key">media_test_quality_large</string>
+    <string name="settings_video_test_quality_hd720_pixels">720p</string>
+    <string name="settings_video_test_quality_hd720_name">hd720</string>
+    <string name="settings_video_test_quality_hd720_key">media_test_quality_hd720</string>
 
     <string name="settings_connectivity_test_category_title">Sitios a evaluar</string>
     <string name="settings_connectivity_test_category_key">connectivity_test_key</string>
     <string name="settings_connectivity_sites_count_key">sites_count_key</string>
     <string name="settings_connectivity_test_site_">site_</string>
-    <string name="settings_connectivity_test_site_2">site_2</string>
-    <string name="settings_connectivity_test_site_3">site_3</string>
-    <string name="settings_connectivity_test_site_4">site_4</string>
-    <string name="settings_connectivity_test_site_5">site_5</string>
-    <string name="settings_connectivity_test_site_6">site_6</string>
-    <string name="settings_connectivity_test_site_7">site_7</string>
-    <string name="settings_connectivity_test_site_8">site_8</string>
-    <string name="settings_connectivity_test_site_9">site_9</string>
-    <string name="settings_connectivity_test_site_10">site_10</string>
-
 
     <!-- Dashboard -->
     <string name="view_dashboard_toolbar_slogan">Tu Estado Ahora</string>
@@ -186,7 +181,7 @@
     <string name="view_active_measurements_mediatest_title">Prueba de Videos</string>
     <string name="view_active_measurements_mediatest_subtitle">Evaluación de carga multimedia</string>
     <string name="view_active_measurements_mediatest_description">En esta prueba se evalúa el rendimiento de carga de videos desde youtube en distintas calidades. El resultado incluye la cantidad de datos descargados para reproducir el video y cuanto tiempo se pasó cargando datos, ambos para cada calidad evaluada.</string>
-    <string name="view_active_measurements_mediatest_param_title">Parámetros de la prueba</string>
+    <string name="view_active_measurements_mediatest_qualities_title">Calidades a probar</string>
     <string name="view_active_measurements_connectivitytest">Prueba de Conectividad</string>
     <string name="view_active_measurements_connectivitytest_title">Prueba de Conectividad</string>
     <string name="view_active_measurements_connectivitytest_subtitle">Acceso a sitios web preferidos</string>
