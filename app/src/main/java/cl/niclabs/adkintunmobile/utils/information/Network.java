@@ -3,7 +3,12 @@ package cl.niclabs.adkintunmobile.utils.information;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.wifi.WifiConfiguration;
+import android.net.wifi.WifiInfo;
+import android.net.wifi.WifiManager;
 import android.telephony.TelephonyManager;
+import android.telephony.gsm.GsmCellLocation;
+import android.util.Log;
 
 import java.util.Locale;
 
@@ -45,6 +50,12 @@ public class Network {
         }
     }
 
+    static public int getINTNetworkType(Context context){
+        TelephonyManager mTelephonyManager = (TelephonyManager)
+                context.getSystemService(Context.TELEPHONY_SERVICE);
+        return mTelephonyManager.getNetworkType();
+    }
+
 
     /**
      * Retorna el tipo actual de la conexión
@@ -68,6 +79,18 @@ public class Network {
         }
     }
 
+    static public String getWifiSSID(Context context) {
+        WifiManager wifiManager = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
+        WifiInfo wifiInfo = wifiManager.getConnectionInfo();
+        return wifiInfo.getSSID();
+    }
+
+    static public String getWifiBSSID(Context context) {
+        WifiManager wifiManager = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
+        WifiInfo wifiInfo = wifiManager.getConnectionInfo();
+        return wifiInfo.getBSSID();
+    }
+
     // retorna arreglo con 3 strings:
     // 0.- grande: ssid o tipo red
     // 1.- chico: connected o subtipo de red
@@ -83,11 +106,19 @@ public class Network {
             ret[0] = Network.getNetworkType(context);
             ret[1] = activeNetwork.getSubtypeName();
         }else {
-
-            ret[0] = activeNetwork.getExtraInfo();
-            ret[0] = ret[0]==null ? activeNetwork.getTypeName() : ret[0].replace("\"","");
+            ret[0] = getWifiSSID(context);
             ret[1] = activeNetwork.getState().name();
         }
+        return ret;
+    }
+
+    static public int[] getLacCid(Context context){
+        TelephonyManager telephonyManager = (TelephonyManager)context.getSystemService(Context.TELEPHONY_SERVICE);
+        GsmCellLocation cellLocation = (GsmCellLocation) telephonyManager.getCellLocation();
+
+        int[] ret = new int[2];
+        ret[0] = cellLocation.getLac();
+        ret[1] = cellLocation.getCid();
         return ret;
     }
 
