@@ -10,11 +10,19 @@ public class VideoResult extends Persistent<VideoResult>{
     public String quality;
     @SerializedName("buffering_time")
     public long bufferingTime;
-    @SerializedName("loaded_percentage")
-    public double loadedPercentage;
+    @SerializedName("loaded_fraction")
+    public double loadedFraction;
     @SerializedName("downloaded_bytes")
     public long downloadedBytes;
 
+
     public VideoResult() {
+    }
+
+    public VideoResult(String quality, long bufferingTime, double loadedFraction, long downloadedBytes) {
+        this.quality = quality;
+        this.bufferingTime = bufferingTime;
+        this.loadedFraction = loadedFraction;
+        this.downloadedBytes = downloadedBytes;
     }
 }
