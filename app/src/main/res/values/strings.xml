@@ -187,6 +187,8 @@
     <string name="view_active_measurements_connectivitytest_subtitle">Acceso a sitios web preferidos</string>
     <string name="view_active_measurements_connectivitytest_description">Esta prueba verifica una lista de sitios web configurable, determinando el tamaño y tiempo de carga de cada uno de los sitios. El resultado permite estudiar la disponibilidad para acceder a cada sitio.</string>
     <string name="view_active_measurements_connectivitytest_param_title">Lista de sitios web a evaluar</string>
+    <string name="view_active_measurements_connectivitytest_example_url">www.ejemplo.com</string>
+    <string name="view_active_measurements_connectivitytest_url_error_message">Error en la url ingresada</string>
 
     <string name="view_active_measurements_history_title">Reportes Almacenados</string>
     <string name="view_active_measurements_history_timestamp">Fecha y hora</string>
