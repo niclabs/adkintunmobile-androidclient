@@ -8,5 +8,7 @@
     <EditText
         android:id="@+id/site_edit_text"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:hint="@string/view_active_measurements_connectivitytest_example_url"
+        android:inputType="textNoSuggestions"/>
 </LinearLayout>

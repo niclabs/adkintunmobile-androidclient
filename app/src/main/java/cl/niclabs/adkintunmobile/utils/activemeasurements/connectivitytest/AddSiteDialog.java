@@ -12,9 +12,13 @@ import android.preference.PreferenceManager;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
+import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import cl.niclabs.adkintunmobile.R;
 import cl.niclabs.adkintunmobile.views.activemeasurements.viewfragments.settingsfragments.ActiveMeasurementsSettingsFragment;
@@ -33,30 +37,7 @@ public class AddSiteDialog extends DialogFragment {
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setTitle("Nuevo sitio de prueba");
-        builder.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                //TODO validar la url
-                SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getContext());
-                int sitesCount = sharedPreferences.getInt(getString(R.string.settings_connectivity_sites_count_key), 0);
-                sitesCount ++;
-                PreferenceCategory preferenceCategory = (PreferenceCategory) preferenceFragment.findPreference(getString(R.string.settings_connectivity_test_category_key));
-                Preference preference = new Preference(getContext());
-                preference.setSummary(editText.getText());
-                //preference.setSummary(editText.getText());
-                preference.setKey(getString(R.string.settings_connectivity_test_site_) + sitesCount);
-
-                SharedPreferences.Editor editor = sharedPreferences.edit();
-                editor.putInt(getActivity().getString(R.string.settings_connectivity_sites_count_key), sitesCount);
-                editor.putString(preference.getKey(), editText.getText().toString());
-                Log.d("EDITOR", getActivity().getString(R.string.settings_connectivity_sites_count_key)+ " " + sitesCount);
-                Log.d("EDITOR", preference.getKey()+ " " + editText.getText());
-
-                editor.apply();
-
-                preferenceCategory.addPreference(preference);
-            }
-        });
+        builder.setPositiveButton("Aceptar", null);
         builder.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
             }
@@ -71,7 +52,44 @@ public class AddSiteDialog extends DialogFragment {
         setCancelable(false);
 
         builder.setView(view);
-        return builder.create();
+        AlertDialog dialog = builder.create();
+        dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+            @Override
+            public void onShow(final DialogInterface dialog) {
+                Button button = ((AlertDialog) dialog).getButton(AlertDialog.BUTTON_POSITIVE);
+                button.setOnClickListener(new View.OnClickListener() {
+
+                    @Override
+                    public void onClick(View v) {
+                        //url validation
+                        if(!Patterns.WEB_URL.matcher(editText.getText()).matches()){
+                            Toast.makeText(getContext(), getString(R.string.view_active_measurements_connectivitytest_url_error_message), Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+                        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getContext());
+                        int sitesCount = sharedPreferences.getInt(getString(R.string.settings_connectivity_sites_count_key), 0);
+                        sitesCount ++;
+                        PreferenceCategory preferenceCategory = (PreferenceCategory) preferenceFragment.findPreference(getString(R.string.settings_connectivity_test_category_key));
+                        Preference preference = new Preference(getContext());
+                        preference.setSummary(editText.getText());
+                        preference.setKey(getString(R.string.settings_connectivity_test_site_) + sitesCount);
+
+                        SharedPreferences.Editor editor = sharedPreferences.edit();
+                        editor.putInt(getActivity().getString(R.string.settings_connectivity_sites_count_key), sitesCount);
+                        editor.putString(preference.getKey(), editText.getText().toString());
+                        Log.d("EDITOR", getActivity().getString(R.string.settings_connectivity_sites_count_key)+ " " + sitesCount);
+                        Log.d("EDITOR", preference.getKey()+ " " + editText.getText());
+
+                        editor.apply();
+
+                        preferenceCategory.addPreference(preference);
+                        dialog.dismiss();
+                    }
+                });
+            }
+        });
+        dialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
+        return dialog;
     }
 
     public void setPreferenceFragment(ConnectivityTestSettingsFragment connectivityTestSettingsFragment) {

@@ -32,7 +32,6 @@ public class SpeedTestTask extends AsyncTask<SpeedTestMode, Void, Void> {
                                                   float transferRateBitPerSeconds,
                                                   float transferRateOctetPerSeconds) {
                 Log.i("speed-test-app","download transfer rate  : " + transferRateBitPerSeconds + "Bps");
-                speedTest.onSpeedTestTaskFinish(mode);
             }
 
             @Override
@@ -45,7 +44,6 @@ public class SpeedTestTask extends AsyncTask<SpeedTestMode, Void, Void> {
                                                 float transferRateBitPerSeconds,
                                                 float transferRateOctetPerSeconds) {
                 Log.i("speed-test-app","upload transfer rate  : " + transferRateOctetPerSeconds + "Bps");
-                speedTest.onSpeedTestTaskFinish(mode);
             }
 
             @Override
@@ -58,9 +56,7 @@ public class SpeedTestTask extends AsyncTask<SpeedTestMode, Void, Void> {
                 Log.i("speed-test-app","percentdown"+ percent);
                 if (Math.round(percent) > progressPercent) {
                     progressPercent = Math.round(percent);
-                    final float transferRateBit = downloadReport.getTransferRateBit();
-                    speedTest.onProgress(mode, progressPercent, transferRateBit);
-                    //speedTest.updateDownloadGraph(progressPercent, transferRateBit);
+                    speedTest.onProgress(mode, progressPercent, downloadReport);
                 }
             }
 
@@ -69,12 +65,9 @@ public class SpeedTestTask extends AsyncTask<SpeedTestMode, Void, Void> {
                 Log.i("speed-test-app", "percentup" + percent);
                 if (Math.round(percent) > progressPercent) {
                     progressPercent = Math.round(percent);
-                    final float transferRateBit = uploadReport.getTransferRateBit();
-
-                    speedTest.onProgress(mode, progressPercent, transferRateBit);
+                    speedTest.onProgress(mode, progressPercent, uploadReport);
                 }
             }
-
         });
 
         switch (mode){

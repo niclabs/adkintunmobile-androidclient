@@ -6,10 +6,9 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AlertDialog;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.jjoe64.graphview.GraphView;
@@ -29,8 +28,8 @@ public class SpeedTestDialog extends DialogFragment{
     private TextView downloadTransferRate;
     private TextView uploadTransferRate;
     private SpeedTest speedTest;
-    private AlertDialog alert;
-    private AlertDialog.Builder builder;
+    Button positiveButton;
+    Button negativeButton;
 
     public void onSpeedTestProgress(SpeedTestMode mode, int progressPercent, float transferRateBit) {
         switch (mode){
@@ -81,12 +80,13 @@ public class SpeedTestDialog extends DialogFragment{
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        builder = new AlertDialog.Builder(getActivity());
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
                 speedTest.cancelTask();
             }
         });
+        builder.setPositiveButton("Aceptar", null);
 
         LayoutInflater inflater = getActivity().getLayoutInflater();
         view = inflater.inflate(R.layout.fragment_speed_test_dialog, null);
@@ -123,28 +123,25 @@ public class SpeedTestDialog extends DialogFragment{
         speedTest.start();
 
         builder.setView(view);
-        alert = builder.create();
-        return alert;
+        AlertDialog dialog = builder.create();
+        dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+            @Override
+            public void onShow(DialogInterface dialog) {
+                positiveButton = ((AlertDialog) dialog).getButton(AlertDialog.BUTTON_POSITIVE);
+                negativeButton = ((AlertDialog) dialog).getButton(AlertDialog.BUTTON_NEGATIVE);
+                positiveButton.setVisibility(View.GONE);
+            }
+        });
+        return dialog;
     }
 
     public void onSpeedTestFinish() {
         getActivity().runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                builder.setPositiveButton(android.R.string.ok, null);
-                AlertDialog dialog = builder.create();
-                dialog.setOnShowListener(new DialogInterface.OnShowListener()
-                {
-                    @Override
-                    public void onShow(DialogInterface dialog)
-                    {
-                        if(true)
-                            ((AlertDialog)dialog).getButton(AlertDialog.BUTTON_NEGATIVE).setEnabled(false);
-                    }
-                });
-                ((ViewGroup) view.getParent()).removeAllViews();
-                dialog.show();
-            }
-        });
+                                        @Override
+                                        public void run() {
+                                            positiveButton.setVisibility(View.VISIBLE);
+                                            negativeButton.setVisibility(View.GONE);
+                                        }
+                                    });
     }
 }

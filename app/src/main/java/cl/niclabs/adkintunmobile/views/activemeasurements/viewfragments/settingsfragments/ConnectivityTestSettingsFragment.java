@@ -181,9 +181,7 @@ public class ConnectivityTestSettingsFragment extends ActiveMeasurementsSettings
                     Preference sitePreference = new Preference(context);
                     sitePreference.setKey(getString(R.string.settings_connectivity_test_site_) + i);
                     sitePreference.setSummary(siteTitle);
-                    Log.d("CHECK EDITOR", getString(R.string.settings_connectivity_test_site_) + i + " " +siteTitle);
                     preferenceCategory.addPreference(sitePreference);
-                    Log.d("CHECK EDITOR", "null? " + (preferenceCategory==null));
                 }
                 addSiteButton.setVisible(true);
                 deleteButton.setVisible(true);
