@@ -33,20 +33,19 @@ public class ActiveMeasurementsSettingsActivity extends AppCompatActivity {
         int activeMeasurementsKey = bundle.getInt(getString(R.string.settings_active_measurements_key));
 
         PreferenceFragment fragment = null;
-        switch (activeMeasurementsKey){
-            case R.string.settings_speed_test_category_key:
+        switch (ActiveMeasurementsActivity.getCurrentItem()){
+            case 0:
                 fragment = new SpeedTestSettingsFragment();
-                viewPagerIndex = 0;
                 break;
-            case R.string.settings_video_test_category_key:
+            case 1:
                 fragment = new MediaTestSettingsFragment();
-                viewPagerIndex = 1;
                 break;
-            case R.string.settings_connectivity_test_category_key:
-                viewPagerIndex = 2;
+            case 2:
                 fragment = new ConnectivityTestSettingsFragment();
                 break;
         }
+
+        viewPagerIndex = ActiveMeasurementsActivity.getCurrentItem();
 
         // display fragment for settings
         if (fragment != null)
@@ -69,8 +68,7 @@ public class ActiveMeasurementsSettingsActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem menuItem) {
         switch (menuItem.getItemId()) {
             case android.R.id.home:
-                ActiveMeasurementsActivity parent = (ActiveMeasurementsActivity) getParent();
-                parent.setCurrentItem(viewPagerIndex);
+                onBackPressed();
         }
         return (super.onOptionsItemSelected(menuItem));
     }

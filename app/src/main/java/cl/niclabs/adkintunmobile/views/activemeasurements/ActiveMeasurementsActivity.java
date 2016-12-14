@@ -43,17 +43,6 @@ public class ActiveMeasurementsActivity extends AppCompatActivity {
         return currentItem;
     }
 
-    /*
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_active_measurements);
-
-        setBaseActivityParams();
-        setupToolbar();
-        setUpViewPager();
-    }*/
-
     @Override
     protected void onPostResume() {
         super.onPostResume();
@@ -225,6 +214,7 @@ public class ActiveMeasurementsActivity extends AppCompatActivity {
             @Override
             public void onPageSelected(int position) {
                 currentItem = position;
+                setCurrentItem(currentItem);
             }
 
             @Override
