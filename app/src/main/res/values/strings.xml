@@ -197,6 +197,9 @@
     <string name="view_active_measurements_history_size">Tamaño</string>
     <string name="view_active_measurements_history_percentage">Porcentaje Cargado</string>
     <string name="view_active_measurements_history_buffering">Tiempo de Carga</string>
+    <string name="view_active_measurements_history_title_mediatest_report">Reporte: Prueba de Videos</string>
+    <string name="view_active_measurements_history_title_speedtest_report">Reporte: Prueba de Velocidad</string>
+    <string name="view_active_measurements_history_title_connectivitytest_report">Reporte: Prueba de Conectividad</string>
 
     <!-- Tutorial Controls -->
     <string name="tutorial_show_menu">Información sobre esta vista</string>
