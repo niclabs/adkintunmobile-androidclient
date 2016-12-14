@@ -15,11 +15,12 @@ public class VideoResult extends Persistent<VideoResult>{
     @SerializedName("downloaded_bytes")
     public long downloadedBytes;
 
+    public MediaTestReport report;
 
     public VideoResult() {
     }
 
-    public VideoResult(String quality, long bufferingTime, double loadedFraction, long downloadedBytes) {
+    public void setUpVideoResult(String quality, long bufferingTime, double loadedFraction, long downloadedBytes) {
         this.quality = quality;
         this.bufferingTime = bufferingTime;
         this.loadedFraction = loadedFraction;

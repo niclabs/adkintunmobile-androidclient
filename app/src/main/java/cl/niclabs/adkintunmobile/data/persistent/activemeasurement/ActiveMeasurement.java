@@ -17,17 +17,20 @@ public class ActiveMeasurement extends Persistent<ActiveMeasurement> {
     @SerializedName("sent")
     public boolean sent;
 
-    public ActiveMeasurement(Context context) {
+    public ActiveMeasurement() {
         super();
         this.sent = false;
         this.timestamp = System.currentTimeMillis();
+    }
 
-        if(Network.getActiveNetwork(context) == ConnectionModeSample.MOBILE){
-            this.networkInterface = new MobileInterface(context);
-        }else if(Network.getActiveNetwork(context) == ConnectionModeSample.WIFI){
-            this.networkInterface = new WifiInterface(context);
-        }else {
+    public void setUpReport(Context context){
+        this.networkInterface = new NetworkInterface();
+        this.networkInterface.setUpInterface(context);
+    }
 
-        }
+    @Override
+    public void save() {
+        this.networkInterface.save();
+        super.save();
     }
 }
