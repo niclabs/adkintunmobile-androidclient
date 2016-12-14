@@ -9,6 +9,8 @@ import android.view.View;
 import android.widget.TextView;
 
 import cl.niclabs.adkintunmobile.R;
+import cl.niclabs.adkintunmobile.data.persistent.activemeasurement.MediaTestReport;
+import cl.niclabs.adkintunmobile.data.persistent.activemeasurement.SpeedTestReport;
 
 public class SpeedTestReportDialog extends DialogFragment {
 
@@ -23,6 +25,10 @@ public class SpeedTestReportDialog extends DialogFragment {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         View view = getActivity().getLayoutInflater().inflate(R.layout.fragment_dialog_activemeasurement_speedtest, null);
+
+        // get data to populate
+        String timestamp = bundle.getString("value");
+        SpeedTestReport report = SpeedTestReport.findFirst(SpeedTestReport.class, "timestamp = ?", timestamp);
 
         // populate view with report data
         TextView tvDate = (TextView) view.findViewById(R.id.tv_date);
