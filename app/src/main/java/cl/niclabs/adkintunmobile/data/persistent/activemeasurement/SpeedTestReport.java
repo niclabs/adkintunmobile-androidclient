@@ -12,8 +12,6 @@ public class SpeedTestReport extends ActiveMeasurement {
     public long uploadSize;
     @SerializedName("download_size")
     public long downloadSize;
-    @SerializedName("timeout")
-    public boolean timeout;
     @SerializedName("upload_speed")
     public float uploadSpeed;
     @SerializedName("download_speed")
