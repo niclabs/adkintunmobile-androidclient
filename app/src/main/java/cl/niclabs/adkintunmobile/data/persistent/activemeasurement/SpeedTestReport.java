@@ -21,7 +21,7 @@ public class SpeedTestReport extends ActiveMeasurement {
     @SerializedName("elapsed_download_time")
     public long elapsedDownloadTime;
 
-    public SpeedTestReport(Context context){
-        super(context);
+    public SpeedTestReport(){
+        super();
     }
 }

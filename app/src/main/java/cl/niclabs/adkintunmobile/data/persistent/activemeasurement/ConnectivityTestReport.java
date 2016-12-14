@@ -12,8 +12,8 @@ public class ConnectivityTestReport extends ActiveMeasurement {
     @SerializedName("site_results")
     public List<SiteResult> siteResults;
 
-    public ConnectivityTestReport(Context context) {
-        super(context);
+    public ConnectivityTestReport() {
+        super();
         this.siteResults = new ArrayList<SiteResult>();
     }
 }
