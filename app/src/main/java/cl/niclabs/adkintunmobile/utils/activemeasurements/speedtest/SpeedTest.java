@@ -18,7 +18,8 @@ public class SpeedTest {
 
     public SpeedTest(SpeedTestDialog testDialog) {
         this.testDialog = testDialog;
-        report = new SpeedTestReport(testDialog.getContext());
+        report = new SpeedTestReport();
+        report.setUpReport(testDialog.getContext());
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(testDialog.getContext());
         String downloadSizeValue = sharedPreferences.getString(testDialog.getString(R.string.settings_speed_test_download_size_key), "10");
         String uploadSizeValue = sharedPreferences.getString(testDialog.getString(R.string.settings_speed_test_upload_size_key), "10");
