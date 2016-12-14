@@ -31,7 +31,7 @@ public class ConnectivityTestReportDialog extends DialogFragment {
         // set builder
         builder.setView(view);
         builder.setIcon(R.drawable.ic_link_black);
-        builder.setTitle(bundle.getInt("position") + " pos");
+        builder.setTitle(R.string.view_active_measurements_history_title_connectivitytest_report);
         builder.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int whichButton) {
                 dialog.dismiss();

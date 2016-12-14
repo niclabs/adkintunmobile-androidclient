@@ -31,7 +31,7 @@ public class SpeedTestReportDialog extends DialogFragment {
         // set builder
         builder.setView(view);
         builder.setIcon(R.drawable.ic_speedometer_black);
-        builder.setTitle(bundle.getInt("position") + " pos");
+        builder.setTitle(R.string.view_active_measurements_history_title_speedtest_report);
         builder.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int whichButton) {
                 dialog.dismiss();

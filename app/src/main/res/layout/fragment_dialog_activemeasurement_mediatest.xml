@@ -87,9 +87,10 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_margin="@dimen/separation_little"
-        android:background="@color/doughnut_no_info"/>.
+        android:background="@color/doughnut_no_info"/>
 
     <TableLayout
+        android:id="@+id/tl_video_results"
         android:paddingLeft="@dimen/activity_vertical_margin"
         android:paddingRight="@dimen/activity_vertical_margin"
         android:layout_width="match_parent"
@@ -98,78 +99,7 @@
         android:focusable="true"
         android:focusableInTouchMode="true"
         android:gravity="center">
-        <TableRow
-            android:layout_width="0dp"
-            android:layout_height="match_parent">
-            <TextView
-                android:text="@string/view_active_measurements_history_quality"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="0"
-                android:gravity="center_vertical" />
-            <TextView
-                android:text="--"
-                android:id="@+id/tv_quality"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:layout_weight="0"
-                android:textAppearance="@style/TextAppearance.AppCompat.Widget.ActionMode.Title.Inverse"/>
-            <TextView
-                android:text="@string/view_active_measurements_history_size"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="0"
-                android:gravity="center_vertical" />
-            <TextView
-                android:text="--"
-                android:id="@+id/tv_size"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                android:layout_weight="0"
-                android:textAppearance="@style/TextAppearance.AppCompat.Widget.ActionMode.Title.Inverse"/>
-        </TableRow>
-        <TableRow
-            android:layout_width="0dp"
-            android:layout_height="wrap_content">
-            <TextView
-                android:text="@string/view_active_measurements_history_percentage"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="0"
-                android:gravity="center_vertical" />
-            <TextView
-                android:text="--"
-                android:id="@+id/tv_buffering_percentage"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                android:layout_weight="0"
-                android:textAppearance="@style/TextAppearance.AppCompat.Widget.ActionMode.Title.Inverse"/>
-            <TextView
-                android:text="@string/view_active_measurements_history_buffering"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="0"
-                android:gravity="center_vertical" />
-            <TextView
-                android:text="--"
-                android:id="@+id/tv_buffering_time"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                android:layout_weight="0"
-                android:textAppearance="@style/TextAppearance.AppCompat.Widget.ActionMode.Title.Inverse"/>
-        </TableRow>
     </TableLayout>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_margin="@dimen/separation_little"
-        android:background="@color/doughnut_no_info"/>
-
 
 
 </LinearLayout>
