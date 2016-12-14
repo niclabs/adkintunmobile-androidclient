@@ -15,7 +15,9 @@ import android.widget.ArrayAdapter;
 import java.util.ArrayList;
 
 import cl.niclabs.adkintunmobile.R;
+import cl.niclabs.adkintunmobile.data.persistent.activemeasurement.ConnectivityTestReport;
 import cl.niclabs.adkintunmobile.data.persistent.activemeasurement.MediaTestReport;
+import cl.niclabs.adkintunmobile.data.persistent.activemeasurement.SpeedTestReport;
 import cl.niclabs.adkintunmobile.views.activemeasurements.ConnectivityTestReportDialog;
 import cl.niclabs.adkintunmobile.views.activemeasurements.MediaTestReportDialog;
 import cl.niclabs.adkintunmobile.views.activemeasurements.SpeedTestReportDialog;
@@ -40,12 +42,14 @@ public class HistoryActiveMeasurementsFragment extends ListFragment implements A
 
         String measurementsType = getActivity().getIntent().getStringExtra(getString(R.string.settings_active_measurements_key));
         if (measurementsType.equals(getString(R.string.settings_speed_test_category_key))) {
-            // TODO implementar!
+            reportTimestampList = SpeedTestReport.getTimestampsAllReports();
+            reportsDatetimeList = SpeedTestReport.getDatetimeAllReports();
         }else if (measurementsType.equals(getString(R.string.settings_video_test_category_key))) {
             reportTimestampList = MediaTestReport.getTimestampsAllReports();
             reportsDatetimeList = MediaTestReport.getDatetimeAllReports();
         }else {         //if (measurementsType.equals(getString(R.string.settings_connectivity_test_category_key)))
-            // TODO implementar!
+            reportTimestampList = ConnectivityTestReport.getTimestampsAllReports();
+            reportsDatetimeList = ConnectivityTestReport.getDatetimeAllReports();
         }
 
         ArrayAdapter adapter = new ArrayAdapter(getContext(), android.R.layout.simple_list_item_1, reportsDatetimeList);

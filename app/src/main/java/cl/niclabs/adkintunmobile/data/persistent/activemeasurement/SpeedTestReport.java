@@ -4,6 +4,11 @@ import android.content.Context;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import cl.niclabs.adkintunmobile.utils.display.DisplayDateManager;
+
 public class SpeedTestReport extends ActiveMeasurement {
 
     @SerializedName("host")
@@ -23,5 +28,25 @@ public class SpeedTestReport extends ActiveMeasurement {
 
     public SpeedTestReport(){
         super();
+    }
+
+    static public ArrayList<String> getTimestampsAllReports() {
+        ArrayList<String> ret = new ArrayList<>();
+        for (SpeedTestReport r : find(SpeedTestReport.class, null, null, null, "timestamp DESC", null)) {
+            ret.add(r.timestamp + "");
+        }
+        return ret;
+    }
+
+    static public ArrayList<String> getDatetimeAllReports() {
+        ArrayList<String> ret = new ArrayList<>();
+        for (SpeedTestReport r : find(SpeedTestReport.class, null, null, null, "timestamp DESC", null)) {
+            ret.add(DisplayDateManager.getDateString(r.timestamp));
+        }
+        return ret;
+    }
+
+    static public List<SpeedTestReport> getSentMediaReports(){
+        return find(SpeedTestReport.class, "sent = true");
     }
 }
