@@ -15,7 +15,6 @@ public class MediaTestReport extends ActiveMeasurement {
     public MediaTestReport() {
     }
 
-
     public List<VideoResult> getVideoResults() {
         return VideoResult.find(VideoResult.class, "report = ?", new String(getId().toString()));
     }
