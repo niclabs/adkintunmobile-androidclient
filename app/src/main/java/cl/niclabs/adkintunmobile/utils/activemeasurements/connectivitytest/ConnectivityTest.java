@@ -157,9 +157,9 @@ public class ConnectivityTest {
                         webView.loadUrl(urls.get(i));
                     }
                     else{
-                        mainTest.onWebPageLoaded(i, 0, 0);
+                        mainTest.onWebPageLoaded(i, -1, -1);
                         SiteResult r = new SiteResult();
-                        r.setUpSiteResult(urls.get(i), false, 0, 0);
+                        r.setUpSiteResult(urls.get(i), false, -1, -1);
                         r.report = report;
                         r.save();
                         i++;
