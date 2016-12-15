@@ -11,12 +11,11 @@ import cl.niclabs.adkintunmobile.utils.display.DisplayDateManager;
 
 public class ConnectivityTestReport extends ActiveMeasurement {
 
-    @SerializedName("site_results")
-    public List<SiteResult> siteResults;
-
     public ConnectivityTestReport() {
-        super();
-        this.siteResults = new ArrayList<SiteResult>();
+        }
+
+    public List<SiteResult> getSiteResults(){
+        return SiteResult.find(SiteResult.class, "report = ?", new String(getId().toString()));
     }
 
     static public ArrayList<String> getTimestampsAllReports() {
