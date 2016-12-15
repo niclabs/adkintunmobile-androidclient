@@ -43,12 +43,20 @@ public class MediaTestReportDialog extends DialogFragment {
         MediaTestReport report = MediaTestReport.findFirst(MediaTestReport.class, "timestamp = ?", timestamp);
 
         // populate view with report data
-        TextView tvDate = (TextView) view.findViewById(R.id.tv_date);
         TextView tvInternetNetwork = (TextView) view.findViewById(R.id.tv_internet_network);
+        setupNetworkInterface(tvInternetNetwork, report);
+
+        ((TextView)view.findViewById(R.id.tv_date)).setText(DisplayDateManager.getDateString(report.timestamp));
         TextView tvVideoID = (TextView) view.findViewById(R.id.tv_host);
 
-        tvDate.setText(DisplayDateManager.getDateString(report.timestamp));
-        setupNetworkInterface(tvInternetNetwork, report);
+        for (VideoResult vr : report.getVideoResults()){
+            createVideoResult(
+                    vr.quality,
+                    Network.formatBytes(vr.downloadedBytes),
+                    (vr.loadedFraction*100) + "%",
+                    vr.bufferingTime + " ms");
+            AddTableSeparation();
+        }
 
         // set builder
         builder.setView(view);
@@ -61,14 +69,6 @@ public class MediaTestReportDialog extends DialogFragment {
         });
 
         // create
-        for (VideoResult vr : report.getVideoResults()){
-            createVideoResult(
-                    vr.quality,
-                    Network.formatBytes(vr.downloadedBytes),
-                    (vr.loadedFraction*100) + "%",
-                    vr.bufferingTime + " ms");
-            AddTableSeparation();
-        }
         return builder.create();
     }
 

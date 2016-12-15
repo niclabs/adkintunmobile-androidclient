@@ -218,4 +218,19 @@ public class Network {
         return String.format(Locale.getDefault(), "%.1f %sB",
                 bytes / Math.pow(unit, exp), pre);
     }
+
+    /**
+     * Entrega string con velocidad de transfercia de bits en human readable
+     * @param bits
+     * @return
+     */
+    static public String transferenceBitsSpeed(float bits) {
+        int unit = 1000;
+        if (bits < unit)
+            return bits + " bps";
+        int exp = (int) (Math.log(bits) / Math.log(unit));
+        String pre = ("kMGTPE").charAt(exp - 1) + "";
+        return String.format(Locale.getDefault(), "%.2f %sbps",
+                bits / Math.pow(unit, exp), pre);
+    }
 }
