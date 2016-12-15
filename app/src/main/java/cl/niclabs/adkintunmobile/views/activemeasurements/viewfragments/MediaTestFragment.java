@@ -49,15 +49,32 @@ public class MediaTestFragment extends ActiveMeasurementViewFragment {
 
         for (int i = 0; i < qualitiesToTest.length; i++){
             if(qualitiesToTest[i]){
-                TableRow tableRow = new TableRow(getContext());
-                TextView textView = new TextView(getContext());
-                textView.setText(qualitiesName[i] + ": " + qualitiesPixels[i]);
-                tableRow.addView(textView);
-                tableLayout.addView(tableRow);
+                addQualityToTable(i, qualitiesName[i], qualitiesPixels[i], tableLayout);
             }
         }
 
         return view;
+    }
+
+    private void addQualityToTable(int i, String qualityName, String qualityPixel, TableLayout tableLayout) {
+        TableRow tableRow = new TableRow(getContext());
+
+        TextView tvPos = new TextView(getContext());
+        tvPos.setText(Integer.toString(i+1));
+
+        TextView tvQuality = new TextView(getContext());
+        tvQuality.setText(qualityName);
+        tvQuality.setTextAppearance(getContext(), android.support.v7.appcompat.R.style.TextAppearance_AppCompat_Body2);
+
+        TextView tvPixels = new TextView(getContext());
+        tvPixels.setText(qualityPixel);
+
+        tableRow.addView(tvPos);
+        tableRow.addView(tvQuality);
+        tableRow.addView(tvPixels);
+
+        tableLayout.addView(tableRow);
+
     }
 
     @Override
