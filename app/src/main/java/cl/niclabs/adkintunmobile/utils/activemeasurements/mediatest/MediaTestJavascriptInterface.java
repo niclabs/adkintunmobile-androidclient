@@ -77,7 +77,7 @@ public class MediaTestJavascriptInterface {
 
     @JavascriptInterface
     public String getVideoId(){
-        return context.getString(R.string.settings_video_test_video_id);
+        return context.getString(R.string.media_test_video_id);
     }
 
     @JavascriptInterface
