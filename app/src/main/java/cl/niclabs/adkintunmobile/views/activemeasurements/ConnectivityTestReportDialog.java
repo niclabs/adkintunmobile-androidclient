@@ -6,17 +6,23 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AlertDialog;
+import android.view.Gravity;
 import android.view.View;
+import android.widget.TableLayout;
+import android.widget.TableRow;
 import android.widget.TextView;
 
 import cl.niclabs.adkintunmobile.R;
 import cl.niclabs.adkintunmobile.data.persistent.activemeasurement.ConnectivityTestReport;
+import cl.niclabs.adkintunmobile.data.persistent.activemeasurement.SiteResult;
 import cl.niclabs.adkintunmobile.data.persistent.visualization.ConnectionModeSample;
 import cl.niclabs.adkintunmobile.utils.display.DisplayDateManager;
+import cl.niclabs.adkintunmobile.utils.information.Network;
 
 public class ConnectivityTestReportDialog extends DialogFragment {
 
     public int value;
+    public TableLayout tlSiteResults;
 
     public ConnectivityTestReportDialog() {
     }
@@ -28,6 +34,8 @@ public class ConnectivityTestReportDialog extends DialogFragment {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         View view = getActivity().getLayoutInflater().inflate(R.layout.fragment_dialog_activemeasurement_connectivitytest, null);
 
+        tlSiteResults = (TableLayout) view.findViewById(R.id.tl_site_results);
+
         // get data to populate
         String timestamp = bundle.getString("value");
         ConnectivityTestReport report = ConnectivityTestReport.findFirst(ConnectivityTestReport.class, "timestamp = ?", timestamp);
@@ -37,6 +45,14 @@ public class ConnectivityTestReportDialog extends DialogFragment {
         setupNetworkInterface(tvInternetNetwork, report);
 
         ((TextView)view.findViewById(R.id.tv_date)).setText(DisplayDateManager.getDateString(report.timestamp));
+
+        for (SiteResult result : report.getSiteResults()){
+            createSiteResult(
+                    result.url,
+                    result.loadingTime,
+                    result.downloadedBytes
+            );
+        }
 
         // set builder
         builder.setView(view);
@@ -50,6 +66,30 @@ public class ConnectivityTestReportDialog extends DialogFragment {
 
         // create
         return builder.create();
+    }
+
+    private void createSiteResult(String url, long loadingTime, long downloadedBytes) {
+        TableRow tr = new TableRow(getContext());
+        tr.setLayoutParams(new TableRow.LayoutParams(0, TableRow.LayoutParams.WRAP_CONTENT));
+
+        TextView tvURL, tvLoadingTime, tvDownloadedBytes;
+        tvURL = createResultTextView(url, 4);
+        tvLoadingTime = createResultTextView(loadingTime + "ms", 2);
+        tvDownloadedBytes = createResultTextView(Network.formatBytes(downloadedBytes), 2);
+
+        tr.addView(tvURL);
+        tr.addView(tvLoadingTime);
+        tr.addView(tvDownloadedBytes);
+
+        tlSiteResults.addView(tr, new TableLayout.LayoutParams(TableLayout.LayoutParams.MATCH_PARENT, TableLayout.LayoutParams.WRAP_CONTENT));
+    }
+
+    public TextView createResultTextView(String customText, int layoutWeight){
+        TextView resTv = new TextView(getContext());
+        resTv.setLayoutParams(new TableRow.LayoutParams(0, TableRow.LayoutParams.MATCH_PARENT, layoutWeight));
+        resTv.setText(customText);
+        resTv.setTextAppearance(getContext(), android.support.v7.appcompat.R.style.TextAppearance_AppCompat_Light_SearchResult_Subtitle);
+        return resTv;
     }
 
     private void setupNetworkInterface(TextView tvInternetNetwork, ConnectivityTestReport report) {
