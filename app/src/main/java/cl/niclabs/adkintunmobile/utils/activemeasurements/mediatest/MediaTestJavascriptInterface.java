@@ -76,6 +76,11 @@ public class MediaTestJavascriptInterface {
     }
 
     @JavascriptInterface
+    public String getVideoId(){
+        return context.getString(R.string.settings_video_test_video_id);
+    }
+
+    @JavascriptInterface
     public void setMaxQuality(String maxQuality){
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
         SharedPreferences.Editor editor = sharedPreferences.edit();

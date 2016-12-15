@@ -14,6 +14,8 @@
         var timesBuffering = 0;
         var lastTime;
         var timeout;
+        var videoId =  window.JSInterface.getVideoId();
+
 
         function getQualities(){
             var options = ['tiny', 'small', 'medium', 'large', 'hd720'];
@@ -54,7 +56,7 @@
         function onPlayerReady(event) {
             window.JSInterface.startCountingBytes();
             timeout = setTimeout(playNextVideo, 15000);
-            player.loadVideoById({'videoId': 'gPmbH8eCUj4',
+            player.loadVideoById({'videoId': videoId,
                 //'startSeconds': 360,
                 //'endSeconds': 97,
                 'suggestedQuality': qualities[i]});
@@ -73,7 +75,7 @@
             else{
                 window.JSInterface.startCountingBytes();
                 timeout = setTimeout(playNextVideo, 15000);
-                player.loadVideoById({'videoId': 'gPmbH8eCUj4',
+                player.loadVideoById({'videoId': videoId,
                     //'startSeconds': 360,
                     //'endSeconds': 97,
                     'suggestedQuality': qualities[i]});
