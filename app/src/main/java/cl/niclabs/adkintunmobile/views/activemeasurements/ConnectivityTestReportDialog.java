@@ -48,6 +48,7 @@ public class ConnectivityTestReportDialog extends DialogFragment {
 
         for (SiteResult result : report.getSiteResults()){
             createSiteResult(
+                    result.loaded,
                     result.url,
                     result.loadingTime,
                     result.downloadedBytes
@@ -68,7 +69,7 @@ public class ConnectivityTestReportDialog extends DialogFragment {
         return builder.create();
     }
 
-    private void createSiteResult(String url, long loadingTime, long downloadedBytes) {
+    private void createSiteResult(boolean loaded, String url, long loadingTime, long downloadedBytes) {
         TableRow tr = new TableRow(getContext());
         tr.setLayoutParams(new TableRow.LayoutParams(0, TableRow.LayoutParams.WRAP_CONTENT));
 
@@ -76,6 +77,15 @@ public class ConnectivityTestReportDialog extends DialogFragment {
         tvURL = createResultTextView(url, 4);
         tvLoadingTime = createResultTextView(loadingTime + "ms", 2);
         tvDownloadedBytes = createResultTextView(Network.formatBytes(downloadedBytes), 2);
+
+        Drawable img;
+        if (loaded)
+            img = getContext().getResources().getDrawable(R.drawable.ic_done_black);
+        else
+            img = getContext().getResources().getDrawable(R.drawable.ic_clear_black);
+        img.setBounds( 0, 0, 60, 60);
+        tvURL.setCompoundDrawables(img, null, null, null);
+
 
         tr.addView(tvURL);
         tr.addView(tvLoadingTime);
@@ -88,7 +98,7 @@ public class ConnectivityTestReportDialog extends DialogFragment {
         TextView resTv = new TextView(getContext());
         resTv.setLayoutParams(new TableRow.LayoutParams(0, TableRow.LayoutParams.MATCH_PARENT, layoutWeight));
         resTv.setText(customText);
-        resTv.setTextAppearance(getContext(), android.support.v7.appcompat.R.style.TextAppearance_AppCompat_Light_SearchResult_Subtitle);
+        resTv.setTextAppearance(getContext(), android.support.v7.appcompat.R.style.TextAppearance_AppCompat_Subhead);
         return resTv;
     }
 
