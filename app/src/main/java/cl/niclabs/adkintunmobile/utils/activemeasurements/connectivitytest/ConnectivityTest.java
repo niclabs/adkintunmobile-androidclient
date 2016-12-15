@@ -1,9 +1,12 @@
 package cl.niclabs.adkintunmobile.utils.activemeasurements.connectivitytest;
 
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.net.TrafficStats;
 import android.os.AsyncTask;
 import android.os.Process;
+import android.preference.Preference;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
@@ -23,6 +26,9 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 import cl.niclabs.adkintunmobile.R;
+import cl.niclabs.adkintunmobile.data.persistent.activemeasurement.ConnectivityTestReport;
+import cl.niclabs.adkintunmobile.data.persistent.activemeasurement.MediaTestReport;
+import cl.niclabs.adkintunmobile.data.persistent.activemeasurement.SiteResult;
 import cl.niclabs.adkintunmobile.views.activemeasurements.ConnectivityTestDialog;
 import cz.msebera.android.httpclient.Header;
 
@@ -30,11 +36,10 @@ public class ConnectivityTest {
     private ConnectivityTestDialog mainTest;
     private WebView webView;
     private ArrayList<String> urls = new ArrayList<>();
-    private ArrayList<String> names = new ArrayList<>();
-    private long loadingTime[];
-    private long sizeBytes[];
     private int i = 0;
     private AsyncTask currentTask;
+
+    private ConnectivityTestReport report;
 
     public ConnectivityTest(ConnectivityTestDialog mainTest, WebView webView) {
         this.mainTest = mainTest;
@@ -42,40 +47,16 @@ public class ConnectivityTest {
     }
 
     public void start() {
-        Log.d("JSON", "API STARTING...");
+        this.report = new ConnectivityTestReport();
+        this.report.setUpReport(mainTest.getContext());
+        this.report.save();
 
-        AsyncHttpClient client = new AsyncHttpClient();
-
-        client.get(mainTest.getString(R.string.speed_test_server) + ":5000/pingSites/", new JsonHttpResponseHandler(){
-            @Override
-            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-                try {
-                    JSONArray urlsArray = response.getJSONArray("data");
-                    for (int i=0; i<urlsArray.length(); i++){
-                        JSONObject server = urlsArray.getJSONObject(i);
-                        urls.add(server.getString("url"));
-                        names.add(server.getString("name"));
-                    }
-                    loadingTime = new long[urls.size()];
-                    sizeBytes = new long[urls.size()];
-
-                } catch (JSONException e) {
-                    Log.d("JSON", "API JSONException");
-                    e.printStackTrace();
-                }
-                startLoading();
-            };
-            @Override
-            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
-                //manejo en caso de falla
-                Log.d("JSON", "API FAIL...");
-                //mainTest.onWebPageTestFinish();
-            }
-            @Override
-            public boolean getUseSynchronousMode() {
-                return false;
-            }
-        });
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(mainTest.getContext());
+        int sitesCount = sharedPreferences.getInt(mainTest.getString(R.string.settings_connectivity_sites_count_key), 0);
+        for (int i=1; i<=sitesCount; i++){
+            urls.add("http://" + sharedPreferences.getString(mainTest.getString(R.string.settings_connectivity_test_site_) + i, ""));
+        }
+        startLoading();
     }
 
     private void loadNextPage(){
@@ -93,7 +74,7 @@ public class ConnectivityTest {
                 @Override
                 public void run() {
                     setUpWebView();
-                    mainTest.setUpTextView(names);
+                    mainTest.setUpTextView(urls);
                     loadNextPage();
                 }
             });
@@ -141,14 +122,18 @@ public class ConnectivityTest {
                 lastFinished = url;
                 webView.loadUrl("about:blank");
                 finishTime = System.currentTimeMillis();
-                loadingTime[i] = finishTime - startTime;
+                long loadingTime = finishTime - startTime;
 
                 long currentRxBytes = TrafficStats.getUidRxBytes(Process.myUid());
                 long currentTxBytes = TrafficStats.getUidTxBytes(Process.myUid());
 
-                sizeBytes[i] = (currentRxBytes - ConnectivityTestTask.previousRxBytes) + (currentTxBytes - ConnectivityTestTask.previousTxBytes);
+                long sizeBytes = (currentRxBytes - ConnectivityTestTask.previousRxBytes) + (currentTxBytes - ConnectivityTestTask.previousTxBytes);
 
-                mainTest.onWebPageLoaded(i, loadingTime[i], sizeBytes[i]);
+                mainTest.onWebPageLoaded(i, loadingTime, sizeBytes);
+                SiteResult r = new SiteResult();
+                r.setUpSiteResult(urls.get(i), true, loadingTime, sizeBytes);
+                r.report = report;
+                r.save();
                 i++;
                 startTime = -1;
                 loadNextPage();
@@ -172,8 +157,11 @@ public class ConnectivityTest {
                         webView.loadUrl(urls.get(i));
                     }
                     else{
-                        loadingTime[i] = -1;
-                        mainTest.onWebPageLoaded(i, loadingTime[i], sizeBytes[i]);
+                        mainTest.onWebPageLoaded(i, 0, 0);
+                        SiteResult r = new SiteResult();
+                        r.setUpSiteResult(urls.get(i), false, 0, 0);
+                        r.report = report;
+                        r.save();
                         i++;
                         loadNextPage();
                     }

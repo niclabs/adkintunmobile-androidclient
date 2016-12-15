@@ -17,6 +17,7 @@ import com.jjoe64.graphview.series.LineGraphSeries;
 
 import cl.niclabs.adkintunmobile.R;
 import cl.niclabs.adkintunmobile.utils.activemeasurements.speedtest.SpeedTest;
+import cl.niclabs.adkintunmobile.utils.information.Network;
 import fr.bmartel.speedtest.SpeedTestMode;
 
 public class SpeedTestDialog extends DialogFragment{
@@ -46,7 +47,7 @@ public class SpeedTestDialog extends DialogFragment{
         getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                downloadTransferRate.setText((int) (transferRateBit / 1000) + " ");
+                downloadTransferRate.setText(Network.transferenceBitsSpeed(transferRateBit));
                 if (downloadSeries.isEmpty()){
                     DataPoint firstPoint = new DataPoint(0, transferRateBit/1000);
                     downloadSeries.appendData(firstPoint, false, 40000);
@@ -64,7 +65,7 @@ public class SpeedTestDialog extends DialogFragment{
         getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                uploadTransferRate.setText((int) (transferRateBit / 1000) + " ");
+                uploadTransferRate.setText(Network.transferenceBitsSpeed(transferRateBit));
                 if (uploadSeries.isEmpty()){
                     DataPoint firstPoint = new DataPoint(0, transferRateBit/1000);
                     uploadSeries.appendData(firstPoint, false, 40000);

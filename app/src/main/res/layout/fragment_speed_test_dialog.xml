@@ -54,13 +54,6 @@
                         android:layout_weight="2"
                         android:gravity="right" />
 
-                    <TextView
-                        android:layout_width="0dp"
-                        android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:text="kbps"
-                        android:id="@+id/textView2"
-                        android:layout_weight="1"
-                        android:layout_marginLeft="5dp" />
                 </TableRow>
             </TableLayout>
 
@@ -108,14 +101,6 @@
                         android:gravity="right"
                         android:layout_height="wrap_content" />
 
-                    <TextView
-                        android:layout_width="0dp"
-                        android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:text="kbps"
-                        android:id="@+id/textView6"
-                        android:layout_weight="1"
-                        android:layout_marginLeft="5dp"
-                        android:layout_height="wrap_content" />
                 </TableRow>
             </TableLayout>
         </TableRow>
