@@ -90,7 +90,7 @@ public class MediaTestReportDialog extends DialogFragment {
 
     public void createVideoResult(String resolution, String size, String percentage, String buffering){
         TableRow tr1 = new TableRow(getContext());
-        tr1.setLayoutParams(new TableRow.LayoutParams(0, TableRow.LayoutParams.MATCH_PARENT));
+        tr1.setLayoutParams(new TableRow.LayoutParams(0, TableRow.LayoutParams.WRAP_CONTENT));
 
         TextView tvQualityTitle, tvQualityValue, tvSizeTitle,tvSizeValue;
 
@@ -108,7 +108,7 @@ public class MediaTestReportDialog extends DialogFragment {
 
 
         TableRow tr2 = new TableRow(getContext());
-        tr2.setLayoutParams(new TableRow.LayoutParams(0, TableRow.LayoutParams.MATCH_PARENT));
+        tr2.setLayoutParams(new TableRow.LayoutParams(0, TableRow.LayoutParams.WRAP_CONTENT));
 
         TextView tvPercentageTitle, tvPercentageValue, tvBufferingTitle,tvBufferingValue;
 
@@ -128,7 +128,7 @@ public class MediaTestReportDialog extends DialogFragment {
     public TextView createResultTextView(String customText){
         TextView resTv = new TextView(getContext());
         resTv.setGravity(Gravity.CENTER);
-        resTv.setLayoutParams(new TableRow.LayoutParams(0, TableRow.LayoutParams.WRAP_CONTENT, 0));
+        resTv.setLayoutParams(new TableRow.LayoutParams(0, TableRow.LayoutParams.MATCH_PARENT, 0));
         resTv.setText(customText);
         resTv.setTextAppearance(getContext(), android.support.v7.appcompat.R.style.TextAppearance_AppCompat_Light_SearchResult_Subtitle);
         return resTv;
@@ -143,18 +143,10 @@ public class MediaTestReportDialog extends DialogFragment {
     }
 
     public void AddTableSeparation(){
-        LinearLayout ll = new LinearLayout(getContext());
-        ll.setOrientation(LinearLayout.VERTICAL);
-        LinearLayout.LayoutParams layoutParams = new
-                LinearLayout.LayoutParams( LinearLayout.LayoutParams.MATCH_PARENT, 1);
-        layoutParams.setMargins(8, 8, 8, 8);
-
         TextView resTv = new TextView(getContext());
-        resTv.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, 1));
+        resTv.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, 2));
         resTv.setBackgroundColor(getResources().getColor(R.color.doughnut_no_info));
 
-        ll.addView(resTv);
-
-        tlVideoResults.addView(ll, new TableLayout.LayoutParams(TableLayout.LayoutParams.MATCH_PARENT, TableLayout.LayoutParams.WRAP_CONTENT));;
+        tlVideoResults.addView(resTv);;
     }
 }
