@@ -21,8 +21,8 @@ public class SpeedTest {
         report = new SpeedTestReport();
         report.setUpReport(testDialog.getContext());
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(testDialog.getContext());
-        String downloadSizeValue = sharedPreferences.getString(testDialog.getString(R.string.settings_speed_test_download_size_key), "10");
-        String uploadSizeValue = sharedPreferences.getString(testDialog.getString(R.string.settings_speed_test_upload_size_key), "10");
+        String downloadSizeValue = sharedPreferences.getString(testDialog.getString(R.string.settings_speed_test_download_size_key), "1000000");
+        String uploadSizeValue = sharedPreferences.getString(testDialog.getString(R.string.settings_speed_test_upload_size_key), "1000000");
         server = sharedPreferences.getString(testDialog.getString(R.string.settings_speed_test_server_key), "");
         downloadSize = Integer.parseInt(downloadSizeValue);
         uploadSize = Integer.parseInt(uploadSizeValue);
