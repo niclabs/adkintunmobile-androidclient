@@ -2,6 +2,7 @@ package cl.niclabs.adkintunmobile.views.activemeasurements;
 
 import android.app.Dialog;
 import android.content.DialogInterface;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AlertDialog;
@@ -9,6 +10,9 @@ import android.view.View;
 import android.widget.TextView;
 
 import cl.niclabs.adkintunmobile.R;
+import cl.niclabs.adkintunmobile.data.persistent.activemeasurement.ConnectivityTestReport;
+import cl.niclabs.adkintunmobile.data.persistent.visualization.ConnectionModeSample;
+import cl.niclabs.adkintunmobile.utils.display.DisplayDateManager;
 
 public class ConnectivityTestReportDialog extends DialogFragment {
 
@@ -24,9 +28,15 @@ public class ConnectivityTestReportDialog extends DialogFragment {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         View view = getActivity().getLayoutInflater().inflate(R.layout.fragment_dialog_activemeasurement_connectivitytest, null);
 
+        // get data to populate
+        String timestamp = bundle.getString("value");
+        ConnectivityTestReport report = ConnectivityTestReport.findFirst(ConnectivityTestReport.class, "timestamp = ?", timestamp);
+
         // populate view with report data
-        TextView tvDate = (TextView) view.findViewById(R.id.tv_date);
-        tvDate.setText(bundle.getString("value"));
+        TextView tvInternetNetwork = (TextView) view.findViewById(R.id.tv_internet_network);
+        setupNetworkInterface(tvInternetNetwork, report);
+
+        ((TextView)view.findViewById(R.id.tv_date)).setText(DisplayDateManager.getDateString(report.timestamp));
 
         // set builder
         builder.setView(view);
@@ -40,5 +50,21 @@ public class ConnectivityTestReportDialog extends DialogFragment {
 
         // create
         return builder.create();
+    }
+
+    private void setupNetworkInterface(TextView tvInternetNetwork, ConnectivityTestReport report) {
+        if(report.networkInterface.activeInterface == ConnectionModeSample.MOBILE){
+            tvInternetNetwork.setText(R.string.view_connection_mode_mobile);
+            Drawable img = getContext().getResources().getDrawable(R.drawable.ic_02_mobile);
+            img.setBounds( 0, 0, 60, 60 );
+            tvInternetNetwork.setCompoundDrawables(img,null,null,null);
+        }else if(report.networkInterface.activeInterface == ConnectionModeSample.WIFI){
+            tvInternetNetwork.setText(report.networkInterface.ssid);
+            Drawable img = getContext().getResources().getDrawable(R.drawable.ic_01_wifi);
+            img.setBounds( 0, 0, 60, 60 );
+            tvInternetNetwork.setCompoundDrawables(img,null,null,null);
+        }else {
+            // None
+        }
     }
 }
