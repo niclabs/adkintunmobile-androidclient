@@ -22,11 +22,11 @@ import cl.niclabs.adkintunmobile.views.activemeasurements.ConnectivityTestReport
 import cl.niclabs.adkintunmobile.views.activemeasurements.MediaTestReportDialog;
 import cl.niclabs.adkintunmobile.views.activemeasurements.SpeedTestReportDialog;
 
-public class HistoryActiveMeasurementsFragment extends ListFragment implements AdapterView.OnItemClickListener {
+public class ActiveMeasurementsHistoryFragment extends ListFragment implements AdapterView.OnItemClickListener {
 
     public ArrayList<String> reportsDatetimeList, reportTimestampList;
 
-    public HistoryActiveMeasurementsFragment() {
+    public ActiveMeasurementsHistoryFragment() {
     }
 
     @Override

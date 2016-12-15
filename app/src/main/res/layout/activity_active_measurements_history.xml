@@ -24,7 +24,7 @@
     <!-- Contenido -->
     <fragment
         android:id="@+id/fragment1"
-        android:name="cl.niclabs.adkintunmobile.views.activemeasurements.viewfragments.HistoryActiveMeasurementsFragment"
+        android:name="cl.niclabs.adkintunmobile.views.activemeasurements.viewfragments.ActiveMeasurementsHistoryFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
