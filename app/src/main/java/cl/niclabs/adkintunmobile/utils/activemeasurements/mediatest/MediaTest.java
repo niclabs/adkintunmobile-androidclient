@@ -31,6 +31,7 @@ public class MediaTest {
 
     public void start() {
         this.report = new MediaTestReport();
+        this.report.videoId = getContext().getString(R.string.media_test_video_id);
         this.report.setUpReport(getContext());
         this.report.save();
 
