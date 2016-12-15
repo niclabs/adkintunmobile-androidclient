@@ -72,6 +72,7 @@
 
     <string name="settings_video_test_category_title">Calidades de prueba</string>
     <string name="settings_video_test_category_key">media_test_key</string>
+    <string name="settings_video_test_video_id">gPmbH8eCUj4</string>
     <string name="settings_video_test_max_quality_key">media_test_max_quality</string>
     <string name="settings_video_test_quality_tiny_pixels">144p</string>
     <string name="settings_video_test_quality_tiny_name">tiny</string>

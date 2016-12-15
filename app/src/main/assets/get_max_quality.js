@@ -9,6 +9,8 @@
         firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
         var player;
         var i = 0;
+        var videoId =  window.JSInterface.getVideoId();
+
 
         function onYouTubeIframeAPIReady() {
             player = new YT.Player('player', {
@@ -34,7 +36,7 @@
         }
 
         function onPlayerReady(event) {
-            player.loadVideoById({'videoId': 'gPmbH8eCUj4',
+            player.loadVideoById({'videoId': videoId,
                 //'startSeconds': 360,
                 //'endSeconds': 97,
                 'suggestedQuality': qualities[i]});
@@ -44,7 +46,7 @@
         function playNextVideo(){
             var loadedFraction = player.getVideoLoadedFraction()
             i = i + 1;
-            player.loadVideoById({'videoId': 'gPmbH8eCUj4',
+            player.loadVideoById({'videoId': videoId,
                 //'startSeconds': 360,
                 //'endSeconds': 97,
                 'suggestedQuality': qualities[i]});
