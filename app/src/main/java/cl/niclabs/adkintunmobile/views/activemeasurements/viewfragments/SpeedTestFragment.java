@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import cl.niclabs.adkintunmobile.R;
+import cl.niclabs.adkintunmobile.utils.information.Network;
 import cl.niclabs.adkintunmobile.views.activemeasurements.ActiveMeasurementsHistoryActivity;
 import cl.niclabs.adkintunmobile.views.activemeasurements.viewfragments.settingsfragments.ActiveMeasurementsSettingsActivity;
 
@@ -29,11 +30,11 @@ public class SpeedTestFragment extends ActiveMeasurementViewFragment {
         View view =  inflater.inflate(R.layout.fragment_active_measurements_speedtest, container, false);
 
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getContext());
-        String downloadSize = sharedPreferences.getString(getString(R.string.settings_speed_test_download_size_key), "10");
-        String uploadSize = sharedPreferences.getString(getString(R.string.settings_speed_test_upload_size_key), "10");
+        long downloadSize = Long.parseLong(sharedPreferences.getString(getString(R.string.settings_speed_test_download_size_key), "1000000"));
+        long uploadSize = Long.parseLong(sharedPreferences.getString(getString(R.string.settings_speed_test_upload_size_key), "1000000"));
 
-        ((TextView) view.findViewById(R.id.download_size)).setText(downloadSize + " MB");
-        ((TextView) view.findViewById(R.id.upload_size)).setText(uploadSize + " MB");
+        ((TextView) view.findViewById(R.id.download_size)).setText(Network.formatBytes(downloadSize));
+        ((TextView) view.findViewById(R.id.upload_size)).setText(Network.formatBytes(uploadSize));
 
         return view;
     }

@@ -3,6 +3,7 @@ package cl.niclabs.adkintunmobile.utils.activemeasurements.speedtest;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import cl.niclabs.adkintunmobile.utils.information.Network;
 import fr.bmartel.speedtest.ISpeedTestListener;
 import fr.bmartel.speedtest.SpeedTestError;
 import fr.bmartel.speedtest.SpeedTestMode;
@@ -72,10 +73,10 @@ public class SpeedTestTask extends AsyncTask<SpeedTestMode, Void, Void> {
 
         switch (mode){
             case DOWNLOAD:
-                speedTestSocket.startDownload(host, 5000, "/speedtest/" + fileOctetSize);
+                speedTestSocket.startDownload(host, 5000, "/speedtest/" + (fileOctetSize/1000000));
                 break;
             case UPLOAD:
-                speedTestSocket.startUpload(host, 5000, "/speedtest/", fileOctetSize*1000000);
+                speedTestSocket.startUpload(host, 5000, "/speedtest/", fileOctetSize);
                 break;
         }
 
