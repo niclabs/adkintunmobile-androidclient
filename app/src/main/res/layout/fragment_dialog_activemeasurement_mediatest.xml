@@ -52,29 +52,6 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent">
                     <TextView
-                        android:text="@string/view_active_measurements_history_videoid"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="0"
-                        android:gravity="center_vertical" />
-                    <TextView
-                        android:text="--"
-                        android:id="@+id/tv_host"
-                        android:gravity="center"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="0"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Widget.PopupMenu.Small" />
-                </TableRow>
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_margin="@dimen/separation_little"
-                    android:background="@color/doughnut_no_info"/>
-                <TableRow
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent">
-                    <TextView
                         android:text="@string/view_active_measurements_history_timestamp"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
