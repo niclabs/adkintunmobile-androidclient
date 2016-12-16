@@ -9,6 +9,7 @@
     <color name="textColorSecondary">#727272</color>
     <color name="colorAccent">#359bc7</color>
     <color name="window_background">#a7c4c1</color>
+    <color name="webview_background">#ffffff</color>
 
     <!-- Tutorials -->
     <color name="tutorial_background">#f03b9986</color>

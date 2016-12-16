@@ -22,7 +22,8 @@ public abstract class CheckServerTask extends AsyncTask<String, Void, Void> {
     @Override
     protected Void doInBackground(String... params) {
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
-        String serverUrl = sharedPreferences.getString(context.getString(R.string.settings_speed_test_server_key), "0");
+        String serverHost = sharedPreferences.getString(context.getString(R.string.settings_speed_test_server_host_key), "0");
+        String serverPort = sharedPreferences.getString(context.getString(R.string.settings_speed_test_server_port_key), "0");
 
         //final String serverUrl = context.getString(R.string.speed_test_server) + ":5000/activeServers/";
 
@@ -30,7 +31,7 @@ public abstract class CheckServerTask extends AsyncTask<String, Void, Void> {
         HttpURLConnection urlConnection = null;
         int responseCode = -1;
         try {
-            url = new URL("http://" + serverUrl + ":5000/status");
+            url = new URL(serverHost + ":" + serverPort + "/status/");
             urlConnection = (HttpURLConnection) url.openConnection();
             urlConnection.setRequestMethod("HEAD");
             urlConnection.setConnectTimeout(1000);

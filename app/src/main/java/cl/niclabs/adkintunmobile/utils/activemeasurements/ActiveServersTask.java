@@ -21,15 +21,18 @@ import cl.niclabs.adkintunmobile.R;
 import cz.msebera.android.httpclient.Header;
 
 public abstract class ActiveServersTask extends AsyncTask<String, Void, Void> {
-    private ArrayList<String> serversUrlList;
-    Context context;
+    private ArrayList<String> serverPortsList;
+    private ArrayList<String> serverHostsList;
+    private Context context;
 
     public ActiveServersTask(Context context){
         this.context = context;
     }
     @Override
     protected Void doInBackground(String... params) {
-        final String url = context.getString(R.string.speed_test_server) + ":5000/activeServers/";
+        String host = context.getString(R.string.speed_test_server_host);
+        String port = context.getString(R.string.speed_test_server_port);
+        final String url = host + ":" + port + "/activeServers/";
         AsyncHttpClient client = new AsyncHttpClient();
         client.get(url, new JsonHttpResponseHandler() {
 
@@ -37,17 +40,19 @@ public abstract class ActiveServersTask extends AsyncTask<String, Void, Void> {
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                 try {
                     JSONArray activeServers = response.getJSONArray("data");
-                    serversUrlList = new ArrayList<>();
+                    serverHostsList = new ArrayList<>();
+                    serverPortsList = new ArrayList<>();
 
                     for (int i=0; i<activeServers.length(); i++){
                         JSONObject server = activeServers.getJSONObject(i);
-                        String serverUrl = server.getString("url");
+                        String serverHost = server.getString("host");
+                        String serverPort = server.getString("port");
 
                         URL url;
                         HttpURLConnection urlConnection = null;
                         int responseCode = -1;
                         try {
-                            url = new URL(serverUrl + "status");
+                            url = new URL(serverHost + ":" + serverPort + "/status/");
                             urlConnection = (HttpURLConnection) url.openConnection();
                             urlConnection.setRequestMethod("HEAD");
                             urlConnection.setConnectTimeout(1000);
@@ -58,16 +63,17 @@ public abstract class ActiveServersTask extends AsyncTask<String, Void, Void> {
                             if (urlConnection != null)
                                 urlConnection.disconnect();
                             if (responseCode >= 200 && responseCode<400){
-                                serverUrl = serverUrl.substring(7, serverUrl.indexOf(":5000"));
-                                serversUrlList.add(serverUrl);
+                                serverHostsList.add(serverHost);
+                                serverPortsList.add(serverPort);
                             }
                         }
                     }
                     Bundle activeServersBundle = new Bundle();
-                    for (int i=0; i<serversUrlList.size(); i++){
-                        activeServersBundle.putString("serverUrl" + i, serversUrlList.get(i));
+                    for (int i = 0; i< serverHostsList.size(); i++){
+                        activeServersBundle.putString("serverHost" + i, serverHostsList.get(i));
+                        activeServersBundle.putString("serverPort" + i, serverPortsList.get(i));
                     }
-                    activeServersBundle.putInt("count", serversUrlList.size());
+                    activeServersBundle.putInt("count", serverHostsList.size());
                     activeServersBundle.putBoolean("shouldExecute", false);
                     handleActiveServers(activeServersBundle);
 

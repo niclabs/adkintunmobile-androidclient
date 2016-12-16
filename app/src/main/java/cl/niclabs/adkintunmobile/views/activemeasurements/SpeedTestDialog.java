@@ -29,8 +29,8 @@ public class SpeedTestDialog extends DialogFragment{
     private TextView downloadTransferRate;
     private TextView uploadTransferRate;
     private SpeedTest speedTest;
-    Button positiveButton;
-    Button negativeButton;
+    private Button positiveButton;
+    private Button negativeButton;
 
     public void onSpeedTestProgress(SpeedTestMode mode, int progressPercent, float transferRateBit) {
         switch (mode){
@@ -82,12 +82,12 @@ public class SpeedTestDialog extends DialogFragment{
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+        builder.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
                 speedTest.cancelTask();
             }
         });
-        builder.setPositiveButton("Aceptar", null);
+        builder.setPositiveButton(android.R.string.ok, null);
 
         LayoutInflater inflater = getActivity().getLayoutInflater();
         view = inflater.inflate(R.layout.fragment_speed_test_dialog, null);
@@ -138,11 +138,11 @@ public class SpeedTestDialog extends DialogFragment{
 
     public void onSpeedTestFinish() {
         getActivity().runOnUiThread(new Runnable() {
-                                        @Override
-                                        public void run() {
-                                            positiveButton.setVisibility(View.VISIBLE);
-                                            negativeButton.setVisibility(View.GONE);
-                                        }
-                                    });
+            @Override
+            public void run() {
+                positiveButton.setVisibility(View.VISIBLE);
+                negativeButton.setVisibility(View.GONE);
+            }
+        });
     }
 }

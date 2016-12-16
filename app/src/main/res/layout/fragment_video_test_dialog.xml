@@ -17,8 +17,7 @@
             android:id="@+id/webView_tableRow"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:padding="1dp"
-            android:background="#000000">
+>
             <WebView
                 android:layout_width="match_parent"
                 android:layout_height="200dp"

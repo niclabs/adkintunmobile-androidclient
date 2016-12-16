@@ -12,7 +12,8 @@ import fr.bmartel.speedtest.SpeedTestMode;
 public class SpeedTest {
     private SpeedTestDialog testDialog;
     private int downloadSize, uploadSize;
-    private String server;
+    private String serverHost;
+    private String serverPort;
     private AsyncTask currentTask;
     SpeedTestReport report;
 
@@ -23,21 +24,22 @@ public class SpeedTest {
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(testDialog.getContext());
         String downloadSizeValue = sharedPreferences.getString(testDialog.getString(R.string.settings_speed_test_download_size_key), "1000000");
         String uploadSizeValue = sharedPreferences.getString(testDialog.getString(R.string.settings_speed_test_upload_size_key), "1000000");
-        server = sharedPreferences.getString(testDialog.getString(R.string.settings_speed_test_server_key), "");
+        serverHost = sharedPreferences.getString(testDialog.getString(R.string.settings_speed_test_server_host_key), "");
+        serverPort = sharedPreferences.getString(testDialog.getString(R.string.settings_speed_test_server_port_key), "");
         downloadSize = Integer.parseInt(downloadSizeValue);
         uploadSize = Integer.parseInt(uploadSizeValue);
 
-        report.host = server;
+        report.host = serverHost;
         report.downloadSize = downloadSize;
         report.uploadSize = uploadSize;
     }
 
     public void start(){
-        startSpeedTest(SpeedTestMode.DOWNLOAD, server, downloadSize);
+        startSpeedTest(SpeedTestMode.DOWNLOAD, serverHost, serverPort, downloadSize);
     }
 
-    private void startSpeedTest(SpeedTestMode mode, String host, int fileOctetSize) {
-        currentTask = new SpeedTestTask(this, host, fileOctetSize).execute(mode);
+    private void startSpeedTest(SpeedTestMode mode, String host, String port, int fileOctetSize) {
+        currentTask = new SpeedTestTask(this, host, port, fileOctetSize).execute(mode);
     }
 
     protected void onSpeedTestTaskFinish(SpeedTestMode mode, fr.bmartel.speedtest.SpeedTestReport finalReport) {
@@ -45,7 +47,7 @@ public class SpeedTest {
             case DOWNLOAD:
                 report.downloadSpeed = finalReport.getTransferRateBit();
                 report.elapsedDownloadTime = finalReport.getReportTime() - finalReport.getStartTime();
-                startSpeedTest(SpeedTestMode.UPLOAD, server, uploadSize);
+                startSpeedTest(SpeedTestMode.UPLOAD, serverHost, serverPort, uploadSize);
                 break;
             case UPLOAD:
                 report.uploadSpeed = finalReport.getTransferRateBit();

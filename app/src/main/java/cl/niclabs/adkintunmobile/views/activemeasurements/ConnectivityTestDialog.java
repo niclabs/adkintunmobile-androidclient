@@ -9,6 +9,7 @@ import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.webkit.WebView;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TableLayout;
 import android.widget.TableRow;
@@ -27,6 +28,8 @@ public class ConnectivityTestDialog extends DialogFragment{
     private WebView webView;
     private TableLayout tableLayout;
     private ConnectivityTest connectivityTest;
+    Button positiveButton;
+    Button negativeButton;
 
     public void onWebPageStarted(int index){
         TableRow tableRow = (TableRow) tableLayout.getChildAt(index);
@@ -68,11 +71,12 @@ public class ConnectivityTestDialog extends DialogFragment{
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+        builder.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         connectivityTest.cancelTask();
                     }
                 });
+        builder.setPositiveButton(android.R.string.ok, null);
 
         LayoutInflater inflater = getActivity().getLayoutInflater();
         view = inflater.inflate(R.layout.fragment_connectivity_test_dialog, null);
@@ -85,7 +89,27 @@ public class ConnectivityTestDialog extends DialogFragment{
         connectivityTest.start();
 
         builder.setView(view);
-        return builder.create();
+        AlertDialog dialog = builder.create();
+        dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+            @Override
+            public void onShow(DialogInterface dialog) {
+                positiveButton = ((AlertDialog) dialog).getButton(AlertDialog.BUTTON_POSITIVE);
+                negativeButton = ((AlertDialog) dialog).getButton(AlertDialog.BUTTON_NEGATIVE);
+                positiveButton.setVisibility(View.GONE);
+            }
+        });
+        return dialog;
     }
 
+    public void onConnectivityTestFinish() {
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                webView.setVisibility(View.GONE);
+                ((TableRow) webView.getParent()).setPadding(0,0,0,0);
+                positiveButton.setVisibility(View.VISIBLE);
+                negativeButton.setVisibility(View.GONE);
+            }
+        });
+    }
 }

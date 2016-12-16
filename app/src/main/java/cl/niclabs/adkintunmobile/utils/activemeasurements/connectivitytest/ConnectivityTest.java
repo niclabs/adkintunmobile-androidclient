@@ -54,7 +54,7 @@ public class ConnectivityTest {
             currentTask = new ConnectivityTestTask(this).execute(urls.get(i));
         }
         else {
-            //mainTest.onWebPageTestFinish();
+            mainTest.onConnectivityTestFinish();
         }
     }
 

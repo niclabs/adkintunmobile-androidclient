@@ -15,6 +15,7 @@ import android.view.View;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TableLayout;
 import android.widget.TableRow;
@@ -34,6 +35,8 @@ public class MediaTestDialog extends DialogFragment{
     private WebView webView;
     private MediaTest mediaTest;
     private int index = 0;
+    private Button positiveButton;
+    private Button negativeButton;
 
     public void onQualityTestStarted(){
         getActivity().runOnUiThread(new Runnable() {
@@ -100,13 +103,24 @@ public class MediaTestDialog extends DialogFragment{
         LayoutInflater inflater = getActivity().getLayoutInflater();
         for (int i=0; i<qualitiesNames.length; i++){
             if (mediaTest.getQuality(qualitiesNames[i])) {
-                Log.d("hola", qualitiesPixels[i]);
                 TableRow tableRow = (TableRow) inflater.inflate(R.layout.video_qualities_dialog_row, null);
                 ((TextView) tableRow.findViewById(R.id.quality)).setText(qualitiesPixels[i]);
 
                 tableLayout.addView(tableRow, index++);
             }
         }
+    }
+
+    public void onMediaTestFinish() {
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                webView.loadUrl("about:blank");
+                webView.setVisibility(View.GONE);
+                positiveButton.setVisibility(View.VISIBLE);
+                negativeButton.setVisibility(View.GONE);
+            }
+        });
     }
 
     @Override
@@ -117,6 +131,7 @@ public class MediaTestDialog extends DialogFragment{
                 //mediaTest.cancelTask();
             }
         });
+        builder.setPositiveButton(android.R.string.ok, null);
 
         LayoutInflater inflater = getActivity().getLayoutInflater();
         view = inflater.inflate(R.layout.fragment_video_test_dialog, null);
@@ -136,6 +151,15 @@ public class MediaTestDialog extends DialogFragment{
             mediaTest.start();
         }
         builder.setView(view);
-        return builder.create();
+        AlertDialog dialog = builder.create();
+        dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+            @Override
+            public void onShow(DialogInterface dialog) {
+                positiveButton = ((AlertDialog) dialog).getButton(AlertDialog.BUTTON_POSITIVE);
+                negativeButton = ((AlertDialog) dialog).getButton(AlertDialog.BUTTON_NEGATIVE);
+                positiveButton.setVisibility(View.GONE);
+            }
+        });
+        return dialog;
     }
 }

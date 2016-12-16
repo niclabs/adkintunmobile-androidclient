@@ -13,11 +13,13 @@ public class SpeedTestTask extends AsyncTask<SpeedTestMode, Void, Void> {
     private int progressPercent = -1;
     private SpeedTest speedTest;
     private final String host;
+    private final String port;
     private int fileOctetSize;
 
-    public SpeedTestTask(SpeedTest speedTest, String host, int fileOctetSize){
+    public SpeedTestTask(SpeedTest speedTest, String host, String port, int fileOctetSize){
         this.speedTest = speedTest;
-        this.host = host;
+        this.host = host.substring(host.indexOf("//") + 2);
+        this.port = port;
         this.fileOctetSize = fileOctetSize;
     }
 
@@ -72,10 +74,10 @@ public class SpeedTestTask extends AsyncTask<SpeedTestMode, Void, Void> {
 
         switch (mode){
             case DOWNLOAD:
-                speedTestSocket.startDownload(host, 5000, "/speedtest/" + (fileOctetSize/1000000));
+                speedTestSocket.startDownload(host, Integer.parseInt(port), "/speedtest/" + (fileOctetSize/1000000));
                 break;
             case UPLOAD:
-                speedTestSocket.startUpload(host, 5000, "/speedtest/", fileOctetSize);
+                speedTestSocket.startUpload(host, Integer.parseInt(port), "/speedtest/", fileOctetSize);
                 break;
         }
 

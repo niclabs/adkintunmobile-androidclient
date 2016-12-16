@@ -15,7 +15,8 @@ public class ActiveServersDialog extends DialogFragment {
 
     static public final String TAG = "AdkM:DataQuotaDialog";
 
-    private String selectedServer;
+    private String selectedServerHost;
+    private String selectedServerPort;
 
     public ActiveServersDialog() {
         // Required empty public constructor
@@ -25,21 +26,26 @@ public class ActiveServersDialog extends DialogFragment {
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         Bundle bundle = getArguments();
         int count = bundle.getInt("count");
-        String[] activeServers = new String[count];
+        String[] serverHosts = new String[count];
+        String[] serverPorts = new String[count];
         for (int i=0; i<count; i++){
-            activeServers[i] = bundle.getString("serverUrl"+i);
+            serverHosts[i] = bundle.getString("serverHost"+i);
+            serverPorts[i] = bundle.getString("serverPort"+i);
         }
         final boolean shouldExecute = bundle.getBoolean("shouldExecute");
-        final String[] finalServers = activeServers;
-        selectedServer = finalServers[0];
+        final String[] finalServerHosts = serverHosts;
+        final String[] finalServerPorts = serverPorts;
+        selectedServerHost = finalServerHosts[0];
+        selectedServerPort = finalServerPorts[0];
 
         AlertDialog.Builder builder =
                 new AlertDialog.Builder(getActivity());
 
         builder.setTitle("Seleccionar servidor")
-                .setSingleChoiceItems(activeServers, 0, new DialogInterface.OnClickListener() {
+                .setSingleChoiceItems(serverHosts, 0, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int item) {
-                                selectedServer = finalServers[item];
+                                selectedServerHost = finalServerHosts[item];
+                                selectedServerPort = finalServerPorts[item];
                             }
                         }
                     );
@@ -48,7 +54,8 @@ public class ActiveServersDialog extends DialogFragment {
             public void onClick(DialogInterface dialog, int which) {
                 SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
                 SharedPreferences.Editor editor = sharedPreferences.edit();
-                editor.putString(getActivity().getString(R.string.settings_speed_test_server_key), selectedServer);
+                editor.putString(getActivity().getString(R.string.settings_speed_test_server_host_key), selectedServerHost);
+                editor.putString(getActivity().getString(R.string.settings_speed_test_server_port_key), selectedServerPort);
                 editor.apply();
                 if (shouldExecute)
                     ((ActiveMeasurementsActivity) getActivity()).startSpeedTest();

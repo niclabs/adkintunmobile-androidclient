@@ -25,7 +25,7 @@
             android:entryValues="@array/speed_test_file_size_values"
             />
         <Preference
-            android:key="@string/settings_speed_test_server_key"
+            android:key="@string/settings_speed_test_server_host_key"
             android:title="@string/settings_speed_test_server_title"
             />
     </PreferenceCategory>
