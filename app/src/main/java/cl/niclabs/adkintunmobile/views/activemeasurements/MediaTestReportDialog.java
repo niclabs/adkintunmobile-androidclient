@@ -14,6 +14,8 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
+import java.util.Locale;
+
 import cl.niclabs.adkintunmobile.R;
 import cl.niclabs.adkintunmobile.data.persistent.activemeasurement.MediaTestReport;
 import cl.niclabs.adkintunmobile.data.persistent.activemeasurement.VideoResult;
@@ -50,11 +52,19 @@ public class MediaTestReportDialog extends DialogFragment {
         TextView tvVideoID = (TextView) view.findViewById(R.id.tv_host);
 
         for (VideoResult vr : report.getVideoResults()){
+            String time;
+            if (vr.bufferingTime > 1000)
+                time = String.format(Locale.getDefault(), "%.2f s", vr.bufferingTime/1000.0);
+            else
+                time = String.format(Locale.getDefault(), "%d ms", vr.bufferingTime);
+
+            String loadedPercentage = String.format(Locale.getDefault(), "%.1f%%", vr.loadedFraction*100);
+
             createVideoResult(
                     vr.quality,
                     Network.formatBytes(vr.downloadedBytes),
-                    (vr.loadedFraction*100) + "%",
-                    vr.bufferingTime + " ms");
+                    loadedPercentage,
+                    time);
             AddTableSeparation();
         }
 

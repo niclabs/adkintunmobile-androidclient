@@ -12,6 +12,8 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
+import java.util.Locale;
+
 import cl.niclabs.adkintunmobile.R;
 import cl.niclabs.adkintunmobile.data.persistent.activemeasurement.ConnectivityTestReport;
 import cl.niclabs.adkintunmobile.data.persistent.activemeasurement.SiteResult;
@@ -75,7 +77,13 @@ public class ConnectivityTestReportDialog extends DialogFragment {
 
         TextView tvURL, tvLoadingTime, tvDownloadedBytes;
         tvURL = createResultTextView(url, 4);
-        tvLoadingTime = createResultTextView(loadingTime + "ms", 2);
+
+        String time;
+        if (loadingTime > 1000)
+            time = String.format(Locale.getDefault(), "%.2f s", loadingTime/1000.0);
+        else
+            time = String.format(Locale.getDefault(), "%d ms", loadingTime);
+        tvLoadingTime = createResultTextView(time, 2);
         tvDownloadedBytes = createResultTextView(Network.formatBytes(downloadedBytes), 2);
 
         Drawable img;
