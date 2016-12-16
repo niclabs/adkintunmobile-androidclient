@@ -3,10 +3,11 @@ package cl.niclabs.adkintunmobile.views.activemeasurements.viewfragments;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.PreferenceManager;
-import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -39,14 +40,27 @@ public class ConnectivityTestFragment extends ActiveMeasurementViewFragment {
         TableLayout tableLayout = (TableLayout) view.findViewById(R.id.sites_table_layout);
 
         for (int i=1; i<=sitesCount; i++){
-            TableRow tableRow = new TableRow(getContext());
-            TextView textView = new TextView(getContext());
-
             String siteTitle = sharedPreferences.getString(getString(R.string.settings_connectivity_test_site_) + i, "");
-            textView.setText(siteTitle);
-            tableRow.addView(textView);
-            tableLayout.addView(tableRow);
+            addSiteToTable(tableLayout, i, siteTitle);
         }
         return view;
+    }
+
+    private void addSiteToTable(TableLayout tableLayout, int i, String siteTitle) {
+        TableRow tableRow = new TableRow(getContext());
+        TextView tvSite = new TextView(getContext());
+        TextView tvPos = new TextView(getContext());
+
+        tvPos.setText(Integer.toString(i));
+        tvPos.setLayoutParams(new TableRow.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1));
+        tvPos.setGravity(Gravity.CENTER);
+
+        tvSite.setText(siteTitle);
+        tvSite.setTextAppearance(getContext(), android.support.v7.appcompat.R.style.TextAppearance_AppCompat_Body2);
+        tvSite.setLayoutParams(new TableRow.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 4));
+
+        tableRow.addView(tvPos);
+        tableRow.addView(tvSite);
+        tableLayout.addView(tableRow);
     }
 }

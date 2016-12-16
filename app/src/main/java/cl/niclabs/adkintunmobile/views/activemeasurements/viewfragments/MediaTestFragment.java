@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -47,9 +48,10 @@ public class MediaTestFragment extends ActiveMeasurementViewFragment {
 
         boolean[] qualitiesToTest = {qualityTiny, qualitySmall, qualityMedium, qualityLarge, qualityHd720};
 
+        int position = 1;
         for (int i = 0; i < qualitiesToTest.length; i++){
             if(qualitiesToTest[i]){
-                addQualityToTable(i, qualitiesName[i], qualitiesPixels[i], tableLayout);
+                addQualityToTable(position++, qualitiesName[i], qualitiesPixels[i], tableLayout);
             }
         }
 
@@ -60,7 +62,8 @@ public class MediaTestFragment extends ActiveMeasurementViewFragment {
         TableRow tableRow = new TableRow(getContext());
 
         TextView tvPos = new TextView(getContext());
-        tvPos.setText(Integer.toString(i+1));
+        tvPos.setText(Integer.toString(i));
+        tvPos.setGravity(Gravity.CENTER);
 
         TextView tvQuality = new TextView(getContext());
         tvQuality.setText(qualityName);
