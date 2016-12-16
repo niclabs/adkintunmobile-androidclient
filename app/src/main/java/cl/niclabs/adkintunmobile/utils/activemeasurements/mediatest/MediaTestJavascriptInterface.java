@@ -52,22 +52,7 @@ public class MediaTestJavascriptInterface {
 
     @JavascriptInterface
     public boolean getQuality(String quality) {
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
-
-        switch (quality){
-            case "tiny":
-                return sharedPreferences.getBoolean(context.getString(R.string.settings_video_test_quality_tiny_key), false);
-            case "small":
-                return sharedPreferences.getBoolean(context.getString(R.string.settings_video_test_quality_small_key), false);
-            case "medium":
-                return sharedPreferences.getBoolean(context.getString(R.string.settings_video_test_quality_medium_key), false);
-            case "large":
-                return sharedPreferences.getBoolean(context.getString(R.string.settings_video_test_quality_large_key), false);
-            case "hd720":
-                return sharedPreferences.getBoolean(context.getString(R.string.settings_video_test_quality_hd720_key), false);
-            default:
-                return false;
-        }
+        return mediaTest.getQuality(quality);
     }
 
     @JavascriptInterface

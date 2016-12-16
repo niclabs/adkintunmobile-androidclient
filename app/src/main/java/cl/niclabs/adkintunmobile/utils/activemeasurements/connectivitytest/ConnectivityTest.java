@@ -5,7 +5,6 @@ import android.graphics.Bitmap;
 import android.net.TrafficStats;
 import android.os.AsyncTask;
 import android.os.Process;
-import android.preference.Preference;
 import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -16,21 +15,12 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
-import com.loopj.android.http.AsyncHttpClient;
-import com.loopj.android.http.JsonHttpResponseHandler;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.util.ArrayList;
 
 import cl.niclabs.adkintunmobile.R;
 import cl.niclabs.adkintunmobile.data.persistent.activemeasurement.ConnectivityTestReport;
-import cl.niclabs.adkintunmobile.data.persistent.activemeasurement.MediaTestReport;
 import cl.niclabs.adkintunmobile.data.persistent.activemeasurement.SiteResult;
 import cl.niclabs.adkintunmobile.views.activemeasurements.ConnectivityTestDialog;
-import cz.msebera.android.httpclient.Header;
 
 public class ConnectivityTest {
     private ConnectivityTestDialog mainTest;

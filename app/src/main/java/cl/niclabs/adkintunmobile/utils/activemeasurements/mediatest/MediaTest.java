@@ -2,8 +2,10 @@ package cl.niclabs.adkintunmobile.utils.activemeasurements.mediatest;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.TrafficStats;
 import android.os.Process;
+import android.preference.PreferenceManager;
 import android.view.MotionEvent;
 import android.view.View;
 import android.webkit.WebSettings;
@@ -21,12 +23,14 @@ public class MediaTest {
     private WebView webView;
     private long previousRxBytes = -1;
     private long previousTxBytes = -1;
+    private Context context;
 
     private MediaTestReport report;
 
     public MediaTest(MediaTestDialog mainTest, WebView webView) {
         this.mainTest = mainTest;
         this.webView = webView;
+        this.context = mainTest.getContext();
     }
 
     public void start() {
@@ -55,7 +59,7 @@ public class MediaTest {
 
         long currentRxBytes = TrafficStats.getUidRxBytes(Process.myUid());
         long currentTxBytes = TrafficStats.getUidTxBytes(Process.myUid());
-        long totalBytes = (currentRxBytes - previousRxBytes) + (currentTxBytes - previousTxBytes);
+        final long totalBytes = (currentRxBytes - previousRxBytes) + (currentTxBytes - previousTxBytes);
         previousRxBytes = -1;
 
         if (mainTest != null) {
@@ -83,6 +87,7 @@ public class MediaTest {
     }
 
     public void startCountingBytes() {
+        mainTest.onQualityTestStarted();
         if (previousRxBytes == -1) {
             previousRxBytes = TrafficStats.getUidRxBytes(Process.myUid());
             previousTxBytes = TrafficStats.getUidTxBytes(Process.myUid());
@@ -95,5 +100,23 @@ public class MediaTest {
         getContext().startActivity(myIntent);
         if (mainTest != null)
             mainTest.dismiss();
+    }
+
+    public boolean getQuality(String quality) {
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
+        switch (quality){
+            case "tiny":
+                return sharedPreferences.getBoolean(context.getString(R.string.settings_video_test_quality_tiny_key), false);
+            case "small":
+                return sharedPreferences.getBoolean(context.getString(R.string.settings_video_test_quality_small_key), false);
+            case "medium":
+                return sharedPreferences.getBoolean(context.getString(R.string.settings_video_test_quality_medium_key), false);
+            case "large":
+                return sharedPreferences.getBoolean(context.getString(R.string.settings_video_test_quality_large_key), false);
+            case "hd720":
+                return sharedPreferences.getBoolean(context.getString(R.string.settings_video_test_quality_hd720_key), false);
+            default:
+                return false;
+        }
     }
 }

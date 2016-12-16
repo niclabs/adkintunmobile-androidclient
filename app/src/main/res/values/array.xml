@@ -159,7 +159,7 @@
     </string-array>
 
     <!-- Video Qualities -->
-    <string-array name="qualities_name">
+    <string-array name="qualities_names">
         <item>tiny</item>
         <item>small</item>
         <item>medium</item>

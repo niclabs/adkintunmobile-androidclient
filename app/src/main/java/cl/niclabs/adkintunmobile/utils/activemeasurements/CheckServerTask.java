@@ -3,16 +3,7 @@ package cl.niclabs.adkintunmobile.utils.activemeasurements;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
-import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.util.Log;
-
-import com.loopj.android.http.AsyncHttpClient;
-import com.loopj.android.http.JsonHttpResponseHandler;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.io.IOException;
 import java.net.HttpURLConnection;
@@ -20,7 +11,6 @@ import java.net.URL;
 import java.util.ArrayList;
 
 import cl.niclabs.adkintunmobile.R;
-import cz.msebera.android.httpclient.Header;
 
 public abstract class CheckServerTask extends AsyncTask<String, Void, Void> {
     private ArrayList<String> serversUrlList;

@@ -4,11 +4,8 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.CheckBoxPreference;
-import android.preference.EditTextPreference;
-import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceCategory;
-import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
 import android.preference.PreferenceScreen;
 import android.support.v4.app.FragmentManager;
@@ -20,17 +17,9 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
-
-import java.util.Map;
 
 import cl.niclabs.adkintunmobile.R;
-import cl.niclabs.adkintunmobile.services.SetupSystem;
-import cl.niclabs.adkintunmobile.utils.activemeasurements.ActiveServersDialog;
-import cl.niclabs.adkintunmobile.utils.activemeasurements.ActiveServersTask;
 import cl.niclabs.adkintunmobile.utils.activemeasurements.connectivitytest.AddSiteDialog;
-import cl.niclabs.adkintunmobile.utils.files.FileManager;
-import cl.niclabs.adkintunmobile.views.activemeasurements.ActiveMeasurementsActivity;
 
 public class ConnectivityTestSettingsFragment extends ActiveMeasurementsSettingsFragment{
 

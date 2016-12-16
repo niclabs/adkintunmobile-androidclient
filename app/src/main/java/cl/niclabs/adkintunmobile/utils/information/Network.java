@@ -3,12 +3,10 @@ package cl.niclabs.adkintunmobile.utils.information;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.net.wifi.WifiConfiguration;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.telephony.TelephonyManager;
 import android.telephony.gsm.GsmCellLocation;
-import android.util.Log;
 
 import java.util.Locale;
 

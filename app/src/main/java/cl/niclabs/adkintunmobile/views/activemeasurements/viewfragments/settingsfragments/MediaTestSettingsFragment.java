@@ -6,12 +6,8 @@ import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.PreferenceCategory;
 import android.preference.PreferenceManager;
-import android.preference.PreferenceScreen;
-import android.support.v4.app.FragmentManager;
 
 import cl.niclabs.adkintunmobile.R;
-import cl.niclabs.adkintunmobile.utils.activemeasurements.ActiveServersDialog;
-import cl.niclabs.adkintunmobile.utils.activemeasurements.ActiveServersTask;
 
 public class MediaTestSettingsFragment extends ActiveMeasurementsSettingsFragment{
 

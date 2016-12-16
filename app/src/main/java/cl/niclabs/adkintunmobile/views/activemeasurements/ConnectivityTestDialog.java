@@ -6,7 +6,6 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AlertDialog;
-import android.text.format.Formatter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.webkit.WebView;
@@ -19,12 +18,13 @@ import java.util.ArrayList;
 
 import cl.niclabs.adkintunmobile.R;
 import cl.niclabs.adkintunmobile.utils.activemeasurements.connectivitytest.ConnectivityTest;
+import cl.niclabs.adkintunmobile.utils.information.Network;
 
 public class ConnectivityTestDialog extends DialogFragment{
 
     private View view;
     private WebView webView;
-    TableLayout tableLayout;
+    private TableLayout tableLayout;
     private ConnectivityTest connectivityTest;
 
     public void onWebPageStarted(int index){
@@ -43,7 +43,7 @@ public class ConnectivityTestDialog extends DialogFragment{
         }
         status.setImageResource(R.drawable.ic_done_black);
         ((TextView)tableRow.findViewById(R.id.loading_time)).setText(loadingTime + "ms");
-        ((TextView)tableRow.findViewById(R.id.page_size)).setText(Formatter.formatFileSize(getContext(), pageSize));
+        ((TextView)tableRow.findViewById(R.id.downloaded_size)).setText(Network.formatBytes(pageSize));
     }
 
     public void setUpTextView(ArrayList<String> names) {
@@ -57,6 +57,7 @@ public class ConnectivityTestDialog extends DialogFragment{
             tableLayout.addView(tableRow, index++);
         }
     }
+
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
@@ -67,7 +68,7 @@ public class ConnectivityTestDialog extends DialogFragment{
                 });
 
         LayoutInflater inflater = getActivity().getLayoutInflater();
-        view = inflater.inflate(R.layout.fragment_web_pages_test_dialog, null);
+        view = inflater.inflate(R.layout.fragment_connectivity_test_dialog, null);
 
         // Get visual elements
         webView = (WebView) view.findViewById(R.id.webView);

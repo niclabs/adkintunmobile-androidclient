@@ -1,7 +1,5 @@
 package cl.niclabs.adkintunmobile.data.persistent.activemeasurement;
 
-import android.content.Context;
-
 import com.google.gson.annotations.SerializedName;
 
 import java.util.ArrayList;

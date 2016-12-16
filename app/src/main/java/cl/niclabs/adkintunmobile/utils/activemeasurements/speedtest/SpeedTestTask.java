@@ -3,7 +3,6 @@ package cl.niclabs.adkintunmobile.utils.activemeasurements.speedtest;
 import android.os.AsyncTask;
 import android.util.Log;
 
-import cl.niclabs.adkintunmobile.utils.information.Network;
 import fr.bmartel.speedtest.ISpeedTestListener;
 import fr.bmartel.speedtest.SpeedTestError;
 import fr.bmartel.speedtest.SpeedTestMode;

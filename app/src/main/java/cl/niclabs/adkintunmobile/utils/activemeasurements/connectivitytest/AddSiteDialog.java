@@ -21,7 +21,6 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import cl.niclabs.adkintunmobile.R;
-import cl.niclabs.adkintunmobile.views.activemeasurements.viewfragments.settingsfragments.ActiveMeasurementsSettingsFragment;
 import cl.niclabs.adkintunmobile.views.activemeasurements.viewfragments.settingsfragments.ConnectivityTestSettingsFragment;
 
 public class AddSiteDialog extends DialogFragment {

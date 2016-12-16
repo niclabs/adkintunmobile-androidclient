@@ -4,8 +4,6 @@ import android.content.Context;
 
 import com.google.gson.annotations.SerializedName;
 
-import cl.niclabs.adkintunmobile.data.persistent.visualization.ConnectionModeSample;
-import cl.niclabs.adkintunmobile.utils.information.Network;
 import cl.niclabs.android.data.Persistent;
 
 public class ActiveMeasurement extends Persistent<ActiveMeasurement> {
