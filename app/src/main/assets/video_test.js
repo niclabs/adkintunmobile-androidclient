@@ -113,8 +113,9 @@
         }
 
         function onPlayerError(event){
-            player.stopVideo();
-            window.JSInterface.onVideoTestFinish();
+            playNextVideo();
+            //player.stopVideo();
+            //window.JSInterface.onVideoTestFinish();
         }
     </script>
 </body></html>
