@@ -64,15 +64,6 @@ public class MediaTestDialog extends DialogFragment{
     }
 
     public void onVideoEnded(final String quality, final int bufferingTime, final float loadedFraction, final long totalBytes) {
-        /*getActivity().runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                urlsTime.setText(urlsTime.getText() + "\nFor " + quality + ": "
-                        + timesBuffering + "ms buffering, "
-                        + (int) (loadedFraction * 100) + "% loaded, "
-                        + Network.formatBytes(totalBytes));
-            }
-        });*/
         getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
@@ -121,7 +112,7 @@ public class MediaTestDialog extends DialogFragment{
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+        builder.setNegativeButton(android.R.string.cancel , new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
                 //mediaTest.cancelTask();
             }
