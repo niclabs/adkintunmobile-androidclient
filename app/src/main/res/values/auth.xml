@@ -4,6 +4,7 @@
     <string name="token_post_adkserver">token</string>
     <string name="fabric_api_key">fabric_api_key</string>
     <string name="adkintun_hostname_default">adkintun_host</string>
-    <string name="speed_test_server">speed_test_server</string>
+    <string name="speed_test_server_host">speed_test_server_host</string>
+    <string name="speed_test_server_port">speed_test_server_port</string>
     <string name="media_test_video_id">video_id</string>
 </resources>
