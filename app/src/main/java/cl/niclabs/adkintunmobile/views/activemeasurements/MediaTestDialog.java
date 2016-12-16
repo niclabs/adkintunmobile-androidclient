@@ -20,6 +20,8 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
+import java.util.Locale;
+
 import cl.niclabs.adkintunmobile.R;
 import cl.niclabs.adkintunmobile.utils.activemeasurements.mediatest.MediaTest;
 import cl.niclabs.adkintunmobile.utils.activemeasurements.mediatest.MediaTestJavascriptInterface;
@@ -61,7 +63,7 @@ public class MediaTestDialog extends DialogFragment{
         webView.loadUrl("file:///android_asset/get_max_quality.js");
     }
 
-    public void onVideoEnded(final String quality, final int timesBuffering, final float loadedFraction, final long totalBytes) {
+    public void onVideoEnded(final String quality, final int bufferingTime, final float loadedFraction, final long totalBytes) {
         /*getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
@@ -81,12 +83,19 @@ public class MediaTestDialog extends DialogFragment{
                 status.setVisibility(View.VISIBLE);
                 if ((int) (loadedFraction*100) < 100){
                     status.setImageResource(R.drawable.ic_clear_black);
-                    return;
                 }
-                status.setImageResource(R.drawable.ic_done_black);
-                ((TextView)tableRow.findViewById(R.id.loaded_percentage)).setText((int) (loadedFraction * 100) + "%");
-                ((TextView)tableRow.findViewById(R.id.loading_time)).setText(timesBuffering + "ms");
-                ((TextView)tableRow.findViewById(R.id.downloaded_size)).setText(Network.formatBytes(totalBytes));
+                else {
+                    status.setImageResource(R.drawable.ic_done_black);
+                    String loadedPercentage = String.format(Locale.getDefault(), "%.1f%%", loadedFraction * 100);
+                    ((TextView) tableRow.findViewById(R.id.loaded_percentage)).setText(loadedPercentage);
+                    String time;
+                    if (bufferingTime > 1000)
+                        time = String.format(Locale.getDefault(), "%.2f s", bufferingTime / 1000.0);
+                    else
+                        time = String.format(Locale.getDefault(), "%d ms", bufferingTime);
+                    ((TextView) tableRow.findViewById(R.id.loading_time)).setText(time);
+                    ((TextView) tableRow.findViewById(R.id.downloaded_size)).setText(Network.formatBytes(totalBytes));
+                }
             }
         });
     }
