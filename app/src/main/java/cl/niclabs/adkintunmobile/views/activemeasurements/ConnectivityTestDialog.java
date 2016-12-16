@@ -15,6 +15,7 @@ import android.widget.TableRow;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Locale;
 
 import cl.niclabs.adkintunmobile.R;
 import cl.niclabs.adkintunmobile.utils.activemeasurements.connectivitytest.ConnectivityTest;
@@ -42,7 +43,13 @@ public class ConnectivityTestDialog extends DialogFragment{
             return;
         }
         status.setImageResource(R.drawable.ic_done_black);
-        ((TextView)tableRow.findViewById(R.id.loading_time)).setText(loadingTime + "ms");
+
+        String time;
+        if (loadingTime > 1000)
+            time = String.format(Locale.getDefault(), "%.2f s", loadingTime/1000.0);
+        else
+            time = String.format(Locale.getDefault(), "%d ms", loadingTime);
+        ((TextView)tableRow.findViewById(R.id.loading_time)).setText(time);
         ((TextView)tableRow.findViewById(R.id.downloaded_size)).setText(Network.formatBytes(pageSize));
     }
 
