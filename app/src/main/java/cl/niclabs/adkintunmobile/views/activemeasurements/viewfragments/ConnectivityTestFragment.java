@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.PreferenceManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -47,23 +48,5 @@ public class ConnectivityTestFragment extends ActiveMeasurementViewFragment {
             tableLayout.addView(tableRow);
         }
         return view;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        Intent myIntent;
-        switch (item.getItemId()){
-            case R.id.menu_history_btn:
-                myIntent = new Intent(getContext(), ActiveMeasurementsHistoryActivity.class);
-                myIntent.putExtra(getString(R.string.settings_active_measurements_key), getString(R.string.settings_connectivity_test_category_key));
-                startActivity(myIntent);
-                return true;
-            case R.id.menu_settings_btn:
-                myIntent = new Intent(getContext(), ActiveMeasurementsSettingsActivity.class);
-                myIntent.putExtra(getString(R.string.settings_active_measurements_key), R.string.settings_connectivity_test_category_key);
-                startActivity(myIntent);
-                return true;
-        }
-        return super.onOptionsItemSelected(item);
     }
 }

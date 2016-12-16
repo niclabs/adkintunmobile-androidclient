@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.MenuItem;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
@@ -22,6 +23,7 @@ public class ActiveMeasurementsHistoryActivity extends AppCompatActivity {
     private Context context;
     private Toolbar toolbar;
     private RelativeLayout loadingPanel;
+    private int viewPagerIndex;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,7 +65,9 @@ public class ActiveMeasurementsHistoryActivity extends AppCompatActivity {
     private void setBaseActivityParams(){
         this.title = getString(R.string.view_active_measurements_history_title);
 
-        this.testKey = getIntent().getStringExtra(getString(R.string.settings_active_measurements_key));
+        viewPagerIndex = ActiveMeasurementsActivity.getCurrentItem();
+
+        this.testKey = getIntent().getExtras().getString(getString(R.string.settings_active_measurements_key));
         if (this.testKey.equals(getString(R.string.settings_speed_test_category_key)))
             this.subtitle = getString(R.string.view_active_measurements_speedtest_title);
         if (this.testKey.equals(getString(R.string.settings_video_test_category_key)))
@@ -73,5 +77,22 @@ public class ActiveMeasurementsHistoryActivity extends AppCompatActivity {
 
         this.context = this;
         this.loadingPanel = (RelativeLayout) findViewById(R.id.loading_panel);
+
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem menuItem) {
+        switch (menuItem.getItemId()) {
+            case android.R.id.home:
+                onBackPressed();
+        }
+        return (super.onOptionsItemSelected(menuItem));
+    }
+
+    @Override
+    public void onBackPressed() {
+        ActiveMeasurementsActivity parent = (ActiveMeasurementsActivity) getParent();
+        parent.setCurrentItem(viewPagerIndex);
+        super.onBackPressed();
     }
 }

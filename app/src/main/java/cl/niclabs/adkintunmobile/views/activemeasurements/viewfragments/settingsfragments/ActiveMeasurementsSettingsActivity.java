@@ -29,23 +29,20 @@ public class ActiveMeasurementsSettingsActivity extends AppCompatActivity {
 
         setupToolBar();
 
-        Bundle bundle = getIntent().getExtras();
-        int activeMeasurementsKey = bundle.getInt(getString(R.string.settings_active_measurements_key));
-
-        PreferenceFragment fragment = null;
-        switch (ActiveMeasurementsActivity.getCurrentItem()){
-            case 0:
-                fragment = new SpeedTestSettingsFragment();
-                break;
-            case 1:
-                fragment = new MediaTestSettingsFragment();
-                break;
-            case 2:
-                fragment = new ConnectivityTestSettingsFragment();
-                break;
-        }
+        String testKey = getIntent().getExtras().getString(getString(R.string.settings_active_measurements_key));
 
         viewPagerIndex = ActiveMeasurementsActivity.getCurrentItem();
+
+        PreferenceFragment fragment;
+        if (testKey.equals(getString(R.string.settings_speed_test_category_key))){
+            fragment = new SpeedTestSettingsFragment();
+        }
+        else if (testKey.equals(getString(R.string.settings_connectivity_test_category_key))) {
+            fragment = new ConnectivityTestSettingsFragment();
+        }
+        else{
+            fragment = new MediaTestSettingsFragment();
+        }
 
         // display fragment for settings
         if (fragment != null)

@@ -20,7 +20,6 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:id="@+id/ic_done"
-            android:src="@drawable/ic_done_black"
             android:visibility="gone"/>
         <ProgressBar
             android:layout_width="0dp"

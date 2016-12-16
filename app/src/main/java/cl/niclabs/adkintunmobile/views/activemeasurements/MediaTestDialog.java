@@ -18,6 +18,7 @@ import android.widget.TextView;
 import cl.niclabs.adkintunmobile.R;
 import cl.niclabs.adkintunmobile.utils.activemeasurements.mediatest.MediaTest;
 import cl.niclabs.adkintunmobile.utils.activemeasurements.mediatest.MediaTestJavascriptInterface;
+import cl.niclabs.adkintunmobile.utils.information.Network;
 
 public class MediaTestDialog extends DialogFragment{
 
@@ -75,7 +76,7 @@ public class MediaTestDialog extends DialogFragment{
                 urlsTime.setText(urlsTime.getText() + "\nFor " + quality + ": "
                         + timesBuffering + "ms buffering, "
                         + (int) (loadedFraction * 100) + "% loaded, "
-                        + Formatter.formatFileSize(getContext(), totalBytes));
+                        + Network.formatBytes(totalBytes));
             }
         });
     }

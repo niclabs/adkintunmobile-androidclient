@@ -35,16 +35,15 @@ public class ConnectivityTestDialog extends DialogFragment{
     public void onWebPageLoaded(int index, long loadingTime, long pageSize){
         TableRow tableRow = (TableRow) tableLayout.getChildAt(index);
         tableRow.findViewById(R.id.progress_bar).setVisibility(View.GONE);
-
-        if (loadingTime == -1){
-            ((ImageView) tableRow.findViewById(R.id.ic_done)).setImageResource(R.drawable.ic_clear_black);
-            tableRow.findViewById(R.id.ic_done).setVisibility(View.VISIBLE);
+        ImageView status = (ImageView) tableRow.findViewById(R.id.ic_done);
+        status.setVisibility(View.VISIBLE);
+        if (loadingTime == 0){
+            status.setImageResource(R.drawable.ic_clear_black);
             return;
         }
+        status.setImageResource(R.drawable.ic_done_black);
         ((TextView)tableRow.findViewById(R.id.loading_time)).setText(loadingTime + "ms");
         ((TextView)tableRow.findViewById(R.id.page_size)).setText(Formatter.formatFileSize(getContext(), pageSize));
-
-        tableRow.findViewById(R.id.ic_done).setVisibility(View.VISIBLE);
     }
 
     public void setUpTextView(ArrayList<String> names) {

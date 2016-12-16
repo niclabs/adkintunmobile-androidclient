@@ -1,6 +1,7 @@
 package cl.niclabs.adkintunmobile.views.activemeasurements;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.support.design.widget.TabLayout;
@@ -14,6 +15,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.webkit.WebView;
@@ -27,6 +29,7 @@ import cl.niclabs.adkintunmobile.utils.activemeasurements.CheckServerTask;
 import cl.niclabs.adkintunmobile.views.activemeasurements.viewfragments.ConnectivityTestFragment;
 import cl.niclabs.adkintunmobile.views.activemeasurements.viewfragments.MediaTestFragment;
 import cl.niclabs.adkintunmobile.views.activemeasurements.viewfragments.SpeedTestFragment;
+import cl.niclabs.adkintunmobile.views.activemeasurements.viewfragments.settingsfragments.ActiveMeasurementsSettingsActivity;
 
 public class ActiveMeasurementsActivity extends AppCompatActivity {
 
@@ -234,6 +237,36 @@ public class ActiveMeasurementsActivity extends AppCompatActivity {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.active_tests, menu);
         return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        Intent myIntent;
+        String categoryKey;
+        switch (mViewPager.getCurrentItem()){
+            case 0:
+                categoryKey = getString(R.string.settings_speed_test_category_key);
+                break;
+            case 1:
+                categoryKey = getString(R.string.settings_video_test_category_key);
+                break;
+            default: //2
+                categoryKey = getString(R.string.settings_connectivity_test_category_key);
+                break;
+        }
+        switch (item.getItemId()){
+            case R.id.menu_history_btn:
+                myIntent = new Intent(this, ActiveMeasurementsHistoryActivity.class);
+                myIntent.putExtra(getString(R.string.settings_active_measurements_key), categoryKey);
+                startActivity(myIntent);
+                return true;
+            case R.id.menu_settings_btn:
+                myIntent = new Intent(this, ActiveMeasurementsSettingsActivity.class);
+                myIntent.putExtra(getString(R.string.settings_active_measurements_key), categoryKey);
+                startActivity(myIntent);
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }
 
