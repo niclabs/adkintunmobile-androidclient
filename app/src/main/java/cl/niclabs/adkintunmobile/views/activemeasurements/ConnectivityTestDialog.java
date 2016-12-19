@@ -72,10 +72,10 @@ public class ConnectivityTestDialog extends DialogFragment{
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        connectivityTest.cancelTask();
-                    }
-                });
+            public void onClick(DialogInterface dialog, int id) {
+                connectivityTest.cancelTask();
+            }
+        });
         builder.setPositiveButton(android.R.string.ok, null);
 
         LayoutInflater inflater = getActivity().getLayoutInflater();
@@ -85,9 +85,12 @@ public class ConnectivityTestDialog extends DialogFragment{
         webView = (WebView) view.findViewById(R.id.webView);
         tableLayout = (TableLayout) view.findViewById(R.id.web_pages_table_layout);
         setCancelable(false);
+
+        // Prepare Test
         connectivityTest = new ConnectivityTest(this, webView);
         connectivityTest.start();
 
+        // Create View
         builder.setView(view);
         AlertDialog dialog = builder.create();
         dialog.setOnShowListener(new DialogInterface.OnShowListener() {

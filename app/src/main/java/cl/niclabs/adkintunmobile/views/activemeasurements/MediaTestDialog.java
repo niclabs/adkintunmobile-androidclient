@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AlertDialog;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -111,22 +110,10 @@ public class MediaTestDialog extends DialogFragment{
         }
     }
 
-    public void onMediaTestFinish() {
-        getActivity().runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                webView.loadUrl("about:blank");
-                webView.setVisibility(View.GONE);
-                positiveButton.setVisibility(View.VISIBLE);
-                negativeButton.setVisibility(View.GONE);
-            }
-        });
-    }
-
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setNegativeButton(android.R.string.cancel , new DialogInterface.OnClickListener() {
+        builder.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
                 //mediaTest.cancelTask();
             }
@@ -141,6 +128,7 @@ public class MediaTestDialog extends DialogFragment{
         tableLayout = (TableLayout) view.findViewById(R.id.video_qualities_table_layout);
         setCancelable(false);
 
+        // Prepare Test
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getContext());
         String maxQuality = sharedPreferences.getString(getString(R.string.settings_video_test_max_quality_key), "None");
         if (maxQuality.equals("None"))
@@ -150,6 +138,8 @@ public class MediaTestDialog extends DialogFragment{
             setUpTextView();
             mediaTest.start();
         }
+
+        // Create View
         builder.setView(view);
         AlertDialog dialog = builder.create();
         dialog.setOnShowListener(new DialogInterface.OnShowListener() {
@@ -161,5 +151,17 @@ public class MediaTestDialog extends DialogFragment{
             }
         });
         return dialog;
+    }
+
+    public void onMediaTestFinish() {
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                webView.setVisibility(View.GONE);
+                ((TableRow) webView.getParent()).setPadding(0,0,0,0);
+                positiveButton.setVisibility(View.VISIBLE);
+                negativeButton.setVisibility(View.GONE);
+            }
+        });
     }
 }
