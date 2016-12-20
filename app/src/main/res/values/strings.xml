@@ -203,6 +203,7 @@
     <string name="view_active_measurements_connectivitytest_url_error_message">Error en la url ingresada</string>
 
     <string name="view_active_measurements_history_title">Reportes Almacenados</string>
+    <string name="view_active_measurements_history_noreports">No hay reportes de este tipo almacenados</string>
     <string name="view_active_measurements_history_timestamp">Fecha y hora</string>
     <string name="view_active_measurements_history_videoid">Video ID</string>
     <string name="view_active_measurements_history_quality">Resolución</string>

@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
@@ -25,6 +26,7 @@ import cl.niclabs.adkintunmobile.views.activemeasurements.SpeedTestReportDialog;
 public class ActiveMeasurementsHistoryFragment extends ListFragment implements AdapterView.OnItemClickListener {
 
     public ArrayList<String> reportsDatetimeList, reportTimestampList;
+    public TextView emptyListview;
 
     public ActiveMeasurementsHistoryFragment() {
     }
@@ -33,7 +35,9 @@ public class ActiveMeasurementsHistoryFragment extends ListFragment implements A
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_history_active_measurements, container, false);
+        View view = inflater.inflate(R.layout.fragment_history_active_measurements, container, false);
+        emptyListview = (TextView) view.findViewById(R.id.empty);
+        return view;
     }
 
     @Override
@@ -54,6 +58,7 @@ public class ActiveMeasurementsHistoryFragment extends ListFragment implements A
 
         ArrayAdapter adapter = new ArrayAdapter(getContext(), android.R.layout.simple_list_item_1, reportsDatetimeList);
         setListAdapter(adapter);
+        getListView().setEmptyView(emptyListview);
         getListView().setOnItemClickListener(this);
     }
 
