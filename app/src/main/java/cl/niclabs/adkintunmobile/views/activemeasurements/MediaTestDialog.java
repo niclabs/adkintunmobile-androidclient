@@ -158,7 +158,6 @@ public class MediaTestDialog extends DialogFragment{
             @Override
             public void run() {
                 webView.setVisibility(View.GONE);
-                ((TableRow) webView.getParent()).setPadding(0,0,0,0);
                 positiveButton.setVisibility(View.VISIBLE);
                 negativeButton.setVisibility(View.GONE);
             }
