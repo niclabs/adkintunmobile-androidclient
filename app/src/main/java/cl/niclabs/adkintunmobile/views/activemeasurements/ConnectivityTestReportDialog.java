@@ -6,6 +6,7 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AlertDialog;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.TableLayout;
 import android.widget.TableRow;
@@ -84,6 +85,8 @@ public class ConnectivityTestReportDialog extends DialogFragment {
             time = String.format(Locale.getDefault(), "%d ms", loadingTime);
         tvLoadingTime = createResultTextView(time, 2);
         tvDownloadedBytes = createResultTextView(Network.formatBytes(downloadedBytes), 2);
+        tvLoadingTime.setGravity(Gravity.CENTER_HORIZONTAL);
+        tvDownloadedBytes.setGravity(Gravity.CENTER_HORIZONTAL);
 
         Drawable img;
         if (loaded)
