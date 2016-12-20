@@ -47,4 +47,8 @@ public class SpeedTestReport extends ActiveMeasurement {
     static public List<SpeedTestReport> getSentMediaReports(){
         return find(SpeedTestReport.class, "sent = true");
     }
+
+    static public void deleteAllReports(){
+        SpeedTestReport.deleteAll(SpeedTestReport.class);
+    }
 }

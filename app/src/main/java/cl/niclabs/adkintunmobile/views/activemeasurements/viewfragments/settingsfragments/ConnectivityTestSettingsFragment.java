@@ -17,8 +17,10 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import cl.niclabs.adkintunmobile.R;
+import cl.niclabs.adkintunmobile.data.persistent.activemeasurement.ConnectivityTestReport;
 import cl.niclabs.adkintunmobile.utils.activemeasurements.connectivitytest.AddSiteDialog;
 
 public class ConnectivityTestSettingsFragment extends ActiveMeasurementsSettingsFragment{
@@ -186,5 +188,17 @@ public class ConnectivityTestSettingsFragment extends ActiveMeasurementsSettings
         addSiteButton = menu.getItem(0);
         deleteButton = menu.getItem(1);
         confirmButton = menu.getItem(2);
+    }
+
+    @Override
+    public boolean onPreferenceTreeClick(PreferenceScreen preferenceScreen, Preference preference) {
+        String key = preference.getKey();
+
+        if (key.equals(getString(R.string.settings_connectivity_reports_delete_key))){
+            ConnectivityTestReport.deleteAllReports();
+            Toast.makeText(context, getString(R.string.settings_active_measurements_reports_delete_toast), Toast.LENGTH_SHORT).show();
+        }
+
+        return super.onPreferenceTreeClick(preferenceScreen, preference);
     }
 }

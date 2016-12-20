@@ -29,4 +29,12 @@
             android:title="@string/settings_speed_test_server_title"
             />
     </PreferenceCategory>
+    <PreferenceCategory
+        android:title="@string/settings_active_measurements_reports_title"
+        >
+        <Preference
+            android:key="@string/settings_speed_test_reports_delete_key"
+            android:title="@string/settings_speed_test_reports_delete_title"
+            android:summary="@string/settings_speed_test_reports_delete_summary" />
+    </PreferenceCategory>
 </PreferenceScreen>

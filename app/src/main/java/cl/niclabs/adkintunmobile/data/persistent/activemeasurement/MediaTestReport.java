@@ -38,4 +38,9 @@ public class MediaTestReport extends ActiveMeasurement {
     static public List<MediaTestReport> getSentMediaReports(){
         return find(MediaTestReport.class, "sent = true");
     }
+
+    public static void deleteAllReports() {
+        VideoResult.deleteAll(VideoResult.class);
+        MediaTestReport.deleteAll(MediaTestReport.class);
+    }
 }

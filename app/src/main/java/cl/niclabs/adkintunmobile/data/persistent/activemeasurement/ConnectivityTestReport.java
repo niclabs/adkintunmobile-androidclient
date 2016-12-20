@@ -8,7 +8,7 @@ import cl.niclabs.adkintunmobile.utils.display.DisplayDateManager;
 public class ConnectivityTestReport extends ActiveMeasurement {
 
     public ConnectivityTestReport() {
-        }
+    }
 
     public List<SiteResult> getSiteResults(){
         return SiteResult.find(SiteResult.class, "report = ?", new String(getId().toString()));
@@ -32,5 +32,10 @@ public class ConnectivityTestReport extends ActiveMeasurement {
 
     static public List<ConnectivityTestReport> getSentMediaReports(){
         return find(ConnectivityTestReport.class, "sent = true");
+    }
+
+    public static void deleteAllReports() {
+        SiteResult.deleteAll(SiteResult.class);
+        ConnectivityTestReport.deleteAll(ConnectivityTestReport.class);
     }
 }

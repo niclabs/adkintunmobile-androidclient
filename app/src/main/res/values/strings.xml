@@ -60,6 +60,8 @@
     <string name="settings_app_version_default">2.0.6b</string>
 
     <string name="settings_active_measurements_key">active_measurements_key</string>
+    <string name="settings_active_measurements_reports_title">Reportes</string>
+    <string name="settings_active_measurements_reports_delete_toast">Reportes eliminados</string>
 
     <string name="settings_speed_test_category_title">Test de Velocidad</string>
     <string name="settings_speed_test_category_key">speed_test_key</string>
@@ -70,6 +72,9 @@
     <string name="settings_speed_test_server_host_key">speed_test_server_host</string>
     <string name="settings_speed_test_server_port_key">speed_test_server_port</string>
     <string name="settings_speed_test_server_title">Servidor de prueba</string>
+    <string name="settings_speed_test_reports_delete_key">delete_speedtest_reports</string>
+    <string name="settings_speed_test_reports_delete_title">Eliminar Reportes Almacenados</string>
+    <string name="settings_speed_test_reports_delete_summary">Eliminar todos los reportes de prueba de velocidad almacenados en el equipo.</string>
 
     <string name="settings_video_test_category_title">Calidades de prueba</string>
     <string name="settings_video_test_category_key">media_test_key</string>
@@ -89,11 +94,17 @@
     <string name="settings_video_test_quality_hd720_pixels">720p</string>
     <string name="settings_video_test_quality_hd720_name">hd720</string>
     <string name="settings_video_test_quality_hd720_key">media_test_quality_hd720</string>
+    <string name="settings_video_test_reports_delete_key">delete_videotest_reports</string>
+    <string name="settings_video_test_reports_delete_title">Eliminar Reportes Almacenados</string>
+    <string name="settings_video_test_reports_delete_summary">Eliminar todos los reportes de prueba de videos almacenados en el equipo.</string>
 
     <string name="settings_connectivity_test_category_title">Sitios a evaluar</string>
     <string name="settings_connectivity_test_category_key">connectivity_test_key</string>
     <string name="settings_connectivity_sites_count_key">sites_count_key</string>
     <string name="settings_connectivity_test_site_">site_</string>
+    <string name="settings_connectivity_reports_delete_key">delete_connectivity_reports</string>
+    <string name="settings_connectivity_reports_delete_title">Eliminar Reportes Almacenados</string>
+    <string name="settings_connectivity_reports_delete_summary">Eliminar todos los reportes de prueba de conectividad almacenados en el equipo.</string>
 
     <!-- Dashboard -->
     <string name="view_dashboard_toolbar_slogan">Tu Estado Ahora</string>
