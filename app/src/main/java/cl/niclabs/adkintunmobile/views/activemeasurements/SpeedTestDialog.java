@@ -142,6 +142,7 @@ public class SpeedTestDialog extends DialogFragment{
             public void run() {
                 positiveButton.setVisibility(View.VISIBLE);
                 negativeButton.setVisibility(View.GONE);
+                onResume();
             }
         });
     }

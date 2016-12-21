@@ -35,7 +35,7 @@ public class SpeedTestSettingsFragment extends ActiveMeasurementsSettingsFragmen
     public boolean onPreferenceTreeClick(PreferenceScreen preferenceScreen, Preference preference) {
         String key = preference.getKey();
 
-        if (key.equals(getString(R.string.settings_speed_test_server_host_key))) {
+        if (key.equals(getString(R.string.settings_speed_test_server_name_key))) {
             ActiveServersTask activeServersTask = new ActiveServersTask(getActivity()) {
                 @Override
                 public void handleActiveServers(Bundle bundle) {

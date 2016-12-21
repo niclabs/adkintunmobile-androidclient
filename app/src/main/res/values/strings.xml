@@ -71,6 +71,7 @@
     <string name="settings_speed_test_upload_size_title">Tamaño de archivo de subida</string>
     <string name="settings_speed_test_server_host_key">speed_test_server_host</string>
     <string name="settings_speed_test_server_port_key">speed_test_server_port</string>
+    <string name="settings_speed_test_server_name_key">speed_test_server_name</string>
     <string name="settings_speed_test_server_title">Servidor de prueba</string>
     <string name="settings_speed_test_reports_delete_key">delete_speedtest_reports</string>
     <string name="settings_speed_test_reports_delete_title">Eliminar Reportes Almacenados</string>

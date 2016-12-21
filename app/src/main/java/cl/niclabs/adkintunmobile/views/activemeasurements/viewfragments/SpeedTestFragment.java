@@ -28,9 +28,11 @@ public class SpeedTestFragment extends ActiveMeasurementViewFragment {
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getContext());
         long downloadSize = Long.parseLong(sharedPreferences.getString(getString(R.string.settings_speed_test_download_size_key), "1000000"));
         long uploadSize = Long.parseLong(sharedPreferences.getString(getString(R.string.settings_speed_test_upload_size_key), "1000000"));
+        String serverName = sharedPreferences.getString(getString(R.string.settings_speed_test_server_name_key), "");
 
         ((TextView) view.findViewById(R.id.download_size)).setText(Network.formatBytes(downloadSize));
         ((TextView) view.findViewById(R.id.upload_size)).setText(Network.formatBytes(uploadSize));
+        ((TextView) view.findViewById(R.id.server_name)).setText(serverName);
 
         return view;
     }
