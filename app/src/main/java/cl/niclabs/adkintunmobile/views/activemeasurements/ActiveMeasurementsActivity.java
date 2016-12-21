@@ -3,7 +3,6 @@ package cl.niclabs.adkintunmobile.views.activemeasurements;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.SystemClock;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -15,9 +14,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
-import android.webkit.WebView;
 
 import java.net.HttpURLConnection;
 
@@ -40,6 +37,7 @@ public class ActiveMeasurementsActivity extends AppCompatActivity {
     protected ViewPager mViewPager;
 
     protected static int currentItem = 0;
+    static boolean running = false;
 
     public static int getCurrentItem() {
         return currentItem;
@@ -61,53 +59,26 @@ public class ActiveMeasurementsActivity extends AppCompatActivity {
     }
 
     @Override
+    protected void onStart() {
+        super.onStart();
+        running = true;
+    }
+
+    @Override
     protected void onStop() {
         super.onStop();
+        running = false;
         currentItem = 0;
     }
 
-
-        // TODO: Borrar y subir minsdk
-    private void emulateClick(final WebView webview) {
-        long delta = 100;
-        long downTime = SystemClock.uptimeMillis();
-        float x = webview.getLeft() + webview.getWidth()/2; //in the middle of the webview
-        float y = webview.getTop() + webview.getHeight()/2;
-
-        final MotionEvent motionEvent = MotionEvent.obtain( downTime, downTime + delta, MotionEvent.ACTION_DOWN, x, y, 0 );
-        final MotionEvent motionEvent2 = MotionEvent.obtain( downTime + delta + 1, downTime + delta * 2, MotionEvent.ACTION_UP, x, y, 0 );
-        Runnable tapdown = new Runnable() {
-            @Override
-            public void run() {
-                if (webview != null) {
-                    webview.dispatchTouchEvent(motionEvent);
-                }
-            }
-        };
-
-        Runnable tapup = new Runnable() {
-            @Override
-            public void run() {
-                if (webview != null) {
-                    webview.dispatchTouchEvent(motionEvent2);
-                }
-            }
-        };
-
-        int toWait = 0;
-        int delay = 100;
-        webview.postDelayed(tapdown, delay);
-        delay += 100;
-        webview.postDelayed(tapup, delay);
-
+    public static boolean isRunning(){
+        return running;
     }
 
-    // TODO: Mover a fragment
     public void onSpeedTestClick(View view){
         checkServer();
     }
 
-    // TODO: Mover a fragment
     public void onWebPagesTestClick(View view){
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         Fragment prev = getSupportFragmentManager().findFragmentByTag("webPagesTestDialog");
@@ -120,10 +91,8 @@ public class ActiveMeasurementsActivity extends AppCompatActivity {
         newFragment.show(ft, "webPagesTestDialog");
     }
 
-    // TODO: Mover a fragment
     public void onVideoTestClick(View view){
         startMediaTest();
-        //checkMaxQuality();
     }
 
     public void startMediaTest() {
@@ -137,8 +106,6 @@ public class ActiveMeasurementsActivity extends AppCompatActivity {
         MediaTestDialog newFragment = new MediaTestDialog();
         newFragment.show(ft, "videoTestDialog");
     }
-
-
 
     private void checkServer() {
         CheckServerTask checkServerTask = new CheckServerTask(this) {
@@ -210,7 +177,6 @@ public class ActiveMeasurementsActivity extends AppCompatActivity {
         this.mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
             }
 
             @Override
