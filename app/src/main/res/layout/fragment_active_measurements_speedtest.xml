@@ -99,6 +99,21 @@
                         android:layout_weight="0"
                         android:textAppearance="@style/TextAppearance.AppCompat.Body2" />
                 </TableRow>
+                <TableRow
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent">
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:text="Servidor de Prueba"
+                        android:layout_weight="0"/>
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/server_name"
+                        android:layout_weight="0"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Body2" />
+                </TableRow>
             </TableLayout>
 
 
