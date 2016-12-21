@@ -114,4 +114,10 @@ public class MediaTest {
                 return false;
         }
     }
+
+    public void cancelTask() {
+        webView.loadUrl("about:blank");
+        finish();
+    }
+
 }
