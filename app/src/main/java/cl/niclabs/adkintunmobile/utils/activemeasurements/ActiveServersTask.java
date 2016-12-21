@@ -23,6 +23,7 @@ import cz.msebera.android.httpclient.Header;
 public abstract class ActiveServersTask extends AsyncTask<String, Void, Void> {
     private ArrayList<String> serverPortsList;
     private ArrayList<String> serverHostsList;
+    private ArrayList<String> serverNamesList;
     private Context context;
 
     public ActiveServersTask(Context context){
@@ -42,11 +43,13 @@ public abstract class ActiveServersTask extends AsyncTask<String, Void, Void> {
                     JSONArray activeServers = response.getJSONArray("data");
                     serverHostsList = new ArrayList<>();
                     serverPortsList = new ArrayList<>();
+                    serverNamesList = new ArrayList<>();
 
                     for (int i=0; i<activeServers.length(); i++){
                         JSONObject server = activeServers.getJSONObject(i);
                         String serverHost = server.getString("host");
                         String serverPort = server.getString("port");
+                        String serverName = server.getString("name") + ", " + server.getString("country");
 
                         URL url;
                         HttpURLConnection urlConnection = null;
@@ -65,6 +68,7 @@ public abstract class ActiveServersTask extends AsyncTask<String, Void, Void> {
                             if (responseCode >= 200 && responseCode<400){
                                 serverHostsList.add(serverHost);
                                 serverPortsList.add(serverPort);
+                                serverNamesList.add(serverName);
                             }
                         }
                     }
@@ -72,6 +76,7 @@ public abstract class ActiveServersTask extends AsyncTask<String, Void, Void> {
                     for (int i = 0; i< serverHostsList.size(); i++){
                         activeServersBundle.putString("serverHost" + i, serverHostsList.get(i));
                         activeServersBundle.putString("serverPort" + i, serverPortsList.get(i));
+                        activeServersBundle.putString("serverName" + i, serverNamesList.get(i));
                     }
                     activeServersBundle.putInt("count", serverHostsList.size());
                     activeServersBundle.putBoolean("shouldExecute", false);

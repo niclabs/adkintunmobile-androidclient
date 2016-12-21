@@ -17,6 +17,7 @@ public class ActiveServersDialog extends DialogFragment {
 
     private String selectedServerHost;
     private String selectedServerPort;
+    private String selectedServerName;
 
     public ActiveServersDialog() {
         // Required empty public constructor
@@ -28,24 +29,29 @@ public class ActiveServersDialog extends DialogFragment {
         int count = bundle.getInt("count");
         String[] serverHosts = new String[count];
         String[] serverPorts = new String[count];
+        final String[] serverNames = new String[count];
         for (int i=0; i<count; i++){
             serverHosts[i] = bundle.getString("serverHost"+i);
             serverPorts[i] = bundle.getString("serverPort"+i);
+            serverNames[i] = bundle.getString("serverName"+i);
         }
         final boolean shouldExecute = bundle.getBoolean("shouldExecute");
         final String[] finalServerHosts = serverHosts;
         final String[] finalServerPorts = serverPorts;
+        final String[] finalServerNames = serverNames;
         selectedServerHost = finalServerHosts[0];
         selectedServerPort = finalServerPorts[0];
+        selectedServerName = finalServerNames[0];
 
         AlertDialog.Builder builder =
                 new AlertDialog.Builder(getActivity());
 
         builder.setTitle("Seleccionar servidor")
-                .setSingleChoiceItems(serverHosts, 0, new DialogInterface.OnClickListener() {
+                .setSingleChoiceItems(serverNames, 0, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int item) {
                                 selectedServerHost = finalServerHosts[item];
                                 selectedServerPort = finalServerPorts[item];
+                                selectedServerName = finalServerNames[item];
                             }
                         }
                     );
@@ -56,6 +62,7 @@ public class ActiveServersDialog extends DialogFragment {
                 SharedPreferences.Editor editor = sharedPreferences.edit();
                 editor.putString(getActivity().getString(R.string.settings_speed_test_server_host_key), selectedServerHost);
                 editor.putString(getActivity().getString(R.string.settings_speed_test_server_port_key), selectedServerPort);
+                editor.putString(getActivity().getString(R.string.settings_speed_test_server_name_key), selectedServerName);
                 editor.apply();
                 if (shouldExecute)
                     ((ActiveMeasurementsActivity) getActivity()).startSpeedTest();
