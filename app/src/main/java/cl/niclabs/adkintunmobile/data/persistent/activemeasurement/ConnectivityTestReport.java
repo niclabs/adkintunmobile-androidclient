@@ -1,5 +1,7 @@
 package cl.niclabs.adkintunmobile.data.persistent.activemeasurement;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,11 +9,14 @@ import cl.niclabs.adkintunmobile.utils.display.DisplayDateManager;
 
 public class ConnectivityTestReport extends ActiveMeasurement {
 
+    @SerializedName("sites_results")
+    public List<SiteResult> sitesResults;
+
     public ConnectivityTestReport() {
     }
 
     public List<SiteResult> getSiteResults(){
-        return SiteResult.find(SiteResult.class, "report = ?", new String(getId().toString()));
+        return SiteResult.find(SiteResult.class, "parent_report = ?", new String(getId().toString()));
     }
 
     static public ArrayList<String> getTimestampsAllReports() {
@@ -30,8 +35,17 @@ public class ConnectivityTestReport extends ActiveMeasurement {
         return ret;
     }
 
-    static public List<ConnectivityTestReport> getSentMediaReports(){
-        return find(ConnectivityTestReport.class, "sent = true");
+    static public List<ConnectivityTestReport> getSentReports(){
+        return find(ConnectivityTestReport.class, "dispatched = ?", "1");
+    }
+
+    static public List<ConnectivityTestReport> getPendingToSendReports(){
+        List<ConnectivityTestReport> results = new ArrayList<ConnectivityTestReport>();
+        for (ConnectivityTestReport report : find(ConnectivityTestReport.class, "dispatched = ?", "0") ){
+            report.sitesResults = report.getSiteResults();
+            results.add(report);
+        }
+        return results;
     }
 
     public static void deleteAllReports() {

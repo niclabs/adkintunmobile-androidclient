@@ -15,7 +15,7 @@ public class VideoResult extends Persistent<VideoResult>{
     @SerializedName("downloaded_bytes")
     public long downloadedBytes;
 
-    public MediaTestReport report;
+    public MediaTestReport parentReport;
 
     public VideoResult() {
     }

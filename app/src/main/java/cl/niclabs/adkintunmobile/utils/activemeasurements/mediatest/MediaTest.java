@@ -66,7 +66,7 @@ public class MediaTest {
             mainTest.onVideoEnded(quality, timesBuffering, loadedFraction, totalBytes);
             VideoResult r = new VideoResult();
             r.setUpVideoResult(quality,timesBuffering, loadedFraction, totalBytes);
-            r.report = this.report;
+            r.parentReport = this.report;
             r.save();
         }
     }

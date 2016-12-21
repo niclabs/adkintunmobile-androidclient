@@ -11,12 +11,14 @@ public class MediaTestReport extends ActiveMeasurement {
 
     @SerializedName("video_id")
     public String videoId;
+    @SerializedName("video_results")
+    public List<VideoResult> videoResults;
 
     public MediaTestReport() {
     }
 
     public List<VideoResult> getVideoResults() {
-        return VideoResult.find(VideoResult.class, "report = ?", new String(getId().toString()));
+        return VideoResult.find(VideoResult.class, "parent_report = ?", new String(getId().toString()));
     }
 
     static public ArrayList<String> getTimestampsAllReports() {
@@ -35,8 +37,17 @@ public class MediaTestReport extends ActiveMeasurement {
         return ret;
     }
 
-    static public List<MediaTestReport> getSentMediaReports(){
-        return find(MediaTestReport.class, "sent = true");
+    static public List<MediaTestReport> getSentReports(){
+        return find(MediaTestReport.class, "dispatched = ?", "1");
+    }
+
+    static public List<MediaTestReport> getPendingToSendReports(){
+        List<MediaTestReport> results = new ArrayList<MediaTestReport>();
+        for (MediaTestReport report : find(MediaTestReport.class, "dispatched = ?", "0") ){
+            report.videoResults = report.getVideoResults();
+            results.add(report);
+        }
+        return results;
     }
 
     public static void deleteAllReports() {

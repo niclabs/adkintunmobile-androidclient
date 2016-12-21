@@ -15,7 +15,7 @@ public class SiteResult extends Persistent<SiteResult>{
     @SerializedName("downloaded_bytes")
     public long downloadedBytes;
 
-    public ConnectivityTestReport report;
+    public ConnectivityTestReport parentReport;
 
     public SiteResult() {
     }

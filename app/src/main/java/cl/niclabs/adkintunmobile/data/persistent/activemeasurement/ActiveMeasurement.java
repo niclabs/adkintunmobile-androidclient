@@ -12,12 +12,12 @@ public class ActiveMeasurement extends Persistent<ActiveMeasurement> {
     public NetworkInterface networkInterface;
     @SerializedName("timestamp")
     public long timestamp;
-    @SerializedName("sent")
-    public boolean sent;
+    @SerializedName("dispatched")
+    public boolean dispatched;
 
     public ActiveMeasurement() {
         super();
-        this.sent = false;
+        this.dispatched = false;
         this.timestamp = System.currentTimeMillis();
     }
 

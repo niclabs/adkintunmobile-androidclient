@@ -122,7 +122,7 @@ public class ConnectivityTest {
                 mainTest.onWebPageLoaded(i, loadingTime, sizeBytes);
                 SiteResult r = new SiteResult();
                 r.setUpSiteResult(urls.get(i), true, loadingTime, sizeBytes);
-                r.report = report;
+                r.parentReport = report;
                 r.save();
                 i++;
                 startTime = -1;
@@ -150,7 +150,7 @@ public class ConnectivityTest {
                         mainTest.onWebPageLoaded(i, 0, 0);
                         SiteResult r = new SiteResult();
                         r.setUpSiteResult(urls.get(i), false, 0, 0);
-                        r.report = report;
+                        r.parentReport = report;
                         r.save();
                         i++;
                         loadNextPage();
