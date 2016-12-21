@@ -62,7 +62,7 @@ public class ConnectivityTestDialog extends DialogFragment{
         LayoutInflater inflater = getActivity().getLayoutInflater();
         for (String name : names){
             TableRow tableRow = (TableRow) inflater.inflate(R.layout.web_pages_dialog_row, null);
-            ((TextView)tableRow.findViewById(R.id.web_page_name)).setText(name);
+            ((TextView)tableRow.findViewById(R.id.web_page_name)).setText(name.substring(name.indexOf("//") + 2));
 
             tableLayout.addView(tableRow, index++);
         }
