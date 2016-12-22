@@ -2,7 +2,9 @@ package cl.niclabs.adkintunmobile.views.activemeasurements;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -19,9 +21,10 @@ import android.view.View;
 import java.net.HttpURLConnection;
 
 import cl.niclabs.adkintunmobile.R;
-import cl.niclabs.adkintunmobile.utils.activemeasurements.ActiveServersDialog;
-import cl.niclabs.adkintunmobile.utils.activemeasurements.ActiveServersTask;
-import cl.niclabs.adkintunmobile.utils.activemeasurements.CheckServerTask;
+import cl.niclabs.adkintunmobile.utils.activemeasurements.connectivitytest.GetRecommendedSitesDialog;
+import cl.niclabs.adkintunmobile.utils.activemeasurements.speedtest.ActiveServersDialog;
+import cl.niclabs.adkintunmobile.utils.activemeasurements.speedtest.ActiveServersTask;
+import cl.niclabs.adkintunmobile.utils.activemeasurements.speedtest.CheckServerTask;
 import cl.niclabs.adkintunmobile.views.activemeasurements.viewfragments.ConnectivityTestFragment;
 import cl.niclabs.adkintunmobile.views.activemeasurements.viewfragments.MediaTestFragment;
 import cl.niclabs.adkintunmobile.views.activemeasurements.viewfragments.SpeedTestFragment;
@@ -79,23 +82,28 @@ public class ActiveMeasurementsActivity extends AppCompatActivity {
         checkServer();
     }
 
-    public void onWebPagesTestClick(View view){
-        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        Fragment prev = getSupportFragmentManager().findFragmentByTag("webPagesTestDialog");
-        if (prev != null) {
-            ft.remove(prev);
-        }
-        ft.addToBackStack(null);
+    public void onConnectivityTestClick(View view){
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
+        int sitesCount = sharedPreferences.getInt(getString(R.string.settings_connectivity_sites_count_key), 0);
+        if (sitesCount > 0) {
+            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+            Fragment prev = getSupportFragmentManager().findFragmentByTag("webPagesTestDialog");
+            if (prev != null) {
+                ft.remove(prev);
+            }
+            ft.addToBackStack(null);
 
-        ConnectivityTestDialog newFragment = new ConnectivityTestDialog();
-        newFragment.show(ft, "webPagesTestDialog");
+            ConnectivityTestDialog newFragment = new ConnectivityTestDialog();
+            newFragment.show(ft, "webPagesTestDialog");
+        }
+        else{
+            FragmentManager fm = getSupportFragmentManager();
+            GetRecommendedSitesDialog dialog = new GetRecommendedSitesDialog();
+            dialog.show(fm, null);
+        }
     }
 
     public void onVideoTestClick(View view){
-        startMediaTest();
-    }
-
-    public void startMediaTest() {
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         Fragment prev = getSupportFragmentManager().findFragmentByTag("videoTestDialog");
         if (prev != null) {
@@ -232,6 +240,10 @@ public class ActiveMeasurementsActivity extends AppCompatActivity {
                 return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    public Fragment getViewPagerItem(int i) {
+        return mViewPagerAdapter.getItem(i);
     }
 }
 

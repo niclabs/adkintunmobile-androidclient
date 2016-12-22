@@ -12,6 +12,12 @@
         >
     </PreferenceCategory>
     <PreferenceCategory
+        android:title="@string/settings_connectivity_get_sites_title">
+        <Preference
+            android:key="@string/settings_connectivity_get_sites_key"
+            android:summary="@string/settings_connectivity_get_sites_summary" />
+    </PreferenceCategory>
+    <PreferenceCategory
         android:title="@string/settings_active_measurements_reports_title">
         <Preference
             android:key="@string/settings_connectivity_reports_delete_key"

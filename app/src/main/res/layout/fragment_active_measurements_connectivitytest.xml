@@ -93,7 +93,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/button2"
                 style="@style/Widget.AppCompat.Button.Colored"
-                android:onClick="onWebPagesTestClick"/>
+                android:onClick="onConnectivityTestClick"/>
 
         </LinearLayout>
 

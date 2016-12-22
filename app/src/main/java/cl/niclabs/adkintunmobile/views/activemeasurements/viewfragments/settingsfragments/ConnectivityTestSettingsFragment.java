@@ -22,6 +22,7 @@ import android.widget.Toast;
 import cl.niclabs.adkintunmobile.R;
 import cl.niclabs.adkintunmobile.data.persistent.activemeasurement.ConnectivityTestReport;
 import cl.niclabs.adkintunmobile.utils.activemeasurements.connectivitytest.AddSiteDialog;
+import cl.niclabs.adkintunmobile.utils.activemeasurements.connectivitytest.GetRecommendedSitesDialog;
 
 public class ConnectivityTestSettingsFragment extends ActiveMeasurementsSettingsFragment{
 
@@ -58,6 +59,23 @@ public class ConnectivityTestSettingsFragment extends ActiveMeasurementsSettings
         updateSummaries();
 
 
+    }
+
+    public void refreshView(){
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
+        PreferenceCategory preferenceCategory = (PreferenceCategory) findPreference(getString(R.string.settings_connectivity_test_category_key));
+
+        preferenceCategory.removeAll();
+        int sitesCount = sharedPreferences.getInt(getString(R.string.settings_connectivity_sites_count_key), 0);
+
+        for (int i=1; i<=sitesCount; i++){
+            String siteTitle = sharedPreferences.getString(getString(R.string.settings_connectivity_test_site_) + i, "");
+            Preference sitePreference = new Preference(context);
+            sitePreference.setKey(getString(R.string.settings_connectivity_test_site_) + i);
+            sitePreference.setSummary(siteTitle);
+            preferenceCategory.addPreference(sitePreference);
+        }
+        updateSummaries();
     }
 
     @Override
@@ -197,6 +215,11 @@ public class ConnectivityTestSettingsFragment extends ActiveMeasurementsSettings
         if (key.equals(getString(R.string.settings_connectivity_reports_delete_key))){
             ConnectivityTestReport.deleteAllReports();
             Toast.makeText(context, getString(R.string.settings_active_measurements_reports_delete_toast), Toast.LENGTH_SHORT).show();
+        }
+        else if (key.equals(getString(R.string.settings_connectivity_get_sites_key))){
+            FragmentManager fm = ((ActiveMeasurementsSettingsActivity) getActivity()).getSupportFragmentManager();
+            GetRecommendedSitesDialog dialog = new GetRecommendedSitesDialog();
+            dialog.show(fm, null);
         }
 
         return super.onPreferenceTreeClick(preferenceScreen, preference);

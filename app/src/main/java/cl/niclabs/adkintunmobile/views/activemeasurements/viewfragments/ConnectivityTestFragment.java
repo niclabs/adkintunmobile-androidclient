@@ -26,18 +26,25 @@ public class ConnectivityTestFragment extends ActiveMeasurementViewFragment {
         setHasOptionsMenu(true);
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_active_measurements_connectivitytest, container, false);
+        setView(view);
+        return view;
+    }
 
+    public void refreshView(){
+        setView(getView());
+    }
+
+    private void setView(View view) {
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getContext());
 
         int sitesCount = sharedPreferences.getInt(getString(R.string.settings_connectivity_sites_count_key), 0);
 
         TableLayout tableLayout = (TableLayout) view.findViewById(R.id.sites_table_layout);
-
+        tableLayout.removeAllViews();
         for (int i=1; i<=sitesCount; i++){
             String siteTitle = sharedPreferences.getString(getString(R.string.settings_connectivity_test_site_) + i, "");
             addSiteToTable(tableLayout, i, siteTitle);
         }
-        return view;
     }
 
     private void addSiteToTable(TableLayout tableLayout, int i, String siteTitle) {

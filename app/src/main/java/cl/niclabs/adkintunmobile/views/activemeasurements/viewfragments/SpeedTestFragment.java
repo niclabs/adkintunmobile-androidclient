@@ -24,7 +24,15 @@ public class SpeedTestFragment extends ActiveMeasurementViewFragment {
         setHasOptionsMenu(true);
         // Inflate the layout for this fragment
         View view =  inflater.inflate(R.layout.fragment_active_measurements_speedtest, container, false);
+        setView(view);
+        return view;
+    }
 
+    public void refreshView(){
+        setView(getView());
+    }
+
+    private void setView(View view){
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getContext());
         long downloadSize = Long.parseLong(sharedPreferences.getString(getString(R.string.settings_speed_test_download_size_key), "1000000"));
         long uploadSize = Long.parseLong(sharedPreferences.getString(getString(R.string.settings_speed_test_upload_size_key), "1000000"));
@@ -33,7 +41,5 @@ public class SpeedTestFragment extends ActiveMeasurementViewFragment {
         ((TextView) view.findViewById(R.id.download_size)).setText(Network.formatBytes(downloadSize));
         ((TextView) view.findViewById(R.id.upload_size)).setText(Network.formatBytes(uploadSize));
         ((TextView) view.findViewById(R.id.server_name)).setText(serverName);
-
-        return view;
     }
 }

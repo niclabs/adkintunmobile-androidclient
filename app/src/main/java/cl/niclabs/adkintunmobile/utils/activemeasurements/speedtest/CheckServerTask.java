@@ -1,4 +1,4 @@
-package cl.niclabs.adkintunmobile.utils.activemeasurements;
+package cl.niclabs.adkintunmobile.utils.activemeasurements.speedtest;
 
 import android.content.Context;
 import android.content.SharedPreferences;

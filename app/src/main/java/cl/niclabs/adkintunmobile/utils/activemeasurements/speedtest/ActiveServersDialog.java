@@ -1,4 +1,4 @@
-package cl.niclabs.adkintunmobile.utils.activemeasurements;
+package cl.niclabs.adkintunmobile.utils.activemeasurements.speedtest;
 
 import android.app.Dialog;
 import android.content.DialogInterface;
@@ -10,10 +10,9 @@ import android.support.v7.app.AlertDialog;
 
 import cl.niclabs.adkintunmobile.R;
 import cl.niclabs.adkintunmobile.views.activemeasurements.ActiveMeasurementsActivity;
+import cl.niclabs.adkintunmobile.views.activemeasurements.viewfragments.SpeedTestFragment;
 
 public class ActiveServersDialog extends DialogFragment {
-
-    static public final String TAG = "AdkM:DataQuotaDialog";
 
     private String selectedServerHost;
     private String selectedServerPort;
@@ -64,6 +63,10 @@ public class ActiveServersDialog extends DialogFragment {
                 editor.putString(getActivity().getString(R.string.settings_speed_test_server_port_key), selectedServerPort);
                 editor.putString(getActivity().getString(R.string.settings_speed_test_server_name_key), selectedServerName);
                 editor.apply();
+                if (getActivity() instanceof ActiveMeasurementsActivity) {
+                    ActiveMeasurementsActivity parent = (ActiveMeasurementsActivity) getActivity();
+                    ((SpeedTestFragment) parent.getViewPagerItem(0)).refreshView();
+                }
                 if (shouldExecute)
                     ((ActiveMeasurementsActivity) getActivity()).startSpeedTest();
             }

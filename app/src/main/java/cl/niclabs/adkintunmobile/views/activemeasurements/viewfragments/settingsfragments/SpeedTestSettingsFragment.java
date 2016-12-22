@@ -9,8 +9,8 @@ import android.widget.Toast;
 
 import cl.niclabs.adkintunmobile.R;
 import cl.niclabs.adkintunmobile.data.persistent.activemeasurement.SpeedTestReport;
-import cl.niclabs.adkintunmobile.utils.activemeasurements.ActiveServersDialog;
-import cl.niclabs.adkintunmobile.utils.activemeasurements.ActiveServersTask;
+import cl.niclabs.adkintunmobile.utils.activemeasurements.speedtest.ActiveServersDialog;
+import cl.niclabs.adkintunmobile.utils.activemeasurements.speedtest.ActiveServersTask;
 
 public class SpeedTestSettingsFragment extends ActiveMeasurementsSettingsFragment{
 
