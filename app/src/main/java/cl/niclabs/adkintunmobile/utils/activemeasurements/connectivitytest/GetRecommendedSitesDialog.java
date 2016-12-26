@@ -78,7 +78,7 @@ public class GetRecommendedSitesDialog extends DialogFragment {
 
     private void getRecommendedSites() {String host = getContext().getString(R.string.speed_test_server_host);
         String port = getContext().getString(R.string.speed_test_server_port);
-        final String url = host + ":" + port + "/recommendedSites/";
+        final String url = host + ":" + port + "/recommended_sites/";
         AsyncHttpClient client = new AsyncHttpClient();
 
         client.get(getContext(), url, new JsonHttpResponseHandler() {

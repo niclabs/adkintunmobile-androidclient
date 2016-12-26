@@ -33,7 +33,7 @@ public abstract class ActiveServersTask extends AsyncTask<String, Void, Void> {
     protected Void doInBackground(String... params) {
         String host = context.getString(R.string.speed_test_server_host);
         String port = context.getString(R.string.speed_test_server_port);
-        final String url = host + ":" + port + "/activeServers/";
+        final String url = host + ":" + port + "/active_servers/";
         AsyncHttpClient client = new AsyncHttpClient();
         client.get(url, new JsonHttpResponseHandler() {
 
