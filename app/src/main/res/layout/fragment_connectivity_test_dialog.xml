@@ -51,7 +51,8 @@
         </TableRow>
         <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:minHeight="@dimen/aboutus_institutions_logo_height">
             <TableLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -60,7 +61,6 @@
                 android:focusableInTouchMode="true"
                 android:gravity="center"
                 android:id="@+id/web_pages_table_layout">
-
             </TableLayout>
         </ScrollView>
 
