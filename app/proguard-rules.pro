@@ -93,6 +93,14 @@
 -keep public class cl.niclabs.adkintunmobile.data.persistent.activemeasurement.SpeedTestReport{*;}
 -keep public class cl.niclabs.adkintunmobile.data.persistent.activemeasurement.VideoResult{*;}
 
+# ActiveMeasurements
+-keep public class cl.niclabs.adkintunmobile.utils.activemeasurements{*;}
+-keep public class cl.niclabs.adkintunmobile.utils.activemeasurements.mediatest{*;}
+-keep public class cl.niclabs.adkintunmobile.utils.activemeasurements.mediatest.MediaTest{*;}
+-keep public class cl.niclabs.adkintunmobile.utils.activemeasurements.mediatest.MediaTestJavascriptInterface{*;}
+-keep public class cl.niclabs.adkintunmobile.utils.activemeasurements.connectivitytest{*;}
+-keep public class cl.niclabs.adkintunmobile.utils.activemeasurements.speedtest{*;}
+
 
 # Do not obfuscate serializable or persistent fields
 #-keepclassmembers class * extends cl.niclabs.adkintunmobile.data.persistent {
