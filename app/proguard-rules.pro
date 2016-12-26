@@ -45,6 +45,7 @@
 -keep public class cl.niclabs.adkintunmobile.services.sync.DispatcherDataBroadcastReceiver{*;}
 -keep public class cl.niclabs.adkintunmobile.services.sync.Synchronization{*;}
 -keep public class cl.niclabs.adkintunmobile.services.sync.SynchronizationBroadcastReceiver{*;}
+-keep public class cl.niclabs.adkintunmobile.services.notifications.DailyNotificationBroadcastReceiver{*;}
 
 # Keep descriptor classes
 -keep public interface cl.niclabs.adkmobile.monitor.listeners.MonitorListener{*;}
@@ -84,6 +85,13 @@
 -keep public class cl.niclabs.adkintunmobile.data.persistent.visualization.DailyNetworkTypeSummary{*;}
 -keep public class cl.niclabs.adkintunmobile.data.persistent.visualization.NetworkTypeSample{*;}
 -keep public class cl.niclabs.adkintunmobile.data.persistent.visualization.NewsNotification{*;}
+-keep public class cl.niclabs.adkintunmobile.data.persistent.activemeasurement.ActiveMeasurement{*;}
+-keep public class cl.niclabs.adkintunmobile.data.persistent.activemeasurement.ConnectivityTestReport{*;}
+-keep public class cl.niclabs.adkintunmobile.data.persistent.activemeasurement.MediaTestReport{*;}
+-keep public class cl.niclabs.adkintunmobile.data.persistent.activemeasurement.NetworkInterface{*;}
+-keep public class cl.niclabs.adkintunmobile.data.persistent.activemeasurement.SiteResult{*;}
+-keep public class cl.niclabs.adkintunmobile.data.persistent.activemeasurement.SpeedTestReport{*;}
+-keep public class cl.niclabs.adkintunmobile.data.persistent.activemeasurement.VideoResult{*;}
 
 
 # Do not obfuscate serializable or persistent fields
