@@ -26,12 +26,14 @@ public class TimelineViewFragment extends ConnectionTypeViewFragment{
         this.timelineAdapter.updateData(statistic);
         DisplayDateManager dateManager = new DisplayDateManager(context);
         dateManager.refreshDate(this.dayText, this.dateText, statistic.initialTime);
-
-        TextView tvEmpty = (TextView) getView().findViewById(R.id.empty);
-        if (this.timelineAdapter.getItemCount() == 0){
-            tvEmpty.setVisibility(View.VISIBLE);
-        }else{
-            tvEmpty.setVisibility(View.GONE);
+        View view = getView();
+        if (view != null) {
+            TextView tvEmpty = (TextView) view.findViewById(R.id.empty);
+            if (this.timelineAdapter.getItemCount() == 0) {
+                tvEmpty.setVisibility(View.VISIBLE);
+            } else {
+                tvEmpty.setVisibility(View.GONE);
+            }
         }
     }
 
