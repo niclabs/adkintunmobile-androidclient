@@ -185,6 +185,7 @@
     <string name="view_active_connections_dialog_location_not_found">%1$d localizaciones no encontradas</string>
 
     <!-- Active Measurements -->
+    <string name="view_active_measurements_error_network_connection">No hay conexión de red disponible</string>
     <string name="view_active_measurements_start_test">Iniciar Prueba</string>
     <string name="view_active_measurements_speedtest">Velocidad</string>
     <string name="view_active_measurements_speedtest_title">Prueba de Velocidad</string>

@@ -8,12 +8,10 @@ import android.preference.PreferenceManager;
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.ArrayList;
 
 import cl.niclabs.adkintunmobile.R;
 
 public abstract class CheckServerTask extends AsyncTask<String, Void, Void> {
-    private ArrayList<String> serversUrlList;
     Context context;
 
     public CheckServerTask(Context context){
@@ -24,8 +22,6 @@ public abstract class CheckServerTask extends AsyncTask<String, Void, Void> {
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
         String serverHost = sharedPreferences.getString(context.getString(R.string.settings_speed_test_server_host_key), "0");
         String serverPort = sharedPreferences.getString(context.getString(R.string.settings_speed_test_server_port_key), "0");
-
-        //final String serverUrl = context.getString(R.string.speed_test_server) + ":5000/activeServers/";
 
         URL url;
         HttpURLConnection urlConnection = null;

@@ -5,6 +5,7 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
+import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -88,7 +89,6 @@ public class ConnectivityTestDialog extends DialogFragment{
 
         // Prepare Test
         connectivityTest = new ConnectivityTest(this, webView);
-        connectivityTest.start();
 
         // Create View
         builder.setView(view);
@@ -99,20 +99,26 @@ public class ConnectivityTestDialog extends DialogFragment{
                 positiveButton = ((AlertDialog) dialog).getButton(AlertDialog.BUTTON_POSITIVE);
                 negativeButton = ((AlertDialog) dialog).getButton(AlertDialog.BUTTON_NEGATIVE);
                 positiveButton.setVisibility(View.GONE);
+
+                connectivityTest.start();
             }
         });
+
         return dialog;
     }
 
     public void onConnectivityTestFinish() {
-        getActivity().runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                webView.setVisibility(View.GONE);
-                ((TableRow) webView.getParent()).setPadding(0,0,0,0);
-                positiveButton.setVisibility(View.VISIBLE);
-                negativeButton.setVisibility(View.GONE);
-            }
-        });
+        FragmentActivity activity = getActivity();
+        if (activity != null) {
+            activity.runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    webView.setVisibility(View.GONE);
+                    ((TableRow) webView.getParent()).setPadding(0, 0, 0, 0);
+                    positiveButton.setVisibility(View.VISIBLE);
+                    negativeButton.setVisibility(View.GONE);
+                }
+            });
+        }
     }
 }

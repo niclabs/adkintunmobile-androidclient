@@ -18,6 +18,8 @@ import java.net.URL;
 import java.util.ArrayList;
 
 import cl.niclabs.adkintunmobile.R;
+import cl.niclabs.adkintunmobile.views.activemeasurements.ActiveMeasurementsActivity;
+import cl.niclabs.adkintunmobile.views.activemeasurements.viewfragments.settingsfragments.ActiveMeasurementsSettingsActivity;
 import cz.msebera.android.httpclient.Header;
 
 public abstract class ActiveServersTask extends AsyncTask<String, Void, Void> {
@@ -35,6 +37,7 @@ public abstract class ActiveServersTask extends AsyncTask<String, Void, Void> {
         String port = context.getString(R.string.speed_test_server_port);
         final String url = host + ":" + port + "/active_servers/";
         AsyncHttpClient client = new AsyncHttpClient();
+        client.setTimeout(1000);
         client.get(url, new JsonHttpResponseHandler() {
 
             @Override
@@ -87,8 +90,13 @@ public abstract class ActiveServersTask extends AsyncTask<String, Void, Void> {
                     e.printStackTrace();
                 }
             };
-            @Override
             public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+                if (context != null && context instanceof ActiveMeasurementsActivity) {
+                    ((ActiveMeasurementsActivity) context).makeNoConnectionToast();
+                }
+                else if (context != null && context instanceof ActiveMeasurementsSettingsActivity) {
+                    ((ActiveMeasurementsSettingsActivity) context).makeNoConnectionToast();
+                }
             }
             @Override
             public boolean getUseSynchronousMode() {

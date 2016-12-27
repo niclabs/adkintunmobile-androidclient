@@ -83,6 +83,7 @@ public class ConnectivityTest {
             private long startTime = -1;
             private long finishTime;
             private String lastFinished;
+            private int lastFinishedIndex;
 
             @Override
             public void onPageStarted(WebView view, String url, Bitmap favicon) {
@@ -106,10 +107,12 @@ public class ConnectivityTest {
                 if (url.equals("about:blank")){
                     return;
                 }
-                if (url.equals(lastFinished)){
+                if (url.equals(lastFinished) && lastFinishedIndex==i){
                     return;
                 }
+                webView.clearCache(true);
                 lastFinished = url;
+                lastFinishedIndex = i;
                 webView.loadUrl("about:blank");
                 finishTime = System.currentTimeMillis();
                 long loadingTime = finishTime - startTime;

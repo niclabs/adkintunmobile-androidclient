@@ -17,6 +17,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import java.net.HttpURLConnection;
 
@@ -74,6 +75,16 @@ public class ActiveMeasurementsActivity extends AppCompatActivity {
         currentItem = 0;
     }
 
+    public void makeNoConnectionToast(){
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                Toast.makeText(context, getString(R.string.view_active_measurements_error_network_connection),
+                        Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
     public static boolean isRunning(){
         return running;
     }
@@ -102,7 +113,6 @@ public class ActiveMeasurementsActivity extends AppCompatActivity {
             dialog.show(fm, null);
         }
     }
-
     public void onVideoTestClick(View view){
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         Fragment prev = getSupportFragmentManager().findFragmentByTag("videoTestDialog");

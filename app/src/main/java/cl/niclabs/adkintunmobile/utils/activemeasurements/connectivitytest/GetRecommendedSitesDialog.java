@@ -6,7 +6,6 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.DialogFragment;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
@@ -76,10 +75,12 @@ public class GetRecommendedSitesDialog extends DialogFragment {
         return dialog;
     }
 
-    private void getRecommendedSites() {String host = getContext().getString(R.string.speed_test_server_host);
+    private void getRecommendedSites() {
+        String host = getContext().getString(R.string.speed_test_server_host);
         String port = getContext().getString(R.string.speed_test_server_port);
         final String url = host + ":" + port + "/recommended_sites/";
         AsyncHttpClient client = new AsyncHttpClient();
+        client.setTimeout(1000);
 
         client.get(getContext(), url, new JsonHttpResponseHandler() {
 
@@ -101,6 +102,12 @@ public class GetRecommendedSitesDialog extends DialogFragment {
             };
             @Override
             public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+                if (parent != null && parent instanceof ActiveMeasurementsActivity) {
+                    ((ActiveMeasurementsActivity) parent).makeNoConnectionToast();
+                }
+                else if (parent != null && parent instanceof ActiveMeasurementsSettingsActivity) {
+                    ((ActiveMeasurementsSettingsActivity) parent).makeNoConnectionToast();
+                }
             }
             @Override
             public boolean getUseSynchronousMode() {

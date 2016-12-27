@@ -5,6 +5,7 @@ import android.preference.PreferenceFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import cl.niclabs.adkintunmobile.R;
 import cl.niclabs.adkintunmobile.views.activemeasurements.ActiveMeasurementsActivity;
@@ -69,4 +70,13 @@ public class ActiveMeasurementsSettingsActivity extends AppCompatActivity {
         super.onBackPressed();
     }
 
+    public void makeNoConnectionToast(){
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                Toast.makeText(getApplicationContext(), getString(R.string.view_active_measurements_error_network_connection),
+                        Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
 }
