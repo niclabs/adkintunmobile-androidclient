@@ -137,7 +137,7 @@
             android:value="adkmobile.db" />
         <meta-data
             android:name="VERSION"
-            android:value="@string/settings_app_version_default" />
+            android:value="2" />
         <meta-data
             android:name="QUERY_LOG"
             android:value="true" />
