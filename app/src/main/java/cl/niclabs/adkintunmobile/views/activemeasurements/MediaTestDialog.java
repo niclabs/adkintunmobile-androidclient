@@ -74,21 +74,22 @@ public class MediaTestDialog extends DialogFragment{
                 tableRow.findViewById(R.id.progress_bar).setVisibility(View.GONE);
                 ImageView status = (ImageView) tableRow.findViewById(R.id.ic_done);
                 status.setVisibility(View.VISIBLE);
-                if ((int) (loadedFraction*100) < 100){
+                if (Math.round(loadedFraction) < 1){
                     status.setImageResource(R.drawable.ic_clear_black);
                 }
                 else {
                     status.setImageResource(R.drawable.ic_done_black);
-                    String loadedPercentage = String.format(Locale.getDefault(), "%.1f%%", loadedFraction * 100);
-                    ((TextView) tableRow.findViewById(R.id.loaded_percentage)).setText(loadedPercentage);
-                    String time;
-                    if (bufferingTime > 1000)
-                        time = String.format(Locale.getDefault(), "%.2f s", bufferingTime / 1000.0);
-                    else
-                        time = String.format(Locale.getDefault(), "%d ms", bufferingTime);
-                    ((TextView) tableRow.findViewById(R.id.loading_time)).setText(time);
-                    ((TextView) tableRow.findViewById(R.id.downloaded_size)).setText(Network.formatBytes(totalBytes));
                 }
+                String loadedPercentage = String.format(Locale.getDefault(), "%.1f%%", loadedFraction * 100);
+                ((TextView) tableRow.findViewById(R.id.loaded_percentage)).setText(loadedPercentage);
+                String time;
+                if (bufferingTime > 1000)
+                    time = String.format(Locale.getDefault(), "%.2f s", bufferingTime / 1000.0);
+                else
+                    time = String.format(Locale.getDefault(), "%d ms", bufferingTime);
+                ((TextView) tableRow.findViewById(R.id.loading_time)).setText(time);
+                ((TextView) tableRow.findViewById(R.id.downloaded_size)).setText(Network.formatBytes(totalBytes));
+
             }
         });
     }
