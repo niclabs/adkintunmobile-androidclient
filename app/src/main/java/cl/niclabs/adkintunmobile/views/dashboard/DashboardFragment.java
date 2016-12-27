@@ -195,19 +195,21 @@ public class DashboardFragment extends BaseToolbarFragment {
                     getActivity().runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            TextView tvPrimaryConn = (TextView) view.findViewById(R.id.tv_primary_conn);
-                            switch (information.getPrimaryType()) {
-                                case ConnectionModeSample.NONE:
-                                    tvPrimaryConn.setText(getString(R.string.view_dashboard_conn_mode_unknown));
-                                    break;
-                                case ConnectionModeSample.MOBILE:
-                                    tvPrimaryConn.setText(getString(R.string.view_dashboard_conn_mode_mobile));
-                                    break;
-                                case ConnectionModeSample.WIFI:
-                                    tvPrimaryConn.setText(getString(R.string.view_dashboard_conn_mode_wifi));
-                                    break;
+                            if (isAdded()) {
+                                TextView tvPrimaryConn = (TextView) view.findViewById(R.id.tv_primary_conn);
+                                switch (information.getPrimaryType()) {
+                                    case ConnectionModeSample.NONE:
+                                        tvPrimaryConn.setText(getString(R.string.view_dashboard_conn_mode_unknown));
+                                        break;
+                                    case ConnectionModeSample.MOBILE:
+                                        tvPrimaryConn.setText(getString(R.string.view_dashboard_conn_mode_mobile));
+                                        break;
+                                    case ConnectionModeSample.WIFI:
+                                        tvPrimaryConn.setText(getString(R.string.view_dashboard_conn_mode_wifi));
+                                        break;
+                                }
+                                view.setVisibility(View.VISIBLE);
                             }
-                            view.setVisibility(View.VISIBLE);
                         }
                     });
                 }
