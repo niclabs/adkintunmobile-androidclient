@@ -62,7 +62,7 @@ public class SettingsFragment extends PreferenceFragment implements SharedPrefer
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
         if (isAdded()) {
 
-            if (key.equals(this.context.getString(R.string.settings_sampling_frequency_key))) {
+            if (key.equals(getString(R.string.settings_sampling_frequency_key))) {
                 SetupSystem.schedulleBroadcastReceivers(this.context);
             }
 
