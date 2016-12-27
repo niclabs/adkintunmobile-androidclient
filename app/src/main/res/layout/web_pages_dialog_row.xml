@@ -10,6 +10,8 @@
         android:layout_weight="6"
         android:id="@+id/web_page_name"
         android:gravity="left"
+        android:ellipsize="end"
+        android:maxLines="1"
         android:text=""/>
 
     <LinearLayout
