@@ -150,8 +150,10 @@ public class ActiveConnectionMapBottomSheetDialogFragment extends BottomSheetDia
                         public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
                             Log.d(TAG, "API failed on " + ip + " " + type);
                             failApiCounter++;
-                            mToast.setText(String.format(getString(R.string.view_active_connections_dialog_location_not_found), failApiCounter));
-                            mToast.show();
+                            if (isAdded()) {
+                                mToast.setText(String.format(getString(R.string.view_active_connections_dialog_location_not_found), failApiCounter));
+                                mToast.show();
+                            }
                         }
                     });
                 } else {
