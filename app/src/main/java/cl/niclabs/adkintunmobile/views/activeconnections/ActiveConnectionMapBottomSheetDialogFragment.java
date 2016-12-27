@@ -268,6 +268,8 @@ public class ActiveConnectionMapBottomSheetDialogFragment extends BottomSheetDia
 
     @Override
     public void onClick(View v) {
+        if (ipLocations.size() == 0)
+            return;
         switch (v.getId()){
             case R.id.ib_next:
                 index = ++index%ipLocations.size();
