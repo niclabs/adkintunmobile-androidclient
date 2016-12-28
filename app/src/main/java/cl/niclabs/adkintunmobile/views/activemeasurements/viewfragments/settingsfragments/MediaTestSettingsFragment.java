@@ -11,7 +11,6 @@ import android.widget.Toast;
 
 import cl.niclabs.adkintunmobile.R;
 import cl.niclabs.adkintunmobile.data.persistent.activemeasurement.MediaTestReport;
-import cl.niclabs.adkintunmobile.data.persistent.activemeasurement.SpeedTestReport;
 
 public class MediaTestSettingsFragment extends ActiveMeasurementsSettingsFragment{
 

@@ -28,7 +28,6 @@ import cl.niclabs.adkintunmobile.data.persistent.activemeasurement.SpeedTestRepo
 import cl.niclabs.adkintunmobile.data.persistent.visualization.ApplicationTraffic;
 import cl.niclabs.adkintunmobile.data.persistent.visualization.ConnectionModeSample;
 import cl.niclabs.adkintunmobile.data.persistent.visualization.NetworkTypeSample;
-import cl.niclabs.adkintunmobile.utils.activemeasurements.connectivitytest.ConnectivityTest;
 import cl.niclabs.adkintunmobile.utils.compression.CompressionUtils;
 
 /**
