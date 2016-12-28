@@ -27,6 +27,23 @@
         <!-- <item>2</item> -->
     </string-array>
 
+    <string-array name="speed_test_file_size">
+        <item>1.0 MB</item>
+        <item>2.0 MB</item>
+        <item>5.0 MB</item>
+        <item>10.0 MB</item>
+        <item>30.0 MB</item>
+    </string-array>
+    <string-array name="speed_test_file_size_values">
+        <item>1000000</item>
+        <item>2000000</item>
+        <item>5000000</item>
+        <item>10000000</item>
+        <item>30000000</item>
+    </string-array>
+
+
+
     <!-- Doughnut Chart -->
     <string-array name="day_of_week">
         <item>DOMINGO</item>
@@ -141,6 +158,21 @@
         <item>wom</item>
     </string-array>
 
+    <!-- Video Qualities -->
+    <string-array name="qualities_names">
+        <item>tiny</item>
+        <item>small</item>
+        <item>medium</item>
+        <item>large</item>
+        <item>hd720</item>
+    </string-array>
+    <string-array name="qualities_pixels">
+        <item>144p</item>
+        <item>240p</item>
+        <item>360p</item>
+        <item>480p</item>
+        <item>720p</item>
+    </string-array>
 
     <!-- Pasos Tutoriales  -->
     <!-- Dashboard-->

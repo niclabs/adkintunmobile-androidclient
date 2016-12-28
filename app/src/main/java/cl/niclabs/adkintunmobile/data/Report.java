@@ -2,6 +2,8 @@ package cl.niclabs.adkintunmobile.data;
 
 import android.content.Context;
 
+import com.google.gson.ExclusionStrategy;
+import com.google.gson.FieldAttributes;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.annotations.SerializedName;
@@ -20,9 +22,13 @@ import cl.niclabs.adkintunmobile.data.persistent.SampleWrapper;
 import cl.niclabs.adkintunmobile.data.persistent.StateChangeWrapper;
 import cl.niclabs.adkintunmobile.data.persistent.TelephonyObservationWrapper;
 import cl.niclabs.adkintunmobile.data.persistent.TrafficObservationWrapper;
+import cl.niclabs.adkintunmobile.data.persistent.activemeasurement.ConnectivityTestReport;
+import cl.niclabs.adkintunmobile.data.persistent.activemeasurement.MediaTestReport;
+import cl.niclabs.adkintunmobile.data.persistent.activemeasurement.SpeedTestReport;
 import cl.niclabs.adkintunmobile.data.persistent.visualization.ApplicationTraffic;
 import cl.niclabs.adkintunmobile.data.persistent.visualization.ConnectionModeSample;
 import cl.niclabs.adkintunmobile.data.persistent.visualization.NetworkTypeSample;
+import cl.niclabs.adkintunmobile.utils.activemeasurements.connectivitytest.ConnectivityTest;
 import cl.niclabs.adkintunmobile.utils.compression.CompressionUtils;
 
 /**
@@ -54,6 +60,13 @@ public class Report {
 
     private transient GsmObservationWrapper persistentGsmObservation;
 
+    @SerializedName("speedtest_records")
+    public List <SpeedTestReport> speedTestRecords;
+    @SerializedName("mediatest_records")
+    public List <MediaTestReport> mediaTestRecords;
+    @SerializedName("connectivitytest_records")
+    public List <ConnectivityTestReport> connectivityTestRecords;
+
     public Report(Context context) {
         this.simRecord = SimSingleton.getInstance(context);
         this.deviceRecord = DeviceSingleton.getInstance(context);
@@ -63,6 +76,11 @@ public class Report {
         this.telephonyRecords = TelephonyObservationWrapper.listAll(TelephonyObservationWrapper.class);
         this.trafficRecords = TrafficObservationWrapper.listAll(TrafficObservationWrapper.class);
         this.gsmRecords = GsmObservationWrapper.listAll(GsmObservationWrapper.class);
+
+        this.speedTestRecords = SpeedTestReport.getPendingToSendReports();
+        this.mediaTestRecords = MediaTestReport.getPendingToSendReports();
+        this.connectivityTestRecords = ConnectivityTestReport.getPendingToSendReports();
+
         cleanRecords();
     }
 
@@ -104,18 +122,37 @@ public class Report {
     }
 
     public boolean recordsToSend(){
-        boolean cdma = this.cdmaRecords.isEmpty();
-        boolean connectivity = this.connectivityRecords.isEmpty();
-        boolean gsm = this.gsmRecords.isEmpty();
-        boolean state = this.stateRecords.isEmpty();
-        boolean telephony = this.telephonyRecords.isEmpty();
-        boolean traffic = this.trafficRecords.isEmpty();
-        return !(cdma && connectivity && gsm && state && telephony && traffic);
+        boolean existsRecords = false;
+
+        existsRecords = existsRecords || !this.cdmaRecords.isEmpty();
+        existsRecords = existsRecords || !this.connectivityRecords.isEmpty();
+        existsRecords = existsRecords || !this.gsmRecords.isEmpty();
+        existsRecords = existsRecords || !this.stateRecords.isEmpty();
+        existsRecords = existsRecords || !this.telephonyRecords.isEmpty();
+        existsRecords = existsRecords || !this.trafficRecords.isEmpty();
+
+        existsRecords = existsRecords || !this.speedTestRecords.isEmpty();
+        existsRecords = existsRecords || !this.mediaTestRecords.isEmpty();
+        existsRecords = existsRecords || !this.connectivityTestRecords.isEmpty();
+
+        return existsRecords;
     }
 
     public boolean saveFile(Context context, CompressionUtils.CompressionType compressionType){
         // Store to String
-        Gson gson = new Gson();
+        GsonBuilder builder = new GsonBuilder();
+        builder.setExclusionStrategies(new ExclusionStrategy() {
+            @Override
+            public boolean shouldSkipField(FieldAttributes f) {
+                return f.getName().equals("parentReport");
+            }
+
+            @Override
+            public boolean shouldSkipClass(Class<?> clazz) {
+                return false;
+            }
+        });
+        Gson gson = builder.create();
         String reportData = gson.toJson(this);
 
         // Store in local directory
@@ -163,6 +200,19 @@ public class Report {
 
         if (persistentGsmObservation != null)
             persistentGsmObservation.save(); //Last GsmObservation reported is saved again to avoid sending events with the same timestamp (incremental records)
+
+        for (SpeedTestReport r: this.speedTestRecords) {
+            r.dispatched = true;
+            r.save();
+        }
+        for (MediaTestReport r: this.mediaTestRecords) {
+            r.dispatched = true;
+            r.save();
+        }
+        for (ConnectivityTestReport r: this.connectivityTestRecords) {
+            r.dispatched = true;
+            r.save();
+        }
     }
 
     public void saveVisualSamples(){

@@ -29,6 +29,7 @@ import cl.niclabs.adkintunmobile.utils.display.DisplayDateManager;
 import cl.niclabs.adkintunmobile.utils.information.Network;
 import cl.niclabs.adkintunmobile.utils.volley.HttpMultipartRequest;
 import cl.niclabs.adkintunmobile.utils.volley.VolleySingleton;
+import cl.niclabs.adkintunmobile.views.activemeasurements.ActiveMeasurementsActivity;
 
 public class DispatcherDataBroadcastReceiver extends BroadcastReceiver{
 
@@ -36,7 +37,7 @@ public class DispatcherDataBroadcastReceiver extends BroadcastReceiver{
 
     public void onReceive(final Context context, Intent intent) {
         Log.d(TAG, "Iniciado intento de despacho de datos");
-        if (Network.getActiveNetwork(context) == ConnectionModeSample.WIFI) {
+        if (Network.getActiveNetwork(context) == ConnectionModeSample.WIFI && !ActiveMeasurementsActivity.isRunning()) {
 
             Log.d(TAG, "Wifi disponible");
             // 1.- List report files in data directory

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/menu_history_btn"
+        android:icon="@drawable/ic_history_white"
+        app:showAsAction="ifRoom"
+        android:title="historia">
+    </item>
+    <item
+        android:id="@+id/menu_settings_btn"
+        android:icon="@drawable/ic_settings_white"
+        app:showAsAction="ifRoom"
+        android:title="configurar">
+    </item>
+
+</menu>

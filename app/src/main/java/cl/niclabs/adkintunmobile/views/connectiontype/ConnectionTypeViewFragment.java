@@ -3,8 +3,6 @@ package cl.niclabs.adkintunmobile.views.connectiontype;
 import android.content.Context;
 import android.support.v4.app.Fragment;
 
-import cl.niclabs.adkintunmobile.views.connectiontype.networktype.DailyNetworkTypeInformation;
-
 public abstract class ConnectionTypeViewFragment extends Fragment {
 
     protected Context context;

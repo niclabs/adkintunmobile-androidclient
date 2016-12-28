@@ -35,9 +35,11 @@ import cl.niclabs.adkintunmobile.utils.display.ShowCaseTutorial;
 import cl.niclabs.adkintunmobile.utils.information.Network;
 import cl.niclabs.adkintunmobile.views.aboutus.AboutUsActivity;
 import cl.niclabs.adkintunmobile.views.activeconnections.ActiveConnectionsActivity;
+import cl.niclabs.adkintunmobile.views.activemeasurements.ActiveMeasurementsActivity;
 import cl.niclabs.adkintunmobile.views.applicationstraffic.ApplicationsTrafficActivity;
 import cl.niclabs.adkintunmobile.views.connectiontype.connectionmode.ConnectionModeActivity;
 import cl.niclabs.adkintunmobile.views.connectiontype.networktype.NetworkTypeActivity;
+import cl.niclabs.adkintunmobile.views.notificationlog.NotificationLogActivity;
 import cl.niclabs.adkintunmobile.views.rankings.RankingFragment;
 import cl.niclabs.adkintunmobile.views.settings.SettingsActivity;
 import cl.niclabs.adkintunmobile.views.status.DataQuotaDialog;
@@ -151,6 +153,9 @@ public class MainActivity extends AppCompatActivity {
                     case R.id.nav_active_connections:
                         openActiveConnectionsView(null);
                         break;
+                    case R.id.nav_active_measurements:
+                        openActiveMeasurementsView(null);
+                        break;
                     case R.id.nav_settings:
                         myIntent = new Intent(getApplicationContext(), SettingsActivity.class);
                         startActivity(myIntent);
@@ -168,8 +173,8 @@ public class MainActivity extends AppCompatActivity {
 
     // TODO: Habilitar método cuando estén operativas las notificaciones
     public void openNotificationView(View view){
-        //Intent myIntent = new Intent(getApplicationContext(), NotificationLogActivity.class);
-        //startActivity(myIntent);
+        Intent myIntent = new Intent(getApplicationContext(), NotificationLogActivity.class);
+        startActivity(myIntent);
     }
 
     public void openStatusView(View view){
@@ -194,6 +199,11 @@ public class MainActivity extends AppCompatActivity {
 
     public void openActiveConnectionsView(View view) {
         Intent myIntent = new Intent(getApplicationContext(), ActiveConnectionsActivity.class);
+        startActivity(myIntent);
+    }
+
+    public void openActiveMeasurementsView(View view) {
+        Intent myIntent = new Intent(getApplicationContext(), ActiveMeasurementsActivity.class);
         startActivity(myIntent);
     }
     /*

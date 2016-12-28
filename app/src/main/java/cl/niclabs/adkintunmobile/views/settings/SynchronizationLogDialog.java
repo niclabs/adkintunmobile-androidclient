@@ -88,8 +88,8 @@ public class SynchronizationLogDialog extends DialogFragment{
                 viewHolder = new ViewHolder();
                 LayoutInflater inflater = LayoutInflater.from(getContext());
                 convertView = inflater.inflate(R.layout.item_synchronization_log, parent, false);
-                viewHolder.date = (TextView) convertView.findViewById(R.id.date);
-                viewHolder.status = (TextView) convertView.findViewById(R.id.status);
+                viewHolder.date = (TextView) convertView.findViewById(R.id.tv_date);
+                viewHolder.status = (TextView) convertView.findViewById(R.id.tv_status);
                 convertView.setTag(viewHolder);
             } else {
                 viewHolder = (ViewHolder) convertView.getTag();

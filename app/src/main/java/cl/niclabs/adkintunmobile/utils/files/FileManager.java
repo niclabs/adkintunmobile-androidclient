@@ -1,7 +1,6 @@
 package cl.niclabs.adkintunmobile.utils.files;
 
 import android.content.Context;
-import android.widget.Toast;
 
 import java.io.File;
 import java.io.FilenameFilter;
