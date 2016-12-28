@@ -43,7 +43,6 @@ public class ActiveMeasurementsHistoryActivity extends AppCompatActivity {
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                // TODO: Pasar a strings.xml e implementar
                 Toast.makeText(getApplicationContext(), "Reportes Actualizados", Toast.LENGTH_SHORT).show();
                 mSwipeRefreshLayout.setRefreshing(false);
             }
