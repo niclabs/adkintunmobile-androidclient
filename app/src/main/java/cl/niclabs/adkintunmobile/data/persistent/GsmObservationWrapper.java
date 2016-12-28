@@ -25,7 +25,6 @@ public class GsmObservationWrapper extends TelephonyObservationWrapper{
     public GsmObservationWrapper() {
     }
 
-    // TODO: Hacer una rutina para guardar la neighbor_list en caso de venir como dato
     @Override
     public void save() {
         if(this.signalBer != null)
