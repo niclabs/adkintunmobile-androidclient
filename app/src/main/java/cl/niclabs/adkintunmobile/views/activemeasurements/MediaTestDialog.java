@@ -154,6 +154,12 @@ public class MediaTestDialog extends DialogFragment{
         return dialog;
     }
 
+    @Override
+    public void onDismiss(DialogInterface dialog) {
+        super.onDismiss(dialog);
+        ActiveMeasurementsActivity.setEnabledButtons(true);
+    }
+
     public void onMediaTestFinish() {
         getActivity().runOnUiThread(new Runnable() {
             @Override

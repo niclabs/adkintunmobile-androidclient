@@ -136,6 +136,12 @@ public class SpeedTestDialog extends DialogFragment{
         return dialog;
     }
 
+    @Override
+    public void onDismiss(DialogInterface dialog) {
+        super.onDismiss(dialog);
+        ActiveMeasurementsActivity.setEnabledButtons(true);
+    }
+
     public void onSpeedTestFinish() {
         getActivity().runOnUiThread(new Runnable() {
             @Override

@@ -41,7 +41,9 @@ public class ActiveMeasurementsActivity extends AppCompatActivity {
     protected ViewPager mViewPager;
 
     protected static int currentItem = 0;
-    static boolean running = false;
+    public static boolean running = false;
+    public static boolean enabledButtons = true;
+
 
     public static int getCurrentItem() {
         return currentItem;
@@ -66,6 +68,7 @@ public class ActiveMeasurementsActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         running = true;
+        enabledButtons = true;
     }
 
     @Override
@@ -89,11 +92,22 @@ public class ActiveMeasurementsActivity extends AppCompatActivity {
         return running;
     }
 
+    public static void setEnabledButtons(boolean enabled){
+        enabledButtons = enabled;
+    }
+
     public void onSpeedTestClick(View view){
+        if (!enabledButtons)
+            return;
+        setEnabledButtons(false);
         checkServer();
+
     }
 
     public void onConnectivityTestClick(View view){
+        if (!enabledButtons)
+            return;
+        setEnabledButtons(false);
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
         int sitesCount = sharedPreferences.getInt(getString(R.string.settings_connectivity_sites_count_key), 0);
         if (sitesCount > 0) {
@@ -108,12 +122,16 @@ public class ActiveMeasurementsActivity extends AppCompatActivity {
             newFragment.show(ft, "webPagesTestDialog");
         }
         else{
+            setEnabledButtons(true);
             FragmentManager fm = getSupportFragmentManager();
             GetRecommendedSitesDialog dialog = new GetRecommendedSitesDialog();
             dialog.show(fm, null);
         }
     }
     public void onVideoTestClick(View view){
+        if (!enabledButtons)
+            return;
+        setEnabledButtons(false);
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         Fragment prev = getSupportFragmentManager().findFragmentByTag("videoTestDialog");
         if (prev != null) {
@@ -146,6 +164,7 @@ public class ActiveMeasurementsActivity extends AppCompatActivity {
                 FragmentManager fm = getSupportFragmentManager();
                 ActiveServersDialog dialog = new ActiveServersDialog();
                 dialog.setArguments(bundle);
+                dialog.setCancelable(false);
                 dialog.show(fm, null);
             }
         };

@@ -107,6 +107,12 @@ public class ConnectivityTestDialog extends DialogFragment{
         return dialog;
     }
 
+    @Override
+    public void onDismiss(DialogInterface dialog) {
+        super.onDismiss(dialog);
+        ActiveMeasurementsActivity.setEnabledButtons(true);
+    }
+
     public void onConnectivityTestFinish() {
         FragmentActivity activity = getActivity();
         if (activity != null) {
