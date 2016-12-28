@@ -3,6 +3,7 @@ package cl.niclabs.adkintunmobile.utils.activemeasurements.speedtest;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.preference.PreferenceManager;
+import android.widget.Toast;
 
 import cl.niclabs.adkintunmobile.R;
 import cl.niclabs.adkintunmobile.data.persistent.activemeasurement.SpeedTestReport;
@@ -62,6 +63,15 @@ public class SpeedTest {
         testDialog.onSpeedTestProgress(mode, progressPercent, report.getTransferRateBit());
         if (progressPercent == 100)
             onSpeedTestTaskFinish(mode, report);
+    }
+
+    public void onError(final String errorCode){
+        testDialog.getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                Toast.makeText(testDialog.getContext(), String.format(testDialog.getString(R.string.view_active_measurements_speedtest_error), errorCode), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     public void cancelTask() {

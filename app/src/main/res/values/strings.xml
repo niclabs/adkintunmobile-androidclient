@@ -186,6 +186,7 @@
 
     <!-- Active Measurements -->
     <string name="view_active_measurements_error_network_connection">No hay conexión de red disponible</string>
+    <string name="view_active_measurements_speedtest_error">Ha ocurrido un error en la prueba: %1$s</string>
     <string name="view_active_measurements_start_test">Iniciar Prueba</string>
     <string name="view_active_measurements_speedtest">Velocidad</string>
     <string name="view_active_measurements_speedtest_title">Prueba de Velocidad</string>

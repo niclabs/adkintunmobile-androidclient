@@ -39,6 +39,7 @@ public class SpeedTestTask extends AsyncTask<SpeedTestMode, Void, Void> {
             @Override
             public void onDownloadError(SpeedTestError errorCode, String message) {
                 Log.i("speed-test-app","Download error " + errorCode + " occured with message : " + message);
+                speedTest.onError(errorCode.toString());
             }
 
             @Override
@@ -51,6 +52,7 @@ public class SpeedTestTask extends AsyncTask<SpeedTestMode, Void, Void> {
             @Override
             public void onUploadError(SpeedTestError errorCode, String message) {
                 Log.i("speed-test-app","Upload error " + errorCode + " occured with message : " + message);
+                speedTest.onError(errorCode.toString());
             }
 
             @Override
