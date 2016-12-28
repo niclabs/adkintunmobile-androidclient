@@ -171,7 +171,9 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    // TODO: Habilitar método cuando estén operativas las notificaciones
+    /***
+     * Abre vista de notificaciones. No disponible para el usuario.
+     */
     public void openNotificationView(View view){
         Intent myIntent = new Intent(getApplicationContext(), NotificationLogActivity.class);
         startActivity(myIntent);
