@@ -263,6 +263,12 @@ public class ActiveMeasurementsActivity extends AppCompatActivity {
                 startActivity(myIntent);
                 return true;
             case R.id.menu_settings_btn:
+                SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+                String maxQuality = sharedPreferences.getString(getString(R.string.settings_video_test_max_quality_key), "None");
+                if (categoryKey.equals(getString(R.string.settings_video_test_category_key)) && maxQuality.equals("None")) {
+                    onVideoTestClick(null);
+                    return true;
+                }
                 myIntent = new Intent(this, ActiveMeasurementsSettingsActivity.class);
                 myIntent.putExtra(getString(R.string.settings_active_measurements_key), categoryKey);
                 startActivity(myIntent);

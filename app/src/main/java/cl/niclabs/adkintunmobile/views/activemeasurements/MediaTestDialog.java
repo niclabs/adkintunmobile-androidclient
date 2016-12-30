@@ -47,7 +47,7 @@ public class MediaTestDialog extends DialogFragment{
         });
     }
 
-    private void getMaxQuality() {
+    protected void getMaxQuality() {
         webView.setVisibility(View.INVISIBLE);
         webView.setWebViewClient(new WebViewClient());
 
@@ -116,7 +116,8 @@ public class MediaTestDialog extends DialogFragment{
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
-                mediaTest.cancelTask();
+                if (mediaTest != null)
+                    mediaTest.cancelTask();
             }
         });
         builder.setPositiveButton(android.R.string.ok, null);
