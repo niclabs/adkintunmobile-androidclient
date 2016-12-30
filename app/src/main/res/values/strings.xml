@@ -57,7 +57,7 @@
     <string name="settings_app_category">Aplicación</string>
     <string name="settings_app_version_key">app_version</string>
     <string name="settings_app_version_title">Versión de la aplicación</string>
-    <string name="settings_app_version_default">2.0.8b</string>
+    <string name="settings_app_version_default">2.1</string>
 
     <string name="settings_active_measurements_key">active_measurements_key</string>
     <string name="settings_active_measurements_reports_title">Reportes</string>
