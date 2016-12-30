@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    android:key="@string/settings_main_screen_key">
 
     <PreferenceCategory
         android:title="@string/settings_app_data_category"
@@ -15,6 +16,13 @@
         <Preference
             android:key="@string/settings_app_data_clean_ip_location_cache_key"
             android:title="@string/settings_app_data_clean_ip_location_cache_title"
+            android:summary="@string/settings_app_data_clean_ip_location_cache_summary"
+            />
+        <SwitchPreference
+            android:key="@string/settings_app_daily_notification_key"
+            android:title="@string/settings_app_daily_notification_title"
+            android:summary="@string/settings_app_daily_notification_summary"
+            android:defaultValue="true"
             />
     </PreferenceCategory>
 
@@ -32,24 +40,39 @@
             android:key="@string/settings_sampling_frequency_key"
             android:title="@string/settings_sampling_frequency_title"
             android:dialogTitle="@string/settings_sampling_frequency_title"
-            android:defaultValue="30"
+            android:defaultValue="10"
             android:summary="%s"
             android:entries="@array/sync_sampling_frequency"
             android:entryValues="@array/sync_sampling_frequency_values"
             />
         <Preference
-            android:key="@string/settings_sampling_lastsync_key"
-            android:title="@string/settings_sampling_lastsync_title"
+            android:key="@string/settings_sampling_startsync_key"
+            android:title="@string/settings_sampling_startsync_title"
+            />
+        <Preference
+            android:key="@string/settings_sampling_delete_backup_key"
+            android:title="@string/settings_sampling_delete_backup_title"
+            />
+        <ListPreference
+            android:key="@string/settings_sampling_compression_type_key"
+            android:title="@string/settings_sampling_compression_type_title"
+            android:dialogTitle="@string/settings_sampling_compression_type_title"
+            android:defaultValue="1"
+            android:summary="%s"
+            android:entries="@array/sync_sampling_compression_type"
+            android:entryValues="@array/sync_sampling_compression_type_values"
             />
     </PreferenceCategory>
     <PreferenceCategory
         android:title="@string/settings_app_category"
         >
         <Preference
+            android:key="@string/settings_sampling_lastsync_key"
+            android:title="@string/settings_sampling_lastsync_title"
+            />
+        <Preference
             android:key="@string/settings_app_version_key"
             android:title="@string/settings_app_version_title"
-            android:summary="@string/settings_app_version_default"
-            android:defaultValue="@string/settings_app_version_default"
-            />
+            android:summary="%s"/>
     </PreferenceCategory>
 </PreferenceScreen>

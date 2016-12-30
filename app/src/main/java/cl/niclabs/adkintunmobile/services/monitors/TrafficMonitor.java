@@ -2,6 +2,7 @@ package cl.niclabs.adkintunmobile.services.monitors;
 
 import android.app.Service;
 import android.content.Intent;
+import android.os.Bundle;
 import android.os.IBinder;
 
 import com.google.gson.Gson;
@@ -14,6 +15,8 @@ import cl.niclabs.adkmobile.monitor.data.TrafficObservation;
 import cl.niclabs.adkmobile.monitor.listeners.TrafficListener;
 
 public class TrafficMonitor extends Service implements TrafficListener {
+
+    private final String TAG = "AdkM:TrafficMonitor";
 
     private static boolean running = false;
     private Monitor.Controller<TrafficListener> trafficController;
@@ -51,10 +54,11 @@ public class TrafficMonitor extends Service implements TrafficListener {
         this.trafficController = Traffic.bind(Traffic.class, this);
         this.trafficController.listen(this, true);
         // set sample frequency
-        //Bundle bundle = new Bundle();
-        //bundle.putInt(Traffic.TRAFFIC_UPDATE_INTERVAL_EXTRA, 20);
+        Bundle bundle = new Bundle();
+        bundle.putInt(Traffic.TRAFFIC_UPDATE_INTERVAL_EXTRA, 20);
+        this.trafficController.activate(Monitor.TRAFFIC_APPLICATION, bundle);
         //this.trafficController.activate(Monitor.TRAFFIC_WIFI | Monitor.TRAFFIC_MOBILE | Monitor.TRAFFIC_APPLICATION, bundle);
-        this.trafficController.activate(Monitor.TRAFFIC_WIFI | Monitor.TRAFFIC_MOBILE | Monitor.TRAFFIC_APPLICATION);
+        //this.trafficController.activate(Monitor.TRAFFIC_WIFI | Monitor.TRAFFIC_MOBILE | Monitor.TRAFFIC_APPLICATION);
     }
 
     public void stopMonitor() {

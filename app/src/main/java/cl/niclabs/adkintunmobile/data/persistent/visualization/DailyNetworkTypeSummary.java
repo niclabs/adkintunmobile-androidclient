@@ -1,8 +1,8 @@
 package cl.niclabs.adkintunmobile.data.persistent.visualization;
 
-import java.util.Calendar;
 import java.util.Iterator;
-import java.util.Locale;
+
+import cl.niclabs.adkintunmobile.utils.display.DisplayDateManager;
 
 public class DailyNetworkTypeSummary extends DailyConnectionTypeSummary{
 
@@ -20,15 +20,8 @@ public class DailyNetworkTypeSummary extends DailyConnectionTypeSummary{
     }
 
     public static DailyNetworkTypeSummary getSummary(long timestamp){
-        Calendar calendar = Calendar.getInstance(Locale.getDefault());
-        calendar.setTimeInMillis(timestamp);
-        calendar.set(Calendar.HOUR_OF_DAY, 0);
-        calendar.set(Calendar.MINUTE, 0);
-        calendar.set(Calendar.SECOND, 0);
-        calendar.set(Calendar.MILLISECOND, 0);
-
         String[] todayWhereArgs = new String[1];
-        todayWhereArgs[0] = Long.toString(calendar.getTimeInMillis());
+        todayWhereArgs[0] = Long.toString(DisplayDateManager.timestampAtStartDay(timestamp));
 
         long count = DailyNetworkTypeSummary.count(DailyNetworkTypeSummary.class, "date = ?", todayWhereArgs);
 

@@ -148,7 +148,7 @@
                             android:background="@drawable/rounded_shadow" />
 
                         <com.facebook.shimmer.ShimmerFrameLayout
-                            android:id="@+id/shimmer_view_container"
+                            android:id="@+id/shimmer_dashboard_logo"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             >
@@ -281,16 +281,14 @@
 
     </android.support.v4.widget.NestedScrollView>
 
-
-    <!--
     <android.support.design.widget.FloatingActionButton
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"
         app:layout_anchor="@id/appbar"
         app:layout_anchorGravity="bottom|right|end"
-        android:src="@drawable/ic_sync_white"
+        android:src="@drawable/ic_speedometer_white"
         android:layout_margin="@dimen/margin_horizontal_info_data_quota"
-        android:clickable="true"/>
--->
+        android:clickable="true"
+        android:onClick="openActiveMeasurementsView"/>
 
 </android.support.design.widget.CoordinatorLayout>

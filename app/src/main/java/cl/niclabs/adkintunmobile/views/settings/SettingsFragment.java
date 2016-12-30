@@ -2,8 +2,8 @@ package cl.niclabs.adkintunmobile.views.settings;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
-import android.os.Build;
 import android.os.Bundle;
 import android.preference.EditTextPreference;
 import android.preference.ListPreference;
@@ -11,6 +11,7 @@ import android.preference.Preference;
 import android.preference.PreferenceCategory;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceScreen;
+import android.preference.SwitchPreference;
 import android.support.v4.app.FragmentManager;
 import android.util.Log;
 import android.widget.Toast;
@@ -21,9 +22,11 @@ import cl.niclabs.adkintunmobile.BuildConfig;
 import cl.niclabs.adkintunmobile.R;
 import cl.niclabs.adkintunmobile.data.persistent.IpLocation;
 import cl.niclabs.adkintunmobile.services.SetupSystem;
+import cl.niclabs.adkintunmobile.services.sync.Synchronization;
+import cl.niclabs.adkintunmobile.utils.files.FileManager;
 import cl.niclabs.adkintunmobile.utils.information.Network;
-import cl.niclabs.adkintunmobile.views.status.DayOfRechargeDialog;
 import cl.niclabs.adkintunmobile.views.status.DataQuotaDialog;
+import cl.niclabs.adkintunmobile.views.status.DayOfRechargeDialog;
 
 public class SettingsFragment extends PreferenceFragment implements SharedPreferences.OnSharedPreferenceChangeListener{
 
@@ -40,31 +43,40 @@ public class SettingsFragment extends PreferenceFragment implements SharedPrefer
 
         this.context = getActivity();
 
-        // Load the preferences from xml
+        /* Load the preferences from xml */
         addPreferencesFromResource(R.xml.preferences);
 
         getPreferenceManager().getSharedPreferences().registerOnSharedPreferenceChangeListener(this);
 
         updateSummaries();
 
+        /* Remove preferences available only in debug mode */
         if (!BuildConfig.DEBUG_MODE) {
+            PreferenceScreen preferenceScreen = (PreferenceScreen) findPreference(getString(R.string.settings_main_screen_key));
             PreferenceCategory preferenceCategory = (PreferenceCategory) findPreference(getString(R.string.settings_sampling_category_key));
-            Preference syncHostname = findPreference(getString(R.string.settings_sampling_hostname_key));
-            Preference syncFrequency = findPreference(getString(R.string.settings_sampling_frequency_key));
-
-            preferenceCategory.removePreference(syncHostname);
-            preferenceCategory.removePreference(syncFrequency);
+            preferenceScreen.removePreference(preferenceCategory);
         }
     }
 
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+        if (isAdded()) {
 
-        if (key.equals(this.context.getString(R.string.settings_sampling_frequency_key))){
-            SetupSystem.schedulleBroadcastReceivers(this.context);
+            if (key.equals(getString(R.string.settings_sampling_frequency_key))) {
+                SetupSystem.schedulleBroadcastReceivers(this.context);
+            }
+
+            if (key.equals(getString(R.string.settings_sampling_compression_type_key))) {
+                int deletedFiles = FileManager.deleteStoredReports(context);
+                Toast.makeText(context, "Borrados " + deletedFiles + " reportes almacenados", Toast.LENGTH_SHORT).show();
+            }
+
+            if (key.equals(getString(R.string.settings_app_daily_notification_key))){
+                SetupSystem.setupDailyNotifications(this.context);
+            }
+
+            updateSummary(key);
         }
-
-        updateSummary(key);
     }
 
     @Override
@@ -72,18 +84,31 @@ public class SettingsFragment extends PreferenceFragment implements SharedPrefer
         String key = preference.getKey();
 
         if (key.equals(getString(R.string.settings_app_data_quota_total_key))) {
+            /* Dialog for choose plan quota */
             FragmentManager fm = ((SettingsActivity) getActivity()).getSupportFragmentManager();
             DataQuotaDialog.showDialogPreference(fm, null);
         }
         if (key.equals(getString(R.string.settings_app_day_of_recharge_key))) {
+            /* Dialog for choose recharge data plan quota */
             FragmentManager fm = ((SettingsActivity) getActivity()).getSupportFragmentManager();
             DayOfRechargeDialog.showDialogPreference(fm, null);
         }
+        if (key.equals(getString(R.string.settings_sampling_startsync_key))){
+            /* Start Sync process: create new report and try to send it */
+            context.startService(new Intent(context, Synchronization.class));
+        }
+        if (key.equals(getString(R.string.settings_sampling_delete_backup_key))){
+            /* Delete Local Reports */
+            int deletedFiles = FileManager.deleteStoredReports(context);
+            Toast.makeText(context, "Borrados " + deletedFiles + " reportes almacenados", Toast.LENGTH_SHORT).show();
+        }
         if (key.equals(getString(R.string.settings_sampling_lastsync_key)) && BuildConfig.DEBUG_MODE){
+            /* Dialog to show details of last sync process */
             FragmentManager fm = ((SettingsActivity) getActivity()).getSupportFragmentManager();
             SynchronizationLogDialog.showDialog(fm);
         }
         if (key.equals(getString(R.string.settings_app_data_clean_ip_location_cache_key))){
+            /* Delete ipLocation records cached */
             IpLocation.cleanDB();
             Toast.makeText(this.context, getString(R.string.settings_app_data_clean_ip_location_cache_message), Toast.LENGTH_SHORT).show();
         }
@@ -107,15 +132,17 @@ public class SettingsFragment extends PreferenceFragment implements SharedPrefer
             EditTextPreference editTextPreference = (EditTextPreference) pref;
             pref.setSummary(editTextPreference.getText());
             Log.d(TAG, "Cambiada las preferencia de EditText");
+        } else if (pref instanceof SwitchPreference){
+            Log.d(TAG, "Cambiada las preferencia de Switch");
         } else {
             if (pref != null){
                 boolean inActivity = getActivity() != null;
-                if (inActivity && pref.getKey() == getActivity().getString(R.string.settings_app_data_quota_total_key)){
+                if (inActivity && pref.getKey().equals(getActivity().getString(R.string.settings_app_data_quota_total_key))){
                     int selectedOption = Integer.parseInt(getPreferenceManager().getSharedPreferences().getString(pref.getKey(), "0"));
                     long quota = Long.parseLong(getResources().getStringArray(R.array.data_quotas)[selectedOption]);
                     pref.setSummary(Network.formatBytes(quota));
                 }
-                else if (inActivity && pref.getKey() == getActivity().getString(R.string.settings_app_day_of_recharge_key)){
+                else if (inActivity && pref.getKey().equals(getActivity().getString(R.string.settings_app_day_of_recharge_key))){
                     int selectedOption = Integer.parseInt(getPreferenceManager().getSharedPreferences().getString(pref.getKey(), "0"));
                     pref.setSummary(Integer.toString(selectedOption + 1));
                 }else{

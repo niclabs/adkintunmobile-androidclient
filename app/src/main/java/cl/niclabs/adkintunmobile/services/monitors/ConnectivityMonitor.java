@@ -15,6 +15,8 @@ import cl.niclabs.adkmobile.monitor.listeners.ConnectivityListener;
 
 public class ConnectivityMonitor extends Service implements ConnectivityListener {
 
+    private final String TAG = "AdkM:ConnectivityMonitor";
+
     private static boolean running = false;
     private Monitor.Controller<ConnectivityListener> connController;
     private Gson gson;

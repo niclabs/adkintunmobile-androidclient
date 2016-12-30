@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- Preferences -->
     <string-array name="sync_sampling_frequency">
         <item>Cada 1 Minuto</item>
         <item>Cada 2 Minutos</item>
@@ -14,6 +15,34 @@
         <item>10</item>
         <item>30</item>
     </string-array>
+
+    <string-array name="sync_sampling_compression_type">
+        <item>Sin Compresión</item>
+        <item>Compresión GZip</item>
+        <!-- <item>Compresión ZipDeflater</item> -->
+    </string-array>
+    <string-array name="sync_sampling_compression_type_values">
+        <item>0</item>
+        <item>1</item>
+        <!-- <item>2</item> -->
+    </string-array>
+
+    <string-array name="speed_test_file_size">
+        <item>1.0 MB</item>
+        <item>2.0 MB</item>
+        <item>5.0 MB</item>
+        <item>10.0 MB</item>
+        <item>30.0 MB</item>
+    </string-array>
+    <string-array name="speed_test_file_size_values">
+        <item>1000000</item>
+        <item>2000000</item>
+        <item>5000000</item>
+        <item>10000000</item>
+        <item>30000000</item>
+    </string-array>
+
+
 
     <!-- Doughnut Chart -->
     <string-array name="day_of_week">
@@ -107,7 +136,12 @@
         <item>3500000000</item>
         <item>4000000000</item>
         <item>5000000000</item>
+        <item>6000000000</item>
+        <item>7000000000</item>
+        <item>8000000000</item>
+        <item>9000000000</item>
         <item>10000000000</item>
+        <item>12000000000</item>
         <item>15000000000</item>
     </string-array>
 
@@ -124,6 +158,21 @@
         <item>wom</item>
     </string-array>
 
+    <!-- Video Qualities -->
+    <string-array name="qualities_names">
+        <item>tiny</item>
+        <item>small</item>
+        <item>medium</item>
+        <item>large</item>
+        <item>hd720</item>
+    </string-array>
+    <string-array name="qualities_pixels">
+        <item>144p</item>
+        <item>240p</item>
+        <item>360p</item>
+        <item>480p</item>
+        <item>720p</item>
+    </string-array>
 
     <!-- Pasos Tutoriales  -->
     <!-- Dashboard-->
@@ -139,7 +188,7 @@
         <item>Adkintun Mobile</item>
     </string-array>
     <string-array name="tutorial_dashboard_body">
-        <item>Bienvenido a Adkintiun Mobile, tu aplicación de monitoreo de internet.\n\nEn el siguiente recorrido se describen las principales vistas de la aplicación.</item>
+        <item>Bienvenido a Adkintiun Mobile, tu aplicación de monitoreo de internet.\n\nA partir de este momento podrás registrar el consumo de datos de tu telefono, tu conectividad y muchos datos interesantes más.\n\nEn el siguiente recorrido se describen las principales vistas de la aplicación.</item>
         <item>Aquí se muestra un resumen del estado actual de la conexión del teléfono.</item>
         <item>Indica el nombre del proveedor de servicio que administra la antena a la que estás actualmente conectado.</item>
         <item>Indica el nombre del proveedor de servicio asociado a tu tarjeta SIM.</item>
@@ -173,12 +222,14 @@
         <item>Tipo de Conexión</item>
         <item>Reloj</item>
         <item>Leyenda</item>
+        <item>Informe Detallado</item>
         <item>Registros Previos</item>
     </string-array>
     <string-array name="tutorial_connection_mode_body">
-        <item>La vista "Tipo de Conexión" visualiza los modos de conexion que ha usado tu teléfono para acceder a Internet.</item>
-        <item>Se muestra un reloj de 24 horas donde se reconocen los principales cambios de conexión sufridos a lo largo del día.</item>
+        <item>La vista "Tipo de Conexión" visualiza los modos de conexion que ha usado tu teléfono para acceder a Internet.\nLa información se separa en 2 pestañas:</item>
+        <item>En la primera, se muestra un reloj de 24 horas donde se reconocen los principales cambios de conexión sufridos a lo largo del día.</item>
         <item>Se incluye un resumen con el total de tiempo conectado por cada modo.\nPuedes mantener presionado en un tipo de conexión para destacarlo en el reloj.</item>
+        <item>En la segunda pestaña se incluye el detalle de los distintos cambios de conexión de red detectados en el día y la duración de cada uno.</item>
         <item>Finalmente, puedes seleccionar una fecha en particular para ver los registros asociados a dicho día.</item>
     </string-array>
 
@@ -187,12 +238,14 @@
         <item>Tipo de Señal</item>
         <item>Reloj</item>
         <item>Leyenda</item>
+        <item>Informe Detallado</item>
         <item>Registros Previos</item>
     </string-array>
     <string-array name="tutorial_network_type_body">
-        <item>La vista "Tipo de Señal" visualiza los cambios de red que ha experimentado tu teléfono a lo largo de un día.\n\nEl tipo de señal influye directamente en tu calidad de acceso a datos móviles.</item>
-        <item>Se muestra un reloj de 24 horas donde se reconocen los principales cambios de conexión sufridos a lo largo del día.</item>
+        <item>La vista "Tipo de Señal" visualiza los cambios de red que ha experimentado tu teléfono a lo largo de un día.\n\nEl tipo de señal influye directamente en tu calidad de acceso a datos móviles.\nLa información se separa en 2 pestañas</item>
+        <item>En la primera, se muestra un reloj de 24 horas donde se reconocen los principales cambios de conexión sufridos a lo largo del día.</item>
         <item>Se incluye un resumen con el total de tiempo conectado por cada modo.\nPuedes mantener presionado en un tipo de conexión para destacarlo en el reloj.</item>
+        <item>En la segunda pestaña se incluye el detalle de los distintos cambios de conexión de red detectados en el día y la duración de cada uno.</item>
         <item>Finalmente, puedes seleccionar una fecha en particular para ver los registros asociados a dicho día.</item>
     </string-array>
 
@@ -208,6 +261,7 @@
         <item>El consumo de las aplicaciones está separado según si usaron datos móviles o WiFi.</item>
         <item>Aquí se listan las aplicaciones con consumo de datos, diferenciando la cantidad de datos subidos y bajados. Las aplicaciones se muestran ordenadas desde la de mayor a la de menor descarga de datos. Dale click para más información.</item>
         <item>Finalmente, puedes seleccionar una fecha en particular para ver los registros acumulados a partir de dicho día.</item>
+        <item>Además, se incluye el detalle de los distintos cambios de conexión de red registrados en el día, y la duración de cada uno.</item>
     </string-array>
 
     <!-- Active Connections -->

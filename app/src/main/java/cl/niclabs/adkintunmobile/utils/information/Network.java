@@ -3,7 +3,10 @@ package cl.niclabs.adkintunmobile.utils.information;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.wifi.WifiInfo;
+import android.net.wifi.WifiManager;
 import android.telephony.TelephonyManager;
+import android.telephony.gsm.GsmCellLocation;
 
 import java.util.Locale;
 
@@ -45,6 +48,12 @@ public class Network {
         }
     }
 
+    static public int getINTNetworkType(Context context){
+        TelephonyManager mTelephonyManager = (TelephonyManager)
+                context.getSystemService(Context.TELEPHONY_SERVICE);
+        return mTelephonyManager.getNetworkType();
+    }
+
 
     /**
      * Retorna el tipo actual de la conexión
@@ -68,6 +77,18 @@ public class Network {
         }
     }
 
+    static public String getWifiSSID(Context context) {
+        WifiManager wifiManager = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
+        WifiInfo wifiInfo = wifiManager.getConnectionInfo();
+        return wifiInfo.getSSID();
+    }
+
+    static public String getWifiBSSID(Context context) {
+        WifiManager wifiManager = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
+        WifiInfo wifiInfo = wifiManager.getConnectionInfo();
+        return wifiInfo.getBSSID();
+    }
+
     // retorna arreglo con 3 strings:
     // 0.- grande: ssid o tipo red
     // 1.- chico: connected o subtipo de red
@@ -83,11 +104,24 @@ public class Network {
             ret[0] = Network.getNetworkType(context);
             ret[1] = activeNetwork.getSubtypeName();
         }else {
-
-            ret[0] = activeNetwork.getExtraInfo();
-            ret[0] = ret[0]==null ? activeNetwork.getTypeName() : ret[0].replace("\"","");
+            ret[0] = getWifiSSID(context);
             ret[1] = activeNetwork.getState().name();
         }
+        return ret;
+    }
+
+    /**
+     * recupera el lac y cid de la zona gsm activa
+     * @param context
+     * @return int array [LAC, CID]
+     */
+    static public int[] getLacCid(Context context){
+        TelephonyManager telephonyManager = (TelephonyManager)context.getSystemService(Context.TELEPHONY_SERVICE);
+        GsmCellLocation cellLocation = (GsmCellLocation) telephonyManager.getCellLocation();
+
+        int[] ret = new int[2];
+        ret[0] = cellLocation.getLac();
+        ret[1] = cellLocation.getCid();
         return ret;
     }
 
@@ -181,5 +215,20 @@ public class Network {
         String pre = ("kMGTPE").charAt(exp - 1) + "";
         return String.format(Locale.getDefault(), "%.1f %sB",
                 bytes / Math.pow(unit, exp), pre);
+    }
+
+    /**
+     * Entrega string con velocidad de transfercia de bits en human readable
+     * @param bits
+     * @return
+     */
+    static public String transferenceBitsSpeed(float bits) {
+        int unit = 1000;
+        if (bits < unit)
+            return bits + " bps";
+        int exp = (int) (Math.log(bits) / Math.log(unit));
+        String pre = ("kMGTPE").charAt(exp - 1) + "";
+        return String.format(Locale.getDefault(), "%.2f %sbps",
+                bits / Math.pow(unit, exp), pre);
     }
 }

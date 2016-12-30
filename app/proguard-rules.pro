@@ -18,11 +18,18 @@
 
 #-dontobfuscate
 
+# Crashlytics
+-keepattributes *Annotation*
+-keepattributes SourceFile,LineNumberTable
+
 # Do not skip public libraries
 -dontskipnonpubliclibraryclasses
 
 # Keep InnerClasses
 -keepattributes Exceptions,InnerClasses
+
+# Keep Exceptions
+-keep public class cl.niclabs.adkintunmobile.utils.information.Connections.SystemSocketException{*;}
 
 # Keep classes mentioned in the manifest
 -keep public class cl.niclabs.adkmobile.AdkintunMobileApp{*;}
@@ -38,6 +45,7 @@
 -keep public class cl.niclabs.adkintunmobile.services.sync.DispatcherDataBroadcastReceiver{*;}
 -keep public class cl.niclabs.adkintunmobile.services.sync.Synchronization{*;}
 -keep public class cl.niclabs.adkintunmobile.services.sync.SynchronizationBroadcastReceiver{*;}
+-keep public class cl.niclabs.adkintunmobile.services.notifications.DailyNotificationBroadcastReceiver{*;}
 
 # Keep descriptor classes
 -keep public interface cl.niclabs.adkmobile.monitor.listeners.MonitorListener{*;}
@@ -77,6 +85,21 @@
 -keep public class cl.niclabs.adkintunmobile.data.persistent.visualization.DailyNetworkTypeSummary{*;}
 -keep public class cl.niclabs.adkintunmobile.data.persistent.visualization.NetworkTypeSample{*;}
 -keep public class cl.niclabs.adkintunmobile.data.persistent.visualization.NewsNotification{*;}
+-keep public class cl.niclabs.adkintunmobile.data.persistent.activemeasurement.ActiveMeasurement{*;}
+-keep public class cl.niclabs.adkintunmobile.data.persistent.activemeasurement.ConnectivityTestReport{*;}
+-keep public class cl.niclabs.adkintunmobile.data.persistent.activemeasurement.MediaTestReport{*;}
+-keep public class cl.niclabs.adkintunmobile.data.persistent.activemeasurement.NetworkInterface{*;}
+-keep public class cl.niclabs.adkintunmobile.data.persistent.activemeasurement.SiteResult{*;}
+-keep public class cl.niclabs.adkintunmobile.data.persistent.activemeasurement.SpeedTestReport{*;}
+-keep public class cl.niclabs.adkintunmobile.data.persistent.activemeasurement.VideoResult{*;}
+
+# ActiveMeasurements
+-keep public class cl.niclabs.adkintunmobile.utils.activemeasurements{*;}
+-keep public class cl.niclabs.adkintunmobile.utils.activemeasurements.mediatest{*;}
+-keep public class cl.niclabs.adkintunmobile.utils.activemeasurements.mediatest.MediaTest{*;}
+-keep public class cl.niclabs.adkintunmobile.utils.activemeasurements.mediatest.MediaTestJavascriptInterface{*;}
+-keep public class cl.niclabs.adkintunmobile.utils.activemeasurements.connectivitytest{*;}
+-keep public class cl.niclabs.adkintunmobile.utils.activemeasurements.speedtest{*;}
 
 
 # Do not obfuscate serializable or persistent fields
@@ -90,16 +113,16 @@
 -keep public enum cl.niclabs.adkmobile.monitor.data.constants.NetworkState{*;}
 -keep public enum cl.niclabs.adkmobile.monitor.data.constants.ConnectionType{*;}
 -keep public enum cl.niclabs.adkmobile.monitor.data.constants.TelephonyStandard{*;}
--keep public enum cl.niclabs.adkintunmobile.utils.information.SystemSockets.Type{*;}
+-keep public enum cl.niclabs.adkintunmobile.utils.information.Connections.Connections.Type{*;}
 
 
 # Remove logging
--assumenosideeffects class android.util.Log {
-    public static boolean isLoggable(java.lang.String, int);
-    public static int v(...);
-    public static int i(...);
-    public static int w(...);
-    public static int d(...);
-    public static int e(...);
-    public static *** d(...);
-}
+#-assumenosideeffects class android.util.Log {
+#    public static boolean isLoggable(java.lang.String, int);
+#    public static int v(...);
+#    public static int i(...);
+#    public static int w(...);
+#    public static int d(...);
+#    public static int e(...);
+#}
+-assumenosideeffects class android.util.Log { *; }

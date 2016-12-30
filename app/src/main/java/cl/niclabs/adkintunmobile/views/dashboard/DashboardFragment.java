@@ -2,7 +2,6 @@ package cl.niclabs.adkintunmobile.views.dashboard;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,16 +13,19 @@ import android.widget.TextView;
 
 import com.facebook.shimmer.ShimmerFrameLayout;
 
-import java.util.Calendar;
-import java.util.Date;
+import java.util.ArrayList;
 import java.util.Iterator;
 
 import cl.niclabs.adkintunmobile.R;
 import cl.niclabs.adkintunmobile.data.persistent.visualization.ApplicationTraffic;
 import cl.niclabs.adkintunmobile.data.persistent.visualization.ConnectionModeSample;
 import cl.niclabs.adkintunmobile.data.persistent.visualization.NetworkTypeSample;
+import cl.niclabs.adkintunmobile.utils.display.DisplayDateManager;
+import cl.niclabs.adkintunmobile.utils.information.Connections.Connections;
+import cl.niclabs.adkintunmobile.utils.information.Connections.SystemSocket;
 import cl.niclabs.adkintunmobile.utils.information.Network;
 import cl.niclabs.adkintunmobile.views.BaseToolbarFragment;
+import cl.niclabs.adkintunmobile.views.activeconnections.ActiveConnectionListElement;
 import cl.niclabs.adkintunmobile.views.applicationstraffic.ApplicationsTrafficListElement;
 import cl.niclabs.adkintunmobile.views.connectiontype.connectionmode.DailyConnectionModeInformation;
 import cl.niclabs.adkintunmobile.views.connectiontype.networktype.DailyNetworkTypeInformation;
@@ -58,12 +60,13 @@ public class DashboardFragment extends BaseToolbarFragment {
         updateConnectionMode(view.findViewById(R.id.card_connection_mode));
         updateNetworkType(view.findViewById(R.id.card_network_type));
         updateTopApps(view.findViewById(R.id.card_top_apps));
+        updateActiveConnections(view.findViewById(R.id.card_active_connections));
     }
 
     public void updateStatusToolbar(View view){
 
         ShimmerFrameLayout container =
-                (ShimmerFrameLayout) view.findViewById(R.id.shimmer_view_container);
+                (ShimmerFrameLayout) view.findViewById(R.id.shimmer_dashboard_logo);
         container.startShimmerAnimation();
 
         TextView tvSim, tvAntenna, tvSignal, tvInternet;
@@ -77,7 +80,6 @@ public class DashboardFragment extends BaseToolbarFragment {
         tvAntenna.setText(Network.getConnectedCarrrier(context));
         tvSignal.setText(Network.getNetworkType(context));
 
-        // TODO: Pasar Strings a strings.xml
         switch (Network.getActiveNetwork(context)){
             case ConnectionModeSample.MOBILE:
                 tvInternet.setText(getString(R.string.view_dashboard_conn_mode_mobile));
@@ -128,32 +130,32 @@ public class DashboardFragment extends BaseToolbarFragment {
                         (ImageView) view.findViewById(R.id.iv_app2),
                         (ImageView) view.findViewById(R.id.iv_app3)};
 
-                getActivity().runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        boolean isEmpty = true;
-                        for (int i=0; i<3; i++){
-                            if (topApps[i]!=null){
-                                isEmpty = false;
-                                rankingIcons[i].setImageDrawable(topApps[i].getLogo());
-                                rankingLabels[i].setText(topApps[i].getLabel());
-                                rankingIcons[i].setVisibility(View.VISIBLE);
-                                rankingLabels[i].setVisibility(View.VISIBLE);
-                                topAppsLayout.setColumnStretchable(i, true);
+                if (getActivity() != null) {
+                    getActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            boolean isEmpty = true;
+                            for (int i = 0; i < 3; i++) {
+                                if (topApps[i] != null) {
+                                    isEmpty = false;
+                                    rankingIcons[i].setImageDrawable(topApps[i].getLogo());
+                                    rankingLabels[i].setText(topApps[i].getLabel());
+                                    rankingIcons[i].setVisibility(View.VISIBLE);
+                                    rankingLabels[i].setVisibility(View.VISIBLE);
+                                    topAppsLayout.setColumnStretchable(i, true);
+                                } else {
+                                    rankingIcons[i].setVisibility(View.GONE);
+                                    rankingLabels[i].setVisibility(View.GONE);
+                                }
                             }
-                            else {
-                                rankingIcons[i].setVisibility(View.GONE);
-                                rankingLabels[i].setVisibility(View.GONE);
-                            }
+                            if (isEmpty) {
+                                (view.findViewById(R.id.empty_dialog)).setVisibility(View.VISIBLE);
+                            } else
+                                (view.findViewById(R.id.empty_dialog)).setVisibility(View.GONE);
+                            view.setVisibility(View.VISIBLE);
                         }
-                        if (isEmpty){
-                            (view.findViewById(R.id.empty_dialog)).setVisibility(View.VISIBLE);
-                        }
-                        else
-                            (view.findViewById(R.id.empty_dialog)).setVisibility(View.GONE);
-                        view.setVisibility(View.VISIBLE);
-                    }
-                });
+                    });
+                }
             }
         }).start();
     }
@@ -162,16 +164,21 @@ public class DashboardFragment extends BaseToolbarFragment {
         (new Thread(){
             @Override
             public void run() {
-                final long[] monthlyData = ApplicationTraffic.getMonthlyMobileConsumption();
 
-                getActivity().runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        ((TextView) view.findViewById(R.id.tv_download_data)).setText(Network.formatBytes(monthlyData[0]));
-                        ((TextView) view.findViewById(R.id.tv_upload_data)).setText(Network.formatBytes(monthlyData[1]));
-                        view.setVisibility(View.VISIBLE);
-                    }
-                });
+
+
+                final long[] monthlyData = ApplicationTraffic.getMonthlyMobileConsumption(context);
+
+                if (getActivity() != null) {
+                    getActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            ((TextView) view.findViewById(R.id.tv_download_data)).setText(Network.formatBytes(monthlyData[0]));
+                            ((TextView) view.findViewById(R.id.tv_upload_data)).setText(Network.formatBytes(monthlyData[1]));
+                            view.setVisibility(View.VISIBLE);
+                        }
+                    });
+                }
             }
         }).start();
     }
@@ -184,24 +191,28 @@ public class DashboardFragment extends BaseToolbarFragment {
                 final DailyConnectionModeInformation information = new DailyConnectionModeInformation(context, currentTime, currentTime);
                 information.setStatisticsInformation();
 
-                getActivity().runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        TextView tvPrimaryConn = (TextView)view.findViewById(R.id.tv_primary_conn);
-                        switch (information.getPrimaryType()){
-                            case ConnectionModeSample.NONE:
-                                tvPrimaryConn.setText(getString(R.string.view_dashboard_conn_mode_unknown));
-                                break;
-                            case ConnectionModeSample.MOBILE:
-                                tvPrimaryConn.setText(getString(R.string.view_dashboard_conn_mode_mobile));
-                                break;
-                            case ConnectionModeSample.WIFI:
-                                tvPrimaryConn.setText(getString(R.string.view_dashboard_conn_mode_wifi));
-                                break;
+                if (getActivity() != null) {
+                    getActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            if (isAdded()) {
+                                TextView tvPrimaryConn = (TextView) view.findViewById(R.id.tv_primary_conn);
+                                switch (information.getPrimaryType()) {
+                                    case ConnectionModeSample.NONE:
+                                        tvPrimaryConn.setText(getString(R.string.view_dashboard_conn_mode_unknown));
+                                        break;
+                                    case ConnectionModeSample.MOBILE:
+                                        tvPrimaryConn.setText(getString(R.string.view_dashboard_conn_mode_mobile));
+                                        break;
+                                    case ConnectionModeSample.WIFI:
+                                        tvPrimaryConn.setText(getString(R.string.view_dashboard_conn_mode_wifi));
+                                        break;
+                                }
+                                view.setVisibility(View.VISIBLE);
+                            }
                         }
-                        view.setVisibility(View.VISIBLE);
-                    }
-                });
+                    });
+                }
             }
         }).start();
     }
@@ -214,36 +225,82 @@ public class DashboardFragment extends BaseToolbarFragment {
                 final DailyNetworkTypeInformation information = new DailyNetworkTypeInformation(context, currentTime, currentTime);
                 information.setStatisticsInformation();
 
-                getActivity().runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        ImageView ivPrimaryNet = (ImageView)view.findViewById(R.id.iv_primary_net);
-                        switch (information.getPrimaryType()){
-                            case NetworkTypeSample.UNKNOWN:
-                                ivPrimaryNet.setImageResource(R.drawable.ic_10_nored);
-                                break;
-                            case NetworkTypeSample.TYPE_G:
-                                ivPrimaryNet.setImageResource(R.drawable.ic_04_g);
-                                break;
-                            case NetworkTypeSample.TYPE_E:
-                                ivPrimaryNet.setImageResource(R.drawable.ic_05_edge);
-                                break;
-                            case NetworkTypeSample.TYPE_3G:
-                                ivPrimaryNet.setImageResource(R.drawable.ic_06_3g);
-                                break;
-                            case NetworkTypeSample.TYPE_H:
-                                ivPrimaryNet.setImageResource(R.drawable.ic_07_h);
-                                break;
-                            case NetworkTypeSample.TYPE_Hp:
-                                ivPrimaryNet.setImageResource(R.drawable.ic_08_hp);
-                                break;
-                            case NetworkTypeSample.TYPE_4G:
-                                ivPrimaryNet.setImageResource(R.drawable.ic_09_4g);
-                                break;
+                if (getActivity() != null) {
+                    getActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            ImageView ivPrimaryNet = (ImageView) view.findViewById(R.id.iv_primary_net);
+                            switch (information.getPrimaryType()) {
+                                case NetworkTypeSample.UNKNOWN:
+                                    ivPrimaryNet.setImageResource(R.drawable.ic_10_nored);
+                                    break;
+                                case NetworkTypeSample.TYPE_G:
+                                    ivPrimaryNet.setImageResource(R.drawable.ic_04_g);
+                                    break;
+                                case NetworkTypeSample.TYPE_E:
+                                    ivPrimaryNet.setImageResource(R.drawable.ic_05_edge);
+                                    break;
+                                case NetworkTypeSample.TYPE_3G:
+                                    ivPrimaryNet.setImageResource(R.drawable.ic_06_3g);
+                                    break;
+                                case NetworkTypeSample.TYPE_H:
+                                    ivPrimaryNet.setImageResource(R.drawable.ic_07_h);
+                                    break;
+                                case NetworkTypeSample.TYPE_Hp:
+                                    ivPrimaryNet.setImageResource(R.drawable.ic_08_hp);
+                                    break;
+                                case NetworkTypeSample.TYPE_4G:
+                                    ivPrimaryNet.setImageResource(R.drawable.ic_09_4g);
+                                    break;
+                            }
+                            view.setVisibility(View.VISIBLE);
                         }
-                        view.setVisibility(View.VISIBLE);
+                    });
+                }
+            }
+        }).start();
+    }
+
+    private void updateActiveConnections(final View view) {
+        (new Thread(){
+            @Override
+            public void run() {
+                ArrayList<ActiveConnectionListElement> activeSockets = new ArrayList<>();
+
+                ArrayList<SystemSocket> totalSockets = new ArrayList<>(Connections.getTCPSockets());
+                totalSockets.addAll(Connections.getUDPSockets());
+
+                for (SystemSocket socket : totalSockets){
+                    ActiveConnectionListElement element =  new ActiveConnectionListElement(context, socket);
+                    if (element.isValidElement()){
+                        if (!activeSockets.contains(element)){
+                            activeSockets.add(element);
+                        }else{
+                            activeSockets.get(activeSockets.indexOf(element)).addConnection(socket);
+                        }
                     }
-                });
+                }
+
+                int aux = 0;
+                for (ActiveConnectionListElement element : activeSockets){
+                    aux += element.getTotalActiveConnections();
+                }
+
+                final int numberOfConnections = aux;
+
+                if (getActivity() != null) {
+                    getActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            if (numberOfConnections > 0) {
+                                ((TextView) view.findViewById(R.id.tv_active_connections)).setText(Integer.toString(numberOfConnections));
+                                view.setVisibility(View.VISIBLE);
+                            }
+                            else
+                                view.setVisibility(View.GONE);
+                        }
+                    });
+                }
             }
         }).start();
     }
@@ -252,14 +309,7 @@ public class DashboardFragment extends BaseToolbarFragment {
         ApplicationsTrafficListElement[] ret = new ApplicationsTrafficListElement[3];
 
         // Obtener aplicaciones con actividad de hoy
-        Date today = new Date(System.currentTimeMillis());
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTime(today);
-        calendar.set(Calendar.HOUR_OF_DAY, 0);
-        calendar.set(Calendar.MINUTE, 0);
-        calendar.set(Calendar.SECOND, 0);
-        calendar.set(Calendar.MILLISECOND, 0);
-        long initTime = calendar.getTimeInMillis();
+        long initTime = DisplayDateManager.timestampAtStartDay(System.currentTimeMillis());
 
         String sqlStatements[] = new String[2];
         sqlStatements[0] = Long.toString(initTime);
@@ -279,7 +329,6 @@ public class DashboardFragment extends BaseToolbarFragment {
 
             ApplicationsTrafficListElement elem = new ApplicationsTrafficListElement(context, current);
             ret[i++] = elem;
-            Log.d("OK", elem.toString());
         }
 
         return ret;

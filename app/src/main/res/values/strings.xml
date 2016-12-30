@@ -10,6 +10,7 @@
     <string name="view_carrier_ranking">Ranking de Operadores</string>
     <string name="view_applications_traffic">Tráfico por Aplicación</string>
     <string name="view_active_connections">Conexiones Activas</string>
+    <string name="view_active_measurements">Mediciones Activas</string>
     <string name="view_about_us">Acerca de</string>
     <string name="view_settings">Preferencias</string>
     <string name="view_notifications_log">Notificaciones</string>
@@ -21,16 +22,21 @@
     <!-- Preferences Strings -->
     <string name="settings_updated">Preferencias actualizadas</string>
 
+    <string name="settings_main_screen_key">settings_main</string>
     <string name="settings_app_data_category">Ajustes de la aplicación</string>
     <string name="settings_app_data_quota_total_key">plan_data_quota</string>
     <string name="settings_app_data_quota_total_title">Cuota de navegación de tu plan de datos</string>
     <string name="settings_app_day_of_recharge_key">day_of_recharge</string>
     <string name="settings_app_day_of_recharge_title">Día de recarga de tu plan de datos</string>
     <string name="settings_app_data_clean_ip_location_cache_key">clean_ip_location_cache</string>
-    <string name="settings_app_data_clean_ip_location_cache_title">Limpiar datos de cache</string>
-    <string name="settings_app_data_clean_ip_location_cache_message">Cache Borrado</string>
+    <string name="settings_app_data_clean_ip_location_cache_title">Borrar datos temporales</string>
+    <string name="settings_app_data_clean_ip_location_cache_summary">Elimina los datos descargados para desplegar el mapa de conexiones activas.</string>
+    <string name="settings_app_data_clean_ip_location_cache_message">Datos temporales borrados</string>
+    <string name="settings_app_daily_notification_key">daily_notification</string>
+    <string name="settings_app_daily_notification_title">Notificaciones Diarias</string>
+    <string name="settings_app_daily_notification_summary">Programar una notificación diaria para el final del día con el resumen del consumo de datos móviles.</string>
 
-    <string name="settings_sampling_category">Ajustes de sincronización</string>
+    <string name="settings_sampling_category">Opciones de Debug</string>
     <string name="settings_sampling_category_key">sync_category_key</string>
     <string name="settings_sampling_hostname_key">sync_hostname</string>
     <string name="settings_sampling_hostname_title">Dirección del servidor</string>
@@ -38,19 +44,77 @@
     <string name="settings_sampling_hostname_token_key">Authorization</string>
     <string name="settings_sampling_frequency_key">sync_frequency</string>
     <string name="settings_sampling_frequency_title">Frencuencia de envío</string>
+    <string name="settings_sampling_startsync_key">start_sync</string>
+    <string name="settings_sampling_startsync_title">Gatillar Sincronización</string>
+    <string name="settings_sampling_delete_backup_key">delete_backup_reports</string>
+    <string name="settings_sampling_delete_backup_title">Eliminar reportes almacenados</string>
     <string name="settings_sampling_lastsync_key">sync_lastsync</string>
     <string name="settings_sampling_lastsync_title">Última Sincronización</string>
+    <string name="settings_sampling_compression_type_key">sync_compression_type</string>
+    <string name="settings_sampling_compression_type_title">Tipo de compresión utilizada</string>
+
 
     <string name="settings_app_category">Aplicación</string>
     <string name="settings_app_version_key">app_version</string>
     <string name="settings_app_version_title">Versión de la aplicación</string>
-    <string name="settings_app_version_default">2.0b</string>
+    <string name="settings_app_version_default">2.1</string>
+
+    <string name="settings_active_measurements_key">active_measurements_key</string>
+    <string name="settings_active_measurements_reports_title">Reportes</string>
+    <string name="settings_active_measurements_reports_delete_toast">Reportes eliminados</string>
+
+    <string name="settings_speed_test_category_title">Test de Velocidad</string>
+    <string name="settings_speed_test_category_key">speed_test_key</string>
+    <string name="settings_speed_test_download_size_key">download_size</string>
+    <string name="settings_speed_test_download_size_title">Tamaño de archivo de bajada</string>
+    <string name="settings_speed_test_upload_size_key">upload_size</string>
+    <string name="settings_speed_test_upload_size_title">Tamaño de archivo de subida</string>
+    <string name="settings_speed_test_server_host_key">speed_test_server_host</string>
+    <string name="settings_speed_test_server_port_key">speed_test_server_port</string>
+    <string name="settings_speed_test_server_name_key">speed_test_server_name</string>
+    <string name="settings_speed_test_server_title">Servidor de prueba</string>
+    <string name="settings_speed_test_reports_delete_key">delete_speedtest_reports</string>
+    <string name="settings_speed_test_reports_delete_title">Eliminar Reportes Almacenados</string>
+    <string name="settings_speed_test_reports_delete_summary">Eliminar todos los reportes de prueba de velocidad almacenados en el equipo.</string>
+
+    <string name="settings_video_test_category_title">Calidades de prueba</string>
+    <string name="settings_video_test_category_key">media_test_key</string>
+    <string name="settings_video_test_max_quality_key">media_test_max_quality</string>
+    <string name="settings_video_test_quality_tiny_pixels">144p</string>
+    <string name="settings_video_test_quality_tiny_name">tiny</string>
+    <string name="settings_video_test_quality_tiny_key">media_test_quality_tiny</string>
+    <string name="settings_video_test_quality_small_pixels">240p</string>
+    <string name="settings_video_test_quality_small_name">small</string>
+    <string name="settings_video_test_quality_small_key">media_test_quality_small</string>
+    <string name="settings_video_test_quality_medium_pixels">360p</string>
+    <string name="settings_video_test_quality_medium_name">medium</string>
+    <string name="settings_video_test_quality_medium_key">media_test_quality_medium</string>
+    <string name="settings_video_test_quality_large_pixels">480p</string>
+    <string name="settings_video_test_quality_large_name">large</string>
+    <string name="settings_video_test_quality_large_key">media_test_quality_large</string>
+    <string name="settings_video_test_quality_hd720_pixels">720p</string>
+    <string name="settings_video_test_quality_hd720_name">hd720</string>
+    <string name="settings_video_test_quality_hd720_key">media_test_quality_hd720</string>
+    <string name="settings_video_test_reports_delete_key">delete_videotest_reports</string>
+    <string name="settings_video_test_reports_delete_title">Eliminar Reportes Almacenados</string>
+    <string name="settings_video_test_reports_delete_summary">Eliminar todos los reportes de prueba de videos almacenados en el equipo.</string>
+
+    <string name="settings_connectivity_test_category_title">Sitios a evaluar</string>
+    <string name="settings_connectivity_test_category_key">connectivity_test_key</string>
+    <string name="settings_connectivity_sites_count_key">sites_count_key</string>
+    <string name="settings_connectivity_test_site_">site_</string>
+    <string name="settings_connectivity_get_sites_key">get_recommended_sites</string>
+    <string name="settings_connectivity_get_sites_title">Obtener sitios</string>
+    <string name="settings_connectivity_get_sites_summary">Obtener sitios recomendados para realizar la prueba.</string>
+    <string name="settings_connectivity_reports_delete_key">delete_connectivity_reports</string>
+    <string name="settings_connectivity_reports_delete_title">Eliminar Reportes Almacenados</string>
+    <string name="settings_connectivity_reports_delete_summary">Eliminar todos los reportes de prueba de conectividad almacenados en el equipo.</string>
 
     <!-- Dashboard -->
     <string name="view_dashboard_toolbar_slogan">Tu Estado Ahora</string>
     <string name="view_dashboard_news">Novedades</string>
     <string name="view_dashboard_mobile_data_title">Consumo de datos móviles</string>
-    <string name="view_dashboard_mobile_data_summary">Consumo aproximado de datos móviles del día actual:</string>
+    <string name="view_dashboard_mobile_data_summary">Consumo aproximado de datos móviles del mes actual:</string>
     <string name="view_dashboard_conn_mode_title">Datos</string>
     <string name="view_dashboard_conn_mode_summary">Hoy has estado conectado principalmente a:</string>
     <string name="view_dashboard_conn_mode_wifi">WiFi</string>
@@ -60,6 +124,8 @@
     <string name="view_dashboard_net_type_summary">La mayor parte del día has tenido señal:</string>
     <string name="view_dashboard_top_apps_title">Principales Aplicaciones</string>
     <string name="view_dashboard_top_apps_summary">Las siguientes aplicaciones son las que más han usado tu internet móvil hoy:</string>
+    <string name="view_dashboard_active_connections_title">Conexiones activas</string>
+    <string name="view_dashboard_active_connections_summary">En este instante las conexiones de internet activas en tu celular llegan a un total de:</string>
 
     <!-- Notifications Log -->
     <string name="view_notifications_log_item_no_data">No hay notificaciones para mostrar</string>
@@ -72,13 +138,20 @@
     <string name="view_status_no_sim">Sin tarjeta SIM</string>
     <string name="view_status_no_antenna">Sin Red</string>
     <string name="view_status_sample_period">Periodo de muestreo: %1$s.</string>
-    <string name="view_status_monthly_sample_period">Periodo de muestreo: DESDE %1$s.</string>
+    <string name="view_status_monthly_sample_period">Periodo de muestreo: del %1$s al %2$s.</string>
+
+    <string name="view_status_config_menu">Configurar datos móviles</string>
 
     <string name="view_data_quota_dialog_title">Tu Plan de Datos</string>
     <string name="view_data_quota_dialog_description">Establece la cuota de navegación provista en tu plan de datos de tu proveedor de telefonía.</string>
 
     <string name="view_day_of_recharge_dialog_title">Día de Recarga de Datos</string>
     <string name="view_day_of_recharge_dialog_description">Establece el día de recarga de la cuota de navegación provista en tu plan de datos.</string>
+
+    <!-- Conn type: Conn Mode and Network Type shared -->
+    <string name="view_connection_type_nemu_datepicker">Seleccionar rango de fechas</string>
+    <string name="view_connection_type_summary">Resumen Diario</string>
+    <string name="view_connection_type_detailed">Informe Detallado</string>
 
     <!-- Conn mode -->
     <string name="view_connection_mode_symbology">Leyenda</string>
@@ -102,6 +175,8 @@
     <string name="view_applications_traffic_wifi">Tráfico WiFi</string>
     <string name="view_applications_traffic_mobile">Tráfico Móvil</string>
     <string name="view_applications_traffic_item_no_data">No hay resultados para mostrar</string>
+    <string name="view_applications_traffic_menu_datepicker">Seleccionar fecha de inicio de datos</string>
+    <string name="view_applications_traffic_subtitle">desde %1$s %2$s</string>
 
     <!-- Active Connections -->
     <string name="view_active_connections_reload">Conexiones Activas Actualizadas</string>
@@ -109,13 +184,49 @@
     <string name="view_active_connections_dialog_total_conn">de %1$d conexiones.</string>
     <string name="view_active_connections_dialog_location_not_found">%1$d localizaciones no encontradas</string>
 
+    <!-- Active Measurements -->
+    <string name="view_active_measurements_error_network_connection">No hay conexión de red disponible</string>
+    <string name="view_active_measurements_speedtest_error">Ha ocurrido un error en la prueba: %1$s</string>
+    <string name="view_active_measurements_start_test">Iniciar Prueba</string>
+    <string name="view_active_measurements_speedtest">Velocidad</string>
+    <string name="view_active_measurements_speedtest_title">Prueba de Velocidad</string>
+    <string name="view_active_measurements_speedtest_subtitle">Velocidad de subida y bajada</string>
+    <string name="view_active_measurements_speedtest_description">Esta prueba permite determinar la velocidad efectiva de tu conexión a internet para subir y bajar datos. El resultado permite identificar que tan estable y rápida es tu conexión.</string>
+    <string name="view_active_measurements_speedtest_param_title">Parámetros de la prueba</string>
+    <string name="view_active_measurements_speedtest_upload_speed">Velocidad de Subida</string>
+    <string name="view_active_measurements_speedtest_download_speed">Velocidad de Bajada</string>
+    <string name="view_active_measurements_mediatest">Media</string>
+    <string name="view_active_measurements_mediatest_title">Prueba de Videos</string>
+    <string name="view_active_measurements_mediatest_subtitle">Evaluación de carga multimedia</string>
+    <string name="view_active_measurements_mediatest_description">En esta prueba se evalúa el rendimiento de carga de videos desde youtube en distintas calidades. El resultado incluye la cantidad de datos descargados para reproducir el video y cuanto tiempo se pasó cargando datos, ambos para cada calidad evaluada.</string>
+    <string name="view_active_measurements_mediatest_qualities_title">Calidades a probar</string>
+    <string name="view_active_measurements_connectivitytest">Prueba de Conectividad</string>
+    <string name="view_active_measurements_connectivitytest_title">Prueba de Conectividad</string>
+    <string name="view_active_measurements_connectivitytest_subtitle">Acceso a sitios web preferidos</string>
+    <string name="view_active_measurements_connectivitytest_description">Esta prueba verifica una lista de sitios web configurable, determinando el tamaño y tiempo de carga de cada uno de los sitios. El resultado permite estudiar la disponibilidad para acceder a cada sitio.</string>
+    <string name="view_active_measurements_connectivitytest_param_title">Lista de sitios web a evaluar</string>
+    <string name="view_active_measurements_connectivitytest_example_url">www.ejemplo.com</string>
+    <string name="view_active_measurements_connectivitytest_url_error_message">Error en la url ingresada</string>
+
+    <string name="view_active_measurements_history_title">Reportes Almacenados</string>
+    <string name="view_active_measurements_history_noreports">No hay reportes de este tipo almacenados</string>
+    <string name="view_active_measurements_history_timestamp">Fecha y hora</string>
+    <string name="view_active_measurements_history_videoid">Video ID</string>
+    <string name="view_active_measurements_history_quality">Resolución</string>
+    <string name="view_active_measurements_history_size">Tamaño</string>
+    <string name="view_active_measurements_history_percentage">Porcentaje Cargado</string>
+    <string name="view_active_measurements_history_buffering">Tiempo de Carga</string>
+    <string name="view_active_measurements_history_title_mediatest_report">Reporte: Prueba de Videos</string>
+    <string name="view_active_measurements_history_title_speedtest_report">Reporte: Prueba de Velocidad</string>
+    <string name="view_active_measurements_history_title_connectivitytest_report">Reporte: Prueba de Conectividad</string>
+
     <!-- Tutorial Controls -->
+    <string name="tutorial_show_menu">Información sobre esta vista</string>
     <string name="tutorial_next">Siguiente</string>
     <string name="tutorial_close">Cerrar</string>
 
     <!-- About Us -->
-    <string name="view_aboutus_about_app">Adkintun Mobile es un proyecto de investigación desarrollado específicamente para dispositivos móviles, que busca evaluar la calidad de servicio entregado por los operadores de Internet móvil a través de la utilización de indicadores de rendimiento usados mundialmente. La aplicación permite la medición de la calidad del acceso a internet sin observar el tráfico, midiendo la cantidad de datos enviados y recibidos durante el día, la calidad de la señal en la antena, el tipo de conexión (2g, 3g, etc), y otros datos útiles. Con estos datos se realizarán estudios para describir el estado del internet móvil a nivel nacional.
-\n\nAdkintun Mobile no genera tráfico durante las mediciones, por lo que es necesario que conectes tu dispositivo a una red Wi-Fi, al menos una ves a la semana para obtener las mediciones. La aplicación no inspecciona la información que contienen los paquetes siendo enviados/recibidos por tus dispositivos ni incluyen ningún tipo de información personal del usuario.</string>
+    <string name="view_aboutus_about_app">Adkintun Mobile es un proyecto de investigación desarrollado específicamente para dispositivos móviles, que busca evaluar la calidad de servicio entregado por los operadores de Internet móvil a través de la utilización de indicadores de rendimiento usados mundialmente. \n\nLa aplicación permite la medición de la calidad del acceso a internet sin observar el tráfico, midiendo la cantidad de datos enviados y recibidos durante el día, la calidad de la señal en la antena, el tipo de conexión (2g, 3g, etc), y otros datos útiles. Con estos datos se realizarán estudios para describir el estado del internet móvil a nivel nacional.</string>
 
 
     <!-- Syncrhonization Service -->
@@ -123,6 +234,11 @@
     <string name="synchronization_report_file_extension">.adkdb</string>
     <string name="synchronization_report_file_multipartdata">report.gz</string>
     <string name="synchronization_report_file_post_name_parameter">uploaded_file</string>
+
+
+    <!-- Notifications -->
+    <string name="notification_daily_report_title">Resumen de tu consumo diario.</string>
+    <string name="notification_daily_report_body">El día de hoy (%1$s) has utilizado %2$s de datos por tráfico móvil.</string>
 
 
     <!-- Fonts -->

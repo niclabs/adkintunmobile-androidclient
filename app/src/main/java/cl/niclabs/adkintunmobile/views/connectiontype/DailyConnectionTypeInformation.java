@@ -5,14 +5,13 @@ import android.content.res.TypedArray;
 import android.support.v4.content.ContextCompat;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Iterator;
-import java.util.Locale;
 
 import cl.niclabs.adkintunmobile.R;
 import cl.niclabs.adkintunmobile.data.chart.StatisticInformation;
 import cl.niclabs.adkintunmobile.data.persistent.visualization.ConnectionTypeSample;
 import cl.niclabs.adkintunmobile.data.persistent.visualization.DailyConnectionTypeSummary;
+import cl.niclabs.adkintunmobile.utils.display.DisplayDateManager;
 
 public abstract class DailyConnectionTypeInformation extends StatisticInformation{
     protected final long period = 3600L * 24L * 1000L;
@@ -20,17 +19,12 @@ public abstract class DailyConnectionTypeInformation extends StatisticInformatio
     protected long initialTime;
     protected long currentTime;
     protected Context context;
+    protected ArrayList<ConnectionTypeSample> samples;
 
     public DailyConnectionTypeInformation(Context context, long initialTime, long currentTime) {
         this.context = context;
         this.currentTime = currentTime;
-        Calendar calendar = Calendar.getInstance(Locale.getDefault());
-        calendar.setTimeInMillis(initialTime);
-        calendar.set(Calendar.HOUR_OF_DAY, 0);
-        calendar.set(Calendar.MINUTE, 0);
-        calendar.set(Calendar.SECOND, 0);
-        calendar.set(Calendar.MILLISECOND, 0);
-        this.initialTime = calendar.getTimeInMillis();
+        this.initialTime = DisplayDateManager.timestampAtStartDay(initialTime);
     }
 
     public abstract DailyConnectionTypeSummary getSummary(long timestamp);
@@ -68,6 +62,8 @@ public abstract class DailyConnectionTypeInformation extends StatisticInformatio
         values.add(initialBar);
         colors.add(startColor);
 
+        samples = new ArrayList<>();
+
         //Info del primer sample del día
         if (todaySamples.hasNext()){
             sample = todaySamples.next();
@@ -100,12 +96,16 @@ public abstract class DailyConnectionTypeInformation extends StatisticInformatio
             }
             values.add((lastTime - initialTime) * anglePerMillisecond);
         }
+        if (sample!= null)
+            samples.add(sample);
 
         Float angle;
 
         //Samples del día seleccionado
         while (todaySamples.hasNext()){
             sample = todaySamples.next();
+            if (sample.getType() != samples.get(samples.size() -1 ).getType())
+                samples.add(sample);
             if (lastColor == connectionTypeColors.getColor(sample.getType(), 0))
                 continue;
             colors.add( lastColor );
@@ -140,7 +140,7 @@ public abstract class DailyConnectionTypeInformation extends StatisticInformatio
             colors.add(noInfoColor);
             values.add((initialTime + period - currentTime - initialBar) * anglePerMillisecond);
             if (lastType != -1)
-               timeByType[lastType] += (currentTime - lastTime);
+                timeByType[lastType] += (currentTime - lastTime);
         }
 
         super.setTimeByType(timeByType);
@@ -163,4 +163,7 @@ public abstract class DailyConnectionTypeInformation extends StatisticInformatio
         return (ArrayList<Float>) super.getInformation().get(1);
     }
 
+    public ArrayList<ConnectionTypeSample> getSamples(){
+        return samples;
+    }
 }

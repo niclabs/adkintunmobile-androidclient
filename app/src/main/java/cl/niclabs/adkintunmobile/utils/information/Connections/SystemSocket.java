@@ -1,4 +1,4 @@
-package cl.niclabs.adkintunmobile.utils.information;
+package cl.niclabs.adkintunmobile.utils.information.Connections;
 
 import android.content.Context;
 import android.content.pm.ApplicationInfo;
@@ -15,7 +15,7 @@ public class SystemSocket {
     static final private Pattern fieldsPattern = Pattern.compile("^\\s*(\\d+): ([0-9A-F]+):(....) ([0-9A-F]+):(....) (..) (?:\\S+ ){3}\\s*(\\d+)\\s+\\d+\\s+(\\d+).*$");
 
     //private String slot;
-    private SystemSockets.Type type;
+    private Connections.Type type;
     private String localAddress;
     private int localPort;
     private String remoteAddress;
@@ -24,19 +24,21 @@ public class SystemSocket {
     private int uid;
     private String inode;
 
-    public SystemSocket(String line, SystemSockets.Type type) {
+    public SystemSocket(String line, Connections.Type type) throws SystemSocketException {
         Matcher match = fieldsPattern.matcher(line);
-        match.lookingAt();
-
-        //slot            = match.group(1);
-        this.type            = type;
-        this.localAddress    = parseIp(match.group(2));
-        this.localPort       = parsePort(match.group(3));
-        this.remoteAddress   = parseIp(match.group(4));
-        this.remotePort      = parsePort(match.group(5));
-        this.state           = match.group(6);
-        this.uid             = Integer.parseInt(match.group(7));
-        this.inode           = match.group(8);
+        if (match.lookingAt()) {
+            //slot            = match.group(1);
+            this.type = type;
+            this.localAddress = parseIp(match.group(2));
+            this.localPort = parsePort(match.group(3));
+            this.remoteAddress = parseIp(match.group(4));
+            this.remotePort = parsePort(match.group(5));
+            this.state = match.group(6);
+            this.uid = Integer.parseInt(match.group(7));
+            this.inode = match.group(8);
+        } else {
+            throw new SystemSocketException("Error de matcheo: " + line);
+        }
     }
 
     private int parsePort(String port){
@@ -68,7 +70,7 @@ public class SystemSocket {
 
     @Override
     public String toString() {
-        return "SystemSockets.Socket(" +
+        return "Connections.Socket(" +
                 "localAddress = " + localAddress +
                 ", localPort = " + getLocalPort() +
                 ", remoteAddress = " + remoteAddress +
@@ -86,7 +88,7 @@ public class SystemSocket {
         return localPort;
     }
 
-    public SystemSockets.Type getType() {
+    public Connections.Type getType() {
         return type;
     }
 

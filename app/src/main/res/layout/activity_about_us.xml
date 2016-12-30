@@ -35,7 +35,29 @@
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 android:text="@string/view_aboutus_about_app"
-                android:id="@+id/textView2" />
+                android:id="@+id/textView2"
+                android:layout_marginBottom="@dimen/abc_action_bar_overflow_padding_end_material"
+                android:layout_marginTop="@dimen/abc_action_bar_overflow_padding_end_material" />
+
+            <Button
+                style="@style/Base.Widget.AppCompat.Button.Borderless.Colored"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Visitar Sitio Web"
+                android:id="@+id/bt_website_homepage"
+                android:drawableLeft="@drawable/ic_web_white"
+                android:onClick="openHomeWebPage"
+                android:textColor="@android:color/white"
+                android:layout_gravity="center_horizontal"
+                android:paddingLeft="@dimen/text_info_data_quota"
+                android:paddingRight="@dimen/text_info_data_quota"
+                android:background="@color/colorSoftCard" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_margin="@dimen/button_margin"
+                android:background="@color/doughnut_no_info"/>
 
             <LinearLayout
                 android:orientation="horizontal"
@@ -46,8 +68,13 @@
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="@dimen/aboutus_institutions_logo_height"
-                    android:id="@+id/imageView5"
-                    android:src="@mipmap/niclabs" />
+                    android:src="@mipmap/niclabs_logo"
+                    android:paddingTop="12dp" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/aboutus_institutions_logo_height"
+                    android:src="@mipmap/uchile_logo" />
             </LinearLayout>
 
         </LinearLayout>

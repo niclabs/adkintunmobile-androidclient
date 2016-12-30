@@ -42,7 +42,7 @@ import java.util.ArrayList;
 import cl.niclabs.adkintunmobile.R;
 import cl.niclabs.adkintunmobile.data.persistent.IpLocation;
 import cl.niclabs.adkintunmobile.utils.display.DisplayManager;
-import cl.niclabs.adkintunmobile.utils.information.SystemSockets;
+import cl.niclabs.adkintunmobile.utils.information.Connections.Connections;
 import cz.msebera.android.httpclient.Header;
 
 
@@ -58,7 +58,7 @@ public class ActiveConnectionMapBottomSheetDialogFragment extends BottomSheetDia
 
     private ArrayList<IpLocation> ipLocations = new ArrayList<>();
     private ArrayList<String> ports = new ArrayList<>();
-    private ArrayList<SystemSockets.Type> types = new ArrayList<>();
+    private ArrayList<Connections.Type> types = new ArrayList<>();
     private int index;
     private int failApiCounter;
 
@@ -88,6 +88,14 @@ public class ActiveConnectionMapBottomSheetDialogFragment extends BottomSheetDia
         this.nextButton.setOnClickListener(this);
         this.prevButton.setOnClickListener(this);
 
+        if (activeConnectionListElement.getTotalActiveConnections() > 1) {
+            this.nextButton.setVisibility(View.VISIBLE);
+            this.prevButton.setVisibility(View.VISIBLE);
+        }else{
+            this.nextButton.setVisibility(View.GONE);
+            this.prevButton.setVisibility(View.GONE);
+        }
+
         setUpLayoutElements(contentView);
 
         initDialog();
@@ -107,7 +115,7 @@ public class ActiveConnectionMapBottomSheetDialogFragment extends BottomSheetDia
         DisplayManager.enableLoadingPanel(this.loadingPanel);
         failApiCounter = 0;
         final Toast mToast = Toast.makeText(getContext(), "", Toast.LENGTH_LONG);
-        for (final SystemSockets.Type type : SystemSockets.Type.values()) {
+        for (final Connections.Type type : Connections.Type.values()) {
 
             for (String ipAddress : activeConnectionListElement.getIpConnections(type)) {
 
@@ -142,8 +150,10 @@ public class ActiveConnectionMapBottomSheetDialogFragment extends BottomSheetDia
                         public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
                             Log.d(TAG, "API failed on " + ip + " " + type);
                             failApiCounter++;
-                            mToast.setText(String.format(getString(R.string.view_active_connections_dialog_location_not_found), failApiCounter));
-                            mToast.show();
+                            if (isAdded()) {
+                                mToast.setText(String.format(getString(R.string.view_active_connections_dialog_location_not_found), failApiCounter));
+                                mToast.show();
+                            }
                         }
                     });
                 } else {
@@ -154,7 +164,7 @@ public class ActiveConnectionMapBottomSheetDialogFragment extends BottomSheetDia
         }
     }
 
-    private void updateMapList(String ip, String port, SystemSockets.Type type) {
+    private void updateMapList(String ip, String port, Connections.Type type) {
         IpLocation mIpLocation = IpLocation.getIpLocationByIp(ip);
         ipLocations.add(mIpLocation);
         ports.add(port);
@@ -165,7 +175,7 @@ public class ActiveConnectionMapBottomSheetDialogFragment extends BottomSheetDia
     private void setUpLayoutElements(View contentView) {
         this.loadingPanel = (RelativeLayout) contentView.findViewById(R.id.loading_panel);
         ShimmerFrameLayout container =
-                (ShimmerFrameLayout) contentView.findViewById(R.id.shimmer_view_container);
+                (ShimmerFrameLayout) contentView.findViewById(R.id.shimmer_loading);
         container.startShimmerAnimation();
 
         this.tvCurrentConnection = (TextView) contentView.findViewById(R.id.tv_current_connection);
@@ -260,6 +270,8 @@ public class ActiveConnectionMapBottomSheetDialogFragment extends BottomSheetDia
 
     @Override
     public void onClick(View v) {
+        if (ipLocations.size() == 0)
+            return;
         switch (v.getId()){
             case R.id.ib_next:
                 index = ++index%ipLocations.size();
