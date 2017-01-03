@@ -81,9 +81,14 @@ public abstract class ActiveServersTask extends AsyncTask<String, Void, Void> {
                         activeServersBundle.putString("serverPort" + i, serverPortsList.get(i));
                         activeServersBundle.putString("serverName" + i, serverNamesList.get(i));
                     }
-                    activeServersBundle.putInt("count", serverHostsList.size());
-                    activeServersBundle.putBoolean("shouldExecute", false);
-                    handleActiveServers(activeServersBundle);
+                    if (serverHostsList.size() > 0) {
+                        activeServersBundle.putInt("count", serverHostsList.size());
+                        activeServersBundle.putBoolean("shouldExecute", false);
+                        handleActiveServers(activeServersBundle);
+                    }
+                    else {
+                        makeNoConnectionToast();
+                    }
 
                 } catch (JSONException e) {
                     Log.d("JSON", "API JSONException");
@@ -91,12 +96,7 @@ public abstract class ActiveServersTask extends AsyncTask<String, Void, Void> {
                 }
             };
             public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
-                if (context != null && context instanceof ActiveMeasurementsActivity) {
-                    ((ActiveMeasurementsActivity) context).makeNoConnectionToast();
-                }
-                else if (context != null && context instanceof ActiveMeasurementsSettingsActivity) {
-                    ((ActiveMeasurementsSettingsActivity) context).makeNoConnectionToast();
-                }
+                makeNoConnectionToast();
             }
             @Override
             public boolean getUseSynchronousMode() {
@@ -104,6 +104,15 @@ public abstract class ActiveServersTask extends AsyncTask<String, Void, Void> {
             }
         });
         return null;
+    }
+
+    private void makeNoConnectionToast(){
+        if (context != null && context instanceof ActiveMeasurementsActivity) {
+            ((ActiveMeasurementsActivity) context).makeNoConnectionToast();
+        }
+        else if (context != null && context instanceof ActiveMeasurementsSettingsActivity) {
+            ((ActiveMeasurementsSettingsActivity) context).makeNoConnectionToast();
+        }
     }
 
     public abstract void handleActiveServers(Bundle bundle);
