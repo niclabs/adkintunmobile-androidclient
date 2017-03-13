@@ -36,6 +36,11 @@
     <string name="settings_app_daily_notification_title">Notificaciones Diarias</string>
     <string name="settings_app_daily_notification_summary">Programar una notificación diaria para el final del día con el resumen del consumo de datos móviles.</string>
 
+    <string name="settings_adkintun_web_category">Adkintun Web</string>
+    <string name="settings_adkintun_web_qr_scanner_title">Escanear Código QR</string>
+    <string name="settings_adkintun_web_qr_scanner_key">adkintun_qr_scanner</string>
+    <string name="settings_adkintun_web_qr_scanner_prompt">Ingresa a web.adkintunmobile.cl y escanea el código QR para acceder a tu información.</string>
+
     <string name="settings_sampling_category">Opciones de Debug</string>
     <string name="settings_sampling_category_key">sync_category_key</string>
     <string name="settings_sampling_hostname_key">sync_hostname</string>

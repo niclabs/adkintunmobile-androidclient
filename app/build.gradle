@@ -59,4 +59,5 @@ dependencies {
     compile 'com.github.vipulasri:timelineview:1.0.3'
     compile 'com.github.akinaru:speedtest:1.15'
     compile 'com.jjoe64:graphview:4.1.1'
+    compile 'com.journeyapps:zxing-android-embedded:3.4.0'
 }
