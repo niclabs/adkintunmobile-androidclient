@@ -53,6 +53,21 @@
                 android:paddingRight="@dimen/text_info_data_quota"
                 android:background="@color/colorSoftCard" />
 
+            <Button
+                style="@style/Base.Widget.AppCompat.Button.Borderless.Colored"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Política de Privacidad"
+                android:id="@+id/bt_privacy_policy"
+                android:drawableLeft="@drawable/ic_web_white"
+                android:onClick="openPrivacyPolicy"
+                android:textColor="@android:color/white"
+                android:layout_gravity="center_horizontal"
+                android:paddingLeft="@dimen/text_info_data_quota"
+                android:paddingRight="@dimen/text_info_data_quota"
+                android:background="@color/colorSoftCard"
+                android:layout_marginTop="@dimen/button_margin"/>
+
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
