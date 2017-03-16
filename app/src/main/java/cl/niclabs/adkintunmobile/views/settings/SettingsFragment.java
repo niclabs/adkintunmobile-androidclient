@@ -17,12 +17,10 @@ import android.preference.SwitchPreference;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.content.ContextCompat;
-import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.widget.Toast;
 
 import com.google.zxing.integration.android.IntentIntegrator;
-import com.google.zxing.integration.android.IntentResult;
 
 import java.util.Map;
 
@@ -135,9 +133,9 @@ public class SettingsFragment extends PreferenceFragment implements SharedPrefer
         if (permissionCheck != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.READ_PHONE_STATE}, REQUEST_READ_PHONE_STATE);
         } else {
-            scanIntegrator.setPrompt(context.getString(R.string.settings_adkintun_web_qr_scanner_prompt));
+            scanIntegrator.setPrompt("");
             scanIntegrator.setBeepEnabled(false);
-            scanIntegrator.setCaptureActivity(ToolbarCaptureActivity.class);
+            scanIntegrator.setCaptureActivity(CaptureCodeActivity.class);
             scanIntegrator.initiateScan();
         }
     }

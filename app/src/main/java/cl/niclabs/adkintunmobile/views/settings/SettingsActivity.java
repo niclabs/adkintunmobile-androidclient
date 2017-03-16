@@ -15,8 +15,14 @@ import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.UnsupportedEncodingException;
+
 import cl.niclabs.adkintunmobile.R;
 import cz.msebera.android.httpclient.Header;
+import cz.msebera.android.httpclient.entity.StringEntity;
 
 public class SettingsActivity extends AppCompatActivity {
 
@@ -77,24 +83,32 @@ public class SettingsActivity extends AppCompatActivity {
     }
 
     private void sendToServer(String accessToken,String qrStr) {
-        String url = "http://172.30.65.189:8080/auth";
+        String url = "http://172.30.65.189:5000/auth";
 
-        RequestParams params = new RequestParams();
-        params.put("uuid", qrStr);
-        params.put("access_token", accessToken);
+        JSONObject params = new JSONObject();
+        //RequestParams params = new RequestParams();
+        try {
+            params.put("uuid", qrStr);
+            params.put("access_token", accessToken);
+            StringEntity entity = new StringEntity(params.toString());
 
-        AsyncHttpClient client = new AsyncHttpClient();
-        client.post(this, url, params, new AsyncHttpResponseHandler() {
-            @Override
-            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
-                Log.d("SUCCESS", statusCode + " OK");
-            }
+            AsyncHttpClient client = new AsyncHttpClient();
+            client.post(this, url, entity, "application/json", new AsyncHttpResponseHandler() {
+                @Override
+                public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+                    Log.d("SUCCESS", statusCode + " OK");
+                }
 
-            @Override
-            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
-                Log.d("SUCCESS", statusCode + "NOT OK");
-            }
-        });
+                @Override
+                public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+                    Log.d("SUCCESS", statusCode + "NOT OK");
+                }
+            });
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return;
+        }
     }
 
     private void showText(String message){

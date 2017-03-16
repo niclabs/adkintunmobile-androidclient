@@ -13,7 +13,7 @@ import cl.niclabs.adkintunmobile.R;
 /**
  * Sample Activity extending from ActionBarActivity to display a Toolbar.
  */
-public class ToolbarCaptureActivity extends AppCompatActivity {
+public class CaptureCodeActivity extends AppCompatActivity {
     private CaptureManager capture;
     private DecoratedBarcodeView barcodeScannerView;
     private Toolbar toolbar;
@@ -22,7 +22,7 @@ public class ToolbarCaptureActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.adkintun_capture_activity);
+        setContentView(R.layout.activity_capture_code);
         setupToolBar();
 
         barcodeScannerView = (DecoratedBarcodeView)findViewById(R.id.zxing_barcode_scanner);
