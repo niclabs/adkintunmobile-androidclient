@@ -20,4 +20,9 @@ public class AboutUsActivity extends AppCompatActivity {
         Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://adkintunmobile.cl"));
         startActivity(browserIntent);
     }
+
+    public void openPrivacyPolicy(View view){
+        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://adkintunmobile.cl/#privacy"));
+        startActivity(browserIntent);
+    }
 }
