@@ -13,12 +13,8 @@ import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
-import com.loopj.android.http.RequestParams;
 
-import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.io.UnsupportedEncodingException;
 
 import cl.niclabs.adkintunmobile.R;
 import cz.msebera.android.httpclient.Header;
@@ -86,7 +82,6 @@ public class SettingsActivity extends AppCompatActivity {
         String url = "http://172.30.65.189:5000/auth";
 
         JSONObject params = new JSONObject();
-        //RequestParams params = new RequestParams();
         try {
             params.put("uuid", qrStr);
             params.put("access_token", accessToken);

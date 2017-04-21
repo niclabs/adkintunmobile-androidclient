@@ -10,9 +10,6 @@ import com.journeyapps.barcodescanner.DecoratedBarcodeView;
 
 import cl.niclabs.adkintunmobile.R;
 
-/**
- * Sample Activity extending from ActionBarActivity to display a Toolbar.
- */
 public class CaptureCodeActivity extends AppCompatActivity {
     private CaptureManager capture;
     private DecoratedBarcodeView barcodeScannerView;

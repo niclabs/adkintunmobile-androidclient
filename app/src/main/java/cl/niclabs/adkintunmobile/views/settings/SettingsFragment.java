@@ -101,7 +101,7 @@ public class SettingsFragment extends PreferenceFragment implements SharedPrefer
             DayOfRechargeDialog.showDialogPreference(fm, null);
         }
         if (key.equals(getString(R.string.settings_adkintun_web_qr_scanner_key))) {
-            /* Dialog for choose recharge data plan quota */
+            /* Init CaptureCodeActivity */
             checkReadPhonePermission();
         }
         if (key.equals(getString(R.string.settings_sampling_startsync_key))){
