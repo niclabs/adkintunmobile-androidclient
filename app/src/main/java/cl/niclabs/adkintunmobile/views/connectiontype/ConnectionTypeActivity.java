@@ -102,7 +102,8 @@ public abstract class ConnectionTypeActivity extends AppCompatActivity implement
     private void updateFragmentsAttached() {
         for (int i=0; i<this.mViewPagerAdapter.getCount(); i++){
             ConnectionTypeViewFragment mFragment = (ConnectionTypeViewFragment) this.mViewPagerAdapter.getItem(i);
-            mFragment.updateView(this.statistic);
+            if (mFragment != null)
+                mFragment.updateView(this.statistic);
         }
     }
 

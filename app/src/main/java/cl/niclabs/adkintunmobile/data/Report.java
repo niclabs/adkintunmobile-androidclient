@@ -70,11 +70,13 @@ public class Report {
         this.simRecord = SimSingleton.getInstance(context);
         this.deviceRecord = DeviceSingleton.getInstance(context);
         this.cdmaRecords = CdmaObservationWrapper.listAll(CdmaObservationWrapper.class);
-        this.connectivityRecords = ConnectivityObservationWrapper.listAll(ConnectivityObservationWrapper.class);
         this.stateRecords = StateChangeWrapper.listAll(StateChangeWrapper.class);
         this.telephonyRecords = TelephonyObservationWrapper.listAll(TelephonyObservationWrapper.class);
         this.trafficRecords = TrafficObservationWrapper.listAll(TrafficObservationWrapper.class);
-        this.gsmRecords = GsmObservationWrapper.listAll(GsmObservationWrapper.class);
+        this.gsmRecords = GsmObservationWrapper.findWithQuery(GsmObservationWrapper.class,
+                "SELECT * FROM GSM_OBSERVATION_WRAPPER ORDER BY timestamp ASC");
+        this.connectivityRecords = ConnectivityObservationWrapper.findWithQuery(ConnectivityObservationWrapper.class,
+                "SELECT * FROM CONNECTIVITY_OBSERVATION_WRAPPER ORDER BY timestamp ASC");
 
         this.speedTestRecords = SpeedTestReport.getPendingToSendReports();
         this.mediaTestRecords = MediaTestReport.getPendingToSendReports();
