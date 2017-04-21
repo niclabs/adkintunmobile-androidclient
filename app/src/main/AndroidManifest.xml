@@ -156,10 +156,11 @@
         <receiver android:name=".services.notifications.DailyNotificationBroadcastReceiver" />
         <receiver android:name=".services.sync.SynchronizationBroadcastReceiver" />
         <receiver
-            android:name=".services.SetupSystem"
-            android:permission="android.permission.RECEIVE_BOOT_COMPLETED">
+            android:name=".services.SetupSystem">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="android.intent.action.QUICKBOOT_POWERON" />
+                <action android:name="com.htc.intent.action.QUICKBOOT_POWERON"/>
                 <action android:name="android.intent.action.ACTION_SHUTDOWN" />
 
                 <category android:name="android.intent.category.DEFAULT" />
