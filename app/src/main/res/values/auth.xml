@@ -7,4 +7,5 @@
     <string name="speed_test_server_host">speed_test_server_host</string>
     <string name="speed_test_server_port">speed_test_server_port</string>
     <string name="media_test_video_id">video_id</string>
+    <string name="web_auth_url">web_auth_url</string>
 </resources>

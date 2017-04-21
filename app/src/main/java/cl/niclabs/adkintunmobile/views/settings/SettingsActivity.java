@@ -9,6 +9,7 @@ import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.google.zxing.BarcodeFormat;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 import com.loopj.android.http.AsyncHttpClient;
@@ -21,6 +22,8 @@ import cz.msebera.android.httpclient.Header;
 import cz.msebera.android.httpclient.entity.StringEntity;
 
 public class SettingsActivity extends AppCompatActivity {
+
+    private final String TAG = "AdkM:SettingsActivity";
 
     private Toolbar toolbar;
     private Context context;
@@ -55,35 +58,38 @@ public class SettingsActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
-        Log.v("####","Request:"+requestCode+ "resultCOde:"+resultCode+" Data:"+data);
-        if(data != null && data.getAction() != null && data.getAction().equals(ACTION_SCAN)) //QR Code
-        {
+        if(data != null && data.getAction() != null && data.getAction().equals(ACTION_SCAN)) {
 
             IntentResult scanningResult = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
             if (scanningResult != null) {
-                String qrStr = scanningResult.getContents();
+                String qrString = scanningResult.getContents();
                 String scanFormat = scanningResult.getFormatName();
 
-                TelephonyManager telephonyManager = (TelephonyManager)getSystemService(Context.TELEPHONY_SERVICE);
-                String deviceId = telephonyManager.getDeviceId();
-                sendToServer(deviceId, qrStr);
+                String qrCodeFormat = BarcodeFormat.QR_CODE.toString();
+                if (scanFormat.equals(qrCodeFormat)) {
+                    TelephonyManager telephonyManager = (TelephonyManager)getSystemService(Context.TELEPHONY_SERVICE);
+                    String deviceId = telephonyManager.getDeviceId();
+                    sendToServer(deviceId, qrString);
+                    showText(getString(R.string.settings_adkintun_web_qr_scanner_success));
+                }
+                else
+                    showText(getString(R.string.settings_adkintun_web_qr_scanner_failure));
 
                 super.onActivityResult(requestCode, resultCode, data);
-                //we have a result
             }
             else {
-                showText("No QR scan data received");
+                showText(getString(R.string.settings_adkintun_web_qr_scanner_failure));
             }
 
         }
     }
 
-    private void sendToServer(String accessToken,String qrStr) {
-        String url = "http://172.30.65.189:5000/auth";
+    private void sendToServer(String accessToken,String qrString) {
+        String url = getString(R.string.web_auth_url);
 
         JSONObject params = new JSONObject();
         try {
-            params.put("uuid", qrStr);
+            params.put("uuid", qrString);
             params.put("access_token", accessToken);
             StringEntity entity = new StringEntity(params.toString());
 
@@ -91,12 +97,12 @@ public class SettingsActivity extends AppCompatActivity {
             client.post(this, url, entity, "application/json", new AsyncHttpResponseHandler() {
                 @Override
                 public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
-                    Log.d("SUCCESS", statusCode + " OK");
+                    Log.d(TAG, statusCode + " OK");
                 }
 
                 @Override
                 public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
-                    Log.d("SUCCESS", statusCode + "NOT OK");
+                    Log.d(TAG, statusCode + " NOT OK");
                 }
             });
 
