@@ -2,6 +2,7 @@ package cl.niclabs.adkintunmobile.views.applicationstraffic;
 
 import android.app.DatePickerDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
@@ -54,21 +55,24 @@ public class ApplicationsTrafficActivity extends AppCompatActivity implements Da
         setBaseActivityParams();
         setupToolbar();
 
+        Intent mIntent = getIntent();
+        long timestamp = mIntent.getLongExtra(getString(R.string.view_applications_traffic_extra_timestamp),
+                System.currentTimeMillis());
+        final long today = DisplayDateManager.timestampAtStartDay(timestamp);
+
         // Cargar datos de tráfico de apps del día actual
         DisplayManager.enableLoadingPanel(this.loadingPanel);
         (new Thread(){
             @Override
             public void run() {
-                final long yesterday = DisplayDateManager.timestampAtStartDay(System.currentTimeMillis());
-
-                loadAppTrafficEventsData(yesterday);
+                loadAppTrafficEventsData(today);
 
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
                         setupViewPager();
                         DisplayManager.dismissLoadingPanel(loadingPanel, context);
-                        updateSubtitle(yesterday);
+                        updateSubtitle(today);
                     }
                 });
 
