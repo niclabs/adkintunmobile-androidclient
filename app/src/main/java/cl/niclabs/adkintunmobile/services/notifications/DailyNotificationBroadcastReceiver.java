@@ -45,8 +45,8 @@ public class DailyNotificationBroadcastReceiver extends BroadcastReceiver {
                 NewsNotification.mostRecentlyTimestamp()+"");
 
         Intent mIntent = new Intent(context, ApplicationsTrafficActivity.class);
-        mIntent.putExtra(context.getString(R.string.view_applications_traffic_extra_timestamp),
-                System.currentTimeMillis());
+	long currentTimeMillis = System.currentTimeMillis();
+        mIntent.putExtra(context.getString(R.string.view_applications_traffic_extra_timestamp), currentTimeMillis);
 
         NotificationManager.showNotification(context, n.title, n.content, mIntent);
     }
