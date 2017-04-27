@@ -86,10 +86,10 @@ public abstract class DailyConnectionTypeInformation extends StatisticInformatio
                 while (lastDaySamples.hasNext()) {
                     sample = lastDaySamples.next();
                 }
-                lastColor = connectionTypeColors.getColor(sample.getType(), 0);
-                colors.add( lastColor );
-                lastType = sample.getType();
-                timeByType[lastType] += (lastTime - initialTime);
+                int yesterdayLastColor = connectionTypeColors.getColor(sample.getType(), 0);
+                colors.add( yesterdayLastColor );
+                int yesterdayLastType = sample.getType();
+                timeByType[yesterdayLastType] += (lastTime - initialTime);
             }
             else {
                 colors.add(noInfoColor);
