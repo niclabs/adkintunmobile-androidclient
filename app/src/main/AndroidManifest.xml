@@ -156,6 +156,8 @@
         <receiver android:name=".services.notifications.DailyNotificationBroadcastReceiver" />
         <receiver android:name=".services.sync.SynchronizationBroadcastReceiver" />
         <receiver
+            android:enabled="true"
+            android:exported="true"
             android:name=".services.SetupSystem">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />

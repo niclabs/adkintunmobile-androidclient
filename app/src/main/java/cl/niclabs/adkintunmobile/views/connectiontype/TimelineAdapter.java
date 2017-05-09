@@ -59,6 +59,7 @@ public class TimelineAdapter extends RecyclerView.Adapter<TimelineAdapter.Timeli
                 mFeedList.remove(i);
             }
         }
+        // Remover items con mismo tipo que su antecesor
         for (int i = mFeedList.size() -1 ; i > 0; i--){
             if (mFeedList.get(i).getType() == mFeedList.get(i-1).getType())
                 mFeedList.remove(i);
