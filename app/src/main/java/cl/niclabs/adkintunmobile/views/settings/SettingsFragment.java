@@ -1,9 +1,11 @@
 package cl.niclabs.adkintunmobile.views.settings;
 
 
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.preference.EditTextPreference;
 import android.preference.ListPreference;
@@ -12,9 +14,13 @@ import android.preference.PreferenceCategory;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceScreen;
 import android.preference.SwitchPreference;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.widget.Toast;
+
+import com.google.zxing.integration.android.IntentIntegrator;
 
 import java.util.Map;
 
@@ -32,6 +38,7 @@ public class SettingsFragment extends PreferenceFragment implements SharedPrefer
 
     private final String TAG = "AdkM:Settings";
     private Context context;
+    private static final int REQUEST_READ_PHONE_STATE = 1;
 
     public SettingsFragment() {
         // Required empty public constructor
@@ -93,6 +100,10 @@ public class SettingsFragment extends PreferenceFragment implements SharedPrefer
             FragmentManager fm = ((SettingsActivity) getActivity()).getSupportFragmentManager();
             DayOfRechargeDialog.showDialogPreference(fm, null);
         }
+        if (key.equals(getString(R.string.settings_adkintun_web_qr_scanner_key))) {
+            /* Init CaptureCodeActivity */
+            checkReadPhonePermission();
+        }
         if (key.equals(getString(R.string.settings_sampling_startsync_key))){
             /* Start Sync process: create new report and try to send it */
             context.startService(new Intent(context, Synchronization.class));
@@ -113,6 +124,20 @@ public class SettingsFragment extends PreferenceFragment implements SharedPrefer
             Toast.makeText(this.context, getString(R.string.settings_app_data_clean_ip_location_cache_message), Toast.LENGTH_SHORT).show();
         }
         return super.onPreferenceTreeClick(preferenceScreen, preference);
+    }
+
+    private void checkReadPhonePermission() {
+        final IntentIntegrator scanIntegrator = new IntentIntegrator(getActivity());
+
+        int permissionCheck = ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.READ_PHONE_STATE);
+        if (permissionCheck != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.READ_PHONE_STATE}, REQUEST_READ_PHONE_STATE);
+        } else {
+            scanIntegrator.setPrompt("");
+            scanIntegrator.setBeepEnabled(false);
+            scanIntegrator.setCaptureActivity(CaptureCodeActivity.class);
+            scanIntegrator.initiateScan();
+        }
     }
 
     private void updateSummaries(){
