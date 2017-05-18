@@ -26,10 +26,10 @@ import cl.niclabs.adkintunmobile.utils.activemeasurements.connectivitytest.GetRe
 import cl.niclabs.adkintunmobile.utils.activemeasurements.speedtest.ActiveServersDialog;
 import cl.niclabs.adkintunmobile.utils.activemeasurements.speedtest.ActiveServersTask;
 import cl.niclabs.adkintunmobile.utils.activemeasurements.speedtest.CheckServerTask;
-import cl.niclabs.adkintunmobile.views.activemeasurements.viewfragments.ConnectivityTestFragment;
-import cl.niclabs.adkintunmobile.views.activemeasurements.viewfragments.MediaTestFragment;
-import cl.niclabs.adkintunmobile.views.activemeasurements.viewfragments.SpeedTestFragment;
 import cl.niclabs.adkintunmobile.views.activemeasurements.viewfragments.settingsfragments.ActiveMeasurementsSettingsActivity;
+import cl.niclabs.adkintunmobile.views.activemeasurements.viewfragments.settingsfragments.ConnectivityTestSettingsFragment;
+import cl.niclabs.adkintunmobile.views.activemeasurements.viewfragments.settingsfragments.MediaTestSettingsFragment;
+import cl.niclabs.adkintunmobile.views.activemeasurements.viewfragments.settingsfragments.SpeedTestSettingsFragment;
 
 public class ActiveMeasurementsActivity extends AppCompatActivity {
 
@@ -96,7 +96,17 @@ public class ActiveMeasurementsActivity extends AppCompatActivity {
         enabledButtons = enabled;
     }
 
-    public void onSpeedTestClick(View view){
+    public void onStartTestClick(View view){
+        switch(currentItem){
+            case 0:
+                onSpeedTestClick();
+                return;
+            case 1:
+                onMediaTestClick();
+        }
+    }
+
+    public void onSpeedTestClick(){
         if (!enabledButtons)
             return;
         setEnabledButtons(false);
@@ -104,7 +114,7 @@ public class ActiveMeasurementsActivity extends AppCompatActivity {
 
     }
 
-    public void onConnectivityTestClick(View view){
+    public void onConnectivityTestClick(){
         if (!enabledButtons)
             return;
         setEnabledButtons(false);
@@ -128,7 +138,7 @@ public class ActiveMeasurementsActivity extends AppCompatActivity {
             dialog.show(fm, null);
         }
     }
-    public void onVideoTestClick(View view){
+    public void onMediaTestClick(){
         if (!enabledButtons)
             return;
         setEnabledButtons(false);
@@ -200,14 +210,13 @@ public class ActiveMeasurementsActivity extends AppCompatActivity {
 
     private void setUpViewPager() {
         this.mViewPagerAdapter = new ActiveMeasurementsViewPagerAdapter(getSupportFragmentManager());
-        SpeedTestFragment f1 = new SpeedTestFragment();
-        MediaTestFragment f2 = new MediaTestFragment();
-        ConnectivityTestFragment f3 = new ConnectivityTestFragment();
+        SpeedTestSettingsFragment f1 = new SpeedTestSettingsFragment();
+        MediaTestSettingsFragment f2 = new MediaTestSettingsFragment();
+        ConnectivityTestSettingsFragment f3 = new ConnectivityTestSettingsFragment();
 
         this.mViewPagerAdapter.addFragment(f1);
         this.mViewPagerAdapter.addFragment(f2);
         this.mViewPagerAdapter.addFragment(f3);
-
         this.mViewPager = (ViewPager) findViewById(R.id.viewpager);
         TabLayout mTabLayout = (TabLayout) findViewById(R.id.tabs);
         this.mViewPager.setAdapter(this.mViewPagerAdapter);
@@ -229,9 +238,9 @@ public class ActiveMeasurementsActivity extends AppCompatActivity {
         });
         mTabLayout.setupWithViewPager(mViewPager);
 
-        mTabLayout.getTabAt(0).setIcon(R.drawable.ic_speedometer_white);
-        mTabLayout.getTabAt(1).setIcon(R.drawable.ic_ondemand_video_white);
-        mTabLayout.getTabAt(2).setIcon(R.drawable.ic_link_white);
+        //mTabLayout.getTabAt(0).setIcon(R.drawable.ic_speedometer_white);
+        //mTabLayout.getTabAt(1).setIcon(R.drawable.ic_ondemand_video_white);
+        //mTabLayout.getTabAt(2).setIcon(R.drawable.ic_link_white);
     }
 
     @Override
@@ -253,7 +262,7 @@ public class ActiveMeasurementsActivity extends AppCompatActivity {
                 categoryKey = getString(R.string.settings_video_test_category_key);
                 break;
             default: //2
-                categoryKey = getString(R.string.settings_connectivity_test_category_key);
+                categoryKey = getString(R.string.settings_connectivity_test_category_sites_key);
                 break;
         }
         switch (item.getItemId()){
@@ -266,7 +275,7 @@ public class ActiveMeasurementsActivity extends AppCompatActivity {
                 SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
                 String maxQuality = sharedPreferences.getString(getString(R.string.settings_video_test_max_quality_key), "None");
                 if (categoryKey.equals(getString(R.string.settings_video_test_category_key)) && maxQuality.equals("None")) {
-                    onVideoTestClick(null);
+                    onMediaTestClick();
                     return true;
                 }
                 myIntent = new Intent(this, ActiveMeasurementsSettingsActivity.class);

@@ -1,8 +1,8 @@
 package cl.niclabs.adkintunmobile.views.activemeasurements.viewfragments.settingsfragments;
 
 import android.os.Bundle;
-import android.preference.PreferenceFragment;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.preference.PreferenceFragmentCompat;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.widget.Toast;
@@ -26,11 +26,11 @@ public class ActiveMeasurementsSettingsActivity extends AppCompatActivity {
 
         viewPagerIndex = ActiveMeasurementsActivity.getCurrentItem();
 
-        PreferenceFragment fragment;
+        PreferenceFragmentCompat fragment;
         if (testKey.equals(getString(R.string.settings_speed_test_category_key))){
             fragment = new SpeedTestSettingsFragment();
         }
-        else if (testKey.equals(getString(R.string.settings_connectivity_test_category_key))) {
+        else if (testKey.equals(getString(R.string.settings_connectivity_test_category_sites_key))) {
             fragment = new ConnectivityTestSettingsFragment();
         }
         else{
@@ -39,7 +39,7 @@ public class ActiveMeasurementsSettingsActivity extends AppCompatActivity {
 
         // display fragment for settings
         if (fragment != null)
-            getFragmentManager().beginTransaction().replace(R.id.main_fragment, fragment).commit();
+            getSupportFragmentManager().beginTransaction().replace(R.id.main_fragment, fragment).commit();
     }
 
     /**

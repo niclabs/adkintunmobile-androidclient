@@ -90,9 +90,6 @@ public class MediaTest {
     }
 
     public void noneSelectedQuality() {
-        Intent myIntent = new Intent(getContext(), ActiveMeasurementsSettingsActivity.class);
-        myIntent.putExtra(getContext().getString(R.string.settings_active_measurements_key), context.getString(R.string.settings_video_test_category_key));
-        getContext().startActivity(myIntent);
         if (mainTest != null)
             mainTest.dismiss();
     }

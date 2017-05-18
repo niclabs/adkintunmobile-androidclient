@@ -23,7 +23,6 @@ import java.util.ArrayList;
 
 import cl.niclabs.adkintunmobile.R;
 import cl.niclabs.adkintunmobile.views.activemeasurements.ActiveMeasurementsActivity;
-import cl.niclabs.adkintunmobile.views.activemeasurements.viewfragments.ConnectivityTestFragment;
 import cl.niclabs.adkintunmobile.views.activemeasurements.viewfragments.settingsfragments.ActiveMeasurementsSettingsActivity;
 import cl.niclabs.adkintunmobile.views.activemeasurements.viewfragments.settingsfragments.ConnectivityTestSettingsFragment;
 import cz.msebera.android.httpclient.Header;
@@ -126,10 +125,7 @@ public class GetRecommendedSitesDialog extends DialogFragment {
         }
         editor.putInt(sitesCountKey, recommendedSites.size());
         editor.apply();
-        if (parent instanceof ActiveMeasurementsActivity)
-            ((ConnectivityTestFragment) ((ActiveMeasurementsActivity) parent).getViewPagerItem(2)).refreshView();
-        else if (parent instanceof ActiveMeasurementsSettingsActivity)
-            ((ConnectivityTestSettingsFragment) parent.getFragmentManager().findFragmentById(R.id.main_fragment)).refreshView();
-        Log.d("ASDASD", "AS"+(getParentFragment() == null));
+        if (parent instanceof ActiveMeasurementsSettingsActivity)
+            ((ConnectivityTestSettingsFragment) parent.getSupportFragmentManager().findFragmentById(R.id.main_fragment)).refreshView();
     }
 }

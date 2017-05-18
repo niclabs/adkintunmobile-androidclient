@@ -5,12 +5,12 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.Preference;
-import android.preference.PreferenceCategory;
-import android.preference.PreferenceFragment;
-import android.preference.PreferenceManager;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.preference.Preference;
+import android.support.v7.preference.PreferenceCategory;
+import android.support.v7.preference.PreferenceFragmentCompat;
+import android.support.v7.preference.PreferenceManager;
 import android.util.Log;
 import android.util.Patterns;
 import android.view.LayoutInflater;
@@ -26,7 +26,7 @@ import cl.niclabs.adkintunmobile.views.activemeasurements.viewfragments.settings
 public class AddSiteDialog extends DialogFragment {
 
     private EditText editText;
-    private PreferenceFragment preferenceFragment;
+    private PreferenceFragmentCompat preferenceFragment;
 
     public AddSiteDialog() {
         // Required empty public constructor
@@ -68,7 +68,7 @@ public class AddSiteDialog extends DialogFragment {
                         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getContext());
                         int sitesCount = sharedPreferences.getInt(getString(R.string.settings_connectivity_sites_count_key), 0);
                         sitesCount ++;
-                        PreferenceCategory preferenceCategory = (PreferenceCategory) preferenceFragment.findPreference(getString(R.string.settings_connectivity_test_category_key));
+                        PreferenceCategory preferenceCategory = (PreferenceCategory) preferenceFragment.findPreference(getString(R.string.settings_connectivity_test_category_sites_key));
                         Preference preference = new Preference(getContext());
                         preference.setSummary(editText.getText());
                         preference.setKey(getString(R.string.settings_connectivity_test_site_) + sitesCount);

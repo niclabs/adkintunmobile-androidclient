@@ -5,6 +5,7 @@
     <PreferenceCategory
         android:title="@string/settings_speed_test_category_title"
         android:key="@string/settings_speed_test_category_key"
+        android:summary="asdasdasdasdas"
         >
         <ListPreference
             android:key="@string/settings_speed_test_download_size_key"
@@ -14,6 +15,7 @@
             android:summary="%s"
             android:entries="@array/speed_test_file_size"
             android:entryValues="@array/speed_test_file_size_values"
+            android:widgetLayout="@layout/expand_more"
             />
         <ListPreference
             android:key="@string/settings_speed_test_upload_size_key"
@@ -23,18 +25,20 @@
             android:summary="%s"
             android:entries="@array/speed_test_file_size"
             android:entryValues="@array/speed_test_file_size_values"
+            android:widgetLayout="@layout/expand_more"
             />
         <Preference
             android:key="@string/settings_speed_test_server_name_key"
             android:title="@string/settings_speed_test_server_title"
+            android:widgetLayout="@layout/expand_more"
             />
     </PreferenceCategory>
-    <PreferenceCategory
+    <!-- <PreferenceCategory
         android:title="@string/settings_active_measurements_reports_title"
         >
         <Preference
             android:key="@string/settings_speed_test_reports_delete_key"
             android:title="@string/settings_speed_test_reports_delete_title"
             android:summary="@string/settings_speed_test_reports_delete_summary" />
-    </PreferenceCategory>
+    </PreferenceCategory> -->
 </PreferenceScreen>

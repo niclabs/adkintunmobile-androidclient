@@ -12,16 +12,21 @@
         >
     </PreferenceCategory>
     <PreferenceCategory
+        android:title="@string/settings_connectivity_test_category_sites_title"
+        android:key="@string/settings_connectivity_test_category_sites_key"
+        >
+    </PreferenceCategory>
+    <PreferenceCategory
         android:title="@string/settings_connectivity_get_sites_title">
         <Preference
             android:key="@string/settings_connectivity_get_sites_key"
             android:summary="@string/settings_connectivity_get_sites_summary" />
     </PreferenceCategory>
-    <PreferenceCategory
+    <!--<PreferenceCategory
         android:title="@string/settings_active_measurements_reports_title">
         <Preference
             android:key="@string/settings_connectivity_reports_delete_key"
             android:title="@string/settings_connectivity_reports_delete_title"
             android:summary="@string/settings_connectivity_reports_delete_summary" />
-    </PreferenceCategory>
+    </PreferenceCategory>-->
 </PreferenceScreen>

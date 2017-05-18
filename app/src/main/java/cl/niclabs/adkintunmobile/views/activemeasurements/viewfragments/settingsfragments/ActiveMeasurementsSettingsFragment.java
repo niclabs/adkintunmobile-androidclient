@@ -2,31 +2,26 @@ package cl.niclabs.adkintunmobile.views.activemeasurements.viewfragments.setting
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.os.Bundle;
-import android.preference.CheckBoxPreference;
-import android.preference.EditTextPreference;
-import android.preference.ListPreference;
-import android.preference.Preference;
-import android.preference.PreferenceFragment;
+import android.support.v7.preference.CheckBoxPreference;
+import android.support.v7.preference.EditTextPreference;
+import android.support.v7.preference.ListPreference;
+import android.support.v7.preference.Preference;
+import android.support.v7.preference.PreferenceFragmentCompat;
 import android.util.Log;
 
 import java.util.Map;
 
-public class ActiveMeasurementsSettingsFragment extends PreferenceFragment implements SharedPreferences.OnSharedPreferenceChangeListener{
+public abstract class ActiveMeasurementsSettingsFragment extends PreferenceFragmentCompat implements SharedPreferences.OnSharedPreferenceChangeListener{
 
     private final String TAG = "AdkM:Settings";
-    private Context context;
+    protected Context context;
+    protected String title;
 
     public ActiveMeasurementsSettingsFragment() {
     }
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-        getPreferenceManager().getSharedPreferences().registerOnSharedPreferenceChangeListener(this);
-
-        //updateSummaries();
+    public String getTitle() {
+        return title;
     }
 
     @Override

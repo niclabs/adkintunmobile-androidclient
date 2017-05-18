@@ -1,14 +1,16 @@
 package cl.niclabs.adkintunmobile.views.activemeasurements.viewfragments.settingsfragments;
 
-import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.os.Bundle;
-import android.preference.CheckBoxPreference;
-import android.preference.Preference;
-import android.preference.PreferenceCategory;
-import android.preference.PreferenceManager;
-import android.preference.PreferenceScreen;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.content.ContextCompat;
+import android.support.v7.preference.CheckBoxPreference;
+import android.support.v7.preference.Preference;
+import android.support.v7.preference.PreferenceCategory;
+import android.support.v7.preference.PreferenceManager;
+import android.support.v7.preference.PreferenceScreen;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -17,70 +19,30 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import cl.niclabs.adkintunmobile.R;
 import cl.niclabs.adkintunmobile.data.persistent.activemeasurement.ConnectivityTestReport;
 import cl.niclabs.adkintunmobile.utils.activemeasurements.connectivitytest.AddSiteDialog;
 import cl.niclabs.adkintunmobile.utils.activemeasurements.connectivitytest.GetRecommendedSitesDialog;
+import cl.niclabs.adkintunmobile.views.activemeasurements.ActiveMeasurementsActivity;
 
 public class ConnectivityTestSettingsFragment extends ActiveMeasurementsSettingsFragment{
 
-    private Context context;
     MenuItem addSiteButton;
     MenuItem deleteButton;
     MenuItem confirmButton;
 
     public ConnectivityTestSettingsFragment() {
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        this.context = getActivity();
-
-        /* Load the preferences from xml */
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
-
-        setHasOptionsMenu(true);
-        int sitesCount = sharedPreferences.getInt(getString(R.string.settings_connectivity_sites_count_key), 0);
-        addPreferencesFromResource(R.xml.connectivity_test_preferences);
-        PreferenceCategory preferenceCategory = (PreferenceCategory) findPreference(getString(R.string.settings_connectivity_test_category_key));
-        PreferenceScreen preferenceScreen = (PreferenceScreen) findPreference(getString(R.string.settings_main_screen_key));
-        preferenceScreen.removePreference(preferenceScreen.getPreference(0));
-
-        for (int i=1; i<=sitesCount; i++){
-            String siteTitle = sharedPreferences.getString(getString(R.string.settings_connectivity_test_site_) + i, "");
-            Preference sitePreference = new Preference(context);
-            sitePreference.setKey(getString(R.string.settings_connectivity_test_site_) + i);
-            sitePreference.setSummary(siteTitle);
-            preferenceCategory.addPreference(sitePreference);
-        }
-        updateSummaries();
-
-
-    }
-
-    public void refreshView(){
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
-        PreferenceCategory preferenceCategory = (PreferenceCategory) findPreference(getString(R.string.settings_connectivity_test_category_key));
-
-        preferenceCategory.removeAll();
-        int sitesCount = sharedPreferences.getInt(getString(R.string.settings_connectivity_sites_count_key), 0);
-
-        for (int i=1; i<=sitesCount; i++){
-            String siteTitle = sharedPreferences.getString(getString(R.string.settings_connectivity_test_site_) + i, "");
-            Preference sitePreference = new Preference(context);
-            sitePreference.setKey(getString(R.string.settings_connectivity_test_site_) + i);
-            sitePreference.setSummary(siteTitle);
-            preferenceCategory.addPreference(sitePreference);
-        }
-        updateSummaries();
+        this.title = "Conectividad";
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = super.onCreateView(inflater, container, savedInstanceState);
+        this.context = getActivity();
+        LinearLayout view = (LinearLayout) super.onCreateView(inflater, container, savedInstanceState);
 
         if (null != view) {
             view.setFocusableInTouchMode(true);
@@ -93,7 +55,7 @@ public class ConnectivityTestSettingsFragment extends ActiveMeasurementsSettings
                     if( keyCode == KeyEvent.KEYCODE_BACK ){
                         if (event.getAction() == KeyEvent.ACTION_DOWN) {
                             if (confirmButton.isVisible()){
-                                PreferenceCategory preferenceCategory = (PreferenceCategory) findPreference(getString(R.string.settings_connectivity_test_category_key));
+                                PreferenceCategory preferenceCategory = (PreferenceCategory) findPreference(getString(R.string.settings_connectivity_test_category_sites_key));
                                 SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
 
                                 preferenceCategory.removeAll();
@@ -121,12 +83,67 @@ public class ConnectivityTestSettingsFragment extends ActiveMeasurementsSettings
             } );
         }
 
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT);
+        params.setMargins(120, 50, 120, 50);
+        Button button = new Button(this.context);
+        button.setText(getString(R.string.view_active_measurements_start_test));
+        button.getBackground().setColorFilter(ContextCompat.getColor(context, R.color.colorAccent),
+                PorterDuff.Mode.MULTIPLY);        button.setTextColor(Color.WHITE);
+        view.addView(button, params);
+        button.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                ((ActiveMeasurementsActivity) getActivity()).onConnectivityTestClick();
+            }
+        });
+
         return view;
     }
 
     @Override
+    public void onCreatePreferences(Bundle bundle, String s) {
+        this.context = getActivity();
+        /* Load the preferences from xml */
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
+
+        setHasOptionsMenu(true);
+        int sitesCount = sharedPreferences.getInt(getString(R.string.settings_connectivity_sites_count_key), 0);
+        addPreferencesFromResource(R.xml.connectivity_test_preferences);
+        PreferenceCategory preferenceCategory = (PreferenceCategory) findPreference(getString(R.string.settings_connectivity_test_category_sites_key));
+        PreferenceScreen preferenceScreen = (PreferenceScreen) findPreference(getString(R.string.settings_main_screen_key));
+        preferenceScreen.removePreference(preferenceScreen.getPreference(0));
+
+        for (int i=1; i<=sitesCount; i++){
+            String siteTitle = sharedPreferences.getString(getString(R.string.settings_connectivity_test_site_) + i, "");
+            Preference sitePreference = new Preference(context);
+            sitePreference.setKey(getString(R.string.settings_connectivity_test_site_) + i);
+            sitePreference.setSummary(siteTitle);
+            preferenceCategory.addPreference(sitePreference);
+        }
+        updateSummaries();
+    }
+
+    public void refreshView(){
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
+        PreferenceCategory preferenceCategory = (PreferenceCategory) findPreference(getString(R.string.settings_connectivity_test_category_sites_key));
+
+        preferenceCategory.removeAll();
+        int sitesCount = sharedPreferences.getInt(getString(R.string.settings_connectivity_sites_count_key), 0);
+
+        for (int i=1; i<=sitesCount; i++){
+            String siteTitle = sharedPreferences.getString(getString(R.string.settings_connectivity_test_site_) + i, "");
+            Preference sitePreference = new Preference(context);
+            sitePreference.setKey(getString(R.string.settings_connectivity_test_site_) + i);
+            sitePreference.setSummary(siteTitle);
+            preferenceCategory.addPreference(sitePreference);
+        }
+        updateSummaries();
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        PreferenceCategory preferenceCategory = (PreferenceCategory) findPreference(getString(R.string.settings_connectivity_test_category_key));
+        PreferenceCategory preferenceCategory = (PreferenceCategory) findPreference(getString(R.string.settings_connectivity_test_category_sites_key));
 
         switch (item.getItemId()){
             case R.id.menu_add_btn:
@@ -209,7 +226,7 @@ public class ConnectivityTestSettingsFragment extends ActiveMeasurementsSettings
     }
 
     @Override
-    public boolean onPreferenceTreeClick(PreferenceScreen preferenceScreen, Preference preference) {
+    public boolean onPreferenceTreeClick(Preference preference) {
         String key = preference.getKey();
 
         if (key.equals(getString(R.string.settings_connectivity_reports_delete_key))){
@@ -222,6 +239,6 @@ public class ConnectivityTestSettingsFragment extends ActiveMeasurementsSettings
             dialog.show(fm, null);
         }
 
-        return super.onPreferenceTreeClick(preferenceScreen, preference);
+        return super.onPreferenceTreeClick(preference);
     }
 }

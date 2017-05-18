@@ -81,7 +81,7 @@ public class ActiveMeasurementsHistoryFragment extends ListFragment implements A
             reportsFragment = new SpeedTestReportDialog();
         if (measurementsType.equals(getString(R.string.settings_video_test_category_key)))
             reportsFragment = new MediaTestReportDialog();
-        if (measurementsType.equals(getString(R.string.settings_connectivity_test_category_key)))
+        if (measurementsType.equals(getString(R.string.settings_connectivity_test_category_sites_key)))
             reportsFragment = new ConnectivityTestReportDialog();
 
 
