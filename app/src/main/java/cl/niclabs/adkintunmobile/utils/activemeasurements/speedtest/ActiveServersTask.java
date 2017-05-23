@@ -110,9 +110,6 @@ public abstract class ActiveServersTask extends AsyncTask<String, Void, Void> {
         if (context != null && context instanceof ActiveMeasurementsActivity) {
             ((ActiveMeasurementsActivity) context).makeNoConnectionToast();
         }
-        else if (context != null && context instanceof ActiveMeasurementsSettingsActivity) {
-            ((ActiveMeasurementsSettingsActivity) context).makeNoConnectionToast();
-        }
     }
 
     public abstract void handleActiveServers(Bundle bundle);

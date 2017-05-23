@@ -96,102 +96,6 @@ public class ActiveMeasurementsActivity extends AppCompatActivity {
         enabledButtons = enabled;
     }
 
-    public void onStartTestClick(View view){
-        switch(currentItem){
-            case 0:
-                onSpeedTestClick();
-                return;
-            case 1:
-                onMediaTestClick();
-        }
-    }
-
-    public void onSpeedTestClick(){
-        if (!enabledButtons)
-            return;
-        setEnabledButtons(false);
-        checkServer();
-
-    }
-
-    public void onConnectivityTestClick(){
-        if (!enabledButtons)
-            return;
-        setEnabledButtons(false);
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
-        int sitesCount = sharedPreferences.getInt(getString(R.string.settings_connectivity_sites_count_key), 0);
-        if (sitesCount > 0) {
-            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-            Fragment prev = getSupportFragmentManager().findFragmentByTag("webPagesTestDialog");
-            if (prev != null) {
-                ft.remove(prev);
-            }
-            ft.addToBackStack(null);
-
-            ConnectivityTestDialog newFragment = new ConnectivityTestDialog();
-            newFragment.show(ft, "webPagesTestDialog");
-        }
-        else{
-            setEnabledButtons(true);
-            FragmentManager fm = getSupportFragmentManager();
-            GetRecommendedSitesDialog dialog = new GetRecommendedSitesDialog();
-            dialog.show(fm, null);
-        }
-    }
-    public void onMediaTestClick(){
-        if (!enabledButtons)
-            return;
-        setEnabledButtons(false);
-        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        Fragment prev = getSupportFragmentManager().findFragmentByTag("videoTestDialog");
-        if (prev != null) {
-            ft.remove(prev);
-        }
-        ft.addToBackStack(null);
-
-        MediaTestDialog newFragment = new MediaTestDialog();
-        newFragment.show(ft, "videoTestDialog");
-    }
-
-    private void checkServer() {
-        CheckServerTask checkServerTask = new CheckServerTask(this) {
-            @Override
-            public void handleResponse(int responseCode) {
-                if (responseCode == HttpURLConnection.HTTP_OK)
-                    startSpeedTest();
-                else
-                    selectServer();
-            }
-        };
-        checkServerTask.execute();
-    }
-
-    private void selectServer(){
-        ActiveServersTask activeServersTask = new ActiveServersTask(this) {
-            @Override
-            public void handleActiveServers(Bundle bundle) {
-                bundle.putBoolean("shouldExecute", true);
-                FragmentManager fm = getSupportFragmentManager();
-                ActiveServersDialog dialog = new ActiveServersDialog();
-                dialog.setArguments(bundle);
-                dialog.setCancelable(false);
-                dialog.show(fm, null);
-            }
-        };
-        activeServersTask.execute();
-    }
-
-    public void startSpeedTest() {
-        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        Fragment prev = getSupportFragmentManager().findFragmentByTag("speedTestDialog");
-        if (prev != null) {
-            ft.remove(prev);
-        }
-        ft.addToBackStack(null);
-
-        SpeedTestDialog newFragment = new SpeedTestDialog();
-        newFragment.show(ft, "speedTestDialog");
-    }
 
     public void setupToolbar(){
         this.toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -275,7 +179,7 @@ public class ActiveMeasurementsActivity extends AppCompatActivity {
                 SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
                 String maxQuality = sharedPreferences.getString(getString(R.string.settings_video_test_max_quality_key), "None");
                 if (categoryKey.equals(getString(R.string.settings_video_test_category_key)) && maxQuality.equals("None")) {
-                    onMediaTestClick();
+                    //onMediaTestClick();
                     return true;
                 }
                 myIntent = new Intent(this, ActiveMeasurementsSettingsActivity.class);

@@ -11,6 +11,7 @@ import android.support.v7.preference.ListPreference;
 import android.support.v7.preference.Preference;
 import android.support.v7.preference.PreferenceFragmentCompat;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 
@@ -31,7 +32,7 @@ public abstract class ActiveMeasurementsSettingsFragment extends PreferenceFragm
         return title;
     }
 
-    protected Button addStartButton(LinearLayout view, Context context) {
+    protected void addStartButton(LinearLayout view, Context context) {
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT,
                 LinearLayout.LayoutParams.WRAP_CONTENT);
@@ -41,8 +42,14 @@ public abstract class ActiveMeasurementsSettingsFragment extends PreferenceFragm
         button.getBackground().setColorFilter(ContextCompat.getColor(context, R.color.colorAccent),
                 PorterDuff.Mode.MULTIPLY);        button.setTextColor(Color.WHITE);
         view.addView(button, params);
-        return button;
+        button.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                onStartTestClick();
+            }
+        });
     }
+
+    protected abstract void onStartTestClick();
 
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {

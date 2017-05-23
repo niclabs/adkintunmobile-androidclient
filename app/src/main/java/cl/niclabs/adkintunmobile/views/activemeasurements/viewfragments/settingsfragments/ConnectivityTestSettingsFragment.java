@@ -2,7 +2,9 @@ package cl.niclabs.adkintunmobile.views.activemeasurements.viewfragments.setting
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.preference.CheckBoxPreference;
 import android.support.v7.preference.Preference;
 import android.support.v7.preference.PreferenceCategory;
@@ -25,6 +27,7 @@ import cl.niclabs.adkintunmobile.data.persistent.activemeasurement.ConnectivityT
 import cl.niclabs.adkintunmobile.utils.activemeasurements.connectivitytest.AddSiteDialog;
 import cl.niclabs.adkintunmobile.utils.activemeasurements.connectivitytest.GetRecommendedSitesDialog;
 import cl.niclabs.adkintunmobile.views.activemeasurements.ActiveMeasurementsActivity;
+import cl.niclabs.adkintunmobile.views.activemeasurements.ConnectivityTestDialog;
 
 public class ConnectivityTestSettingsFragment extends ActiveMeasurementsSettingsFragment{
 
@@ -80,12 +83,8 @@ public class ConnectivityTestSettingsFragment extends ActiveMeasurementsSettings
             } );
         }
 
-        Button startButton = addStartButton(view, context);
-        startButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                ((ActiveMeasurementsActivity) getActivity()).onConnectivityTestClick();
-            }
-        });
+        addStartButton(view, context);
+
         return view;
     }
 
@@ -274,5 +273,31 @@ public class ConnectivityTestSettingsFragment extends ActiveMeasurementsSettings
         }
 
         return super.onPreferenceTreeClick(preference);
+    }
+
+    @Override
+    public void onStartTestClick(){
+        if (!ActiveMeasurementsActivity.enabledButtons)
+            return;
+        ActiveMeasurementsActivity.setEnabledButtons(false);
+        SharedPreferences sharedPreferences = android.preference.PreferenceManager.getDefaultSharedPreferences(context);
+        int sitesCount = sharedPreferences.getInt(getString(R.string.settings_connectivity_sites_count_key), 0);
+        FragmentManager fm = getActivity().getSupportFragmentManager();
+        if (sitesCount > 0) {
+            FragmentTransaction ft = fm.beginTransaction();
+            Fragment prev = fm.findFragmentByTag("webPagesTestDialog");
+            if (prev != null) {
+                ft.remove(prev);
+            }
+            ft.addToBackStack(null);
+
+            ConnectivityTestDialog newFragment = new ConnectivityTestDialog();
+            newFragment.show(ft, "webPagesTestDialog");
+        }
+        else{
+            ActiveMeasurementsActivity.setEnabledButtons(true);
+            GetRecommendedSitesDialog dialog = new GetRecommendedSitesDialog();
+            dialog.show(fm, null);
+        }
     }
 }

@@ -2,6 +2,9 @@ package cl.niclabs.adkintunmobile.views.activemeasurements.viewfragments.setting
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.preference.Preference;
 import android.support.v7.preference.PreferenceCategory;
 import android.support.v7.preference.PreferenceManager;
@@ -15,6 +18,7 @@ import android.widget.Toast;
 import cl.niclabs.adkintunmobile.R;
 import cl.niclabs.adkintunmobile.data.persistent.activemeasurement.MediaTestReport;
 import cl.niclabs.adkintunmobile.views.activemeasurements.ActiveMeasurementsActivity;
+import cl.niclabs.adkintunmobile.views.activemeasurements.MediaTestDialog;
 
 public class MediaTestSettingsFragment extends ActiveMeasurementsSettingsFragment{
 
@@ -26,12 +30,7 @@ public class MediaTestSettingsFragment extends ActiveMeasurementsSettingsFragmen
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         this.context = getActivity();
         LinearLayout view = (LinearLayout) super.onCreateView(inflater, container, savedInstanceState);
-        Button startButton = addStartButton(view, context);
-        startButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                ((ActiveMeasurementsActivity) getActivity()).onMediaTestClick();
-            }
-        });
+        addStartButton(view, context);
 
         return view;
     }
@@ -68,5 +67,22 @@ public class MediaTestSettingsFragment extends ActiveMeasurementsSettingsFragmen
         }
 
         return super.onPreferenceTreeClick(preference);
+    }
+
+    @Override
+    public void onStartTestClick(){
+        if (!ActiveMeasurementsActivity.enabledButtons)
+            return;
+        ActiveMeasurementsActivity.setEnabledButtons(false);
+        FragmentManager fm = getActivity().getSupportFragmentManager();
+        FragmentTransaction ft = fm.beginTransaction();
+        Fragment prev = fm.findFragmentByTag("videoTestDialog");
+        if (prev != null) {
+            ft.remove(prev);
+        }
+        ft.addToBackStack(null);
+
+        MediaTestDialog newFragment = new MediaTestDialog();
+        newFragment.show(ft, "videoTestDialog");
     }
 }

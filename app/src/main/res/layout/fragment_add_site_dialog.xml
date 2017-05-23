@@ -26,7 +26,7 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="@string/dialog_add_site_recommended_sites"
         android:layout_gravity="left"
-        android:layout_marginTop="@dimen/abc_edit_text_inset_top_material" />
+        android:layout_marginTop="@dimen/abc_select_dialog_padding_start_material" />
 
     <CheckBox
         android:layout_width="wrap_content"
