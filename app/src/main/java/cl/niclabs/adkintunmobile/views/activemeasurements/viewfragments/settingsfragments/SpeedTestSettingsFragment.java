@@ -48,7 +48,7 @@ public class SpeedTestSettingsFragment extends ActiveMeasurementsSettingsFragmen
         String key = preference.getKey();
 
         if (key.equals(getString(R.string.settings_speed_test_server_name_key))) {
-            ActiveServersTask activeServersTask = new ActiveServersTask(getActivity()) {
+            ActiveServersTask activeServersTask = new ActiveServersTask(this) {
                 @Override
                 public void handleActiveServers(Bundle bundle) {
                     FragmentManager fm = getActivity().getSupportFragmentManager();
@@ -88,21 +88,8 @@ public class SpeedTestSettingsFragment extends ActiveMeasurementsSettingsFragmen
         checkServerTask.execute();
     }
 
-    public void startSpeedTest() {
-        FragmentManager fm = getActivity().getSupportFragmentManager();
-        FragmentTransaction ft = fm.beginTransaction();
-        Fragment prev = fm.findFragmentByTag("speedTestDialog");
-        if (prev != null) {
-            ft.remove(prev);
-        }
-        ft.addToBackStack(null);
-
-        SpeedTestDialog newFragment = new SpeedTestDialog();
-        newFragment.show(ft, "speedTestDialog");
-    }
-
     private void selectServer(){
-        ActiveServersTask activeServersTask = new ActiveServersTask(context) {
+        ActiveServersTask activeServersTask = new ActiveServersTask(this) {
             @Override
             public void handleActiveServers(Bundle bundle) {
                 bundle.putBoolean("shouldExecute", true);
@@ -114,5 +101,18 @@ public class SpeedTestSettingsFragment extends ActiveMeasurementsSettingsFragmen
             }
         };
         activeServersTask.execute();
+    }
+
+    public void startSpeedTest() {
+        FragmentManager fm = getActivity().getSupportFragmentManager();
+        FragmentTransaction ft = fm.beginTransaction();
+        Fragment prev = fm.findFragmentByTag("speedTestDialog");
+        if (prev != null) {
+            ft.remove(prev);
+        }
+        ft.addToBackStack(null);
+
+        SpeedTestDialog newFragment = new SpeedTestDialog();
+        newFragment.show(ft, "speedTestDialog");
     }
 }

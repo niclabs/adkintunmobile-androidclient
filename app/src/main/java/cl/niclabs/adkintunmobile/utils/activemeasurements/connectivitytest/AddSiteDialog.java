@@ -158,8 +158,7 @@ public class AddSiteDialog extends DialogFragment {
             };
             @Override
             public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
-                if (preferenceFragment.getActivity() != null && preferenceFragment.getActivity() instanceof ActiveMeasurementsActivity)
-                    ((ActiveMeasurementsActivity) preferenceFragment.getActivity()).makeNoConnectionToast();
+                preferenceFragment.makeNoConnectionToast();
             }
             @Override
             public boolean getUseSynchronousMode() {

@@ -18,6 +18,7 @@ import android.widget.LinearLayout;
 import java.util.Map;
 
 import cl.niclabs.adkintunmobile.R;
+import cl.niclabs.adkintunmobile.views.activemeasurements.ActiveMeasurementsActivity;
 
 public abstract class ActiveMeasurementsSettingsFragment extends PreferenceFragmentCompat implements SharedPreferences.OnSharedPreferenceChangeListener{
 
@@ -40,7 +41,8 @@ public abstract class ActiveMeasurementsSettingsFragment extends PreferenceFragm
         Button button = new Button(this.context);
         button.setText(getString(R.string.view_active_measurements_start_test));
         button.getBackground().setColorFilter(ContextCompat.getColor(context, R.color.colorAccent),
-                PorterDuff.Mode.MULTIPLY);        button.setTextColor(Color.WHITE);
+                PorterDuff.Mode.MULTIPLY);
+        button.setTextColor(Color.WHITE);
         view.addView(button, params);
         button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -87,5 +89,10 @@ public abstract class ActiveMeasurementsSettingsFragment extends PreferenceFragm
                 Log.d(TAG, "Cambiada las preferencia de sistema");
             }
         }
+    }
+
+    public void makeNoConnectionToast(){
+        if(context != null && context instanceof ActiveMeasurementsActivity)
+            ((ActiveMeasurementsActivity) context).makeNoConnectionToast();
     }
 }

@@ -10,6 +10,7 @@ import android.support.v7.app.AlertDialog;
 
 import cl.niclabs.adkintunmobile.R;
 import cl.niclabs.adkintunmobile.views.activemeasurements.ActiveMeasurementsActivity;
+import cl.niclabs.adkintunmobile.views.activemeasurements.viewfragments.settingsfragments.SpeedTestSettingsFragment;
 
 public class ActiveServersDialog extends DialogFragment {
 
@@ -63,9 +64,11 @@ public class ActiveServersDialog extends DialogFragment {
                 editor.putString(getActivity().getString(R.string.settings_speed_test_server_name_key), selectedServerName);
                 editor.apply();
                 if (shouldExecute)
-                    ((ActiveMeasurementsActivity) getActivity()).startSpeedTest();
+                    ((SpeedTestSettingsFragment)((ActiveMeasurementsActivity) getActivity()).getViewPagerItem(0)).startSpeedTest();
             }
         });
         return builder.create();
     }
+
+
 }
