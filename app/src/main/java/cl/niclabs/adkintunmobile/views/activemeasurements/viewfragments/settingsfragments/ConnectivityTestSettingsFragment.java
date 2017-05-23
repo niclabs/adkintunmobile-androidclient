@@ -1,11 +1,8 @@
 package cl.niclabs.adkintunmobile.views.activemeasurements.viewfragments.settingsfragments;
 
 import android.content.SharedPreferences;
-import android.graphics.Color;
-import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.preference.CheckBoxPreference;
 import android.support.v7.preference.Preference;
 import android.support.v7.preference.PreferenceCategory;
@@ -64,7 +61,7 @@ public class ConnectivityTestSettingsFragment extends ActiveMeasurementsSettings
 
                                 for (int i=1; i<=sitesCount; i++){
                                     String siteTitle = sharedPreferences.getString(getString(R.string.settings_connectivity_test_site_) + i, "");
-                                    Preference sitePreference = new Preference(context);
+                                    SitePreference sitePreference = new SitePreference((ConnectivityTestSettingsFragment) getParentFragment());
                                     sitePreference.setKey(getString(R.string.settings_connectivity_test_site_) + i);
                                     sitePreference.setSummary(siteTitle);
                                     preferenceCategory.addPreference(sitePreference);
@@ -83,21 +80,12 @@ public class ConnectivityTestSettingsFragment extends ActiveMeasurementsSettings
             } );
         }
 
-        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.MATCH_PARENT,
-                LinearLayout.LayoutParams.WRAP_CONTENT);
-        params.setMargins(120, 50, 120, 50);
-        Button button = new Button(this.context);
-        button.setText(getString(R.string.view_active_measurements_start_test));
-        button.getBackground().setColorFilter(ContextCompat.getColor(context, R.color.colorAccent),
-                PorterDuff.Mode.MULTIPLY);        button.setTextColor(Color.WHITE);
-        view.addView(button, params);
-        button.setOnClickListener(new View.OnClickListener() {
+        Button startButton = addStartButton(view, context);
+        startButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 ((ActiveMeasurementsActivity) getActivity()).onConnectivityTestClick();
             }
         });
-
         return view;
     }
 
@@ -116,11 +104,15 @@ public class ConnectivityTestSettingsFragment extends ActiveMeasurementsSettings
 
         for (int i=1; i<=sitesCount; i++){
             String siteTitle = sharedPreferences.getString(getString(R.string.settings_connectivity_test_site_) + i, "");
-            Preference sitePreference = new Preference(context);
+            SitePreference sitePreference = new SitePreference(this);
             sitePreference.setKey(getString(R.string.settings_connectivity_test_site_) + i);
             sitePreference.setSummary(siteTitle);
             preferenceCategory.addPreference(sitePreference);
         }
+        AddSitePreference addSitePreference = new AddSitePreference(this);
+        addSitePreference.setLayoutResource(R.layout.button_connectivity_test_add_site);
+        preferenceScreen.addPreference(addSitePreference);
+
         updateSummaries();
     }
 
@@ -133,7 +125,7 @@ public class ConnectivityTestSettingsFragment extends ActiveMeasurementsSettings
 
         for (int i=1; i<=sitesCount; i++){
             String siteTitle = sharedPreferences.getString(getString(R.string.settings_connectivity_test_site_) + i, "");
-            Preference sitePreference = new Preference(context);
+            SitePreference sitePreference = new SitePreference(this);
             sitePreference.setKey(getString(R.string.settings_connectivity_test_site_) + i);
             sitePreference.setSummary(siteTitle);
             preferenceCategory.addPreference(sitePreference);
@@ -147,7 +139,7 @@ public class ConnectivityTestSettingsFragment extends ActiveMeasurementsSettings
 
         switch (item.getItemId()){
             case R.id.menu_add_btn:
-                FragmentManager fm = ((ActiveMeasurementsSettingsActivity) getActivity()).getSupportFragmentManager();
+                FragmentManager fm = getActivity().getSupportFragmentManager();
                 AddSiteDialog dialog = new AddSiteDialog();
                 dialog.setPreferenceFragment(this);
                 dialog.show(fm, null);
@@ -215,6 +207,48 @@ public class ConnectivityTestSettingsFragment extends ActiveMeasurementsSettings
                 return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    public void addSitePreference(){
+        FragmentManager fm = getActivity().getSupportFragmentManager();
+        AddSiteDialog dialog = new AddSiteDialog();
+        dialog.setPreferenceFragment(this);
+        dialog.show(fm, null);
+    }
+    public void deleteSitePreference(String key){
+        PreferenceCategory preferenceCategory = (PreferenceCategory) findPreference(getString(R.string.settings_connectivity_test_category_sites_key));
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        int realIndex = 1;
+        for (int i=0; i<preferenceCategory.getPreferenceCount(); i++) {
+            SitePreference preference = (SitePreference) preferenceCategory.getPreference(i);
+            if (preference.getKey().equals(key)){
+                editor.remove(key);
+            }
+            else {
+                if (realIndex < (i+1)) {
+                    editor.putString(getString(R.string.settings_connectivity_test_site_) + realIndex, preference.getSummary().toString());
+                    editor.remove(getString(R.string.settings_connectivity_test_site_) + (i+1));
+                }
+                realIndex++;
+            }
+        }
+
+        preferenceCategory.removeAll();
+
+        editor.putInt(getString(R.string.settings_connectivity_sites_count_key), realIndex-1);
+        editor.apply();
+
+        int sitesCount = sharedPreferences.getInt(getString(R.string.settings_connectivity_sites_count_key), 0);
+
+        for (int i=1; i<=sitesCount; i++){
+            String siteTitle = sharedPreferences.getString(getString(R.string.settings_connectivity_test_site_) + i, "");
+            SitePreference sitePreference = new SitePreference(this);
+            sitePreference.setKey(getString(R.string.settings_connectivity_test_site_) + i);
+            sitePreference.setSummary(siteTitle);
+            sitePreference.setWidgetLayoutResource(R.layout.layout_connectivity_test_delete);
+            preferenceCategory.addPreference(sitePreference);
+        }
     }
 
     @Override

@@ -231,6 +231,11 @@
     <string name="view_active_measurements_history_title_speedtest_report">Reporte: Prueba de Velocidad</string>
     <string name="view_active_measurements_history_title_connectivitytest_report">Reporte: Prueba de Conectividad</string>
 
+    <!-- AddSiteDialog -->
+    <string name="dialog_add_site_insert_site">Ingresa Nuevo Sitio</string>
+    <string name="dialog_add_site_recommended_sites">Obtener Sitios Recomendados</string>
+    <string name="dialog_add_site_recommended_sites_message">Esto eliminará los sitios ingresados</string>
+
     <!-- Tutorial Controls -->
     <string name="tutorial_show_menu">Información sobre esta vista</string>
     <string name="tutorial_next">Siguiente</string>

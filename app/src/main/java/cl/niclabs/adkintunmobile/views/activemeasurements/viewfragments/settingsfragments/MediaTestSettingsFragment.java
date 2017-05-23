@@ -1,15 +1,10 @@
 package cl.niclabs.adkintunmobile.views.activemeasurements.viewfragments.settingsfragments;
 
-import android.content.Context;
 import android.content.SharedPreferences;
-import android.graphics.Color;
-import android.graphics.PorterDuff;
 import android.os.Bundle;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.preference.Preference;
 import android.support.v7.preference.PreferenceCategory;
 import android.support.v7.preference.PreferenceManager;
-import android.support.v7.preference.PreferenceScreen;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,18 +26,8 @@ public class MediaTestSettingsFragment extends ActiveMeasurementsSettingsFragmen
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         this.context = getActivity();
         LinearLayout view = (LinearLayout) super.onCreateView(inflater, container, savedInstanceState);
-
-        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.MATCH_PARENT,
-                LinearLayout.LayoutParams.WRAP_CONTENT);
-        params.setMargins(120, 50, 120, 50);
-        Button button = new Button(this.context);
-        button.setText(getString(R.string.view_active_measurements_start_test));
-        button.getBackground().setColorFilter(ContextCompat.getColor(context, R.color.colorAccent),
-                PorterDuff.Mode.MULTIPLY);
-        button.setTextColor(Color.WHITE);
-        view.addView(button, params);
-        button.setOnClickListener(new View.OnClickListener() {
+        Button startButton = addStartButton(view, context);
+        startButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 ((ActiveMeasurementsActivity) getActivity()).onMediaTestClick();
             }

@@ -15,7 +15,7 @@
             android:summary="%s"
             android:entries="@array/speed_test_file_size"
             android:entryValues="@array/speed_test_file_size_values"
-            android:widgetLayout="@layout/expand_more"
+            android:widgetLayout="@layout/layout_speed_test_expand_more"
             />
         <ListPreference
             android:key="@string/settings_speed_test_upload_size_key"
@@ -25,12 +25,12 @@
             android:summary="%s"
             android:entries="@array/speed_test_file_size"
             android:entryValues="@array/speed_test_file_size_values"
-            android:widgetLayout="@layout/expand_more"
+            android:widgetLayout="@layout/layout_speed_test_expand_more"
             />
         <Preference
             android:key="@string/settings_speed_test_server_name_key"
             android:title="@string/settings_speed_test_server_title"
-            android:widgetLayout="@layout/expand_more"
+            android:widgetLayout="@layout/layout_speed_test_expand_more"
             />
     </PreferenceCategory>
     <!-- <PreferenceCategory
