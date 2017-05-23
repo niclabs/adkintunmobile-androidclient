@@ -11,7 +11,6 @@ import android.support.v7.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
@@ -40,10 +39,14 @@ public class MediaTestSettingsFragment extends ActiveMeasurementsSettingsFragmen
         this.context = getActivity();
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
 
+        String maxQuality = sharedPreferences.getString(getString(R.string.settings_video_test_max_quality_key), "None");
+        if (maxQuality.equals("None")) {
+            onStartTestClick();
+        }
         /* Load the preferences from xml */
         addPreferencesFromResource(R.xml.media_test_preferences);
-        String maxQuality = sharedPreferences.getString(getString(R.string.settings_video_test_max_quality_key), "240p");
-        PreferenceCategory mediaCategory = (PreferenceCategory) findPreference(getString(R.string.settings_video_test_category_key));
+        maxQuality = sharedPreferences.getString(getString(R.string.settings_video_test_max_quality_key), "240p");
+        PreferenceCategory mediaCategory = (PreferenceCategory) findPreference(getString(R.string.settings_video_test_quality_category_key));
         Preference preference = findPreference(getString(R.string.settings_video_test_max_quality_key));
         mediaCategory.removePreference(preference);
 

@@ -140,7 +140,7 @@ public class ActiveMeasurementsActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.active_tests, menu);
+        inflater.inflate(R.menu.active_measurements, menu);
         return true;
     }
 
@@ -162,17 +162,6 @@ public class ActiveMeasurementsActivity extends AppCompatActivity {
         switch (item.getItemId()){
             case R.id.menu_history_btn:
                 myIntent = new Intent(this, ActiveMeasurementsHistoryActivity.class);
-                myIntent.putExtra(getString(R.string.settings_active_measurements_key), categoryKey);
-                startActivity(myIntent);
-                return true;
-            case R.id.menu_settings_btn:
-                SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-                String maxQuality = sharedPreferences.getString(getString(R.string.settings_video_test_max_quality_key), "None");
-                if (categoryKey.equals(getString(R.string.settings_video_test_category_key)) && maxQuality.equals("None")) {
-                    //onMediaTestClick();
-                    return true;
-                }
-                myIntent = new Intent(this, ActiveMeasurementsSettingsActivity.class);
                 myIntent.putExtra(getString(R.string.settings_active_measurements_key), categoryKey);
                 startActivity(myIntent);
                 return true;

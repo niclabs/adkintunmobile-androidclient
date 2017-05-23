@@ -73,6 +73,8 @@
 
     <string name="settings_speed_test_category_title">Test de Velocidad</string>
     <string name="settings_speed_test_category_key">speed_test_key</string>
+    <string name="settings_speed_test_params_category_title">Parámetros de Prueba</string>
+    <string name="settings_speed_test_params_category_key">speed_test_params_key</string>
     <string name="settings_speed_test_download_size_key">download_size</string>
     <string name="settings_speed_test_download_size_title">Tamaño de archivo de bajada</string>
     <string name="settings_speed_test_upload_size_key">upload_size</string>
@@ -85,8 +87,10 @@
     <string name="settings_speed_test_reports_delete_title">Eliminar Reportes Almacenados</string>
     <string name="settings_speed_test_reports_delete_summary">Eliminar todos los reportes de prueba de velocidad almacenados en el equipo.</string>
 
-    <string name="settings_video_test_category_title">Calidades de prueba</string>
+    <string name="settings_video_test_category_title">Test de Media</string>
     <string name="settings_video_test_category_key">media_test_key</string>
+    <string name="settings_video_test_quality_category_title">Calidades de prueba</string>
+    <string name="settings_video_test_quality_category_key">media_test_quality_key</string>
     <string name="settings_video_test_max_quality_key">media_test_max_quality</string>
     <string name="settings_video_test_quality_tiny_pixels">144p</string>
     <string name="settings_video_test_quality_tiny_name">tiny</string>
@@ -209,7 +213,7 @@
     <string name="view_active_measurements_mediatest">Media</string>
     <string name="view_active_measurements_mediatest_title">Prueba de Videos</string>
     <string name="view_active_measurements_mediatest_subtitle">Evaluación de carga multimedia</string>
-    <string name="view_active_measurements_mediatest_description">En esta prueba se evalúa el rendimiento de carga de videos desde youtube en distintas calidades. El resultado incluye la cantidad de datos descargados para reproducir el video y cuanto tiempo se pasó cargando datos, ambos para cada calidad evaluada.</string>
+    <string name="view_active_measurements_mediatest_description">En esta prueba se evalúa el rendimiento de carga de videos desde youtube en distintas calidades. El resultado incluye la cantidad de datos descargados para reproducir el video y cuánto tiempo se tardó cargando datos, ambos para cada calidad evaluada.</string>
     <string name="view_active_measurements_mediatest_qualities_title">Calidades a probar</string>
     <string name="view_active_measurements_connectivitytest">Conectividad</string>
     <string name="view_active_measurements_connectivitytest_title">Prueba de Conectividad</string>

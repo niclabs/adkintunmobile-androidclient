@@ -8,11 +8,4 @@
         app:showAsAction="ifRoom"
         android:title="historia">
     </item>
-    <item
-        android:id="@+id/menu_settings_btn"
-        android:icon="@drawable/ic_settings_white"
-        app:showAsAction="ifRoom"
-        android:title="configurar">
-    </item>
-
 </menu>
