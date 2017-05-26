@@ -1,18 +1,18 @@
-package cl.niclabs.adkintunmobile.views.activemeasurements.viewfragments.settingsfragments;
+package cl.niclabs.adkintunmobile.utils.activemeasurements.connectivitytest;
 
 import android.support.v7.preference.Preference;
 import android.support.v7.preference.PreferenceViewHolder;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageView;
 
 import cl.niclabs.adkintunmobile.R;
+import cl.niclabs.adkintunmobile.views.activemeasurements.viewfragments.ConnectivityTestPreferenceFragment;
 
 public class AddSitePreference extends Preference {
 
-    private ConnectivityTestSettingsFragment settingsFragment;
+    private ConnectivityTestPreferenceFragment settingsFragment;
 
-    public AddSitePreference(ConnectivityTestSettingsFragment settingsFragment) {
+    public AddSitePreference(ConnectivityTestPreferenceFragment settingsFragment) {
         super(settingsFragment.getActivity());
         this.settingsFragment = settingsFragment;
     }

@@ -30,9 +30,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 import cl.niclabs.adkintunmobile.R;
-import cl.niclabs.adkintunmobile.views.activemeasurements.ActiveMeasurementsActivity;
-import cl.niclabs.adkintunmobile.views.activemeasurements.viewfragments.settingsfragments.ConnectivityTestSettingsFragment;
-import cl.niclabs.adkintunmobile.views.activemeasurements.viewfragments.settingsfragments.SitePreference;
+import cl.niclabs.adkintunmobile.views.activemeasurements.viewfragments.ConnectivityTestPreferenceFragment;
 import cz.msebera.android.httpclient.Header;
 
 public class AddSiteDialog extends DialogFragment {
@@ -44,7 +42,7 @@ public class AddSiteDialog extends DialogFragment {
     SharedPreferences.Editor editor;
     String testSiteKey;
     String sitesCountKey;
-    private ConnectivityTestSettingsFragment preferenceFragment;
+    private ConnectivityTestPreferenceFragment preferenceFragment;
 
     public AddSiteDialog() {
         // Required empty public constructor
@@ -127,7 +125,7 @@ public class AddSiteDialog extends DialogFragment {
         return dialog;
     }
 
-    public void setPreferenceFragment(ConnectivityTestSettingsFragment connectivityTestSettingsFragment) {
+    public void setPreferenceFragment(ConnectivityTestPreferenceFragment connectivityTestSettingsFragment) {
         preferenceFragment = connectivityTestSettingsFragment;
     }
 

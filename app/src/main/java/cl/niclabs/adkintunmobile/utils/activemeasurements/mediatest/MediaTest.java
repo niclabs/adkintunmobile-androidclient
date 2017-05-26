@@ -1,7 +1,6 @@
 package cl.niclabs.adkintunmobile.utils.activemeasurements.mediatest;
 
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.TrafficStats;
 import android.os.Process;
@@ -16,7 +15,6 @@ import cl.niclabs.adkintunmobile.R;
 import cl.niclabs.adkintunmobile.data.persistent.activemeasurement.MediaTestReport;
 import cl.niclabs.adkintunmobile.data.persistent.activemeasurement.VideoResult;
 import cl.niclabs.adkintunmobile.views.activemeasurements.MediaTestDialog;
-import cl.niclabs.adkintunmobile.views.activemeasurements.viewfragments.settingsfragments.ActiveMeasurementsSettingsActivity;
 
 public class MediaTest {
     private MediaTestDialog mainTest;

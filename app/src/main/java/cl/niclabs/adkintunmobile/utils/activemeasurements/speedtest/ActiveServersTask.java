@@ -18,19 +18,17 @@ import java.net.URL;
 import java.util.ArrayList;
 
 import cl.niclabs.adkintunmobile.R;
-import cl.niclabs.adkintunmobile.views.activemeasurements.ActiveMeasurementsActivity;
-import cl.niclabs.adkintunmobile.views.activemeasurements.viewfragments.settingsfragments.ActiveMeasurementsSettingsActivity;
-import cl.niclabs.adkintunmobile.views.activemeasurements.viewfragments.settingsfragments.SpeedTestSettingsFragment;
+import cl.niclabs.adkintunmobile.views.activemeasurements.viewfragments.SpeedTestPreferenceFragment;
 import cz.msebera.android.httpclient.Header;
 
 public abstract class ActiveServersTask extends AsyncTask<String, Void, Void> {
     private ArrayList<String> serverPortsList;
     private ArrayList<String> serverHostsList;
     private ArrayList<String> serverNamesList;
-    private SpeedTestSettingsFragment preferenceFragment;
+    private SpeedTestPreferenceFragment preferenceFragment;
     private Context context;
 
-    public ActiveServersTask(SpeedTestSettingsFragment preferenceFragment){
+    public ActiveServersTask(SpeedTestPreferenceFragment preferenceFragment){
         this.preferenceFragment = preferenceFragment;
         this.context = preferenceFragment.getContext();
     }

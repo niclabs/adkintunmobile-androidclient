@@ -2,9 +2,7 @@ package cl.niclabs.adkintunmobile.views.activemeasurements;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
@@ -14,13 +12,11 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 import cl.niclabs.adkintunmobile.R;
-import cl.niclabs.adkintunmobile.views.activemeasurements.viewfragments.settingsfragments.ActiveMeasurementsSettingsActivity;
-import cl.niclabs.adkintunmobile.views.activemeasurements.viewfragments.settingsfragments.ConnectivityTestSettingsFragment;
-import cl.niclabs.adkintunmobile.views.activemeasurements.viewfragments.settingsfragments.MediaTestSettingsFragment;
-import cl.niclabs.adkintunmobile.views.activemeasurements.viewfragments.settingsfragments.SpeedTestSettingsFragment;
+import cl.niclabs.adkintunmobile.views.activemeasurements.viewfragments.ConnectivityTestPreferenceFragment;
+import cl.niclabs.adkintunmobile.views.activemeasurements.viewfragments.MediaTestPreferenceFragment;
+import cl.niclabs.adkintunmobile.views.activemeasurements.viewfragments.SpeedTestPreferenceFragment;
 
 public class ActiveMeasurementsActivity extends AppCompatActivity {
 
@@ -75,16 +71,6 @@ public class ActiveMeasurementsActivity extends AppCompatActivity {
         currentItem = 0;
     }
 
-    public void makeNoConnectionToast(){
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                Toast.makeText(context, getString(R.string.view_active_measurements_error_network_connection),
-                        Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
-
     public static boolean isRunning(){
         return running;
     }
@@ -111,9 +97,9 @@ public class ActiveMeasurementsActivity extends AppCompatActivity {
 
     private void setUpViewPager() {
         this.mViewPagerAdapter = new ActiveMeasurementsViewPagerAdapter(getSupportFragmentManager());
-        SpeedTestSettingsFragment f1 = new SpeedTestSettingsFragment();
-        MediaTestSettingsFragment f2 = new MediaTestSettingsFragment();
-        ConnectivityTestSettingsFragment f3 = new ConnectivityTestSettingsFragment();
+        SpeedTestPreferenceFragment f1 = new SpeedTestPreferenceFragment();
+        MediaTestPreferenceFragment f2 = new MediaTestPreferenceFragment();
+        ConnectivityTestPreferenceFragment f3 = new ConnectivityTestPreferenceFragment();
 
         this.mViewPagerAdapter.addFragment(f1);
         this.mViewPagerAdapter.addFragment(f2);

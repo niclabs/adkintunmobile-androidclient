@@ -12,7 +12,7 @@ import android.support.v7.app.AlertDialog;
 
 import cl.niclabs.adkintunmobile.R;
 import cl.niclabs.adkintunmobile.views.activemeasurements.ActiveMeasurementsActivity;
-import cl.niclabs.adkintunmobile.views.activemeasurements.viewfragments.settingsfragments.SpeedTestSettingsFragment;
+import cl.niclabs.adkintunmobile.views.activemeasurements.viewfragments.SpeedTestPreferenceFragment;
 
 public class ActiveServersDialog extends DialogFragment {
 
@@ -68,11 +68,11 @@ public class ActiveServersDialog extends DialogFragment {
                 FragmentActivity activity = getActivity();
                 if (activity != null && activity instanceof ActiveMeasurementsActivity) {
                     Fragment fragment = ((ActiveMeasurementsActivity) activity).getViewPagerItem(0);
-                    if (fragment != null && fragment instanceof SpeedTestSettingsFragment)
-                        ((SpeedTestSettingsFragment) fragment).onSharedPreferenceChanged(sharedPreferences,
+                    if (fragment != null && fragment instanceof SpeedTestPreferenceFragment)
+                        ((SpeedTestPreferenceFragment) fragment).onSharedPreferenceChanged(sharedPreferences,
                                 getActivity().getString(R.string.settings_speed_test_server_name_key));
                     if (shouldExecute)
-                        ((SpeedTestSettingsFragment) fragment).startSpeedTest();
+                        ((SpeedTestPreferenceFragment) fragment).startSpeedTest();
                 }
             }
         });
