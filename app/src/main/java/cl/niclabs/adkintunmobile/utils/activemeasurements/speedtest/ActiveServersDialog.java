@@ -6,6 +6,8 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.DialogFragment;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AlertDialog;
 
 import cl.niclabs.adkintunmobile.R;
@@ -63,8 +65,15 @@ public class ActiveServersDialog extends DialogFragment {
                 editor.putString(getActivity().getString(R.string.settings_speed_test_server_port_key), selectedServerPort);
                 editor.putString(getActivity().getString(R.string.settings_speed_test_server_name_key), selectedServerName);
                 editor.apply();
-                if (shouldExecute)
-                    ((SpeedTestSettingsFragment)((ActiveMeasurementsActivity) getActivity()).getViewPagerItem(0)).startSpeedTest();
+                FragmentActivity activity = getActivity();
+                if (activity != null && activity instanceof ActiveMeasurementsActivity) {
+                    Fragment fragment = ((ActiveMeasurementsActivity) activity).getViewPagerItem(0);
+                    if (fragment != null && fragment instanceof SpeedTestSettingsFragment)
+                        ((SpeedTestSettingsFragment) fragment).onSharedPreferenceChanged(sharedPreferences,
+                                getActivity().getString(R.string.settings_speed_test_server_name_key));
+                    if (shouldExecute)
+                        ((SpeedTestSettingsFragment) fragment).startSpeedTest();
+                }
             }
         });
         return builder.create();

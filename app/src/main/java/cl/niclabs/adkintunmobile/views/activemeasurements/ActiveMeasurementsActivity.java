@@ -3,6 +3,7 @@ package cl.niclabs.adkintunmobile.views.activemeasurements;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -40,13 +41,19 @@ public class ActiveMeasurementsActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onPostResume() {
-        super.onPostResume();
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_active_measurements);
 
         setBaseActivityParams();
         setupToolbar();
         setUpViewPager();
+        mViewPager.setCurrentItem(currentItem);
+    }
+
+    @Override
+    protected void onPostResume() {
+        super.onPostResume();
         mViewPager.setCurrentItem(currentItem);
     }
 
@@ -131,10 +138,6 @@ public class ActiveMeasurementsActivity extends AppCompatActivity {
             }
         });
         mTabLayout.setupWithViewPager(mViewPager);
-
-        //mTabLayout.getTabAt(0).setIcon(R.drawable.ic_speedometer_white);
-        //mTabLayout.getTabAt(1).setIcon(R.drawable.ic_ondemand_video_white);
-        //mTabLayout.getTabAt(2).setIcon(R.drawable.ic_link_white);
     }
 
     @Override
