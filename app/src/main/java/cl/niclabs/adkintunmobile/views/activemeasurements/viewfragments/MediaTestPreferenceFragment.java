@@ -8,14 +8,18 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.preference.Preference;
 import android.support.v7.preference.PreferenceCategory;
 import android.support.v7.preference.PreferenceManager;
+import android.support.v7.preference.PreferenceViewHolder;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import cl.niclabs.adkintunmobile.R;
 import cl.niclabs.adkintunmobile.data.persistent.activemeasurement.MediaTestReport;
+import cl.niclabs.adkintunmobile.utils.activemeasurements.connectivitytest.SitePreference;
 import cl.niclabs.adkintunmobile.views.activemeasurements.ActiveMeasurementsActivity;
 import cl.niclabs.adkintunmobile.views.activemeasurements.MediaTestDialog;
 
@@ -40,23 +44,56 @@ public class MediaTestPreferenceFragment extends ActiveMeasurementsPreferenceFra
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
 
         String maxQuality = sharedPreferences.getString(getString(R.string.settings_video_test_max_quality_key), "None");
-        if (maxQuality.equals("None")) {
-            onStartTestClick();
-        }
-        /* Load the preferences from xml */
+
+         /* Load the preferences from xml */
         addPreferencesFromResource(R.xml.media_test_preferences);
-        maxQuality = sharedPreferences.getString(getString(R.string.settings_video_test_max_quality_key), "240p");
         PreferenceCategory mediaCategory = (PreferenceCategory) findPreference(getString(R.string.settings_video_test_quality_category_key));
         Preference preference = findPreference(getString(R.string.settings_video_test_max_quality_key));
         mediaCategory.removePreference(preference);
 
-        for (int i=mediaCategory.getPreferenceCount()-1; i>0; i--){
+        for (int i = mediaCategory.getPreferenceCount() - 1; i >= 0; i--) {
             preference = mediaCategory.getPreference(i);
             if (preference.getTitle().equals(maxQuality))
                 break;
             mediaCategory.removePreference(preference);
         }
 
+        if (maxQuality.equals("None")) {
+            Preference addSitePreference = new Preference(context) {
+                @Override
+                public void onBindViewHolder(PreferenceViewHolder holder) {
+                    super.onBindViewHolder(holder);
+                    Button button = (Button) holder.findViewById(R.id.add_site_btn);
+                    button.setText(R.string.settings_video_test_get_qualities_preference);
+                    button.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            onStartTestClick();
+                        }
+                    });
+                }
+            };
+            addSitePreference.setLayoutResource(R.layout.button_preference);
+            mediaCategory.addPreference(addSitePreference);
+        }
+        updateSummaries();
+    }
+
+    public void refreshView(){
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
+        PreferenceCategory mediaCategory = (PreferenceCategory) findPreference(getString(R.string.settings_video_test_quality_category_key));
+        String maxQuality = sharedPreferences.getString(getString(R.string.settings_video_test_max_quality_key), "None");
+
+        Preference preference = findPreference(getString(R.string.settings_video_test_max_quality_key));
+        mediaCategory.removePreference(preference);
+
+
+        for (int i = mediaCategory.getPreferenceCount() - 1; i >= 0; i--) {
+            preference = mediaCategory.getPreference(i);
+            if (preference.getTitle().equals(maxQuality))
+                break;
+            mediaCategory.removePreference(preference);
+        }
         updateSummaries();
     }
 

@@ -26,6 +26,7 @@ import cl.niclabs.adkintunmobile.R;
 import cl.niclabs.adkintunmobile.utils.activemeasurements.mediatest.MediaTest;
 import cl.niclabs.adkintunmobile.utils.activemeasurements.mediatest.MediaTestJavascriptInterface;
 import cl.niclabs.adkintunmobile.utils.information.Network;
+import cl.niclabs.adkintunmobile.views.activemeasurements.viewfragments.MediaTestPreferenceFragment;
 
 public class MediaTestDialog extends DialogFragment{
 
@@ -170,5 +171,8 @@ public class MediaTestDialog extends DialogFragment{
                 negativeButton.setVisibility(View.GONE);
             }
         });
+        ((MediaTestPreferenceFragment) getParentFragment()).refreshView();
     }
+
+
 }

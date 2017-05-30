@@ -8,7 +8,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:text="Agregar"
         android:layout_marginTop="@dimen/abc_dialog_list_padding_vertical_material"
         android:paddingLeft="@dimen/design_navigation_icon_padding"
         android:paddingRight="@dimen/design_navigation_icon_padding"

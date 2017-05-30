@@ -9,16 +9,17 @@ import android.support.v7.preference.Preference;
 import android.support.v7.preference.PreferenceCategory;
 import android.support.v7.preference.PreferenceManager;
 import android.support.v7.preference.PreferenceScreen;
+import android.support.v7.preference.PreferenceViewHolder;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import cl.niclabs.adkintunmobile.R;
 import cl.niclabs.adkintunmobile.data.persistent.activemeasurement.ConnectivityTestReport;
 import cl.niclabs.adkintunmobile.utils.activemeasurements.connectivitytest.AddSiteDialog;
-import cl.niclabs.adkintunmobile.utils.activemeasurements.connectivitytest.AddSitePreference;
 import cl.niclabs.adkintunmobile.utils.activemeasurements.connectivitytest.SitePreference;
 import cl.niclabs.adkintunmobile.views.activemeasurements.ActiveMeasurementsActivity;
 import cl.niclabs.adkintunmobile.views.activemeasurements.ConnectivityTestDialog;
@@ -58,8 +59,21 @@ public class ConnectivityTestPreferenceFragment extends ActiveMeasurementsPrefer
             sitePreference.setSummary(siteTitle);
             preferenceCategory.addPreference(sitePreference);
         }
-        AddSitePreference addSitePreference = new AddSitePreference(this);
-        addSitePreference.setLayoutResource(R.layout.button_connectivity_test_add_site);
+        Preference addSitePreference = new Preference(context) {
+            @Override
+            public void onBindViewHolder(PreferenceViewHolder holder) {
+                super.onBindViewHolder(holder);
+                Button button = (Button) holder.findViewById(R.id.add_site_btn);
+                button.setText(R.string.settings_connectivity_add_site_preference);
+                button.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        addSitePreference();
+                    }
+                });
+            }
+        };
+        addSitePreference.setLayoutResource(R.layout.button_preference);
         preferenceScreen.addPreference(addSitePreference);
 
         updateSummaries();
@@ -88,6 +102,7 @@ public class ConnectivityTestPreferenceFragment extends ActiveMeasurementsPrefer
         dialog.setPreferenceFragment(this);
         dialog.show(fm, null);
     }
+
     public void deleteSitePreference(String key){
         PreferenceCategory preferenceCategory = (PreferenceCategory) findPreference(getString(R.string.settings_connectivity_test_category_sites_key));
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
