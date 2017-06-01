@@ -2,15 +2,13 @@ package cl.niclabs.adkintunmobile.views.activemeasurements.viewfragments;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.graphics.Color;
-import android.graphics.PorterDuff;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.preference.CheckBoxPreference;
 import android.support.v7.preference.EditTextPreference;
 import android.support.v7.preference.ListPreference;
 import android.support.v7.preference.Preference;
 import android.support.v7.preference.PreferenceFragmentCompat;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -38,11 +36,10 @@ public abstract class ActiveMeasurementsPreferenceFragment extends PreferenceFra
                 LinearLayout.LayoutParams.MATCH_PARENT,
                 LinearLayout.LayoutParams.WRAP_CONTENT);
         params.setMargins(120, 50, 120, 50);
-        Button button = new Button(this.context);
-        button.setText(getString(R.string.view_active_measurements_start_test));
-        button.getBackground().setColorFilter(ContextCompat.getColor(context, R.color.colorAccent),
-                PorterDuff.Mode.MULTIPLY);
-        button.setTextColor(Color.WHITE);
+
+        LayoutInflater inflater = getActivity().getLayoutInflater();
+        Button button = (Button) inflater.inflate(R.layout.button_start_test, null);
+
         view.addView(button, params);
         button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
