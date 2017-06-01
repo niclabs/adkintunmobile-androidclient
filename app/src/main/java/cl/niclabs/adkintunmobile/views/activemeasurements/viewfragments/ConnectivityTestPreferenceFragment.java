@@ -172,7 +172,6 @@ public class ConnectivityTestPreferenceFragment extends ActiveMeasurementsPrefer
             ActiveMeasurementsActivity.setEnabledButtons(true);
             AddSiteDialog dialog = new AddSiteDialog();
             dialog.setPreferenceFragment(this);
-            dialog.setChecked(true);
             dialog.show(fm, null);
         }
     }

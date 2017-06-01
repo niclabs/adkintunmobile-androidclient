@@ -165,10 +165,6 @@ public class AddSiteDialog extends DialogFragment {
         });
     }
 
-    public void setChecked(boolean checked){
-        checkBox.setChecked(checked);
-    }
-
     private void setRecommendedSites() {
         for (int i=1; i<=sitesCount; i++){
             editor.remove(testSiteKey + i);
