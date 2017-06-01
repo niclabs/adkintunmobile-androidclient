@@ -109,6 +109,8 @@
     <string name="settings_video_test_quality_hd720_key">media_test_quality_hd720</string>
     <string name="settings_video_test_reports_delete_key">delete_videotest_reports</string>
     <string name="settings_video_test_reports_delete_title">Eliminar Reportes Almacenados</string>
+    <string name="settings_video_test_none_quality_selected">Por favor selecciona alguna calidad de prueba</string>
+    <string name="settings_video_test_finding_qualities">Obteniendo calidades de prueba, verifica tu conexión a internet</string>
     <string name="settings_video_test_reports_delete_summary">Eliminar todos los reportes de prueba de videos almacenados en el equipo.</string>
     <string name="settings_video_test_get_qualities_preference">Obtener Calidades Dispnibles</string>
 

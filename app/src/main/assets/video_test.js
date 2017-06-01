@@ -49,10 +49,6 @@
             });
         }
 
-        function testEcho(message) {
-            window.JSInterface.doEchoTest(message);
-        }
-
         function onPlayerReady(event) {
             window.JSInterface.startCountingBytes();
             timeout = setTimeout(playNextVideo, 15000);
@@ -82,7 +78,6 @@
             }
         }
         function onPlayerStateChange(event){
-            testEcho(event.data);
             if (event.data == YT.PlayerState.ENDED ) {//&& i < qualities.length - 1) {
                 if (lastState == YT.PlayerState.PAUSED){
                     playNextVideo();
@@ -108,8 +103,6 @@
                 window.JSInterface.onVideoTestFinish();
                 return;
             }
-            window.JSInterface.makeToast(event.data);
-            testEcho(event.data);
         }
 
         function onPlayerError(event){

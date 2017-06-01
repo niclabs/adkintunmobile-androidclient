@@ -9,7 +9,6 @@ import android.support.v7.preference.Preference;
 import android.support.v7.preference.PreferenceCategory;
 import android.support.v7.preference.PreferenceManager;
 import android.support.v7.preference.PreferenceViewHolder;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,7 +18,6 @@ import android.widget.Toast;
 
 import cl.niclabs.adkintunmobile.R;
 import cl.niclabs.adkintunmobile.data.persistent.activemeasurement.MediaTestReport;
-import cl.niclabs.adkintunmobile.utils.activemeasurements.connectivitytest.SitePreference;
 import cl.niclabs.adkintunmobile.views.activemeasurements.ActiveMeasurementsActivity;
 import cl.niclabs.adkintunmobile.views.activemeasurements.MediaTestDialog;
 
@@ -41,12 +39,17 @@ public class MediaTestPreferenceFragment extends ActiveMeasurementsPreferenceFra
     @Override
     public void onCreatePreferences(Bundle bundle, String s) {
         this.context = getActivity();
+
+        setPreferences();
+    }
+
+    public void setPreferences(){
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
 
         String maxQuality = sharedPreferences.getString(getString(R.string.settings_video_test_max_quality_key), "None");
 
          /* Load the preferences from xml */
-        addPreferencesFromResource(R.xml.media_test_preferences);
+        setPreferencesFromResource(R.xml.media_test_preferences, getString(R.string.settings_main_screen_key));
         PreferenceCategory mediaCategory = (PreferenceCategory) findPreference(getString(R.string.settings_video_test_quality_category_key));
         Preference preference = findPreference(getString(R.string.settings_video_test_max_quality_key));
         mediaCategory.removePreference(preference);
@@ -79,24 +82,6 @@ public class MediaTestPreferenceFragment extends ActiveMeasurementsPreferenceFra
         updateSummaries();
     }
 
-    public void refreshView(){
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
-        PreferenceCategory mediaCategory = (PreferenceCategory) findPreference(getString(R.string.settings_video_test_quality_category_key));
-        String maxQuality = sharedPreferences.getString(getString(R.string.settings_video_test_max_quality_key), "None");
-
-        Preference preference = findPreference(getString(R.string.settings_video_test_max_quality_key));
-        mediaCategory.removePreference(preference);
-
-
-        for (int i = mediaCategory.getPreferenceCount() - 1; i >= 0; i--) {
-            preference = mediaCategory.getPreference(i);
-            if (preference.getTitle().equals(maxQuality))
-                break;
-            mediaCategory.removePreference(preference);
-        }
-        updateSummaries();
-    }
-
     @Override
     public boolean onPreferenceTreeClick(Preference preference) {
         String key = preference.getKey();
@@ -123,6 +108,7 @@ public class MediaTestPreferenceFragment extends ActiveMeasurementsPreferenceFra
         ft.addToBackStack(null);
 
         MediaTestDialog newFragment = new MediaTestDialog();
+        newFragment.setTargetFragment(this, 1);
         newFragment.show(ft, "videoTestDialog");
     }
 }

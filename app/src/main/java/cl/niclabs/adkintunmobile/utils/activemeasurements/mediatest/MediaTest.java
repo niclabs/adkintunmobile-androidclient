@@ -15,9 +15,10 @@ import cl.niclabs.adkintunmobile.R;
 import cl.niclabs.adkintunmobile.data.persistent.activemeasurement.MediaTestReport;
 import cl.niclabs.adkintunmobile.data.persistent.activemeasurement.VideoResult;
 import cl.niclabs.adkintunmobile.views.activemeasurements.MediaTestDialog;
+import cl.niclabs.adkintunmobile.views.activemeasurements.viewfragments.MediaTestPreferenceFragment;
 
 public class MediaTest {
-    private MediaTestDialog mainTest;
+    private MediaTestDialog dialog;
     private WebView webView;
     private long previousRxBytes = -1;
     private long previousTxBytes = -1;
@@ -25,10 +26,10 @@ public class MediaTest {
 
     private MediaTestReport report;
 
-    public MediaTest(MediaTestDialog mainTest, WebView webView) {
-        this.mainTest = mainTest;
+    public MediaTest(MediaTestDialog dialog, WebView webView) {
+        this.dialog = dialog;
         this.webView = webView;
-        this.context = mainTest.getContext();
+        this.context = dialog.getContext();
     }
 
     public void start() {
@@ -60,8 +61,8 @@ public class MediaTest {
         final long totalBytes = (currentRxBytes - previousRxBytes) + (currentTxBytes - previousTxBytes);
         previousRxBytes = -1;
 
-        if (mainTest != null) {
-            mainTest.onVideoEnded(quality, timesBuffering, loadedFraction, totalBytes);
+        if (dialog != null) {
+            dialog.onVideoEnded(quality, timesBuffering, loadedFraction, totalBytes);
             VideoResult r = new VideoResult();
             r.setUpVideoResult(quality,timesBuffering, loadedFraction, totalBytes);
             r.parentReport = this.report;
@@ -75,12 +76,12 @@ public class MediaTest {
     }
 
     public void finish() {
-        if (mainTest != null)
-            mainTest.onMediaTestFinish();
+        if (dialog != null)
+            dialog.onMediaTestFinish();
     }
 
     public void startCountingBytes() {
-        mainTest.onQualityTestStarted();
+        dialog.onQualityTestStarted();
         if (previousRxBytes == -1) {
             previousRxBytes = TrafficStats.getUidRxBytes(Process.myUid());
             previousTxBytes = TrafficStats.getUidTxBytes(Process.myUid());
@@ -88,8 +89,8 @@ public class MediaTest {
     }
 
     public void noneSelectedQuality() {
-        if (mainTest != null)
-            mainTest.dismiss();
+        if (dialog != null)
+            dialog.dismiss();
     }
 
     public boolean getQuality(String quality) {
@@ -115,4 +116,10 @@ public class MediaTest {
         finish();
     }
 
+    public void setMaxQuality() {
+        if (dialog != null && dialog.getTargetFragment() != null) {
+            ((MediaTestPreferenceFragment) dialog.getTargetFragment()).setPreferences();
+            dialog.dismiss();
+        }
+    }
 }

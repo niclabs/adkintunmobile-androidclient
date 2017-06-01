@@ -31,10 +31,6 @@
             });
         }
 
-        function testEcho(message) {
-            window.JSInterface.doEchoTest(message);
-        }
-
         function onPlayerReady(event) {
             player.loadVideoById({'videoId': videoId,
                 //'startSeconds': 360,

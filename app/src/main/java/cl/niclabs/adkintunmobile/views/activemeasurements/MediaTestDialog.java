@@ -26,12 +26,13 @@ import cl.niclabs.adkintunmobile.R;
 import cl.niclabs.adkintunmobile.utils.activemeasurements.mediatest.MediaTest;
 import cl.niclabs.adkintunmobile.utils.activemeasurements.mediatest.MediaTestJavascriptInterface;
 import cl.niclabs.adkintunmobile.utils.information.Network;
-import cl.niclabs.adkintunmobile.views.activemeasurements.viewfragments.MediaTestPreferenceFragment;
 
 public class MediaTestDialog extends DialogFragment{
 
     private View view;
     private TableLayout tableLayout;
+    private TableRow headersRow;
+    private TableRow findingQualitiesRow;
     private WebView webView;
     private MediaTest mediaTest;
     private int index = 0;
@@ -49,7 +50,8 @@ public class MediaTestDialog extends DialogFragment{
     }
 
     protected void getMaxQuality() {
-        webView.setVisibility(View.INVISIBLE);
+        headersRow.setVisibility(View.GONE);
+        findingQualitiesRow.setVisibility(View.VISIBLE);
         webView.setWebViewClient(new WebViewClient());
 
         webView.setOnTouchListener(new View.OnTouchListener() {
@@ -128,6 +130,8 @@ public class MediaTestDialog extends DialogFragment{
 
         // Get visual elements
         webView = (WebView) view.findViewById(R.id.webView);
+        headersRow = (TableRow) view.findViewById(R.id.headers_row);
+        findingQualitiesRow = (TableRow) view.findViewById(R.id.finding_qualities_row);
         tableLayout = (TableLayout) view.findViewById(R.id.video_qualities_table_layout);
         setCancelable(false);
 
@@ -171,7 +175,6 @@ public class MediaTestDialog extends DialogFragment{
                 negativeButton.setVisibility(View.GONE);
             }
         });
-        ((MediaTestPreferenceFragment) getParentFragment()).refreshView();
     }
 
 
