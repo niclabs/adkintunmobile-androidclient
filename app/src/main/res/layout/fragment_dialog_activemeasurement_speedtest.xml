@@ -7,13 +7,128 @@
     android:background="@drawable/soft_icon_background">
 
     <TableLayout
-        android:padding="@dimen/activity_vertical_margin"
+        android:paddingLeft="@dimen/activity_vertical_margin"
+        android:paddingRight="@dimen/activity_vertical_margin"
+        android:paddingTop="@dimen/activity_vertical_margin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:stretchColumns="0,2"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:gravity="center">
+        <TableRow
+            android:layout_width="0dp"
+            android:layout_height="match_parent">
+            <TableLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:gravity="center">
+                <TextView
+                    android:text="@string/view_active_measurements_speedtest_download_speed"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"/>
+                <TextView
+                    android:text="--"
+                    android:id="@+id/tv_download_rate"
+                    android:gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Widget.ActionMode.Title.Inverse"
+                    android:paddingTop="@dimen/activity_vertical_margin"
+                    android:paddingBottom="@dimen/activity_vertical_margin"
+                    android:drawableStart="@mipmap/ic_symbology_traffic_download"
+                    android:drawableLeft="@mipmap/ic_symbology_traffic_download"/>
+                <TextView
+                    android:text="@string/settings_speed_test_download_size_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center" />
+                <TextView
+                    android:text="--"
+                    android:id="@+id/tv_download_size"
+                    android:gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Widget.PopupMenu.Small"
+                    android:paddingTop="@dimen/activity_vertical_margin"
+                    android:paddingBottom="@dimen/activity_vertical_margin"
+                    />
+            </TableLayout>
+
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0"
+                android:layout_margin="@dimen/separation_little"
+                android:background="@color/doughnut_no_info"/>
+
+            <TableLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:gravity="center">
+                <TextView
+                    android:text="@string/view_active_measurements_speedtest_upload_speed"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center" />
+                <TextView
+                    android:text="--"
+                    android:id="@+id/tv_upload_rate"
+                    android:gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Widget.ActionMode.Title.Inverse"
+                    android:paddingTop="@dimen/activity_vertical_margin"
+                    android:paddingBottom="@dimen/activity_vertical_margin"
+                    android:drawableStart="@mipmap/ic_symbology_traffic_upload"
+                    android:drawableLeft="@mipmap/ic_symbology_traffic_upload"/>
+
+                <TextView
+                    android:text="@string/settings_speed_test_upload_size_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center" />
+                <TextView
+                    android:text="--"
+                    android:id="@+id/tv_upload_size"
+                    android:gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Widget.PopupMenu.Small"
+                    android:paddingTop="@dimen/activity_vertical_margin"
+                    android:paddingBottom="@dimen/activity_vertical_margin"/>
+
+            </TableLayout>
+        </TableRow>
+    </TableLayout>
+
+    <TableLayout
+        android:paddingLeft="@dimen/activity_vertical_margin"
+        android:paddingRight="@dimen/activity_vertical_margin"
+        android:paddingBottom="@dimen/activity_vertical_margin"
+
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:stretchColumns="*"
         android:focusable="true"
         android:focusableInTouchMode="true"
         android:gravity="center">
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginLeft="@dimen/separation_little"
+            android:layout_marginRight="@dimen/separation_little"
+            android:layout_marginBottom="@dimen/separation_little"
+            android:background="@color/doughnut_no_info"/>
+
         <TableRow
             android:layout_width="0dp"
             android:layout_height="match_parent">
@@ -33,11 +148,13 @@
                 android:drawableLeft="@drawable/ic_03_nowifi"
                 android:textAppearance="@style/TextAppearance.AppCompat.Widget.ActionMode.Title.Inverse"/>
         </TableRow>
+
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_margin="@dimen/separation_little"
             android:background="@color/doughnut_no_info"/>
+
         <TableRow
             android:layout_width="0dp"
             android:layout_height="match_parent">
@@ -56,98 +173,7 @@
                 android:layout_weight="0"
                 android:textAppearance="@style/TextAppearance.AppCompat.Widget.PopupMenu.Small" />
         </TableRow>
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_margin="@dimen/separation_little"
-            android:background="@color/doughnut_no_info"/>
-        <TableRow
-            android:layout_width="0dp"
-            android:layout_height="match_parent">
-            <TextView
-                android:text="@string/view_active_measurements_speedtest_download_speed"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="0"
-                android:gravity="center_vertical" />
-            <TextView
-                android:text="--"
-                android:id="@+id/tv_download_rate"
-                android:gravity="center"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="0"
-                android:textAppearance="@style/TextAppearance.AppCompat.Widget.ActionMode.Title.Inverse" />
-        </TableRow>
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_margin="@dimen/separation_little"
-            android:background="@color/doughnut_no_info"/>
-        <TableRow
-            android:layout_width="0dp"
-            android:layout_height="match_parent">
-            <TextView
-                android:text="@string/settings_speed_test_download_size_title"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="0"
-                android:gravity="center_vertical" />
-            <TextView
-                android:text="--"
-                android:id="@+id/tv_download_size"
-                android:gravity="center"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="0"
-                android:textAppearance="@style/TextAppearance.AppCompat.Widget.ActionMode.Subtitle.Inverse" />
-        </TableRow>
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_margin="@dimen/separation_little"
-            android:background="@color/doughnut_no_info"/>
-        <TableRow
-            android:layout_width="0dp"
-            android:layout_height="match_parent">
-            <TextView
-                android:text="@string/view_active_measurements_speedtest_upload_speed"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="0"
-                android:gravity="center_vertical" />
-            <TextView
-                android:text="--"
-                android:id="@+id/tv_upload_rate"
-                android:gravity="center"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="0"
-                android:textAppearance="@style/TextAppearance.AppCompat.Widget.ActionMode.Title.Inverse" />
-        </TableRow>
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_margin="@dimen/separation_little"
-            android:background="@color/doughnut_no_info"/>
-        <TableRow
-            android:layout_width="0dp"
-            android:layout_height="match_parent">
-            <TextView
-                android:text="@string/settings_speed_test_upload_size_title"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="0"
-                android:gravity="center_vertical" />
-            <TextView
-                android:text="--"
-                android:id="@+id/tv_upload_size"
-                android:gravity="center"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="0"
-                android:textAppearance="@style/TextAppearance.AppCompat.Widget.ActionMode.Subtitle.Inverse" />
-        </TableRow>
+
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"

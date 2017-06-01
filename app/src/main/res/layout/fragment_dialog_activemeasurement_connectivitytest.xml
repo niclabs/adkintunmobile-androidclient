@@ -16,6 +16,7 @@
             android:orientation="vertical">
 
             <TableLayout
+                android:id="@+id/tl_site_results"
                 android:paddingTop="@dimen/activity_vertical_margin"
                 android:paddingLeft="@dimen/activity_vertical_margin"
                 android:paddingRight="@dimen/activity_vertical_margin"
@@ -25,6 +26,49 @@
                 android:focusable="true"
                 android:focusableInTouchMode="true"
                 android:gravity="center">
+                <TableRow
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent">
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="4"
+                        android:id="@+id/sites"
+                        android:gravity="center_horizontal"
+                        android:text="Sitios" />
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:id="@+id/loading_time"
+                        android:gravity="center_horizontal"
+                        android:text="Tiempo de carga" />
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="2"
+                        android:id="@+id/downloaded_size"
+                        android:gravity="center_horizontal"
+                        android:text="Tamaño" />
+                </TableRow>
+
+            </TableLayout>
+
+            <TableLayout
+                android:paddingBottom="@dimen/activity_vertical_margin"
+                android:paddingLeft="@dimen/activity_vertical_margin"
+                android:paddingRight="@dimen/activity_vertical_margin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:stretchColumns="*"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:gravity="center">
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_margin="@dimen/separation_little"
+                    android:background="@color/doughnut_no_info"/>
                 <TableRow
                     android:layout_width="0dp"
                     android:layout_height="match_parent">
@@ -67,50 +111,6 @@
                         android:layout_weight="0"
                         android:textAppearance="@style/TextAppearance.AppCompat.Widget.ActionMode.Subtitle.Inverse" />
                 </TableRow>
-            </TableLayout>
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_margin="@dimen/separation_little"
-                android:background="@color/doughnut_no_info"/>
-
-            <TableLayout
-                android:id="@+id/tl_site_results"
-                android:paddingBottom="@dimen/activity_vertical_margin"
-                android:paddingLeft="@dimen/activity_vertical_margin"
-                android:paddingRight="@dimen/activity_vertical_margin"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:stretchColumns="*"
-                android:focusable="true"
-                android:focusableInTouchMode="true"
-                android:gravity="center">
-                <TableRow
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent">
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="4"
-                        android:id="@+id/sites"
-                        android:gravity="center_horizontal"
-                        android:text="Sitios" />
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="2"
-                        android:id="@+id/loading_time"
-                        android:gravity="center_horizontal"
-                        android:text="Tiempo de carga" />
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="2"
-                        android:id="@+id/downloaded_size"
-                        android:gravity="center_horizontal"
-                        android:text="Tamaño" />
-                </TableRow>
-
             </TableLayout>
 
         </LinearLayout>

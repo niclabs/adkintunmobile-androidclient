@@ -5,7 +5,9 @@ import android.content.DialogInterface;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
+import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.TableLayout;
@@ -72,6 +74,9 @@ public class ConnectivityTestReportDialog extends DialogFragment {
     }
 
     private void createSiteResult(boolean loaded, String url, long loadingTime, long downloadedBytes) {
+        if (tlSiteResults.getChildCount() > 2)
+            addTableSeparation();
+
         TableRow tr = new TableRow(getContext());
         tr.setLayoutParams(new TableRow.LayoutParams(0, TableRow.LayoutParams.WRAP_CONTENT));
 
@@ -126,5 +131,12 @@ public class ConnectivityTestReportDialog extends DialogFragment {
         }else {
             // None
         }
+    }
+
+    public void addTableSeparation(){
+        View separator = new View(getContext());
+        separator.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.doughnut_no_info));
+        int height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 1, getResources().getDisplayMetrics());
+        tlSiteResults.addView(separator, new TableLayout.LayoutParams(TableLayout.LayoutParams.MATCH_PARENT, height));
     }
 }

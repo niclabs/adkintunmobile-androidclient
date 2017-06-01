@@ -5,7 +5,9 @@ import android.content.DialogInterface;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
+import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.TableLayout;
@@ -63,7 +65,6 @@ public class MediaTestReportDialog extends DialogFragment {
                     Network.formatBytes(vr.downloadedBytes),
                     loadedPercentage,
                     time);
-            AddTableSeparation();
         }
 
         // set builder
@@ -97,6 +98,9 @@ public class MediaTestReportDialog extends DialogFragment {
     }
 
     public void createVideoResult(String resolution, String size, String percentage, String buffering){
+        if (tlVideoResults.getChildCount() > 1)
+            addTableSeparation();
+
         TableRow tr1 = new TableRow(getContext());
         tr1.setLayoutParams(new TableRow.LayoutParams(0, TableRow.LayoutParams.WRAP_CONTENT));
 
@@ -150,11 +154,12 @@ public class MediaTestReportDialog extends DialogFragment {
         return resTv;
     }
 
-    public void AddTableSeparation(){
-        TextView resTv = new TextView(getContext());
-        resTv.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, 2));
-        resTv.setBackgroundColor(getResources().getColor(R.color.doughnut_no_info));
-
-        tlVideoResults.addView(resTv);;
+    public void addTableSeparation(){
+        View separator = new View(getContext());
+        separator.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.doughnut_no_info));
+        int height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 1, getResources().getDisplayMetrics());
+        TableLayout.LayoutParams params = new TableLayout.LayoutParams(TableLayout.LayoutParams.MATCH_PARENT, height);
+        params.setMargins(0, 20, 0, 20);
+        tlVideoResults.addView(separator, params);
     }
 }
