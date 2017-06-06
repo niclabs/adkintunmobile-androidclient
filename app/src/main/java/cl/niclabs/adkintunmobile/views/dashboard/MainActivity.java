@@ -208,6 +208,11 @@ public class MainActivity extends AppCompatActivity {
         Intent myIntent = new Intent(getApplicationContext(), ActiveMeasurementsActivity.class);
         startActivity(myIntent);
     }
+
+    public void openPreferencesView(View view) {
+        Intent myIntent = new Intent(getApplicationContext(), SettingsActivity.class);
+        startActivity(myIntent);
+    }
     /*
      * Navigation Drawer Synchronization methods
      */
