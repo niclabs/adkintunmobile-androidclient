@@ -31,6 +31,7 @@ import cl.niclabs.adkintunmobile.services.SetupSystem;
 import cl.niclabs.adkintunmobile.services.sync.Synchronization;
 import cl.niclabs.adkintunmobile.utils.files.FileManager;
 import cl.niclabs.adkintunmobile.utils.information.Network;
+import cl.niclabs.adkintunmobile.views.aboutus.AboutUsActivity;
 import cl.niclabs.adkintunmobile.views.status.DataQuotaDialog;
 import cl.niclabs.adkintunmobile.views.status.DayOfRechargeDialog;
 
@@ -122,6 +123,11 @@ public class SettingsFragment extends PreferenceFragment implements SharedPrefer
             /* Delete ipLocation records cached */
             IpLocation.cleanDB();
             Toast.makeText(this.context, getString(R.string.settings_app_data_clean_ip_location_cache_message), Toast.LENGTH_SHORT).show();
+        }
+        if (key.equals(getString(R.string.settings_app_about_key))){
+            /* Open About Us Activity */
+            Intent myIntent = new Intent(getActivity(), AboutUsActivity.class);
+            startActivity(myIntent);
         }
         return super.onPreferenceTreeClick(preferenceScreen, preference);
     }

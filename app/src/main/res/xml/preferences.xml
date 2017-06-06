@@ -83,5 +83,8 @@
             android:key="@string/settings_app_version_key"
             android:title="@string/settings_app_version_title"
             android:summary="%s"/>
+        <Preference
+            android:key="@string/settings_app_about_key"
+            android:title="@string/settings_app_about_title"/>
     </PreferenceCategory>
 </PreferenceScreen>
