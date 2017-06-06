@@ -122,6 +122,9 @@ public class DoughnutChartViewFragment extends ConnectionTypeViewFragment {
         dateText.setTypeface(tf1);
 
         DoughnutChart chartElement = (DoughnutChart) view.findViewById(R.id.doughnut);
+        chartElement.getLayoutParams().height = chartElement.getMeasuredWidth();
+        int padding = (int) (chartElement.getMeasuredWidth() / 4.5);
+        chartElement.setPadding(padding, padding, padding, padding);
 
         float chartDiameter = getResources().getDimension(
                 R.dimen.connected_time_doughnut);
