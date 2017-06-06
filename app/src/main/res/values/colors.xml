@@ -10,6 +10,7 @@
     <color name="colorAccent">#ff6f43</color>
     <color name="window_background">#a7c4c1</color>
     <color name="webview_background">#ffffff</color>
+    <color name="light_gray">#4ddadada</color>
 
     <!-- Tutorials -->
     <color name="tutorial_background">#f0009688</color>
@@ -22,7 +23,7 @@
     <color name="doughnut_wifi">#e13b8fb5</color>
     <color name="doughnut_mobile">#e122b573</color>
     <color name="doughnut_no_connection">#e1e84643</color>
-    <color name="doughnut_no_info">#4ddadada</color>
+    <color name="doughnut_no_info">#1a009688</color>
     <color name="doughnut_start">#e1ffffff</color>
     <color name="doughnut_wifi_soft">#783b8fb5</color>
     <color name="doughnut_mobile_soft">#9622b573</color>

@@ -116,7 +116,7 @@
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
-                        android:background="@color/doughnut_no_info"/>
+                        android:background="@color/light_gray"/>
 
                     <!-- Segunda fila -->
                     <LinearLayout
@@ -165,7 +165,7 @@
                         <View
                             android:layout_width="1dp"
                             android:layout_height="match_parent"
-                            android:background="@color/doughnut_no_info"/>
+                            android:background="@color/light_gray"/>
 
                         <LinearLayout
                             android:layout_width="0dp"
@@ -209,7 +209,7 @@
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
-                        android:background="@color/doughnut_no_info"/>
+                        android:background="@color/light_gray"/>
 
                     <!-- Tercera Fila -->
                     <LinearLayout
@@ -346,7 +346,7 @@
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
-                        android:background="@color/doughnut_no_info"/>
+                        android:background="@color/light_gray"/>
 
                     <!-- Cuarta Fila -->
 
@@ -448,7 +448,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="1dp"
                             android:layout_margin="@dimen/separation_little"
-                            android:background="@color/doughnut_no_info"/>
+                            android:background="@color/light_gray"/>
 
                         <TableLayout
                             android:layout_width="match_parent"

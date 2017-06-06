@@ -72,7 +72,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:layout_margin="@dimen/button_margin"
-                android:background="@color/doughnut_no_info"/>
+                android:background="@color/light_gray"/>
 
             <LinearLayout
                 android:orientation="horizontal"

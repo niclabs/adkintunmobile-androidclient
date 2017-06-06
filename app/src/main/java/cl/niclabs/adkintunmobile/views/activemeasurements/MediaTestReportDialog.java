@@ -156,7 +156,7 @@ public class MediaTestReportDialog extends DialogFragment {
 
     public void addTableSeparation(){
         View separator = new View(getContext());
-        separator.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.doughnut_no_info));
+        separator.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.light_gray));
         int height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 1, getResources().getDisplayMetrics());
         TableLayout.LayoutParams params = new TableLayout.LayoutParams(TableLayout.LayoutParams.MATCH_PARENT, height);
         params.setMargins(0, 20, 0, 20);
