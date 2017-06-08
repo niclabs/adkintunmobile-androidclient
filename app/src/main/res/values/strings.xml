@@ -65,6 +65,8 @@
     <string name="settings_app_version_key">app_version</string>
     <string name="settings_app_version_title">Versión de la aplicación</string>
     <string name="settings_app_version_default">2.1</string>
+    <string name="settings_app_about_key">app_about</string>
+    <string name="settings_app_about_title">Acerca de</string>
 
     <string name="settings_active_measurements_key">active_measurements_key</string>
     <string name="settings_start_active_measurements_key">start_active_measurements_key</string>
@@ -145,6 +147,9 @@
     <string name="view_dashboard_top_apps_summary">Las siguientes aplicaciones son las que más han usado tu internet móvil hoy:</string>
     <string name="view_dashboard_active_connections_title">Conexiones activas</string>
     <string name="view_dashboard_active_connections_summary">En este instante las conexiones de internet activas en tu celular llegan a un total de:</string>
+    <string name="view_dashboard_preferences_title">Preferencias</string>
+    <string name="view_dashboard_preferences_summary">Edita las preferencias de Adkintun Mobile</string>
+
 
     <!-- Notifications Log -->
     <string name="view_notifications_log_item_no_data">No hay notificaciones para mostrar</string>
@@ -267,6 +272,6 @@
 
 
     <!-- Fonts -->
-    <string name="font_text_view">fonts/caviar_dreams.ttf</string>
+    <string name="font_text_view">fonts/roboto-slab.regular.ttf</string>
 
 </resources>
