@@ -82,11 +82,9 @@ public class ConnectivityTest {
         webView.setWebViewClient(new WebViewClient() {
             private long startTime = -1;
             private long finishTime;
-            private String lastFinished;
-            private int lastFinishedIndex;
 
             @Override
-            public void onPageStarted(WebView view, String url, Bitmap favicon) {
+            public synchronized void onPageStarted(WebView view, String url, Bitmap favicon) {
                 if (url=="about:blank"){
                     return;
                 }
@@ -103,17 +101,15 @@ public class ConnectivityTest {
             }
 
             @Override
-            public void onPageFinished(WebView view, String url) {
-                if (url.equals("about:blank")){
+            public synchronized void onPageFinished(WebView view, String url) {
+                if (view.getOriginalUrl().equals("about:blank")){
                     return;
                 }
-                if (url.equals(lastFinished) && lastFinishedIndex==i){
+                if (!url.equals(urls.get(i))){
                     return;
                 }
-                webView.clearCache(true);
-                lastFinished = url;
-                lastFinishedIndex = i;
-                webView.loadUrl("about:blank");
+                view.clearCache(true);
+                view.loadUrl("about:blank");
                 finishTime = System.currentTimeMillis();
                 long loadingTime = finishTime - startTime;
 
@@ -130,6 +126,12 @@ public class ConnectivityTest {
                 i++;
                 startTime = -1;
                 loadNextPage();
+            }
+
+            @Override
+            public synchronized boolean shouldOverrideUrlLoading(WebView view, String url) {
+                urls.set(i, url);
+                return false;
             }
         });
 
