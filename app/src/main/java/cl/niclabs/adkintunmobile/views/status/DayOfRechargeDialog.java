@@ -1,11 +1,13 @@
 package cl.niclabs.adkintunmobile.views.status;
 
+import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,7 +22,6 @@ public class DayOfRechargeDialog extends DialogFragment {
     static public final String TAG = "AdkM:DayOfRechargeDialog";
 
     private NumberPicker mNumberPicker;
-    private Button confirmationButton;
 
     private DialogInterface.OnDismissListener onDismissListener;
 
@@ -29,18 +30,24 @@ public class DayOfRechargeDialog extends DialogFragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        View v =  inflater.inflate(R.layout.fragment_day_of_recharge_dialog, container, false);
-        getDialog().setTitle(getActivity().getString(R.string.view_day_of_recharge_dialog_title));
+    public Dialog onCreateDialog(Bundle savedInstanceState) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                updateDayOfRecharge(mNumberPicker.getValue());
+                dismiss();
+            }
+        });
+
+        LayoutInflater inflater = getActivity().getLayoutInflater();
+        View view =  inflater.inflate(R.layout.fragment_day_of_recharge_dialog, null);
+        builder.setTitle(getActivity().getString(R.string.view_day_of_recharge_dialog_title));
 
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
         String value = sharedPreferences.getString(getActivity().getString(R.string.settings_app_day_of_recharge_key), "0");
         int dayOfRechargeValue = Integer.parseInt(value);
 
-        mNumberPicker = (NumberPicker) v.findViewById(R.id.np_day_of_recharge);
-        confirmationButton = (Button) v.findViewById(R.id.bt_save_day_of_recharge);
+        mNumberPicker = (NumberPicker) view.findViewById(R.id.np_day_of_recharge);
 
         String[] dayOfRechargeOptions = new String[31];
 
@@ -55,15 +62,10 @@ public class DayOfRechargeDialog extends DialogFragment {
         mNumberPicker.setWrapSelectorWheel(true);
         mNumberPicker.setValue(dayOfRechargeValue);
 
-        confirmationButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                updateDayOfRecharge(mNumberPicker.getValue());
-                dismiss();
-            }
-        });
+        builder.setView(view);
+        AlertDialog dialog = builder.create();
 
-        return v;
+        return dialog;
     }
 
     public void updateDayOfRecharge(int dayOfRecharge){
