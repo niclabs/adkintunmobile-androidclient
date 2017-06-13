@@ -184,7 +184,6 @@
         <item>Señal</item>
         <item>Internet</item>
         <item>Tarjetas</item>string>
-        <item>Menu Principal</item>
         <item>Adkintun Mobile</item>
     </string-array>
     <string-array name="tutorial_dashboard_body">
@@ -195,7 +194,6 @@
         <item>Reporta la generación tecnológica asociada a la señal actual de tu equipo. Más G es mejor.</item>
         <item>Indica qué tipo de conexión está usando tu equipo en este momento (WiFi/Móvil).</item>
         <item>En esta parte se muestran tarjetas con información resumida de las distintas funcionalidades de la aplicación. Para más detalle puedes hacer click en cada una.</item>
-        <item>En el menú principal puedes acceder a cada una de las funcionalidades completas de la aplicación.</item>
         <item>Para más detalles, presiona el ícono de información <node>&#x24D8;</node> en cada una de las vistas de la aplicación.</item>
     </string-array>
 
