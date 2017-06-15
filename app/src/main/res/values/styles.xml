@@ -26,6 +26,12 @@
         <item name="android:progressDrawable">@drawable/custom_progress_bar_horizontal</item>
     </style>
 
+    <style name="TrafficProgressBar" parent="@android:style/Widget.SeekBar">
+        <item name="android:minHeight">5dip</item>
+        <item name="android:maxHeight">5dip</item>
+        <item name="android:progressDrawable">@drawable/traffic_progress_bar</item>
+    </style>
+
     <style name="floatingBoxLabel">
         <item name="android:layout_marginTop">@dimen/separation_little</item>
         <item name="android:paddingLeft">@dimen/separation_little</item>

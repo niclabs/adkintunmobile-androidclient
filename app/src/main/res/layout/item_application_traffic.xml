@@ -67,7 +67,7 @@
                         android:visibility="visible" />
 
                     <ProgressBar
-                        style="?android:attr/progressBarStyleHorizontal"
+                        style="@style/TrafficProgressBar"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:id="@+id/pb_rx"
@@ -104,7 +104,7 @@
                         android:visibility="visible" />
 
                     <ProgressBar
-                        style="?android:attr/progressBarStyleHorizontal"
+                        style="@style/TrafficProgressBar"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:id="@+id/pb_tx"
