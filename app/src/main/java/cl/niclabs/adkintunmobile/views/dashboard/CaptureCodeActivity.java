@@ -36,7 +36,7 @@ public class CaptureCodeActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
-        setTitle(getString(R.string.view_settings));
+        setTitle(getString(R.string.app_name));
     }
 
     @Override
