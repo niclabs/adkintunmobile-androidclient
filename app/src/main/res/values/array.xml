@@ -193,7 +193,7 @@
         <item>Indica el nombre del proveedor de servicio asociado a tu tarjeta SIM.</item>
         <item>Reporta la generación tecnológica asociada a la señal actual de tu equipo. Más G es mejor.</item>
         <item>Indica qué tipo de conexión está usando tu equipo en este momento (WiFi/Móvil).</item>
-        <item>En esta parte se muestran tarjetas con información resumida de las distintas funcionalidades de la aplicación. Para más detalle puedes hacer click en cada una.</item>
+        <item>Cada tarjetas muestra información resumida de las distintas funcionalidades de la aplicación. Para más detalle haz click en cada una.</item>
         <item>Para más detalles, presiona el ícono de información <node>&#x24D8;</node> en cada una de las vistas de la aplicación.</item>
     </string-array>
 

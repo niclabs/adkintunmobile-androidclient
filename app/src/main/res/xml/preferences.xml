@@ -27,15 +27,6 @@
     </PreferenceCategory>
 
     <PreferenceCategory
-        android:title="@string/settings_adkintun_web_category"
-        >
-        <Preference
-            android:key="@string/settings_adkintun_web_qr_scanner_key"
-            android:title="@string/settings_adkintun_web_qr_scanner_title"
-            />
-    </PreferenceCategory>
-
-    <PreferenceCategory
         android:title="@string/settings_sampling_category"
         android:key="@string/settings_sampling_category_key"
         >

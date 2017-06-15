@@ -1,4 +1,4 @@
-package cl.niclabs.adkintunmobile.views.settings;
+package cl.niclabs.adkintunmobile.views.dashboard;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;

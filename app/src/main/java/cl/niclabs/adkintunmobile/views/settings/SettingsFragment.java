@@ -39,7 +39,6 @@ public class SettingsFragment extends PreferenceFragment implements SharedPrefer
 
     private final String TAG = "AdkM:Settings";
     private Context context;
-    private static final int REQUEST_READ_PHONE_STATE = 1;
 
     public SettingsFragment() {
         // Required empty public constructor
@@ -101,10 +100,6 @@ public class SettingsFragment extends PreferenceFragment implements SharedPrefer
             FragmentManager fm = ((SettingsActivity) getActivity()).getSupportFragmentManager();
             DayOfRechargeDialog.showDialogPreference(fm, null);
         }
-        if (key.equals(getString(R.string.settings_adkintun_web_qr_scanner_key))) {
-            /* Init CaptureCodeActivity */
-            checkReadPhonePermission();
-        }
         if (key.equals(getString(R.string.settings_sampling_startsync_key))){
             /* Start Sync process: create new report and try to send it */
             context.startService(new Intent(context, Synchronization.class));
@@ -130,20 +125,6 @@ public class SettingsFragment extends PreferenceFragment implements SharedPrefer
             startActivity(myIntent);
         }
         return super.onPreferenceTreeClick(preferenceScreen, preference);
-    }
-
-    private void checkReadPhonePermission() {
-        final IntentIntegrator scanIntegrator = new IntentIntegrator(getActivity());
-
-        int permissionCheck = ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.READ_PHONE_STATE);
-        if (permissionCheck != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.READ_PHONE_STATE}, REQUEST_READ_PHONE_STATE);
-        } else {
-            scanIntegrator.setPrompt("");
-            scanIntegrator.setBeepEnabled(false);
-            scanIntegrator.setCaptureActivity(CaptureCodeActivity.class);
-            scanIntegrator.initiateScan();
-        }
     }
 
     private void updateSummaries(){
