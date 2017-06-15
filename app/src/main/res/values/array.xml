@@ -203,8 +203,8 @@
         <item>"Tu Internet"</item>
         <item>"Tu SIM"</item>
         <item>"Tu Red"</item>
-        <item>"Tu consumo Diario"</item>
-        <item>"Tu consumo Mensual"</item>
+        <item>"Tu Consumo Diario"</item>
+        <item>"Tu Consumo Mensual"</item>
     </string-array>
     <string-array name="tutorial_status_body">
         <item>La vista "Tu Estado" incluye información completa respecto a tu conexión actual y el consumo de tus datos móviles.</item>

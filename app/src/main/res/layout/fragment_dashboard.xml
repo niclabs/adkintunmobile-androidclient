@@ -283,7 +283,7 @@
                 <TableLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:paddingTop="@dimen/separation_min"
+                    android:paddingTop="@dimen/separation_little"
                     android:id="@+id/top_3_table_layout">
 
                     <TextView
