@@ -15,7 +15,7 @@
         android:layout_height="wrap_content"
         android:gravity="center_vertical"
         android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-        android:textColor="?colorAccent"
+        android:textColor="@color/colorAccent"
         tools:ignore="RtlHardcoded,SelectableText"
         />
 

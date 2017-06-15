@@ -290,8 +290,8 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:gravity="center"
-                        android:textSize="@dimen/Large"
-                        android:textColor="@color/colorPrimary"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textSize="@dimen/abc_text_size_title_material"
                         android:text="@string/view_applications_traffic_item_no_data"
                         android:visibility="gone"
                         android:id="@+id/empty_dialog" />

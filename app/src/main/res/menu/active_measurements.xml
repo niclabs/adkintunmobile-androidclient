@@ -6,6 +6,6 @@
         android:id="@+id/menu_history_btn"
         android:icon="@drawable/ic_history_white"
         app:showAsAction="ifRoom"
-        android:title="historia">
+        android:title="historial">
     </item>
 </menu>

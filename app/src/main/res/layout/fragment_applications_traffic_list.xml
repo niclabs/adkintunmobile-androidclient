@@ -2,8 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="cl.niclabs.adkintunmobile.views.applicationstraffic.ApplicationsTrafficListFragment"
-    android:background="@mipmap/background3">
+    tools:context="cl.niclabs.adkintunmobile.views.applicationstraffic.ApplicationsTrafficListFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -28,6 +27,6 @@
         android:gravity="center"
         style="@style/TextAppearance.AppCompat.Large"
         android:text="@string/view_applications_traffic_item_no_data"
-        android:textColor="@color/textColorPrimary" />
+        android:textColor="@color/colorPrimaryDark" />
 
 </FrameLayout>
