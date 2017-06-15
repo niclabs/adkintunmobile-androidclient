@@ -36,6 +36,14 @@
         <item name="android:textStyle">italic</item>
     </style>
 
+    <style name="ItemLabel">
+        <item name="android:layout_marginTop">@dimen/separation_little</item>
+        <item name="android:paddingBottom">@dimen/separation_min</item>
+        <item name="android:paddingTop">@dimen/separation_min</item>
+        <item name="android:textColor">@color/colorAccent</item>
+        <item name="android:textAppearance">@style/TextAppearance.AppCompat.Body2</item>
+    </style>
+
     <style name="floatingBox">
         <item name="android:layout_margin">@dimen/separation_min</item>
         <item name="android:paddingBottom">@dimen/separation_min</item>
