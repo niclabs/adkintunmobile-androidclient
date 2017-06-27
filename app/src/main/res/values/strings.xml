@@ -30,7 +30,7 @@
     <string name="settings_app_daily_notification_title">Notificaciones Diarias</string>
     <string name="settings_app_daily_notification_summary">Programar una notificación diaria para el final del día con el resumen del consumo de datos móviles.</string>
 
-    <string name="settings_adkintun_web_qr_scanner_prompt">Ingresa a web.adkintunmobile.cl y escanea el código QR para acceder a tu información.</string>
+    <string name="settings_adkintun_web_qr_scanner_prompt">Ingresa a adkintunmobile.cl/auth y escanea el código QR para acceder a tu información.</string>
     <string name="settings_adkintun_web_qr_scanner_success">Código QR escaneado</string>
     <string name="settings_adkintun_web_qr_scanner_failure">Error al escanear código</string>
 
@@ -94,7 +94,7 @@
     <string name="settings_video_test_quality_hd720_key">media_test_quality_hd720</string>
     <string name="settings_video_test_none_quality_selected">Por favor selecciona alguna calidad de prueba</string>
     <string name="settings_video_test_finding_qualities">Obteniendo calidades de prueba, verifica tu conexión a internet</string>
-    <string name="settings_video_test_get_qualities_preference">Obtener Calidades Dispnibles</string>
+    <string name="settings_video_test_get_qualities_preference">Obtener Calidades Disponibles</string>
     <string name="settings_video_test_reports_delete_key">delete_videotest_reports</string>
     <string name="settings_video_test_reports_delete_title">Eliminar Reportes Almacenados</string>
     <string name="settings_video_test_reports_delete_summary">Eliminar todos los reportes de prueba de videos almacenados en el equipo.</string>
@@ -182,7 +182,7 @@
     <string name="view_active_measurements_speedtest_error">Ha ocurrido un error en la prueba: %1$s</string>
     <string name="view_active_measurements_start_test">Iniciar Prueba</string>
     <string name="view_active_measurements_speedtest_title">Prueba de Velocidad</string>
-    <string name="view_active_measurements_speedtest_description">Esta prueba permite determinar la velocidad efectiva de tu conexión a internet para subir y bajar datos. El resultado permite identificar que tan estable y rápida es tu conexión.</string>
+    <string name="view_active_measurements_speedtest_description">Esta prueba permite determinar la velocidad efectiva de tu conexión a internet para subir y bajar datos. El resultado permite identificar qué tan estable y rápida es tu conexión.</string>
     <string name="view_active_measurements_speedtest_upload_speed">Velocidad de Subida</string>
     <string name="view_active_measurements_speedtest_download_speed">Velocidad de Bajada</string>
     <string name="view_active_measurements_mediatest_title">Prueba de Videos</string>
