@@ -203,95 +203,10 @@
                             style="@style/ItemLabel"
                             android:text="@string/view_status_your_monthly_data_usage"/>
 
-                        <RelativeLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:onClick="showDialogMobileQuotaPref">
-                            <ProgressBar
-                                style="@style/CustomProgressBarHorizontal"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:id="@+id/pb_mobile_data_consumption"
-                                android:progress="50"
-                                android:max="100"
-                                android:indeterminate="false"
-                                android:layout_margin="@dimen/activity_vertical_margin" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:gravity="center"
-                                android:layout_height="wrap_content"
-                                android:id="@+id/tv_data_quota_percentage"
-                                android:layout_alignStart="@id/pb_mobile_data_consumption"
-                                android:layout_alignLeft="@id/pb_mobile_data_consumption"
-                                android:layout_alignTop="@id/pb_mobile_data_consumption"
-                                android:layout_alignEnd="@id/pb_mobile_data_consumption"
-                                android:layout_alignRight="@id/pb_mobile_data_consumption"
-                                android:layout_alignBottom="@id/pb_mobile_data_consumption"
-                                android:text="50%"
-                                android:textSize="18sp"
-                                android:textStyle="bold" />
-                        </RelativeLayout>
-
-                        <LinearLayout
-                            android:orientation="horizontal"
-                            android:layout_width="fill_parent"
-                            android:layout_height="match_parent"
-                            android:gravity="center_horizontal"
-                            android:layout_marginLeft="@dimen/margin_horizontal_info_data_quota"
-                            android:layout_marginRight="@dimen/margin_horizontal_info_data_quota">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:textAppearance="?android:attr/textAppearanceSmall"
-                                android:text="XX MB"
-                                android:textSize="@dimen/text_info_data_quota"
-                                android:visibility="visible"
-                                android:layout_gravity="center"
-                                android:id="@+id/tv_used_data_quota"
-                                android:textStyle="bold" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:textAppearance="?android:attr/textAppearanceSmall"
-                                android:text=" usados de "
-                                android:textSize="@dimen/text_info_data_quota"
-                                android:visibility="visible"
-                                android:layout_gravity="center" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:textAppearance="?android:attr/textAppearanceSmall"
-                                android:text="XXXX MB"
-                                android:textSize="@dimen/text_info_data_quota"
-                                android:visibility="visible"
-                                android:layout_gravity="center"
-                                android:id="@+id/tv_available_data_quota"
-                                android:textStyle="bold" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:textAppearance="?android:attr/textAppearanceSmall"
-                                android:text=" disponibles"
-                                android:textSize="@dimen/text_info_data_quota"
-                                android:visibility="visible"
-                                android:layout_gravity="center" />
-
-                        </LinearLayout>
-
-                        <View
-                            android:layout_width="match_parent"
-                            android:layout_height="1dp"
-                            android:layout_margin="10dp"
-                            android:background="@color/light_gray"/>
-
                         <TableLayout
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
+                            android:layout_marginTop="@dimen/separation_little"
                             android:stretchColumns="0,1,2">
 
                             <TableRow
@@ -389,7 +304,7 @@
                             android:orientation="horizontal"
                             android:layout_width="fill_parent"
                             android:layout_height="match_parent"
-                            android:layout_marginBottom="5dp"
+                            android:layout_marginBottom="@dimen/activity_vertical_margin"
                             android:gravity="center_horizontal">
 
                             <TextView
@@ -404,12 +319,99 @@
 
                         </LinearLayout>
 
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_marginLeft="@dimen/activity_vertical_margin"
+                            android:layout_marginRight="@dimen/activity_vertical_margin"
+                            android:background="@color/light_gray"/>
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:onClick="showDialogMobileQuotaPref">
+                            <ProgressBar
+                                style="@style/CustomProgressBarHorizontal"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:id="@+id/pb_mobile_data_consumption"
+                                android:progress="50"
+                                android:max="100"
+                                android:indeterminate="false"
+                                android:layout_margin="@dimen/activity_vertical_margin" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:gravity="center"
+                                android:layout_height="wrap_content"
+                                android:id="@+id/tv_data_quota_percentage"
+                                android:layout_alignStart="@id/pb_mobile_data_consumption"
+                                android:layout_alignLeft="@id/pb_mobile_data_consumption"
+                                android:layout_alignTop="@id/pb_mobile_data_consumption"
+                                android:layout_alignEnd="@id/pb_mobile_data_consumption"
+                                android:layout_alignRight="@id/pb_mobile_data_consumption"
+                                android:layout_alignBottom="@id/pb_mobile_data_consumption"
+                                android:text="50%"
+                                android:textSize="18sp"
+                                android:textStyle="bold" />
+                        </RelativeLayout>
+
+                        <LinearLayout
+                            android:orientation="horizontal"
+                            android:layout_width="fill_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="center_horizontal"
+                            android:layout_marginLeft="@dimen/margin_horizontal_info_data_quota"
+                            android:layout_marginRight="@dimen/margin_horizontal_info_data_quota">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textAppearance="?android:attr/textAppearanceSmall"
+                                android:text="XX MB"
+                                android:textSize="@dimen/text_info_data_quota"
+                                android:visibility="visible"
+                                android:layout_gravity="center"
+                                android:id="@+id/tv_used_data_quota"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textAppearance="?android:attr/textAppearanceSmall"
+                                android:text=" usados de "
+                                android:textSize="@dimen/text_info_data_quota"
+                                android:visibility="visible"
+                                android:layout_gravity="center" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textAppearance="?android:attr/textAppearanceSmall"
+                                android:text="XXXX MB"
+                                android:textSize="@dimen/text_info_data_quota"
+                                android:visibility="visible"
+                                android:layout_gravity="center"
+                                android:id="@+id/tv_available_data_quota"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textAppearance="?android:attr/textAppearanceSmall"
+                                android:text=" disponibles"
+                                android:textSize="@dimen/text_info_data_quota"
+                                android:visibility="visible"
+                                android:layout_gravity="center" />
+
+                        </LinearLayout>
+
                     </LinearLayout>
 
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
-                        android:layout_marginTop="10dp"
+                        android:layout_marginTop="@dimen/activity_vertical_margin"
                         android:background="@color/light_gray"/>
 
                     <!-- Tercera fila -->
