@@ -6,11 +6,13 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.DialogFragment;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AlertDialog;
 
 import cl.niclabs.adkintunmobile.R;
 import cl.niclabs.adkintunmobile.views.activemeasurements.ActiveMeasurementsActivity;
-import cl.niclabs.adkintunmobile.views.activemeasurements.viewfragments.SpeedTestFragment;
+import cl.niclabs.adkintunmobile.views.activemeasurements.viewfragments.SpeedTestPreferenceFragment;
 
 public class ActiveServersDialog extends DialogFragment {
 
@@ -63,14 +65,19 @@ public class ActiveServersDialog extends DialogFragment {
                 editor.putString(getActivity().getString(R.string.settings_speed_test_server_port_key), selectedServerPort);
                 editor.putString(getActivity().getString(R.string.settings_speed_test_server_name_key), selectedServerName);
                 editor.apply();
-                if (getActivity() instanceof ActiveMeasurementsActivity) {
-                    ActiveMeasurementsActivity parent = (ActiveMeasurementsActivity) getActivity();
-                    ((SpeedTestFragment) parent.getViewPagerItem(0)).refreshView();
+                FragmentActivity activity = getActivity();
+                if (activity != null && activity instanceof ActiveMeasurementsActivity) {
+                    Fragment fragment = ((ActiveMeasurementsActivity) activity).getViewPagerItem(0);
+                    if (fragment != null && fragment instanceof SpeedTestPreferenceFragment)
+                        ((SpeedTestPreferenceFragment) fragment).onSharedPreferenceChanged(sharedPreferences,
+                                getActivity().getString(R.string.settings_speed_test_server_name_key));
+                    if (shouldExecute)
+                        ((SpeedTestPreferenceFragment) fragment).startSpeedTest();
                 }
-                if (shouldExecute)
-                    ((ActiveMeasurementsActivity) getActivity()).startSpeedTest();
             }
         });
         return builder.create();
     }
+
+
 }

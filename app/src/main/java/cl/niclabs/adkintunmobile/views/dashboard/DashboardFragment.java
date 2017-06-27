@@ -1,13 +1,18 @@
 package cl.niclabs.adkintunmobile.views.dashboard;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TableLayout;
 import android.widget.TextView;
 
@@ -24,13 +29,16 @@ import cl.niclabs.adkintunmobile.utils.display.DisplayDateManager;
 import cl.niclabs.adkintunmobile.utils.information.Connections.Connections;
 import cl.niclabs.adkintunmobile.utils.information.Connections.SystemSocket;
 import cl.niclabs.adkintunmobile.utils.information.Network;
-import cl.niclabs.adkintunmobile.views.BaseToolbarFragment;
 import cl.niclabs.adkintunmobile.views.activeconnections.ActiveConnectionListElement;
 import cl.niclabs.adkintunmobile.views.applicationstraffic.ApplicationsTrafficListElement;
 import cl.niclabs.adkintunmobile.views.connectiontype.connectionmode.DailyConnectionModeInformation;
 import cl.niclabs.adkintunmobile.views.connectiontype.networktype.DailyNetworkTypeInformation;
 
-public class DashboardFragment extends BaseToolbarFragment {
+public class DashboardFragment extends Fragment {
+
+    protected String title;
+    protected Context context;
+    protected Toolbar toolbar;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -114,6 +122,16 @@ public class DashboardFragment extends BaseToolbarFragment {
         });
 
         ivBackdrop.setAnimation(toolbarAnimation);
+
+    }
+
+    public void setupToolbar(View view) {
+        // Setup toolbar as an actionbar
+        this.toolbar = (Toolbar) view.findViewById(R.id.toolbar);
+        ((AppCompatActivity)getActivity()).setSupportActionBar(this.toolbar);
+
+        ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle(this.title);
+        setHasOptionsMenu(true);
 
     }
 

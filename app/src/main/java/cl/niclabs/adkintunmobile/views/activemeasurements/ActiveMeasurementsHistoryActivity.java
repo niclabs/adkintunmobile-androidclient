@@ -69,7 +69,7 @@ public class ActiveMeasurementsHistoryActivity extends AppCompatActivity {
             this.subtitle = getString(R.string.view_active_measurements_speedtest_title);
         if (this.testKey.equals(getString(R.string.settings_video_test_category_key)))
             this.subtitle = getString(R.string.view_active_measurements_mediatest_title);
-        if (this.testKey.equals(getString(R.string.settings_connectivity_test_category_key)))
+        if (this.testKey.equals(getString(R.string.settings_connectivity_test_category_sites_key)))
             this.subtitle = getString(R.string.view_active_measurements_connectivitytest_title);
 
         this.context = this;

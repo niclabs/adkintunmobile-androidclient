@@ -1,26 +1,36 @@
 package cl.niclabs.adkintunmobile.views.dashboard;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Point;
 import android.os.Bundle;
-import android.support.design.widget.NavigationView;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v4.view.GravityCompat;
-import android.support.v4.widget.DrawerLayout;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.telephony.TelephonyManager;
+import android.util.Log;
 import android.view.Display;
-import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import com.crashlytics.android.Crashlytics;
 import com.github.amlcurran.showcaseview.ShowcaseView;
 import com.github.amlcurran.showcaseview.targets.PointTarget;
 import com.github.amlcurran.showcaseview.targets.Target;
 import com.github.amlcurran.showcaseview.targets.ViewTarget;
+import com.google.zxing.BarcodeFormat;
+import com.google.zxing.integration.android.IntentIntegrator;
+import com.google.zxing.integration.android.IntentResult;
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.AsyncHttpResponseHandler;
+
+import org.json.JSONObject;
 
 import java.text.SimpleDateFormat;
 
@@ -33,29 +43,26 @@ import cl.niclabs.adkintunmobile.utils.display.DisplayDateManager;
 import cl.niclabs.adkintunmobile.utils.display.NotificationManager;
 import cl.niclabs.adkintunmobile.utils.display.ShowCaseTutorial;
 import cl.niclabs.adkintunmobile.utils.information.Network;
-import cl.niclabs.adkintunmobile.views.aboutus.AboutUsActivity;
 import cl.niclabs.adkintunmobile.views.activeconnections.ActiveConnectionsActivity;
 import cl.niclabs.adkintunmobile.views.activemeasurements.ActiveMeasurementsActivity;
 import cl.niclabs.adkintunmobile.views.applicationstraffic.ApplicationsTrafficActivity;
 import cl.niclabs.adkintunmobile.views.connectiontype.connectionmode.ConnectionModeActivity;
 import cl.niclabs.adkintunmobile.views.connectiontype.networktype.NetworkTypeActivity;
 import cl.niclabs.adkintunmobile.views.notificationlog.NotificationLogActivity;
-import cl.niclabs.adkintunmobile.views.rankings.RankingFragment;
 import cl.niclabs.adkintunmobile.views.settings.SettingsActivity;
 import cl.niclabs.adkintunmobile.views.status.DataQuotaDialog;
 import cl.niclabs.adkintunmobile.views.status.DayOfRechargeDialog;
 import cl.niclabs.adkintunmobile.views.status.StatusActivity;
+import cz.msebera.android.httpclient.Header;
+import cz.msebera.android.httpclient.entity.StringEntity;
 import io.fabric.sdk.android.Fabric;
 
 public class MainActivity extends AppCompatActivity {
 
     private Context context;
-
-    // Navigation drawer components
-    private DrawerLayout mDrawer;
-    //private Toolbar toolbar;
-    private NavigationView nvDrawer;
-    //private ActionBarDrawerToggle drawerToggle;
+    private static final int REQUEST_READ_PHONE_STATE = 1;
+    static final String ACTION_SCAN = "com.google.zxing.client.android.SCAN";
+    private final String TAG = "AdkM:MainActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,9 +76,6 @@ public class MainActivity extends AppCompatActivity {
         // Start System
         SetupSystem.startUpSystem(this.context);
 
-        // SetupToolBar();
-        setupNavigationDrawer();
-
         // Initial Fragment: DashboardFragment
         DashboardFragment mDashboardFragment;
         if (savedInstanceState != null){
@@ -83,92 +87,6 @@ public class MainActivity extends AppCompatActivity {
 
         // Show tutorial
         showTutorial();
-    }
-
-    /*
-    private void setupToolBar() {
-        // Setup toolbar as an actionbar
-        this.toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-    }
-    */
-
-    private void setupNavigationDrawer() {
-        // Setup general Layout: actionbar + main view + navigation drawer
-        this.mDrawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-
-        // Setup animation of fade in/out nv_drawer
-        //this.drawerToggle = setupDrawerToggle();
-        //this.mDrawer.setDrawerListener(this.drawerToggle);
-
-        // Setup Navigation Drawer
-        this.nvDrawer = (NavigationView) findViewById(R.id.navigationView);
-        setupDrawerContent(nvDrawer);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                mDrawer.openDrawer(GravityCompat.START);
-                return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
-    /*
-    private ActionBarDrawerToggle setupDrawerToggle() {
-        return new ActionBarDrawerToggle(this, this.mDrawer, this.toolbar, R.string.drawer_open,  R.string.drawer_close);
-    }
-    */
-
-    public void setupDrawerContent(NavigationView nv) {
-        nv.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(MenuItem item) {
-
-                Intent myIntent;
-                switch (item.getItemId()) {
-                    case R.id.nav_dashboard:
-                        updateMainFragment(new DashboardFragment());
-                        break;
-                    case R.id.nav_notifications_log:
-                        openNotificationView(null);
-                        break;
-                    case R.id.nav_status:
-                        openStatusView(null);
-                        break;
-                    case R.id.nav_connection_mode:
-                        openConnectionModeView(null);
-                        break;
-                    case R.id.nav_network_type:
-                        openNetworkTypeView(null);
-                        break;
-                    case R.id.nav_carrier_ranking:
-                        updateMainFragment(new RankingFragment());
-                        break;
-                    case R.id.nav_applications_traffic:
-                        openApplicationTrafficView(null);
-                        break;
-                    case R.id.nav_active_connections:
-                        openActiveConnectionsView(null);
-                        break;
-                    case R.id.nav_active_measurements:
-                        openActiveMeasurementsView(null);
-                        break;
-                    case R.id.nav_settings:
-                        myIntent = new Intent(getApplicationContext(), SettingsActivity.class);
-                        startActivity(myIntent);
-                        break;
-                    case R.id.nav_about_us:
-                        myIntent = new Intent(getApplicationContext(), AboutUsActivity.class);
-                        startActivity(myIntent);
-                        break;
-                }
-                mDrawer.closeDrawers();
-                return true;
-            }
-        });
     }
 
     /***
@@ -208,21 +126,15 @@ public class MainActivity extends AppCompatActivity {
         Intent myIntent = new Intent(getApplicationContext(), ActiveMeasurementsActivity.class);
         startActivity(myIntent);
     }
-    /*
-     * Navigation Drawer Synchronization methods
-     */
-    /*
-    @Override
-    protected void onPostCreate(Bundle savedInstanceState) {
-        super.onPostCreate(savedInstanceState);
-        this.drawerToggle.syncState();
+
+    public void openPreferencesView(View view) {
+        Intent myIntent = new Intent(getApplicationContext(), SettingsActivity.class);
+        startActivity(myIntent);
     }
-    @Override
-    public void onConfigurationChanged(Configuration newConfig) {
-        super.onConfigurationChanged(newConfig);
-        this.drawerToggle.onConfigurationChanged(newConfig);
+
+    public void openAdkintunWebView(View view) {
+        checkReadPhonePermission();
     }
-    */
 
     /*
      * changeCurrentFragment Methods
@@ -234,6 +146,83 @@ public class MainActivity extends AppCompatActivity {
 
         fragmentTransaction.replace(R.id.main_content, newFragment, "DashboardFragment");
         fragmentTransaction.commit();
+    }
+
+    private void checkReadPhonePermission() {
+        final IntentIntegrator scanIntegrator = new IntentIntegrator(this);
+
+        int permissionCheck = ContextCompat.checkSelfPermission(this, Manifest.permission.READ_PHONE_STATE);
+        if (permissionCheck != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_PHONE_STATE}, REQUEST_READ_PHONE_STATE);
+        } else {
+            scanIntegrator.setPrompt("");
+            scanIntegrator.setBeepEnabled(false);
+            scanIntegrator.setCaptureActivity(CaptureCodeActivity.class);
+            scanIntegrator.initiateScan();
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        if(data != null && data.getAction() != null && data.getAction().equals(ACTION_SCAN)) {
+
+            IntentResult scanningResult = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
+            if (scanningResult != null) {
+                String qrString = scanningResult.getContents();
+                String scanFormat = scanningResult.getFormatName();
+
+                String qrCodeFormat = BarcodeFormat.QR_CODE.toString();
+                if (scanFormat.equals(qrCodeFormat)) {
+                    TelephonyManager telephonyManager = (TelephonyManager)getSystemService(Context.TELEPHONY_SERVICE);
+                    String deviceId = telephonyManager.getDeviceId();
+                    sendToServer(deviceId, qrString);
+                    showText(getString(R.string.settings_adkintun_web_qr_scanner_success));
+                }
+                else
+                    showText(getString(R.string.settings_adkintun_web_qr_scanner_failure));
+
+                super.onActivityResult(requestCode, resultCode, data);
+            }
+            else {
+                showText(getString(R.string.settings_adkintun_web_qr_scanner_failure));
+            }
+
+        }
+    }
+
+    private void sendToServer(String accessToken,String qrString) {
+        String url = getString(R.string.web_auth_url);
+
+        JSONObject params = new JSONObject();
+        try {
+            params.put("uuid", qrString);
+            params.put("access_token", accessToken);
+            StringEntity entity = new StringEntity(params.toString());
+
+            AsyncHttpClient client = new AsyncHttpClient();
+            client.post(this, url, entity, "application/json", new AsyncHttpResponseHandler() {
+                @Override
+                public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+                    Log.d(TAG, statusCode + " OK");
+                }
+
+                @Override
+                public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+                    Log.d(TAG, statusCode + " NOT OK");
+                }
+            });
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return;
+        }
+    }
+
+    private void showText(String message){
+        Toast toast = Toast.makeText(getApplicationContext(),
+                message, Toast.LENGTH_SHORT);
+        toast.show();
     }
 
     public void notif(View view){
@@ -301,18 +290,6 @@ public class MainActivity extends AppCompatActivity {
                         break;
 
                     case 7:
-                        mDrawer.openDrawer(GravityCompat.START);
-                        Display display = getWindowManager().getDefaultDisplay();
-                        Point pointTarget = new Point();
-
-                        display.getSize(pointTarget);
-                        pointTarget.y = (int) getResources().getDimension(R.dimen.extended_toolbar_dashboard_height);
-                        pointTarget.x = 0;
-                        mTarget = new PointTarget(pointTarget);
-                        break;
-
-                    case 8:
-                        mDrawer.closeDrawers();
                         mTarget = new ViewTarget(findViewById(R.id.iv_collapsable_toolbar_app_icon));
                         showcaseView.setButtonText(getString(R.string.tutorial_close));
                         break;

@@ -31,6 +31,7 @@ import cl.niclabs.adkintunmobile.services.SetupSystem;
 import cl.niclabs.adkintunmobile.services.sync.Synchronization;
 import cl.niclabs.adkintunmobile.utils.files.FileManager;
 import cl.niclabs.adkintunmobile.utils.information.Network;
+import cl.niclabs.adkintunmobile.views.aboutus.AboutUsActivity;
 import cl.niclabs.adkintunmobile.views.status.DataQuotaDialog;
 import cl.niclabs.adkintunmobile.views.status.DayOfRechargeDialog;
 
@@ -38,7 +39,6 @@ public class SettingsFragment extends PreferenceFragment implements SharedPrefer
 
     private final String TAG = "AdkM:Settings";
     private Context context;
-    private static final int REQUEST_READ_PHONE_STATE = 1;
 
     public SettingsFragment() {
         // Required empty public constructor
@@ -100,10 +100,6 @@ public class SettingsFragment extends PreferenceFragment implements SharedPrefer
             FragmentManager fm = ((SettingsActivity) getActivity()).getSupportFragmentManager();
             DayOfRechargeDialog.showDialogPreference(fm, null);
         }
-        if (key.equals(getString(R.string.settings_adkintun_web_qr_scanner_key))) {
-            /* Init CaptureCodeActivity */
-            checkReadPhonePermission();
-        }
         if (key.equals(getString(R.string.settings_sampling_startsync_key))){
             /* Start Sync process: create new report and try to send it */
             context.startService(new Intent(context, Synchronization.class));
@@ -123,21 +119,12 @@ public class SettingsFragment extends PreferenceFragment implements SharedPrefer
             IpLocation.cleanDB();
             Toast.makeText(this.context, getString(R.string.settings_app_data_clean_ip_location_cache_message), Toast.LENGTH_SHORT).show();
         }
-        return super.onPreferenceTreeClick(preferenceScreen, preference);
-    }
-
-    private void checkReadPhonePermission() {
-        final IntentIntegrator scanIntegrator = new IntentIntegrator(getActivity());
-
-        int permissionCheck = ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.READ_PHONE_STATE);
-        if (permissionCheck != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.READ_PHONE_STATE}, REQUEST_READ_PHONE_STATE);
-        } else {
-            scanIntegrator.setPrompt("");
-            scanIntegrator.setBeepEnabled(false);
-            scanIntegrator.setCaptureActivity(CaptureCodeActivity.class);
-            scanIntegrator.initiateScan();
+        if (key.equals(getString(R.string.settings_app_about_key))){
+            /* Open About Us Activity */
+            Intent myIntent = new Intent(getActivity(), AboutUsActivity.class);
+            startActivity(myIntent);
         }
+        return super.onPreferenceTreeClick(preferenceScreen, preference);
     }
 
     private void updateSummaries(){

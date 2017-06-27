@@ -3,7 +3,6 @@ package cl.niclabs.adkintunmobile.utils.activemeasurements.mediatest;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
-import android.util.Log;
 import android.webkit.JavascriptInterface;
 import android.widget.Toast;
 
@@ -16,11 +15,6 @@ public class MediaTestJavascriptInterface {
     public MediaTestJavascriptInterface(MediaTest mediaTest, Context context) {
         this.mediaTest = mediaTest;
         this.context = context;
-    }
-
-    @JavascriptInterface
-    public void doEchoTest(String echo) {
-        Log.d("VideoView", echo);
     }
 
     @JavascriptInterface
@@ -39,8 +33,7 @@ public class MediaTestJavascriptInterface {
     }
 
     @JavascriptInterface
-    public void makeToast(String quality) {
-        String text = getPixelsFromQuality(quality);
+    public void makeToast(String text) {
         Toast.makeText(context, text,
                 Toast.LENGTH_SHORT).show();
     }
@@ -57,6 +50,7 @@ public class MediaTestJavascriptInterface {
 
     @JavascriptInterface
     public void noneSelectedQuality(){
+        makeToast(context.getString(R.string.settings_video_test_none_quality_selected));
         mediaTest.noneSelectedQuality();
     }
 
@@ -71,7 +65,7 @@ public class MediaTestJavascriptInterface {
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString(context.getString(R.string.settings_video_test_max_quality_key), getPixelsFromQuality(maxQuality));
         editor.apply();
-        noneSelectedQuality();
+        mediaTest.setMaxQuality();
     }
 
     public String getPixelsFromQuality(String quality){

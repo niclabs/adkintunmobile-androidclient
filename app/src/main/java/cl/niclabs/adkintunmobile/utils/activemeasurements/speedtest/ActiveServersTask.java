@@ -18,18 +18,19 @@ import java.net.URL;
 import java.util.ArrayList;
 
 import cl.niclabs.adkintunmobile.R;
-import cl.niclabs.adkintunmobile.views.activemeasurements.ActiveMeasurementsActivity;
-import cl.niclabs.adkintunmobile.views.activemeasurements.viewfragments.settingsfragments.ActiveMeasurementsSettingsActivity;
+import cl.niclabs.adkintunmobile.views.activemeasurements.viewfragments.SpeedTestPreferenceFragment;
 import cz.msebera.android.httpclient.Header;
 
 public abstract class ActiveServersTask extends AsyncTask<String, Void, Void> {
     private ArrayList<String> serverPortsList;
     private ArrayList<String> serverHostsList;
     private ArrayList<String> serverNamesList;
+    private SpeedTestPreferenceFragment preferenceFragment;
     private Context context;
 
-    public ActiveServersTask(Context context){
-        this.context = context;
+    public ActiveServersTask(SpeedTestPreferenceFragment preferenceFragment){
+        this.preferenceFragment = preferenceFragment;
+        this.context = preferenceFragment.getContext();
     }
     @Override
     protected Void doInBackground(String... params) {
@@ -87,7 +88,7 @@ public abstract class ActiveServersTask extends AsyncTask<String, Void, Void> {
                         handleActiveServers(activeServersBundle);
                     }
                     else {
-                        makeNoConnectionToast();
+                        preferenceFragment.makeNoConnectionToast();
                     }
 
                 } catch (JSONException e) {
@@ -96,7 +97,7 @@ public abstract class ActiveServersTask extends AsyncTask<String, Void, Void> {
                 }
             };
             public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
-                makeNoConnectionToast();
+                preferenceFragment.makeNoConnectionToast();
             }
             @Override
             public boolean getUseSynchronousMode() {
@@ -104,15 +105,6 @@ public abstract class ActiveServersTask extends AsyncTask<String, Void, Void> {
             }
         });
         return null;
-    }
-
-    private void makeNoConnectionToast(){
-        if (context != null && context instanceof ActiveMeasurementsActivity) {
-            ((ActiveMeasurementsActivity) context).makeNoConnectionToast();
-        }
-        else if (context != null && context instanceof ActiveMeasurementsSettingsActivity) {
-            ((ActiveMeasurementsSettingsActivity) context).makeNoConnectionToast();
-        }
     }
 
     public abstract void handleActiveServers(Bundle bundle);

@@ -7,11 +7,11 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 import java.util.ArrayList;
 import java.util.List;
 
-import cl.niclabs.adkintunmobile.views.activemeasurements.viewfragments.ActiveMeasurementViewFragment;
+import cl.niclabs.adkintunmobile.views.activemeasurements.viewfragments.ActiveMeasurementsPreferenceFragment;
 
 public class ActiveMeasurementsViewPagerAdapter extends FragmentStatePagerAdapter {
 
-    private List<ActiveMeasurementViewFragment> mFragmentList = new ArrayList<>();
+    private List<ActiveMeasurementsPreferenceFragment> mFragmentList = new ArrayList<>();
 
     public ActiveMeasurementsViewPagerAdapter(FragmentManager fm) {
         super(fm);
@@ -27,10 +27,9 @@ public class ActiveMeasurementsViewPagerAdapter extends FragmentStatePagerAdapte
         return mFragmentList.size();
     }
 
-    public void addFragment(ActiveMeasurementViewFragment fragment) {
+    public void addFragment(ActiveMeasurementsPreferenceFragment fragment) {
         mFragmentList.add(fragment);
     }
-
 
     @Override
     public CharSequence getPageTitle(int position) {

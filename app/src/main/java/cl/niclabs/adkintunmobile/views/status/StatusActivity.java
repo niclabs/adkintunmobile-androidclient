@@ -304,26 +304,25 @@ public class StatusActivity extends AppCompatActivity {
                 switch (helpCounter) {
                     case 1:
                         mScrollView.scrollTo(0, 0);
-                        mTarget = new ViewTarget(findViewById(R.id.tv_internet_interface));
-                        break;
-
-                    case 2:
-                        mTarget = new ViewTarget(findViewById(R.id.iv_sim));
-                        showcaseView.forceTextPosition(ShowcaseView.BELOW_SHOWCASE);
-                        break;
-
-                    case 3:
-                        mTarget = new ViewTarget(findViewById(R.id.iv_antenna));
-                        break;
-
-                    case 4:
-                        mScrollView.scrollTo(0, mScrollView.getBottom());
                         mTarget = new ViewTarget(findViewById(R.id.gauge_daily_rx));
                         break;
 
-                    case 5:
+                    case 2:
+                        mScrollView.scrollTo(0,findViewById(R.id.tb_daily_consumption).getBottom());
                         mTarget = new ViewTarget(findViewById(R.id.pb_mobile_data_consumption));
-                        showcaseView.forceTextPosition(ShowcaseView.ABOVE_SHOWCASE);
+                        break;
+
+                    case 3:
+                        mScrollView.scrollTo(0, mScrollView.getBottom());
+                        mTarget = new ViewTarget(findViewById(R.id.tv_internet_network));
+                        break;
+
+                    case 4:
+                        mTarget = new ViewTarget(findViewById(R.id.iv_antenna));
+                        break;
+
+                    case 5:
+                        mTarget = new ViewTarget(findViewById(R.id.iv_sim));
                         showcaseView.setButtonText(getString(R.string.tutorial_close));
                         break;
 

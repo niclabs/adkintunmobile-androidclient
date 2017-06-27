@@ -18,23 +18,13 @@
             <RelativeLayout
                 android:id="@+id/chart"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/abc_edit_text_inset_top_material">
-
-                <ImageView
-                    android:id="@+id/image_clock"
-                    android:layout_width="@dimen/connected_time_clock"
-                    android:layout_height="@dimen/connected_time_clock"
-                    android:layout_gravity="center_horizontal|center_vertical"
-                    android:visibility="visible"
-                    android:background="@drawable/connected_time_clock"
-                    android:layout_centerVertical="true"
-                    android:layout_centerHorizontal="true" />
+                android:layout_height="wrap_content">
 
                 <cl.niclabs.adkintunmobile.utils.display.DoughnutChart
                     android:id="@+id/doughnut"
-                    android:layout_width="@dimen/connected_time_doughnut"
-                    android:layout_height="@dimen/connected_time_doughnut"
+                    android:background="@drawable/clock"
+                    android:layout_width="match_parent"
+                    android:layout_height="300dp"
                     android:layout_gravity="center_horizontal|center_vertical"
                     android:visibility="visible"
                     android:layout_centerVertical="true"
@@ -53,15 +43,15 @@
                         android:id="@+id/text_day"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textColor="@android:color/white"
-                        android:textSize="25sp" />
+                        android:textColor="@android:color/tertiary_text_light"
+                        android:textSize="22sp" />
 
                     <TextView
                         android:id="@+id/text_date"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textColor="@android:color/white"
-                        android:textSize="25sp" />
+                        android:textColor="@android:color/tertiary_text_light"
+                        android:textSize="22sp" />
                 </LinearLayout>
 
             </RelativeLayout>
@@ -72,7 +62,8 @@
                 android:layout_gravity="center"
                 android:id="@+id/time_info_table_layout"
                 android:animateLayoutChanges="true"
-                android:stretchColumns="*">
+                android:stretchColumns="*"
+                android:layout_marginTop="@dimen/abc_action_bar_overflow_padding_end_material">
             </TableLayout>
 
         </LinearLayout>

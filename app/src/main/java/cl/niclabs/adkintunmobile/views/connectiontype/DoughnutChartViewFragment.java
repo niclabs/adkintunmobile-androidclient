@@ -122,6 +122,9 @@ public class DoughnutChartViewFragment extends ConnectionTypeViewFragment {
         dateText.setTypeface(tf1);
 
         DoughnutChart chartElement = (DoughnutChart) view.findViewById(R.id.doughnut);
+        chartElement.getLayoutParams().height = chartElement.getMeasuredWidth();
+        int padding = (int) (chartElement.getMeasuredWidth() / 4.5);
+        chartElement.setPadding(padding, padding, padding, padding);
 
         float chartDiameter = getResources().getDimension(
                 R.dimen.connected_time_doughnut);
@@ -259,7 +262,7 @@ public class DoughnutChartViewFragment extends ConnectionTypeViewFragment {
             empty.setGravity(Gravity.CENTER_HORIZONTAL);
             empty.setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimension(R.dimen.Large));
             empty.setText(R.string.view_applications_traffic_item_no_data);
-            empty.setTextColor(ContextCompat.getColor(this.context, R.color.textColorPrimary));
+            empty.setTextColor(ContextCompat.getColor(this.context, R.color.colorPrimaryDark));
             tableRow.addView(empty, new TableRow.LayoutParams(
                     TableRow.LayoutParams.MATCH_PARENT,
                     TableRow.LayoutParams.WRAP_CONTENT));
