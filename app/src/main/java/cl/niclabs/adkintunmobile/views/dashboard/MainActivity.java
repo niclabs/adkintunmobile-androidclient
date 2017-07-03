@@ -1,17 +1,21 @@
 package cl.niclabs.adkintunmobile.views.dashboard;
 
 import android.Manifest;
+import android.app.AppOpsManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Point;
+import android.os.Build;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.telephony.TelephonyManager;
 import android.util.Log;
@@ -87,6 +91,43 @@ public class MainActivity extends AppCompatActivity {
 
         // Show tutorial
         showTutorial();
+        if (!needsGranted()) {
+            AlertDialog.Builder builder;
+            builder = new AlertDialog.Builder(context);
+            builder.setTitle(getString(R.string.view_dashboard_request_permission_title))
+                    .setMessage(getString(R.string.view_dashboard_request_permission_message))
+                    .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            Intent intent = new Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS);
+                            startActivity(intent);
+                        }
+                    })
+                    .setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            // do nothing
+                        }
+                    })
+                    .setIcon(android.R.drawable.ic_dialog_info)
+                    .show();
+
+        }
+    }
+
+    private boolean needsGranted() {
+        boolean granted = false;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            AppOpsManager appOps = (AppOpsManager) context
+                    .getSystemService(Context.APP_OPS_SERVICE);
+            int mode = appOps.checkOpNoThrow(AppOpsManager.OPSTR_GET_USAGE_STATS,
+                    android.os.Process.myUid(), context.getPackageName());
+
+            if (mode == AppOpsManager.MODE_DEFAULT) {
+                granted = (context.checkCallingOrSelfPermission(android.Manifest.permission.PACKAGE_USAGE_STATS) == PackageManager.PERMISSION_GRANTED);
+            } else {
+                granted = (mode == AppOpsManager.MODE_ALLOWED);
+            }
+        }
+        return granted;
     }
 
     /***
