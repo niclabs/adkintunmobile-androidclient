@@ -1,11 +1,9 @@
 package cl.niclabs.adkintunmobile.views.settings;
 
 
-import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.preference.EditTextPreference;
 import android.preference.ListPreference;
@@ -14,13 +12,9 @@ import android.preference.PreferenceCategory;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceScreen;
 import android.preference.SwitchPreference;
-import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.widget.Toast;
-
-import com.google.zxing.integration.android.IntentIntegrator;
 
 import java.util.Map;
 
@@ -118,6 +112,12 @@ public class SettingsFragment extends PreferenceFragment implements SharedPrefer
             /* Delete ipLocation records cached */
             IpLocation.cleanDB();
             Toast.makeText(this.context, getString(R.string.settings_app_data_clean_ip_location_cache_message), Toast.LENGTH_SHORT).show();
+        }
+        if (key.equals(getString(R.string.settings_app_data_clean_active_measurements_history_key))){
+            /* Delete ipLocation records cached */
+            FragmentManager fm = ((SettingsActivity) getActivity()).getSupportFragmentManager();
+            DeleteActiveMeasurementsHistoryDialog dialog = new DeleteActiveMeasurementsHistoryDialog();
+            dialog.show(fm, null);
         }
         if (key.equals(getString(R.string.settings_app_about_key))){
             /* Open About Us Activity */
