@@ -80,8 +80,7 @@ public class TelephonyMonitor extends Service implements TelephonyListener {
             GsmObservationWrapper sample = this.gson.fromJson(telephonyState.toString(), GsmObservationWrapper.class);
             if (sample.signalStrength == null)
                 sample.signalStrength = new SampleWrapper();
-            if (sample.signalStrength.size <= 0)
-                sample.save();
+            sample.save();
         } else if (telephonyState instanceof CdmaObservation) {
             CdmaObservationWrapper sample = this.gson.fromJson(telephonyState.toString(), CdmaObservationWrapper.class);
             sample.save();
