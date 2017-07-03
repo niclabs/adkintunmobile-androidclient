@@ -17,15 +17,19 @@
     <string name="settings_updated">Preferencias actualizadas</string>
 
     <string name="settings_main_screen_key">settings_main</string>
-    <string name="settings_app_data_category">Ajustes de la aplicación</string>
+    <string name="settings_app_data_category">Ajustes de la Aplicación</string>
     <string name="settings_app_data_quota_total_key">plan_data_quota</string>
-    <string name="settings_app_data_quota_total_title">Cuota de navegación de tu plan de datos</string>
+    <string name="settings_app_data_quota_total_title">Cuota de Navegación de tu Plan de Datos</string>
     <string name="settings_app_day_of_recharge_key">day_of_recharge</string>
-    <string name="settings_app_day_of_recharge_title">Día de recarga de tu plan de datos</string>
+    <string name="settings_app_day_of_recharge_title">Día de Recarga de tu Plan de Datos</string>
     <string name="settings_app_data_clean_ip_location_cache_key">clean_ip_location_cache</string>
-    <string name="settings_app_data_clean_ip_location_cache_title">Borrar datos temporales</string>
+    <string name="settings_app_data_clean_ip_location_cache_title">Borrar Datos Temporales</string>
     <string name="settings_app_data_clean_ip_location_cache_summary">Elimina los datos descargados para desplegar el mapa de conexiones activas.</string>
     <string name="settings_app_data_clean_ip_location_cache_message">Datos temporales borrados</string>
+    <string name="settings_app_data_clean_active_measurements_history_key">clean_active_measurements_history</string>
+    <string name="settings_app_data_clean_active_measurements_history_title">Borrar Historial de Mediciones Activas</string>
+    <string name="settings_app_data_clean_active_measurements_history_summary">Elimina los reportes almacenados de mediciones activas (Test de Velocidad, Media y Conectividad).</string>
+    <string name="settings_app_data_clean_active_measurements_history_message">Historial borrado</string>
     <string name="settings_app_daily_notification_key">daily_notification</string>
     <string name="settings_app_daily_notification_title">Notificaciones Diarias</string>
     <string name="settings_app_daily_notification_summary">Programar una notificación diaria para el final del día con el resumen del consumo de datos móviles.</string>
@@ -53,7 +57,7 @@
 
     <string name="settings_app_category">Aplicación</string>
     <string name="settings_app_version_key">app_version</string>
-    <string name="settings_app_version_title">Versión de la aplicación</string>
+    <string name="settings_app_version_title">Versión de la Aplicación</string>
     <string name="settings_app_version_default">2.1</string>
     <string name="settings_app_about_key">app_about</string>
     <string name="settings_app_about_title">Acerca de</string>
@@ -130,6 +134,8 @@
     <string name="view_dashboard_preferences_summary">Edita las preferencias de Adkintun Mobile</string>
     <string name="view_dashboard_adkintun_web_title">Adkintun Mobile Web</string>
     <string name="view_dashboard_adkintun_web_summary">Escanea el código QR y accede a tu información en adkintunmobile.cl</string>
+    <string name="view_dashboard_request_permission_title">Permisos Requeridos</string>
+    <string name="view_dashboard_request_permission_message">Adkintun Mobile necesita poder acceder a tus otras aplicaciones para poder medir su tráfico de datos</string>
 
 
     <!-- Notifications Log -->
@@ -193,7 +199,6 @@
     <string name="view_active_measurements_connectivitytest_url_error_message">Error en la url ingresada</string>
 
     <string name="view_active_measurements_history_title">Reportes Almacenados</string>
-    <string name="view_active_measurements_history_noreports">No hay reportes de este tipo almacenados</string>
     <string name="view_active_measurements_history_timestamp">Fecha y hora</string>
     <string name="view_active_measurements_history_quality">Resolución</string>
     <string name="view_active_measurements_history_size">Tamaño</string>
@@ -207,6 +212,9 @@
     <string name="dialog_add_site_insert_site">Ingresa Nuevo Sitio</string>
     <string name="dialog_add_site_recommended_sites">Obtener Sitios Recomendados</string>
     <string name="dialog_add_site_recommended_sites_message">Esto eliminará los sitios ingresados</string>
+
+    <!-- DeleteActiveMeasurementsDialog -->
+    <string name="dialog_delete_active_measurements_title">Eliminar Historial:</string>
 
     <!-- Tutorial Controls -->
     <string name="tutorial_show_menu">Información sobre esta vista</string>

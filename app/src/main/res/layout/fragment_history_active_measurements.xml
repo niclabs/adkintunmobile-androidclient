@@ -28,8 +28,9 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:gravity="center"
+        android:textColor="@color/colorPrimaryDark"
         style="@style/TextAppearance.AppCompat.Large"
-        android:text="@string/view_active_measurements_history_noreports">
+        android:text="@string/view_applications_traffic_item_no_data">
     </TextView>
 
 </FrameLayout>
