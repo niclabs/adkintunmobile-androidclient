@@ -23,7 +23,7 @@ android {
         applicationId "cl.niclabs.adkintunmobile"
         minSdkVersion 17
         targetSdkVersion 22
-        versionCode 14
+        versionCode 15
         versionName "2.2"
     }
     buildTypes {
