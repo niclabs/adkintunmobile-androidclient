@@ -91,7 +91,7 @@ public class MainActivity extends AppCompatActivity {
 
         // Show tutorial
         showTutorial();
-        if (!needsGranted()) {
+        if (needsGranted()) {
             AlertDialog.Builder builder;
             builder = new AlertDialog.Builder(context);
             builder.setTitle(getString(R.string.view_dashboard_request_permission_title))
@@ -114,8 +114,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private boolean needsGranted() {
-        boolean granted = false;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            boolean granted;
             AppOpsManager appOps = (AppOpsManager) context
                     .getSystemService(Context.APP_OPS_SERVICE);
             int mode = appOps.checkOpNoThrow(AppOpsManager.OPSTR_GET_USAGE_STATS,
@@ -126,8 +126,10 @@ public class MainActivity extends AppCompatActivity {
             } else {
                 granted = (mode == AppOpsManager.MODE_ALLOWED);
             }
+            return !granted;
         }
-        return granted;
+        else
+            return false;
     }
 
     /***
