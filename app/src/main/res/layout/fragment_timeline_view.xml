@@ -25,7 +25,7 @@
                 android:id="@+id/tv_timeline_date_day"
                 android:layout_marginTop="@dimen/abc_edit_text_inset_top_material"
                 android:gravity="center"
-                android:textColor="@android:color/white"
+                android:textColor="@android:color/tertiary_text_light"
                 android:textSize="25sp"/>
 
             <TextView
@@ -35,14 +35,14 @@
                 android:text="DIA MES AÑO"
                 android:id="@+id/tv_timeline_date_full"
                 android:gravity="center"
-                android:textColor="@android:color/white"
+                android:textColor="@android:color/tertiary_text_light"
                 android:textSize="25sp"/>
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:layout_margin="@dimen/button_margin"
-                android:background="@color/doughnut_no_info"/>
+                android:background="@color/light_gray"/>
 
             <ScrollView
                 android:layout_width="match_parent"
@@ -64,7 +64,7 @@
                 android:gravity="center"
                 style="@style/TextAppearance.AppCompat.Large"
                 android:text="@string/view_applications_traffic_item_no_data"
-                android:textColor="@color/textColorPrimary" />
+                android:textColor="@color/colorPrimaryDark" />
 
         </LinearLayout>
 

@@ -36,6 +36,7 @@ public class DisplayManager {
         DatePicker datePicker = datePickerDialog.getDatePicker();
         datePicker.setMaxDate(cal.getTimeInMillis());
 
+        datePickerDialog.setTitle("");
         datePickerDialog.show();
     }
 }

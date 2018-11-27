@@ -16,15 +16,15 @@ repositories {
 
 
 android {
-    compileSdkVersion 23
-    buildToolsVersion "23.0.2"
+    compileSdkVersion 26
+    buildToolsVersion '28.0.2'
 
     defaultConfig {
         applicationId "cl.niclabs.adkintunmobile"
         minSdkVersion 17
-        targetSdkVersion 22
-        versionCode 11
-        versionName "2.1"
+        targetSdkVersion 26
+        versionCode 16
+        versionName "2.2"
     }
     buildTypes {
         debug {
@@ -40,23 +40,26 @@ android {
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-    testCompile 'junit:junit:4.12'
-    compile 'com.android.support:appcompat-v7:23.3.0'
-    compile 'cl.niclabs:adkintun-mobile-middleware:1.3.6b'
-    compile 'com.android.support:design:23.3.0'
-    compile 'com.android.volley:volley:1.0.0'
-    compile 'com.android.support:support-v4:23.3.0'
-    compile 'com.android.support:cardview-v7:23.3.0'
-    compile 'pl.pawelkleczkowski.customgauge:CustomGauge:1.0.1'
-    compile 'com.facebook.shimmer:shimmer:0.1.0@aar'
-    compile('com.crashlytics.sdk.android:crashlytics:2.5.5@aar') {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    testImplementation 'junit:junit:4.12'
+    implementation 'com.android.support:appcompat-v7:26.1.0'
+    implementation 'cl.niclabs:adkintun-mobile-middleware:1.3.9b'
+    implementation 'com.android.support:design:26.1.0'
+    implementation 'com.android.volley:volley:1.1.0'
+    implementation 'com.android.support:support-v4:26.1.0'
+    implementation 'com.android.support:preference-v7:26.1.0'
+    implementation 'com.android.support:preference-v14:26.1.0'
+    implementation 'com.android.support:cardview-v7:26.1.0'
+    implementation 'pl.pawelkleczkowski.customgauge:CustomGauge:1.0.1'
+    implementation 'com.facebook.shimmer:shimmer:0.1.0@aar'
+    implementation('com.crashlytics.sdk.android:crashlytics:2.5.5@aar') {
         transitive = true;
     }
-    compile 'com.google.android.gms:play-services-maps:9.2.0'
-    compile 'com.loopj.android:android-async-http:1.4.9'
-    compile 'com.github.amlcurran.showcaseview:library:5.4.3'
-    compile 'com.github.vipulasri:timelineview:1.0.3'
-    compile 'com.github.akinaru:speedtest:1.15'
-    compile 'com.jjoe64:graphview:4.1.1'
+    implementation 'com.google.android.gms:play-services-maps:9.2.0'
+    implementation 'com.loopj.android:android-async-http:1.4.9'
+    implementation 'com.github.amlcurran.showcaseview:library:5.4.3'
+    implementation 'com.github.vipulasri:timelineview:1.0.3'
+    implementation 'com.github.akinaru:speedtest:1.15'
+    implementation 'com.jjoe64:graphview:4.1.1'
+    implementation 'com.journeyapps:zxing-android-embedded:3.4.0'
 }

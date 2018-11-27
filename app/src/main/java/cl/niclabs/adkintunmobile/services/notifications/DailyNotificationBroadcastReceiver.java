@@ -29,7 +29,8 @@ public class DailyNotificationBroadcastReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         Log.d(TAG, "onReceive");
-        long[] dailyData = ApplicationTraffic.getTransferedData(ApplicationTraffic.MOBILE, DisplayDateManager.timestampAtStartDay(System.currentTimeMillis()));
+        long[] dailyData = ApplicationTraffic.getTransferedData(ApplicationTraffic.MOBILE,
+                DisplayDateManager.timestampAtStartDay(System.currentTimeMillis()));
         String dataUsage = Network.formatBytes(dailyData[0] + dailyData[1]);
         String date = DisplayDateManager.getDateString(System.currentTimeMillis(), new SimpleDateFormat("dd/MM"));
         String title = context.getString(R.string.notification_daily_report_title);
@@ -42,7 +43,12 @@ public class DailyNotificationBroadcastReceiver extends BroadcastReceiver {
                 NewsNotification.class,
                 "timestamp = ?",
                 NewsNotification.mostRecentlyTimestamp()+"");
-        NotificationManager.showNotification(context, n.title, n.content, new Intent(context, ApplicationsTrafficActivity.class));
+
+        Intent mIntent = new Intent(context, ApplicationsTrafficActivity.class);
+	long currentTimeMillis = System.currentTimeMillis();
+        mIntent.putExtra(context.getString(R.string.view_applications_traffic_extra_timestamp), currentTimeMillis);
+
+        NotificationManager.showNotification(context, n.title, n.content, mIntent);
     }
 
     static public void setSchedule(Context context){

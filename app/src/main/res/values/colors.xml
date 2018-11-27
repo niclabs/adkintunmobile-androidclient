@@ -3,17 +3,17 @@
     <color name="colorSoftCard">#91bbdefb</color>
     <color name="colorLoadingPane">#708e8b</color>
 
-    <color name="colorPrimary">#4fa7a9</color>
-    <color name="colorPrimaryDark">#3b9986</color>
+    <color name="colorPrimary">#009688</color>
+    <color name="colorPrimaryDark">#00796b</color>
     <color name="textColorPrimary">#212121</color>
     <color name="textColorSecondary">#727272</color>
-    <color name="colorAccent">#359bc7</color>
+    <color name="colorAccent">#ff6f43</color>
     <color name="window_background">#a7c4c1</color>
-    <color name="webview_background">#ffffff</color>
+    <color name="light_gray">#4ddadada</color>
 
     <!-- Tutorials -->
-    <color name="tutorial_background">#f03b9986</color>
-    <color name="tutorial_action">#359bc7</color>
+    <color name="tutorial_background">#f0009688</color>
+    <color name="tutorial_action">#ff6f43</color>
     <color name="tutorial_title">#e6ffffff</color>
     <color name="tutorial_body">#beffffff</color>
 
@@ -22,7 +22,7 @@
     <color name="doughnut_wifi">#e13b8fb5</color>
     <color name="doughnut_mobile">#e122b573</color>
     <color name="doughnut_no_connection">#e1e84643</color>
-    <color name="doughnut_no_info">#4ddadada</color>
+    <color name="doughnut_no_info">#1a009688</color>
     <color name="doughnut_start">#e1ffffff</color>
     <color name="doughnut_wifi_soft">#783b8fb5</color>
     <color name="doughnut_mobile_soft">#9622b573</color>

@@ -13,16 +13,21 @@
             android:key="@string/settings_app_day_of_recharge_key"
             android:title="@string/settings_app_day_of_recharge_title"
             />
-        <Preference
-            android:key="@string/settings_app_data_clean_ip_location_cache_key"
-            android:title="@string/settings_app_data_clean_ip_location_cache_title"
-            android:summary="@string/settings_app_data_clean_ip_location_cache_summary"
-            />
         <SwitchPreference
             android:key="@string/settings_app_daily_notification_key"
             android:title="@string/settings_app_daily_notification_title"
             android:summary="@string/settings_app_daily_notification_summary"
             android:defaultValue="true"
+            />
+        <Preference
+            android:key="@string/settings_app_data_clean_ip_location_cache_key"
+            android:title="@string/settings_app_data_clean_ip_location_cache_title"
+            android:summary="@string/settings_app_data_clean_ip_location_cache_summary"
+            />
+        <Preference
+            android:key="@string/settings_app_data_clean_active_measurements_history_key"
+            android:title="@string/settings_app_data_clean_active_measurements_history_title"
+            android:summary="@string/settings_app_data_clean_active_measurements_history_summary"
             />
     </PreferenceCategory>
 
@@ -74,5 +79,8 @@
             android:key="@string/settings_app_version_key"
             android:title="@string/settings_app_version_title"
             android:summary="%s"/>
+        <Preference
+            android:key="@string/settings_app_about_key"
+            android:title="@string/settings_app_about_title"/>
     </PreferenceCategory>
 </PreferenceScreen>

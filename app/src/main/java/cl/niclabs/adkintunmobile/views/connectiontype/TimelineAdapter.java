@@ -48,18 +48,21 @@ public class TimelineAdapter extends RecyclerView.Adapter<TimelineAdapter.Timeli
         mFeedList = statistic.getSamples();
 
         // Remover items con duración < 1 segundo
-        for (int i = 0; i < mFeedList.size(); ++i){
-            if (i+1 < mFeedList.size()){
-                long delta = mFeedList.get(i+1).getInitialTime() - mFeedList.get(i).getInitialTime();
+        for (int i = mFeedList.size() -2 ; i >= 0; i--) {
+            long delta = mFeedList.get(i + 1).getInitialTime() - mFeedList.get(i).getInitialTime();
 
-                long second = (delta / 1000) % 60;
-                long minute = (delta / (1000 * 60)) % 60;
-                long hour = (delta / (1000 * 60 * 60)) % 25;
+            long second = (delta / 1000) % 60;
+            long minute = (delta / (1000 * 60)) % 60;
+            long hour = (delta / (1000 * 60 * 60)) % 25;
 
-                if (second+minute+hour == 0){
-                    mFeedList.remove(i);
-                }
+            if (second + minute + hour == 0) {
+                mFeedList.remove(i);
             }
+        }
+        // Remover items con mismo tipo que su antecesor
+        for (int i = mFeedList.size() -1 ; i > 0; i--){
+            if (mFeedList.get(i).getType() == mFeedList.get(i-1).getType())
+                mFeedList.remove(i);
         }
         notifyDataSetChanged();
     }

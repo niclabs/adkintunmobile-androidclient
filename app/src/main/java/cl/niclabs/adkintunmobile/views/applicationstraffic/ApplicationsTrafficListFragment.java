@@ -40,6 +40,8 @@ public class ApplicationsTrafficListFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_applications_traffic_list, container, false);
 
         ListView listView = (ListView) view.findViewById(R.id.list_view_traffic);
+        if (this.dataArray == null)
+            this.dataArray = new ArrayList<ApplicationsTrafficListElement>();
         this.listAdapter = new ApplicationsTrafficListAdapter(this.context, this.dataArray);
         listView.setAdapter(listAdapter);
         listView.setEmptyView(view.findViewById(R.id.empty));

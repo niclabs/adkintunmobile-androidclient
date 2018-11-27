@@ -58,6 +58,7 @@ public abstract class DailyConnectionTypeInformation extends StatisticInformatio
         Integer lastColor;
         int lastType;
         ConnectionTypeSample sample;
+        ConnectionTypeSample yesterdaySample = null;
         float initialBar = 1f;
         values.add(initialBar);
         colors.add(startColor);
@@ -84,12 +85,13 @@ public abstract class DailyConnectionTypeInformation extends StatisticInformatio
             Iterator<? extends ConnectionTypeSample> lastDaySamples = lastDaySummary.getSamples();
             if (lastDaySamples.hasNext()){
                 while (lastDaySamples.hasNext()) {
-                    sample = lastDaySamples.next();
+                    yesterdaySample = lastDaySamples.next();
                 }
-                lastColor = connectionTypeColors.getColor(sample.getType(), 0);
-                colors.add( lastColor );
-                lastType = sample.getType();
-                timeByType[lastType] += (lastTime - initialTime);
+                int yesterdayLastColor = connectionTypeColors.getColor(yesterdaySample.getType(), 0);
+                colors.add( yesterdayLastColor );
+                int yesterdayLastType = yesterdaySample.getType();
+                timeByType[yesterdayLastType] += (lastTime - initialTime);
+                samples.add(yesterdaySample);
             }
             else {
                 colors.add(noInfoColor);
@@ -97,17 +99,18 @@ public abstract class DailyConnectionTypeInformation extends StatisticInformatio
             values.add((lastTime - initialTime) * anglePerMillisecond);
         }
         if (sample!= null)
-            samples.add(sample);
+            if (yesterdaySample == null || yesterdaySample.getType() != lastType)
+                samples.add(sample);
 
         Float angle;
 
         //Samples del día seleccionado
         while (todaySamples.hasNext()){
             sample = todaySamples.next();
-            if (sample.getType() != samples.get(samples.size() -1 ).getType())
-                samples.add(sample);
             if (lastColor == connectionTypeColors.getColor(sample.getType(), 0))
                 continue;
+            if (sample.getType() != samples.get(samples.size() -1 ).getType())
+                samples.add(sample);
             colors.add( lastColor );
             lastColor = connectionTypeColors.getColor(sample.getType(), 0);
             angle = (sample.getInitialTime() - lastTime) * anglePerMillisecond;

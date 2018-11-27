@@ -31,15 +31,14 @@
         android:id="@+id/viewpager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        android:background="@mipmap/background3">
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <android.support.v4.view.PagerTitleStrip
             android:id="@+id/pager_title_strip"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="top"
-            android:background="@color/colorSoftCard"
+            android:background="@color/colorAccent"
             android:textColor="#fff"
             android:paddingTop="4dp"
             android:paddingBottom="4dp" />

@@ -22,6 +22,7 @@
         <TableRow
             android:layout_margin="10dp"
             android:layout_width="0dp"
+            android:id="@+id/headers_row"
             android:layout_height="wrap_content">
             <TextView
                 android:layout_width="0dp"
@@ -47,6 +48,32 @@
                 android:layout_weight="2"
                 android:gravity="center_horizontal"
                 android:text="Tamaño" />
+        </TableRow>
+        <TableRow
+            android:layout_margin="10dp"
+            android:layout_width="0dp"
+            android:id="@+id/finding_qualities_row"
+            android:layout_height="wrap_content"
+            android:visibility="gone">
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="20dp"
+                android:layout_weight="1">
+                <ProgressBar
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:id="@+id/progress_bar"/>
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="6"
+                android:text="@string/settings_video_test_finding_qualities"
+                android:id="@+id/finding_qualities"
+                android:gravity="center_horizontal"/>
+
         </TableRow>
         <ScrollView
             android:layout_width="match_parent"

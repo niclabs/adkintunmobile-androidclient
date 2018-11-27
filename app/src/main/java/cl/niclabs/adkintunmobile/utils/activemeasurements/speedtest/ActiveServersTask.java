@@ -18,18 +18,19 @@ import java.net.URL;
 import java.util.ArrayList;
 
 import cl.niclabs.adkintunmobile.R;
-import cl.niclabs.adkintunmobile.views.activemeasurements.ActiveMeasurementsActivity;
-import cl.niclabs.adkintunmobile.views.activemeasurements.viewfragments.settingsfragments.ActiveMeasurementsSettingsActivity;
+import cl.niclabs.adkintunmobile.views.activemeasurements.viewfragments.SpeedTestPreferenceFragment;
 import cz.msebera.android.httpclient.Header;
 
 public abstract class ActiveServersTask extends AsyncTask<String, Void, Void> {
     private ArrayList<String> serverPortsList;
     private ArrayList<String> serverHostsList;
     private ArrayList<String> serverNamesList;
+    private SpeedTestPreferenceFragment preferenceFragment;
     private Context context;
 
-    public ActiveServersTask(Context context){
-        this.context = context;
+    public ActiveServersTask(SpeedTestPreferenceFragment preferenceFragment){
+        this.preferenceFragment = preferenceFragment;
+        this.context = preferenceFragment.getContext();
     }
     @Override
     protected Void doInBackground(String... params) {
@@ -81,9 +82,14 @@ public abstract class ActiveServersTask extends AsyncTask<String, Void, Void> {
                         activeServersBundle.putString("serverPort" + i, serverPortsList.get(i));
                         activeServersBundle.putString("serverName" + i, serverNamesList.get(i));
                     }
-                    activeServersBundle.putInt("count", serverHostsList.size());
-                    activeServersBundle.putBoolean("shouldExecute", false);
-                    handleActiveServers(activeServersBundle);
+                    if (serverHostsList.size() > 0) {
+                        activeServersBundle.putInt("count", serverHostsList.size());
+                        activeServersBundle.putBoolean("shouldExecute", false);
+                        handleActiveServers(activeServersBundle);
+                    }
+                    else {
+                        preferenceFragment.makeNoConnectionToast();
+                    }
 
                 } catch (JSONException e) {
                     Log.d("JSON", "API JSONException");
@@ -91,12 +97,7 @@ public abstract class ActiveServersTask extends AsyncTask<String, Void, Void> {
                 }
             };
             public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
-                if (context != null && context instanceof ActiveMeasurementsActivity) {
-                    ((ActiveMeasurementsActivity) context).makeNoConnectionToast();
-                }
-                else if (context != null && context instanceof ActiveMeasurementsSettingsActivity) {
-                    ((ActiveMeasurementsSettingsActivity) context).makeNoConnectionToast();
-                }
+                preferenceFragment.makeNoConnectionToast();
             }
             @Override
             public boolean getUseSynchronousMode() {

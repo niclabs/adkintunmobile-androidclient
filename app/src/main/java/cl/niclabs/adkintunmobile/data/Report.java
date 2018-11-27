@@ -57,8 +57,6 @@ public class Report {
     @SerializedName("traffic_records")
     public List <TrafficObservationWrapper> trafficRecords;
 
-    private transient GsmObservationWrapper persistentGsmObservation;
-
     @SerializedName("speedtest_records")
     public List <SpeedTestReport> speedTestRecords;
     @SerializedName("mediatest_records")
@@ -70,11 +68,13 @@ public class Report {
         this.simRecord = SimSingleton.getInstance(context);
         this.deviceRecord = DeviceSingleton.getInstance(context);
         this.cdmaRecords = CdmaObservationWrapper.listAll(CdmaObservationWrapper.class);
-        this.connectivityRecords = ConnectivityObservationWrapper.listAll(ConnectivityObservationWrapper.class);
         this.stateRecords = StateChangeWrapper.listAll(StateChangeWrapper.class);
         this.telephonyRecords = TelephonyObservationWrapper.listAll(TelephonyObservationWrapper.class);
         this.trafficRecords = TrafficObservationWrapper.listAll(TrafficObservationWrapper.class);
-        this.gsmRecords = GsmObservationWrapper.listAll(GsmObservationWrapper.class);
+        this.gsmRecords = GsmObservationWrapper.findWithQuery(GsmObservationWrapper.class,
+                "SELECT * FROM GSM_OBSERVATION_WRAPPER ORDER BY timestamp ASC");
+        this.connectivityRecords = ConnectivityObservationWrapper.findWithQuery(ConnectivityObservationWrapper.class,
+                "SELECT * FROM CONNECTIVITY_OBSERVATION_WRAPPER ORDER BY timestamp ASC");
 
         this.speedTestRecords = SpeedTestReport.getPendingToSendReports();
         this.mediaTestRecords = MediaTestReport.getPendingToSendReports();
@@ -93,9 +93,7 @@ public class Report {
         int gsmRecordsSize = gsmRecords.size();
         if (gsmRecordsSize > 0) {
             GsmObservationWrapper lastObservation = gsmRecords.get(gsmRecordsSize - 1);
-            persistentGsmObservation = (new GsonBuilder().create()).fromJson(lastObservation.toString(), GsmObservationWrapper.class);  //Last gsmRecord for being saved again after cleaning DB.
             GsmObservationWrapper previousObservation;
-            gsmRecords.remove(gsmRecordsSize - 1);                  //Removes last observation to avoid sending it.
             for (int i = gsmRecordsSize - 2; i >= 0; i--) {
                 previousObservation = gsmRecords.get(i);
                 if (previousObservation.timestamp == lastObservation.timestamp) {
@@ -196,9 +194,6 @@ public class Report {
         StateChangeWrapper.deleteAll(StateChangeWrapper.class);
         TelephonyObservationWrapper.deleteAll(TelephonyObservationWrapper.class);
         TrafficObservationWrapper.deleteAll(TrafficObservationWrapper.class);
-
-        if (persistentGsmObservation != null)
-            persistentGsmObservation.save(); //Last GsmObservation reported is saved again to avoid sending events with the same timestamp (incremental records)
 
         for (SpeedTestReport r: this.speedTestRecords) {
             r.dispatched = true;

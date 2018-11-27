@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:padding="10dp"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="@string/dialog_delete_active_measurements_title"
+        android:layout_gravity="left"
+        android:layout_marginBottom="@dimen/separation_little"
+        android:layout_marginTop="@dimen/abc_select_dialog_padding_start_material" />
+
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/settings_speed_test_category_title"
+        android:id="@+id/check_box_speed_test"
+        android:layout_gravity="left" />
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/settings_video_test_category_title"
+        android:id="@+id/check_box_media_test"
+        android:layout_gravity="left" />
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/settings_connectivity_test_category_title"
+        android:id="@+id/check_box_connectivity_test"
+        android:layout_gravity="left" />
+</LinearLayout>

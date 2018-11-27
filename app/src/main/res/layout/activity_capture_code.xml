@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".views.dashboard.CaptureCodeActivity">>
+
+
+    <!-- Toolbar -->
+    <include
+        layout="@layout/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/footer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:text="@string/settings_adkintun_web_qr_scanner_prompt"
+        android:gravity="center"
+        android:textColor="@color/doughnut_start"
+        android:textSize="20sp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentBottom="true"
+        android:singleLine="false"
+        android:background="@color/colorPrimary" />
+
+    <com.journeyapps.barcodescanner.DecoratedBarcodeView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_below="@id/toolbar"
+        android:layout_above="@id/footer"
+        android:id="@+id/zxing_barcode_scanner"
+        app:zxing_use_texture_view="true"/>
+
+
+
+    <!-- Sample for a footer. Also add to DecoratedBarcodeView: android:layout_above="@+id/footer" -->
+
+</RelativeLayout>
