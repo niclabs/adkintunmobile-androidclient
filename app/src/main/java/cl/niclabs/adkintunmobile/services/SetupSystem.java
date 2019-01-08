@@ -17,9 +17,9 @@ import cl.niclabs.adkintunmobile.services.monitors.TrafficMonitor;
 import cl.niclabs.adkintunmobile.services.notifications.DailyNotificationBroadcastReceiver;
 import cl.niclabs.adkintunmobile.services.sync.SynchronizationBroadcastReceiver;
 import cl.niclabs.adkintunmobile.utils.files.FileManager;
-import cl.niclabs.adkmobile.monitor.Device;
-import cl.niclabs.adkmobile.monitor.data.constants.ConnectionType;
-import cl.niclabs.adkmobile.monitor.data.constants.NetworkType;
+import cl.niclabs.adkintunmobile.adkmobile.monitor.Device;
+import cl.niclabs.adkintunmobile.adkmobile.monitor.data.constants.ConnectionType;
+import cl.niclabs.adkintunmobile.adkmobile.monitor.data.constants.NetworkType;
 import cl.niclabs.android.utils.Time;
 
 public class SetupSystem extends Device {

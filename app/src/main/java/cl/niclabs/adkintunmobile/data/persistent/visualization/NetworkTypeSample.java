@@ -1,7 +1,7 @@
 package cl.niclabs.adkintunmobile.data.persistent.visualization;
 
 import cl.niclabs.adkintunmobile.data.persistent.GsmObservationWrapper;
-import cl.niclabs.adkmobile.monitor.data.constants.NetworkType;
+import cl.niclabs.adkintunmobile.adkmobile.monitor.data.constants.NetworkType;
 
 public class NetworkTypeSample extends ConnectionTypeSample{
 

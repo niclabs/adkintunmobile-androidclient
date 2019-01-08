@@ -8,8 +8,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="@dimen/design_bottom_navigation_margin"
+        android:layout_marginTop="@dimen/abc_dialog_list_padding_vertical_material"
         android:paddingLeft="@dimen/design_navigation_icon_padding"
         android:paddingRight="@dimen/design_navigation_icon_padding"
-        android:layout_marginBottom="@dimen/design_bottom_navigation_margin" />
+        android:layout_marginBottom="@dimen/abc_dialog_list_padding_vertical_material" />
 </LinearLayout>

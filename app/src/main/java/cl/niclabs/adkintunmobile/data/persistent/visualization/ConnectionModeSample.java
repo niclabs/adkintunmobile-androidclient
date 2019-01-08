@@ -1,7 +1,7 @@
 package cl.niclabs.adkintunmobile.data.persistent.visualization;
 
 import cl.niclabs.adkintunmobile.data.persistent.ConnectivityObservationWrapper;
-import cl.niclabs.adkmobile.monitor.data.constants.ConnectionType;
+import cl.niclabs.adkintunmobile.adkmobile.monitor.data.constants.ConnectionType;
 
 public class ConnectionModeSample extends ConnectionTypeSample {
 

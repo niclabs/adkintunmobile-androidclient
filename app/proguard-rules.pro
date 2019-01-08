@@ -32,10 +32,13 @@
 -keep public class cl.niclabs.adkintunmobile.utils.information.Connections.SystemSocketException{*;}
 
 # Keep classes mentioned in the manifest
--keep public class cl.niclabs.adkmobile.AdkintunMobileApp{*;}
--keep public class cl.niclabs.adkmobile.monitor.Connectivity{*;}
--keep public class cl.niclabs.adkmobile.monitor.Telephony{*;}
--keep public class cl.niclabs.adkmobile.monitor.Traffic{*;}
+-keep public class cl.niclabs.adkintunmobile.adkmobile.AdkintunMobileApp{*;}
+-keep public interface cl.niclabs.adkmobile.monitor.events.MonitorEvent{*;}
+
+# Keep services
+-keep public class cl.niclabs.adkintunmobile.adkmobile.monitor.Connectivity{*;}
+-keep public class cl.niclabs.adkintunmobile.adkmobile.monitor.Telephony{*;}
+-keep public class cl.niclabs.adkintunmobile.adkmobile.monitor.Traffic{*;}
 
 # Keep application services
 -keep public class cl.niclabs.adkintunmobile.services.SetupSystem{*;}
@@ -48,23 +51,23 @@
 -keep public class cl.niclabs.adkintunmobile.services.notifications.DailyNotificationBroadcastReceiver{*;}
 
 # Keep descriptor classes
--keep public interface cl.niclabs.adkmobile.monitor.listeners.MonitorListener{*;}
--keep public interface cl.niclabs.adkmobile.monitor.data.Observation{*;}
+-keep public interface cl.niclabs.adkintunmobile.adkmobile.monitor.listeners.MonitorListener{*;}
+-keep public interface cl.niclabs.adkintunmobile.adkmobile.monitor.data.Observation{*;}
 -keep public class com.orm.SugarRecord{*;}
 
 # Adkintun Middleware Library
--keep public class cl.niclabs.adkmobile.monitor.data.TelephonyObservation{*;}
--keep public class cl.niclabs.adkmobile.monitor.data.ApplicationTrafficSummary{*;}
--keep public class cl.niclabs.adkmobile.monitor.data.NeighborAntenna{*;}
--keep public class cl.niclabs.adkmobile.monitor.data.Sample{*;}
--keep public class cl.niclabs.adkmobile.monitor.data.AccelerometerObservation{*;}
--keep public class cl.niclabs.adkmobile.monitor.data.ClockSynchronizationState{*;}
--keep public class cl.niclabs.adkmobile.monitor.data.ConnectivityObservation{*;}
--keep public class cl.niclabs.adkmobile.monitor.data.LocationObservation{*;}
--keep public class cl.niclabs.adkmobile.monitor.data.StateChange{*;}
--keep public class cl.niclabs.adkmobile.monitor.data.TrafficObservation{*;}
--keep public class cl.niclabs.adkmobile.monitor.data.CdmaObservation{*;}
--keep public class cl.niclabs.adkmobile.monitor.data.GsmObservation{*;}
+-keep public class cl.niclabs.adkintunmobile.adkmobile.monitor.data.TelephonyObservation{*;}
+-keep public class cl.niclabs.adkintunmobile.adkmobile.monitor.data.ApplicationTrafficSummary{*;}
+-keep public class cl.niclabs.adkintunmobile.adkmobile.monitor.data.NeighborAntenna{*;}
+-keep public class cl.niclabs.adkintunmobile.adkmobile.monitor.data.Sample{*;}
+-keep public class cl.niclabs.adkintunmobile.adkmobile.monitor.data.AccelerometerObservation{*;}
+-keep public class cl.niclabs.adkintunmobile.adkmobile.monitor.data.ClockSynchronizationState{*;}
+-keep public class cl.niclabs.adkintunmobile.adkmobile.monitor.data.ConnectivityObservation{*;}
+-keep public class cl.niclabs.adkintunmobile.adkmobile.monitor.data.LocationObservation{*;}
+-keep public class cl.niclabs.adkintunmobile.adkmobile.monitor.data.StateChange{*;}
+-keep public class cl.niclabs.adkintunmobile.adkmobile.monitor.data.TrafficObservation{*;}
+-keep public class cl.niclabs.adkintunmobile.adkmobile.monitor.data.CdmaObservation{*;}
+-keep public class cl.niclabs.adkintunmobile.adkmobile.monitor.data.GsmObservation{*;}
 
 # Client persistent clases
 -keep public class cl.niclabs.adkintunmobile.data.persistent{*;}
@@ -108,12 +111,12 @@
 #}
 
 # Enums
--keep public enum cl.niclabs.adkmobile.monitor.data.constants.NetworkType{*;}
--keep public enum cl.niclabs.adkmobile.monitor.data.constants.SimState{*;}
--keep public enum cl.niclabs.adkmobile.monitor.data.constants.NetworkState{*;}
--keep public enum cl.niclabs.adkmobile.monitor.data.constants.ConnectionType{*;}
--keep public enum cl.niclabs.adkmobile.monitor.data.constants.TelephonyStandard{*;}
--keep public enum cl.niclabs.adkintunmobile.utils.information.Connections.Connections.Type{*;}
+-keep public enum cl.niclabs.adkintunmobile.adkmobile.monitor.data.constants.NetworkType{*;}
+-keep public enum cl.niclabs.adkintunmobile.adkmobile.monitor.data.constants.SimState{*;}
+-keep public enum cl.niclabs.adkintunmobile.adkmobile.monitor.data.constants.NetworkState{*;}
+-keep public enum cl.niclabs.adkintunmobile.adkmobile.monitor.data.constants.ConnectionType{*;}
+-keep public enum cl.niclabs.adkintunmobile.adkmobile.monitor.data.constants.TelephonyStandard{*;}
+-keep public enum cl.niclabs.adkintunmobile.adkintunmobile.utils.information.Connections.Connections.Type{*;}
 
 
 # Remove logging

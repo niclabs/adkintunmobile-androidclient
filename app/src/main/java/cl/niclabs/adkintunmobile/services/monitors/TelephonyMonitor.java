@@ -12,13 +12,13 @@ import cl.niclabs.adkintunmobile.data.persistent.GsmObservationWrapper;
 import cl.niclabs.adkintunmobile.data.persistent.SampleWrapper;
 import cl.niclabs.adkintunmobile.data.persistent.StateChangeWrapper;
 import cl.niclabs.adkintunmobile.data.persistent.TelephonyObservationWrapper;
-import cl.niclabs.adkmobile.monitor.Monitor;
-import cl.niclabs.adkmobile.monitor.Telephony;
-import cl.niclabs.adkmobile.monitor.data.CdmaObservation;
-import cl.niclabs.adkmobile.monitor.data.GsmObservation;
-import cl.niclabs.adkmobile.monitor.data.StateChange;
-import cl.niclabs.adkmobile.monitor.data.TelephonyObservation;
-import cl.niclabs.adkmobile.monitor.listeners.TelephonyListener;
+import cl.niclabs.adkintunmobile.adkmobile.monitor.Monitor;
+import cl.niclabs.adkintunmobile.adkmobile.monitor.Telephony;
+import cl.niclabs.adkintunmobile.adkmobile.monitor.data.CdmaObservation;
+import cl.niclabs.adkintunmobile.adkmobile.monitor.data.GsmObservation;
+import cl.niclabs.adkintunmobile.adkmobile.monitor.data.StateChange;
+import cl.niclabs.adkintunmobile.adkmobile.monitor.data.TelephonyObservation;
+import cl.niclabs.adkintunmobile.adkmobile.monitor.listeners.TelephonyListener;
 
 public class TelephonyMonitor extends Service implements TelephonyListener {
 

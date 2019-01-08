@@ -8,10 +8,10 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import cl.niclabs.adkintunmobile.data.persistent.ConnectivityObservationWrapper;
-import cl.niclabs.adkmobile.monitor.Connectivity;
-import cl.niclabs.adkmobile.monitor.Monitor;
-import cl.niclabs.adkmobile.monitor.data.ConnectivityObservation;
-import cl.niclabs.adkmobile.monitor.listeners.ConnectivityListener;
+import cl.niclabs.adkintunmobile.adkmobile.monitor.Connectivity;
+import cl.niclabs.adkintunmobile.adkmobile.monitor.Monitor;
+import cl.niclabs.adkintunmobile.adkmobile.monitor.data.ConnectivityObservation;
+import cl.niclabs.adkintunmobile.adkmobile.monitor.listeners.ConnectivityListener;
 
 public class ConnectivityMonitor extends Service implements ConnectivityListener {
 

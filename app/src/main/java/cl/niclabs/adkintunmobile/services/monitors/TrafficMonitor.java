@@ -9,10 +9,10 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import cl.niclabs.adkintunmobile.data.persistent.TrafficObservationWrapper;
-import cl.niclabs.adkmobile.monitor.Monitor;
-import cl.niclabs.adkmobile.monitor.Traffic;
-import cl.niclabs.adkmobile.monitor.data.TrafficObservation;
-import cl.niclabs.adkmobile.monitor.listeners.TrafficListener;
+import cl.niclabs.adkintunmobile.adkmobile.monitor.Monitor;
+import cl.niclabs.adkintunmobile.adkmobile.monitor.Traffic;
+import cl.niclabs.adkintunmobile.adkmobile.monitor.data.TrafficObservation;
+import cl.niclabs.adkintunmobile.adkmobile.monitor.listeners.TrafficListener;
 
 public class TrafficMonitor extends Service implements TrafficListener {
 

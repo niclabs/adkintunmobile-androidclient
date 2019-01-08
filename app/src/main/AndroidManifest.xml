@@ -15,7 +15,7 @@
         tools:ignore="ProtectedPermissions" />
 
     <application
-        android:name="cl.niclabs.adkmobile.AdkintunMobileApp"
+        android:name="cl.niclabs.adkintunmobile.adkmobile.AdkintunMobileApp"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -23,9 +23,9 @@
         android:theme="@style/AdkintunTheme">
 
         <!-- Give permission to services used in the app -->
-        <service android:name="cl.niclabs.adkmobile.monitor.Traffic" />
-        <service android:name="cl.niclabs.adkmobile.monitor.Connectivity" />
-        <service android:name="cl.niclabs.adkmobile.monitor.Telephony" />
+        <service android:name="cl.niclabs.adkintunmobile.adkmobile.monitor.Traffic" />
+        <service android:name="cl.niclabs.adkintunmobile.adkmobile.monitor.Connectivity" />
+        <service android:name="cl.niclabs.adkintunmobile.adkmobile.monitor.Telephony" />
 
         <meta-data
             android:name="PERSISTENT"
