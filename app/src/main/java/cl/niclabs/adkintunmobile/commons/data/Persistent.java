@@ -72,7 +72,7 @@ import com.orm.SugarRecord;
  * @param <E>
  *            object that is desired to make persistent
  */
-public class Persistent<E extends cl.niclabs.adkintunmobile.commons.data.Persistent<E>> extends SugarRecord<E>
+public class Persistent<E extends Persistent<E>> extends SugarRecord<E>
         implements Serializable<E> {
     /**
      * IMPORTANT: Extending methods must add the default constructor in order to
