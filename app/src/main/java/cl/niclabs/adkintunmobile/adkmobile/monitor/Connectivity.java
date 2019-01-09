@@ -17,7 +17,7 @@ import cl.niclabs.adkintunmobile.adkmobile.monitor.data.constants.NetworkState;
 import cl.niclabs.adkintunmobile.adkmobile.monitor.events.AbstractMonitorEvent;
 import cl.niclabs.adkintunmobile.adkmobile.monitor.events.MonitorEvent;
 import cl.niclabs.adkintunmobile.adkmobile.monitor.listeners.ConnectivityListener;
-import cl.niclabs.android.utils.Time;
+import cl.niclabs.adkintunmobile.commons.utils.Time;
 
 /**
  * Implements monitoring of Internet connectivity change. Connectivity is

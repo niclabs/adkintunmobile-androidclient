@@ -1,7 +1,7 @@
 package cl.niclabs.adkintunmobile.adkmobile.monitor.data;
 
 import cl.niclabs.adkintunmobile.adkmobile.monitor.data.constants.StateType;
-import cl.niclabs.android.utils.Time;
+import cl.niclabs.adkintunmobile.commons.utils.Time;
 
 public class StateChange extends AbstractObservation<StateChange> {
     private int state;

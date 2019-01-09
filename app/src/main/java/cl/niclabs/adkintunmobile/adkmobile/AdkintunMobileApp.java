@@ -3,7 +3,7 @@ package cl.niclabs.adkintunmobile.adkmobile;
 
 import cl.niclabs.adkintunmobile.adkmobile.monitor.ClockSynchronization;
 import cl.niclabs.adkintunmobile.adkmobile.monitor.Monitor;
-import cl.niclabs.android.NicLabsApp;
+import cl.niclabs.adkintunmobile.commons.NicLabsApp;
 
 /**
  * Base class for Adkintun Mobile Applications.

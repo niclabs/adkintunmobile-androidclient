@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-import cl.niclabs.android.data.DoNotSerialize;
+import cl.niclabs.adkintunmobile.commons.data.DoNotSerialize;
 
 public class GsmObservationWrapper extends TelephonyObservationWrapper{
 

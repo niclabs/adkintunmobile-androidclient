@@ -3,7 +3,7 @@ package cl.niclabs.adkintunmobile.data.persistent.visualization;
 import java.util.Iterator;
 
 import cl.niclabs.adkintunmobile.utils.display.DisplayDateManager;
-import cl.niclabs.android.data.Persistent;
+import cl.niclabs.adkintunmobile.commons.data.Persistent;
 
 public abstract class DailyConnectionTypeSummary extends Persistent<DailyConnectionTypeSummary>{
     public long date;

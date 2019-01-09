@@ -13,7 +13,7 @@ import java.util.Iterator;
 import cl.niclabs.adkintunmobile.R;
 import cl.niclabs.adkintunmobile.data.persistent.TrafficObservationWrapper;
 import cl.niclabs.adkintunmobile.utils.display.DisplayDateManager;
-import cl.niclabs.android.data.Persistent;
+import cl.niclabs.adkintunmobile.commons.data.Persistent;
 
 public class ApplicationTraffic extends Persistent<ApplicationTraffic>{
 

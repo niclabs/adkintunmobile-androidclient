@@ -3,7 +3,7 @@ package cl.niclabs.adkintunmobile.adkmobile.monitor.data;
 import java.lang.reflect.Field;
 import java.util.List;
 
-import cl.niclabs.android.data.Persistent;
+import cl.niclabs.adkintunmobile.commons.data.Persistent;
 
 /**
  * Mantain statistics on a sample

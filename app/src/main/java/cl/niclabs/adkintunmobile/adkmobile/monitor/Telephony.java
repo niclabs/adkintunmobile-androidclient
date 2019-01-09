@@ -40,7 +40,7 @@ import cl.niclabs.adkintunmobile.adkmobile.monitor.data.constants.TelephonyStand
 import cl.niclabs.adkintunmobile.adkmobile.monitor.events.AbstractMonitorEvent;
 import cl.niclabs.adkintunmobile.adkmobile.monitor.events.MonitorEvent;
 import cl.niclabs.adkintunmobile.adkmobile.monitor.listeners.TelephonyListener;
-import cl.niclabs.android.utils.Time;
+import cl.niclabs.adkintunmobile.commons.utils.Time;
 
 /**
  * Implements monitoring of Telephony services of the mobile.

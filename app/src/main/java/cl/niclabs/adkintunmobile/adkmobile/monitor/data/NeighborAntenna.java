@@ -1,8 +1,8 @@
 package cl.niclabs.adkintunmobile.adkmobile.monitor.data;
 
 
-import cl.niclabs.android.data.DoNotSerialize;
-import cl.niclabs.android.data.Persistent;
+import cl.niclabs.adkintunmobile.commons.data.DoNotSerialize;
+import cl.niclabs.adkintunmobile.commons.data.Persistent;
 
 public class NeighborAntenna extends Persistent<NeighborAntenna> {
     private int gsmCid;

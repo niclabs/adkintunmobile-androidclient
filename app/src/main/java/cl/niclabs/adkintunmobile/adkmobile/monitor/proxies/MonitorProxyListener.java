@@ -1,6 +1,6 @@
 package cl.niclabs.adkintunmobile.adkmobile.monitor.proxies;
 
-import cl.niclabs.android.utils.Listener;
+import cl.niclabs.adkintunmobile.commons.utils.Listener;
 
 /**
  * Base interface for proxy listeners.

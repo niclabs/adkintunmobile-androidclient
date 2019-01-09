@@ -3,7 +3,7 @@ package cl.niclabs.adkintunmobile.adkmobile.monitor.data;
 import cl.niclabs.adkintunmobile.adkmobile.monitor.Monitor;
 import cl.niclabs.adkintunmobile.adkmobile.monitor.data.constants.NetworkType;
 import cl.niclabs.adkintunmobile.adkmobile.monitor.data.constants.TelephonyStandard;
-import cl.niclabs.android.utils.Time;
+import cl.niclabs.adkintunmobile.commons.utils.Time;
 
 
 public abstract class TelephonyObservation<E extends TelephonyObservation<E>> extends AbstractObservation<E> {

@@ -4,7 +4,7 @@ import android.content.Context;
 
 import com.google.gson.annotations.SerializedName;
 
-import cl.niclabs.android.data.Persistent;
+import cl.niclabs.adkintunmobile.commons.data.Persistent;
 
 public class ActiveMeasurement extends Persistent<ActiveMeasurement> {
 

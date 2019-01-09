@@ -6,6 +6,6 @@ package cl.niclabs.adkintunmobile.adkmobile.utils;
  * This is a stub interface for backwards compatibility
  *
  * @author Felipe Lalanne <flalanne@niclabs.cl>
- * @deprecated Use cl.niclabs.android.utils.Listener
+ * @deprecated Use cl.niclabs.adkintunmobile.commons.utils.Listener
  */
-public interface Listener extends cl.niclabs.android.utils.Listener {}
+public interface Listener extends cl.niclabs.adkintunmobile.commons.utils.Listener {}

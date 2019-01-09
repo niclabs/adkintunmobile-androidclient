@@ -1,6 +1,6 @@
 package cl.niclabs.adkintunmobile.adkmobile.monitor.data;
 
-import cl.niclabs.android.data.Persistent;
+import cl.niclabs.adkintunmobile.commons.data.Persistent;
 
 /**
  * Base class for all observations by monitors

@@ -1,6 +1,6 @@
 package cl.niclabs.adkintunmobile.data.persistent;
 
-import cl.niclabs.android.data.Persistent;
+import cl.niclabs.adkintunmobile.commons.data.Persistent;
 
 /**
  * Created by diego on 15-06-16.

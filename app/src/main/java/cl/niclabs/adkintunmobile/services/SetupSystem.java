@@ -20,7 +20,7 @@ import cl.niclabs.adkintunmobile.utils.files.FileManager;
 import cl.niclabs.adkintunmobile.adkmobile.monitor.Device;
 import cl.niclabs.adkintunmobile.adkmobile.monitor.data.constants.ConnectionType;
 import cl.niclabs.adkintunmobile.adkmobile.monitor.data.constants.NetworkType;
-import cl.niclabs.android.utils.Time;
+import cl.niclabs.adkintunmobile.commons.utils.Time;
 
 public class SetupSystem extends Device {
 

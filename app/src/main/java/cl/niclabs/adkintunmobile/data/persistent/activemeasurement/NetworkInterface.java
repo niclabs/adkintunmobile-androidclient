@@ -6,7 +6,7 @@ import com.google.gson.annotations.SerializedName;
 
 import cl.niclabs.adkintunmobile.data.persistent.visualization.ConnectionModeSample;
 import cl.niclabs.adkintunmobile.utils.information.Network;
-import cl.niclabs.android.data.Persistent;
+import cl.niclabs.adkintunmobile.commons.data.Persistent;
 
 public class NetworkInterface extends Persistent<NetworkInterface> {
 

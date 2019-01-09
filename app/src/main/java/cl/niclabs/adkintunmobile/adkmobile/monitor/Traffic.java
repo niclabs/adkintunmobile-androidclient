@@ -34,8 +34,8 @@ import cl.niclabs.adkintunmobile.adkmobile.monitor.data.constants.ConnectionType
 import cl.niclabs.adkintunmobile.adkmobile.monitor.events.AbstractMonitorEvent;
 import cl.niclabs.adkintunmobile.adkmobile.monitor.events.MonitorEvent;
 import cl.niclabs.adkintunmobile.adkmobile.monitor.listeners.TrafficListener;
-import cl.niclabs.android.utils.Scheduler;
-import cl.niclabs.android.utils.Time;
+import cl.niclabs.adkintunmobile.commons.utils.Scheduler;
+import cl.niclabs.adkintunmobile.commons.utils.Time;
 
 /**
  * Implements monitoring of Rx & Tx bytes. Traffic is notified by the system as

@@ -1,6 +1,6 @@
 package cl.niclabs.adkintunmobile.data.persistent.visualization;
 
-import cl.niclabs.android.data.Persistent;
+import cl.niclabs.adkintunmobile.commons.data.Persistent;
 
 public class ConnectionTypeSample extends Persistent<ConnectionTypeSample> {
 

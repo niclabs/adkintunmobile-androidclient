@@ -1,8 +1,8 @@
 package cl.niclabs.adkintunmobile.adkmobile.monitor.proxies;
 
 
-import cl.niclabs.android.utils.Dispatcher;
-import cl.niclabs.android.utils.Notifier;
+import cl.niclabs.adkintunmobile.commons.utils.Dispatcher;
+import cl.niclabs.adkintunmobile.commons.utils.Notifier;
 
 /**
  * A monitor proxy is a processor for raw monitor data in order to

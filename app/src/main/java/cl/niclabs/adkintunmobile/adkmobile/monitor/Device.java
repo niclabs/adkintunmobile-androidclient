@@ -8,7 +8,7 @@ import cl.niclabs.adkintunmobile.adkmobile.AdkintunMobileApp;
 import cl.niclabs.adkintunmobile.adkmobile.monitor.data.StateChange;
 import cl.niclabs.adkintunmobile.adkmobile.monitor.data.constants.DeviceBootState;
 import cl.niclabs.adkintunmobile.adkmobile.monitor.data.constants.StateType;
-import cl.niclabs.android.utils.Time;
+import cl.niclabs.adkintunmobile.commons.utils.Time;
 
 /**
  * BroadcastReceiver for {@link Intent.ACTION_BOOT_COMPLETED} and

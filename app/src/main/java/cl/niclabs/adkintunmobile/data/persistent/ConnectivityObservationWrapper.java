@@ -2,7 +2,7 @@ package cl.niclabs.adkintunmobile.data.persistent;
 
 import com.google.gson.annotations.SerializedName;
 
-import cl.niclabs.android.data.Persistent;
+import cl.niclabs.adkintunmobile.commons.data.Persistent;
 
 public class ConnectivityObservationWrapper extends Persistent<ConnectivityObservationWrapper>{
 
