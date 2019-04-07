@@ -22,11 +22,6 @@
         android:supportsRtl="true"
         android:theme="@style/AdkintunTheme">
 
-        <!-- Give permission to services used in the app -->
-        <service android:name="cl.niclabs.adkmobile.monitor.Traffic" />
-        <service android:name="cl.niclabs.adkmobile.monitor.Connectivity" />
-        <service android:name="cl.niclabs.adkmobile.monitor.Telephony" />
-
         <meta-data
             android:name="PERSISTENT"
             android:value="false" />
@@ -42,94 +37,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".views.notificationlog.NotificationLogActivity"
-            android:parentActivityName=".views.dashboard.MainActivity"
-            android:screenOrientation="portrait">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".views.dashboard.MainActivity" />
-        </activity>
-        <activity
-            android:name=".views.status.StatusActivity"
-            android:parentActivityName=".views.dashboard.MainActivity"
-            android:screenOrientation="portrait">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".views.dashboard.MainActivity" />
-        </activity>
-        <activity
-            android:name=".views.applicationstraffic.ApplicationsTrafficActivity"
-            android:parentActivityName=".views.dashboard.MainActivity"
-            android:screenOrientation="portrait">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".views.dashboard.MainActivity" />
-        </activity>
-        <activity
-            android:name=".views.connectiontype.connectionmode.ConnectionModeActivity"
-            android:parentActivityName=".views.dashboard.MainActivity"
-            android:screenOrientation="portrait">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".views.dashboard.MainActivity" />
-        </activity>
-        <activity
-            android:name=".views.connectiontype.networktype.NetworkTypeActivity"
-            android:parentActivityName=".views.dashboard.MainActivity"
-            android:screenOrientation="portrait">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".views.dashboard.MainActivity" />
-        </activity>
-        <activity
-            android:name=".views.activeconnections.ActiveConnectionsActivity"
-            android:parentActivityName=".views.dashboard.MainActivity"
-            android:screenOrientation="portrait">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".views.dashboard.MainActivity" />
-        </activity>
-        <activity
-            android:name=".views.activemeasurements.ActiveMeasurementsActivity"
-            android:parentActivityName=".views.dashboard.MainActivity"
-            android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustNothing">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".views.dashboard.MainActivity" />
-        </activity>
-        <activity
-            android:name=".views.settings.SettingsActivity"
-            android:parentActivityName=".views.dashboard.MainActivity"
-            android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".views.dashboard.MainActivity" />
-        </activity>
-        <activity
-            android:name=".views.aboutus.AboutUsActivity"
-            android:parentActivityName=".views.dashboard.MainActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/AdkintunFullScreenTheme">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".views.dashboard.MainActivity" />
-        </activity>
-        <activity
-            android:name=".views.activemeasurements.ActiveMeasurementsHistoryActivity"
-            android:parentActivityName=".views.activemeasurements.ActiveMeasurementsActivity"
-            android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".views.activemeasurements.ActiveMeasurementsActivity" />
-        </activity>
-        <activity
-            android:name=".views.dashboard.CaptureCodeActivity"
-            android:screenOrientation="portrait"
-            tools:replace="screenOrientation" />
 
         <!-- Database configuration -->
         <meta-data
@@ -145,34 +52,6 @@
             android:name="DOMAIN_PACKAGE_NAME"
             android:value="cl.niclabs.adkintunmobile.data.persistent" />
 
-        <!-- Our Services -->
-        <service android:name=".services.monitors.ConnectivityMonitor" />
-        <service android:name=".services.monitors.TelephonyMonitor" />
-        <service android:name=".services.monitors.TrafficMonitor" />
-        <service android:name=".services.sync.Synchronization" />
-
-        <!-- Our Receivers -->
-        <receiver android:name=".services.notifications.DailyNotificationBroadcastReceiver" />
-        <receiver android:name=".services.sync.SynchronizationBroadcastReceiver" />
-        <receiver
-            android:enabled="true"
-            android:exported="true"
-            android:name=".services.SetupSystem">
-            <intent-filter>
-                <action android:name="android.intent.action.BOOT_COMPLETED" />
-                <action android:name="android.intent.action.QUICKBOOT_POWERON" />
-                <action android:name="com.htc.intent.action.QUICKBOOT_POWERON"/>
-                <action android:name="android.intent.action.ACTION_SHUTDOWN" />
-
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </receiver>
-        <receiver android:name=".services.sync.DispatcherDataBroadcastReceiver">
-            <intent-filter>
-                <action android:name="android.net.wifi.STATE_CHANGE" />
-                <action android:name="cl.niclabs.adkintunmobile.intent.DISPATCHER_DATA" />
-            </intent-filter>
-        </receiver>
 
         <meta-data
             android:name="io.fabric.ApiKey"

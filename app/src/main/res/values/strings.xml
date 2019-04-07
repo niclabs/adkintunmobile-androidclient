@@ -2,6 +2,13 @@
     <string name="app_name">Adkintun Mobile</string>
     <string name="app_sub_title">Medidor de tu internet móvil</string>
 
+    <!-- Speedtest file size and vpn option -->
+    <string name="speedtest_file_size">File size</string>
+    <string name="vpn_option">VPN Option</string>
+
+    <string name="view_file_size_dialog_title">Archivo para speedtest</string>
+    <string name="view_file_size_dialog_description">Elige tamaño de archivo</string>
+
     <!-- Titles By View -->
     <string name="view_status">Tu Estado</string>
     <string name="view_connection_mode">Tipo de Conexión</string>

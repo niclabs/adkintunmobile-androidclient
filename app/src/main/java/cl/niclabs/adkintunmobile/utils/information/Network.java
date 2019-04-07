@@ -1,17 +1,19 @@
 package cl.niclabs.adkintunmobile.utils.information;
 
 import android.content.Context;
+import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
+import android.support.v4.app.ActivityCompat;
 import android.telephony.TelephonyManager;
 import android.telephony.gsm.GsmCellLocation;
+import android.util.Log;
 
 import java.util.Locale;
 
 import cl.niclabs.adkintunmobile.R;
-import cl.niclabs.adkintunmobile.data.persistent.visualization.ConnectionModeSample;
 
 public class Network {
 
@@ -64,15 +66,15 @@ public class Network {
         ConnectivityManager connMgr = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo activeNetwork = connMgr.getActiveNetworkInfo();
         if (activeNetwork == null){
-            return ConnectionModeSample.NONE;
+            return 0;
         }else{
             switch (activeNetwork.getType()){
                 case ConnectivityManager.TYPE_MOBILE:
-                    return ConnectionModeSample.MOBILE;
+                    return  ConnectivityManager.TYPE_MOBILE;
                 case ConnectivityManager.TYPE_WIFI:
-                    return ConnectionModeSample.WIFI;
+                    return ConnectivityManager.TYPE_WIFI;
                 default:
-                    return ConnectionModeSample.NONE;
+                    return 0;
             }
         }
     }
@@ -116,6 +118,10 @@ public class Network {
      * @return int array [LAC, CID]
      */
     static public int[] getLacCid(Context context){
+        int permissionCheck = ActivityCompat.checkSelfPermission(context, android.Manifest.permission.ACCESS_COARSE_LOCATION);
+        if (permissionCheck != PackageManager.PERMISSION_GRANTED) {
+            Log.i("Exception", "No permission");
+        }
         TelephonyManager telephonyManager = (TelephonyManager)context.getSystemService(Context.TELEPHONY_SERVICE);
         GsmCellLocation cellLocation = (GsmCellLocation) telephonyManager.getCellLocation();
 

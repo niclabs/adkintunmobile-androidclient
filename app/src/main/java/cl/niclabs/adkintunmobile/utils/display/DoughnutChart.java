@@ -9,11 +9,11 @@ import android.graphics.PorterDuff.Mode;
 import android.graphics.PorterDuffXfermode;
 import android.graphics.RectF;
 import android.util.AttributeSet;
-import android.widget.ImageView;
+import android.support.v7.widget.AppCompatImageView;
 
 import java.util.ArrayList;
 
-public class DoughnutChart extends ImageView {
+public class DoughnutChart extends AppCompatImageView {
 
 	private ArrayList<Integer> colors;
 	private ArrayList<Float> values;
