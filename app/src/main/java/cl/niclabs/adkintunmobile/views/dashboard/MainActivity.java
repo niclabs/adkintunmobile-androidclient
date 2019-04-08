@@ -7,13 +7,12 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
-import android.telephony.TelephonyManager;
 import android.util.Log;
+import android.widget.TableLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,16 +21,17 @@ import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 
 import org.json.JSONObject;
-import org.w3c.dom.Text;
 
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 import androidx.work.Constraints;
+import androidx.work.Data;
 import androidx.work.ExistingPeriodicWorkPolicy;
 import androidx.work.PeriodicWorkRequest;
+import androidx.work.WorkInfo;
 import androidx.work.WorkManager;
-import androidx.work.WorkStatus;
 import cl.niclabs.adkintunmobile.BuildConfig;
 import cl.niclabs.adkintunmobile.R;
 import cl.niclabs.adkintunmobile.monitors.TelephonyMonitor;
@@ -97,68 +97,45 @@ public class MainActivity extends AppCompatActivity {
                 ExistingPeriodicWorkPolicy.KEEP,
                 workRequest);
 
-        WorkManager.getInstance().getStatusesByTag(TelephonyMonitor.SLAVE_WORKER)
-                .observe(this, new Observer<List<WorkStatus>>() {
+        WorkManager.getInstance().getWorkInfosByTagLiveData(TelephonyMonitor.SLAVE_WORKER)
+                .observe(this, new Observer<List<WorkInfo>>() {
+
                     @Override
-                    public void onChanged(@Nullable List<WorkStatus> workStatuses) {
-                        if (workStatuses != null) {
-                            if (!workStatuses.isEmpty()) {
-                                for (WorkStatus workStatus : workStatuses) {
-                                    if (workStatus != null && workStatus.getState().isFinished()) {
-                                        Log.i("STATUS CHANGED", workStatus.getState().name());
-                                        String lac = workStatus.getOutputData().getString(TelephonyMonitor.LAC,"LAC");
-                                        String type = workStatus.getOutputData().getString(TelephonyMonitor.TYPE,"LAC");
-                                        String strength = workStatus.getOutputData().getString(TelephonyMonitor.DBM,"LAC");
-                                        String cid = workStatus.getOutputData().getString(TelephonyMonitor.CID,"LAC");
-                                        Log.i("STATUS CHANGED", lac);
-                                        TextView lacText = findViewById(R.id.lac);
-                                        lacText.append(lac);
-
-                                        TextView typeText = findViewById(R.id.type);
-                                        typeText.append(type);
-
-                                        TextView strengthText = findViewById(R.id.intensity);
-                                        strengthText.append(strength);
-
-                                        TextView cidText = findViewById(R.id.cid);
-                                        cidText.append(cid);
+                    public void onChanged(@Nullable List<WorkInfo> workInfos) {
+                        if (workInfos != null) {
+                            if (!workInfos.isEmpty()) {
+                                for (WorkInfo workInfo : workInfos) {
+                                    if (workInfo != null && workInfo.getState().isFinished()) {
+                                        createDynamicTextView();
+                                        setTextViews(workInfo.getOutputData());
                                     }
                                 }
                             }
                         }
                     }
                 });
-        /*
-        WorkManager.getInstance().getStatusById(workRequest.getId())
-                .observe(this, new Observer<WorkStatus>() {
-                    @Override
-                    public void onChanged(@Nullable WorkStatus workStatus) {
-                        if (workStatus != null) {
-                            Log.i("STATUS SIZE", workStatus.getState().name());
-                            if (!workStatus.getOutputData().getString(TelephonyMonitor.LAC, "").equals("")) {
-                                Log.i("STATUS CHANGED", "NEW STAT");
-                                String lac = workStatus.getOutputData().getString(TelephonyMonitor.LAC,"LAC");
-                                String type = workStatus.getOutputData().getString(TelephonyMonitor.TYPE,"LAC");
-                                String strength = workStatus.getOutputData().getString(TelephonyMonitor.DBM,"LAC");
-                                String cid = workStatus.getOutputData().getString(TelephonyMonitor.CID,"LAC");
-                                Log.i("STATUS CHANGED", lac);
-                                TextView lacText = findViewById(R.id.lac);
-                                lacText.append(lac);
 
-                                TextView typeText = findViewById(R.id.type);
-                                typeText.append(type);
-
-                                TextView strengthText = findViewById(R.id.intensity);
-                                strengthText.append(strength);
-
-                                TextView cidText = findViewById(R.id.cid);
-                                cidText.append(cid);
-                            }
-                        }
-                    }
-                });*/
     }
 
+    public void createDynamicTextView() {
+        TableLayout layout = this.findViewById(R.id.drawer_layout);
+
+        TableLayout.LayoutParams lparams = new TableLayout.LayoutParams(
+                TableLayout.LayoutParams.WRAP_CONTENT, TableLayout.LayoutParams.WRAP_CONTENT);
+        TextView tv = new TextView(this);
+        tv.setLayoutParams(lparams);
+        tv.setText("test");
+        layout.addView(tv);
+    }
+    public void setTextViews(Data data) {
+        Map<String, Object> map = data.getKeyValueMap();
+        TextView view;
+        Log.i("values", map.values().toString());
+        for (String key : map.keySet()) {
+            view = findViewById(getResources().getIdentifier(key, "id", getPackageName()));
+            view.setText((String)map.get(key));
+        }
+    }
 
     @Override
     public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {

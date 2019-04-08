@@ -23,39 +23,39 @@
         android:textSize="20sp"
         android:textStyle="bold"/>
     <TextView
-        android:id="@+id/intensity"
+        android:id="@+id/DBM"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginRight="5dp"
         android:singleLine="true"
-        android:text="Signal Intensity: "
+        android:text="dBm"
         android:textSize="20sp"
         android:textStyle="bold"/>
     <TextView
-        android:id="@+id/cid"
+        android:id="@+id/CID"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="5dp"
         android:singleLine="true"
-        android:text="CID: "
+        android:text="cID"
         android:textSize="20sp"
         android:textStyle="bold"/>
     <TextView
-        android:id="@+id/lac"
+        android:id="@+id/LAC"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="5dp"
         android:singleLine="true"
-        android:text="LAC: "
+        android:text="LAC"
         android:textSize="20sp"
         android:textStyle="bold"/>
     <TextView
-        android:id="@+id/type"
+        android:id="@+id/TYPE"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="5dp"
         android:singleLine="true"
-        android:text="Signal Type: "
+        android:text="Type"
         android:textSize="20sp"
         android:textStyle="bold"/>
     <TextView
