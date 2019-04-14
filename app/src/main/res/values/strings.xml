@@ -8,6 +8,13 @@
 
     <string name="view_file_size_dialog_title">Archivo para speedtest</string>
     <string name="view_file_size_dialog_description">Elige tamaño de archivo</string>
+    <string name="DBM">dBm</string>
+    <string name="TIMESTAMP">Timestamp</string>
+    <string name="LAC">LAC</string>
+    <string name="MCC">MCC</string>
+    <string name="MNC">MNC</string>
+    <string name="TYPE">Type</string>
+    <string name="CID">cID</string>
 
     <!-- Titles By View -->
     <string name="view_status">Tu Estado</string>

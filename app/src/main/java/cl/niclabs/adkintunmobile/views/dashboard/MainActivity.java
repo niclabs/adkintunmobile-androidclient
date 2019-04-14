@@ -1,27 +1,25 @@
 package cl.niclabs.adkintunmobile.views.dashboard;
 
-import android.Manifest;
 import android.arch.lifecycle.Observer;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.PowerManager;
 import android.preference.PreferenceManager;
+import android.provider.Settings;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.widget.TableLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.crashlytics.android.Crashlytics;
-import com.loopj.android.http.AsyncHttpClient;
-import com.loopj.android.http.AsyncHttpResponseHandler;
 
-import org.json.JSONObject;
-
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
@@ -34,17 +32,19 @@ import androidx.work.WorkInfo;
 import androidx.work.WorkManager;
 import cl.niclabs.adkintunmobile.BuildConfig;
 import cl.niclabs.adkintunmobile.R;
-import cl.niclabs.adkintunmobile.monitors.TelephonyMonitor;
+import cl.niclabs.adkintunmobile.workers.PeriodicMeasurementsWorker;
 import cl.niclabs.adkintunmobile.views.status.FileSizeDialog;
-import cz.msebera.android.httpclient.Header;
-import cz.msebera.android.httpclient.entity.StringEntity;
 import io.fabric.sdk.android.Fabric;
 
 public class MainActivity extends AppCompatActivity {
 
     private Context context;
     private final String TAG = "AdkM:MainActivity";
-    private final int REQUEST_ACCESS_COARSE_LOCATION = 1;
+    public static final int MULTIPLE_PERMISSIONS = 10;
+    private final String[] permissions = new String[]{
+            android.Manifest.permission.ACCESS_COARSE_LOCATION,
+            android.Manifest.permission.WRITE_EXTERNAL_STORAGE,
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,20 +52,45 @@ public class MainActivity extends AppCompatActivity {
         if (!BuildConfig.DEBUG_MODE)
             Fabric.with(this, new Crashlytics());
         setContentView(R.layout.activity_main);
-
         this.context = this;
 
-        int permissionCheck = ActivityCompat.checkSelfPermission(getApplicationContext(), android.Manifest.permission.ACCESS_COARSE_LOCATION);
-        if (permissionCheck != PackageManager.PERMISSION_GRANTED) {
-            Log.i("Exception", "No permission");
-            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_COARSE_LOCATION}, REQUEST_ACCESS_COARSE_LOCATION);
-        } else {
-            telephonyWorkRequest();
-        }
         showFileSizeDialog();
+        if(checkPermissions()) {
+            startWork();
+        }
 
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            disableOptimizations(getApplicationContext());
+        }
     }
 
+    public void startWork() {
+        telephonyWorkRequest();
+    }
+
+    /*
+    Starts activity which opens the battery optimization settings window so the user can add the app
+    to the whitelist.
+    This is needed to disable Doze and Standby Mode.
+     */
+    private void openPowerSettings(Context context) {
+        Intent intent = new Intent();
+        intent.setAction(Settings.ACTION_IGNORE_BATTERY_OPTIMIZATION_SETTINGS);
+        context.startActivity(intent);
+    }
+
+    public void disableOptimizations(Context context) {
+        PowerManager powerManager = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
+        String packageName = context.getPackageName();
+        boolean ignoringOptimizations = powerManager.isIgnoringBatteryOptimizations(packageName);
+        if(!ignoringOptimizations) {
+            openPowerSettings(context);
+        }
+    }
+
+    /*
+    Shows the number picker so the user can select the file size with which the speed test will run.
+     */
     private void showFileSizeDialog() {
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         String value = sharedPreferences.getString(this.getString(R.string.speedtest_file_size), "");
@@ -81,23 +106,45 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+    private  boolean checkPermissions() {
+        int result;
+        List<String> listPermissionsNeeded = new ArrayList<>();
+        for (String p : permissions) {
+            result = ActivityCompat.checkSelfPermission(getApplicationContext(), p);
+            if (result != PackageManager.PERMISSION_GRANTED) {
+                listPermissionsNeeded.add(p);
+            }
+        }
+        if (!listPermissionsNeeded.isEmpty()) {
+            ActivityCompat.requestPermissions(this, listPermissionsNeeded.toArray(new String[0]), MULTIPLE_PERMISSIONS );
+            return false;
+        }
+        return true;
+    }
+
+    /*
+     TODO: Change the way the last measured values are put on the View. Observing a periodicwork doesnt work as expected
+     */
+
     public void telephonyWorkRequest() {
         Constraints constraints = new Constraints.Builder()
                 .setRequiresBatteryNotLow(false)
                 .setRequiresCharging(false)
                 .setRequiresStorageNotLow(false)
+                .setRequiresDeviceIdle(false)
                 .build();
 
-        final PeriodicWorkRequest workRequest = new PeriodicWorkRequest.Builder(TelephonyMonitor.class, 15, TimeUnit.MINUTES)
-                .addTag("telephony_check")
+        final PeriodicWorkRequest workRequest = new PeriodicWorkRequest.Builder(PeriodicMeasurementsWorker.class, 15, TimeUnit.MINUTES)
+                .addTag(PeriodicMeasurementsWorker.SLAVE_WORKER)
                 .setConstraints(constraints)
                 .build();
 
-        WorkManager.getInstance().enqueueUniquePeriodicWork("telephony",
+        final WorkManager workManager = WorkManager.getInstance();
+        workManager.enqueueUniquePeriodicWork(PeriodicMeasurementsWorker.SLAVE_WORKER,
                 ExistingPeriodicWorkPolicy.KEEP,
                 workRequest);
 
-        WorkManager.getInstance().getWorkInfosByTagLiveData(TelephonyMonitor.SLAVE_WORKER)
+        workManager.getWorkInfosByTagLiveData(PeriodicMeasurementsWorker.SLAVE_WORKER)
                 .observe(this, new Observer<List<WorkInfo>>() {
 
                     @Override
@@ -105,85 +152,61 @@ public class MainActivity extends AppCompatActivity {
                         if (workInfos != null) {
                             if (!workInfos.isEmpty()) {
                                 for (WorkInfo workInfo : workInfos) {
-                                    if (workInfo != null && workInfo.getState().isFinished()) {
-                                        createDynamicTextView();
-                                        setTextViews(workInfo.getOutputData());
+                                    if (workInfo.getState().equals(WorkInfo.State.ENQUEUED)) {
+                                        setTextViews();
                                     }
                                 }
                             }
                         }
                     }
                 });
-
     }
 
-    public void createDynamicTextView() {
-        TableLayout layout = this.findViewById(R.id.drawer_layout);
-
-        TableLayout.LayoutParams lparams = new TableLayout.LayoutParams(
-                TableLayout.LayoutParams.WRAP_CONTENT, TableLayout.LayoutParams.WRAP_CONTENT);
-        TextView tv = new TextView(this);
-        tv.setLayoutParams(lparams);
-        tv.setText("test");
-        layout.addView(tv);
-    }
-    public void setTextViews(Data data) {
-        Map<String, Object> map = data.getKeyValueMap();
+    /*
+    Method for visualizing the data obtained from the periodic work. Just a temporary method.
+     */
+    public void setTextViews() {
+        String packageName = this.getPackageName();
+        String[] tags = new String[] {"TYPE", "DBM", "MCC", "MNC", "CID", "LAC", "TIMESTAMP"};
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        String value;
         TextView view;
-        Log.i("values", map.values().toString());
-        for (String key : map.keySet()) {
-            view = findViewById(getResources().getIdentifier(key, "id", getPackageName()));
-            view.setText((String)map.get(key));
+        int resId;
+        for (String tag : tags) {
+            resId = this.getResources().getIdentifier(tag, "string", packageName);
+            if (tag.equals("TIMESTAMP")) {
+                value = sharedPreferences.getString(this.getString(resId), "0");
+                value = value.split(" ")[1];
+                value = tag + ": " + value;
+            } else {
+                value = tag + ": " + sharedPreferences.getString(this.getString(resId), "0");
+            }
+            view = findViewById(getResources().getIdentifier(tag, "id", getPackageName()));
+            view.setText(value);
         }
+
     }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
+    public void onRequestPermissionsResult(int requestCode, String permissionsList[], int[] grantResults) {
         switch (requestCode) {
-            case REQUEST_ACCESS_COARSE_LOCATION: {
-                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    telephonyWorkRequest();
-                } else {
-                    ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_COARSE_LOCATION}, REQUEST_ACCESS_COARSE_LOCATION);
+            case MULTIPLE_PERMISSIONS:{
+                if (grantResults.length > 0) {
+                    List<String> permissionsDenied = new ArrayList<>();
+                    for (int i = 0; i < permissionsList.length; i++) {
+                        if (grantResults[i] != PackageManager.PERMISSION_GRANTED) {
+                            permissionsDenied.add(permissionsList[i]);
+                        }
+                    }
+                    if (!permissionsDenied.isEmpty()) {
+                        ActivityCompat.requestPermissions(this, permissionsDenied.toArray(new String[0]), MULTIPLE_PERMISSIONS);
+                    } else {
+                        startWork();
+                    }
+                }  else {
+                    ActivityCompat.requestPermissions(this, permissions, MULTIPLE_PERMISSIONS);
                 }
-                break;
-
             }
-        }
-    }
-
-
-
-    private void showText(String message){
-        Toast toast = Toast.makeText(getApplicationContext(),
-                message, Toast.LENGTH_SHORT);
-        toast.show();
-    }
-
-    private void sendToServer(String accessToken,String qrString) {
-        String url = getString(R.string.web_auth_url);
-
-        JSONObject params = new JSONObject();
-        try {
-            params.put("uuid", qrString);
-            params.put("access_token", accessToken);
-            StringEntity entity = new StringEntity(params.toString());
-
-            AsyncHttpClient client = new AsyncHttpClient();
-            client.post(this, url, entity, "application/json", new AsyncHttpResponseHandler() {
-                @Override
-                public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
-                    Log.d(TAG, statusCode + " OK");
-                }
-
-                @Override
-                public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
-                    Log.d(TAG, statusCode + " NOT OK");
-                }
-            });
-
-        } catch (Exception e) {
-            e.printStackTrace();
         }
     }
 }
