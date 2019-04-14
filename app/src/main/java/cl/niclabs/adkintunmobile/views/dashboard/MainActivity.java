@@ -14,7 +14,6 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.widget.TextView;
 
 import com.crashlytics.android.Crashlytics;
@@ -176,7 +175,9 @@ public class MainActivity extends AppCompatActivity {
             resId = this.getResources().getIdentifier(tag, "string", packageName);
             if (tag.equals("TIMESTAMP")) {
                 value = sharedPreferences.getString(this.getString(resId), "0");
-                value = value.split(" ")[1];
+                if (value.contains(" ")) {
+                    value = value.split(" ")[1];
+                }
                 value = tag + ": " + value;
             } else {
                 value = tag + ": " + sharedPreferences.getString(this.getString(resId), "0");
