@@ -1,10 +1,13 @@
 package cl.niclabs.adkintunmobile.views.dashboard;
 
+import android.Manifest;
 import android.arch.lifecycle.Observer;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.PowerManager;
@@ -13,27 +16,31 @@ import android.provider.Settings;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentManager;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.widget.TextView;
 
-import com.crashlytics.android.Crashlytics;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationCallback;
+import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationResult;
+import com.google.android.gms.location.LocationServices;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 import androidx.work.Constraints;
-import androidx.work.Data;
 import androidx.work.ExistingPeriodicWorkPolicy;
 import androidx.work.PeriodicWorkRequest;
 import androidx.work.WorkInfo;
 import androidx.work.WorkManager;
-import cl.niclabs.adkintunmobile.BuildConfig;
 import cl.niclabs.adkintunmobile.R;
 import cl.niclabs.adkintunmobile.workers.PeriodicMeasurementsWorker;
 import cl.niclabs.adkintunmobile.views.status.FileSizeDialog;
-import io.fabric.sdk.android.Fabric;
+
 
 public class MainActivity extends AppCompatActivity {
 
@@ -42,17 +49,33 @@ public class MainActivity extends AppCompatActivity {
     public static final int MULTIPLE_PERMISSIONS = 10;
     private final String[] permissions = new String[]{
             android.Manifest.permission.ACCESS_COARSE_LOCATION,
+            android.Manifest.permission.ACCESS_FINE_LOCATION,
             android.Manifest.permission.WRITE_EXTERNAL_STORAGE,
     };
+    public LocationManager locationManager;
+    public FusedLocationProviderClient client;
+    private LocationRequest locationRequest;
+    private LocationCallback locationCallback;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (!BuildConfig.DEBUG_MODE)
-            Fabric.with(this, new Crashlytics());
         setContentView(R.layout.activity_main);
         this.context = this;
+        // LOCATION
+        locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        client = LocationServices.getFusedLocationProviderClient(getApplicationContext());
+        locationRequest = LocationRequest.create();
+        locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+        locationRequest.setInterval(0);
+        locationCallback = new LocationCallback();
 
+        if (ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED
+                && ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+            client.requestLocationUpdates(locationRequest, locationCallback, null);
+        }
+
+        checkLocationPermissions();
         showFileSizeDialog();
         if(checkPermissions()) {
             startWork();
@@ -72,6 +95,39 @@ public class MainActivity extends AppCompatActivity {
     to the whitelist.
     This is needed to disable Doze and Standby Mode.
      */
+
+    // Location methods
+    private boolean checkLocationPermissions() {
+        if(!isLocationEnabled())
+            showAlert();
+        return isLocationEnabled();
+    }
+
+    private void showAlert() {
+        final AlertDialog.Builder dialog = new AlertDialog.Builder(this);
+        dialog.setTitle("Enable Location")
+                .setMessage("Your Locations Settings is set to 'Off'.\nPlease Enable Location to " +
+                        "use this app")
+                .setPositiveButton("Location Settings", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface paramDialogInterface, int paramInt) {
+                        Intent myIntent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                        startActivity(myIntent);
+                    }
+                })
+                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface paramDialogInterface, int paramInt) {
+                    }
+                });
+        dialog.show();
+    }
+
+    private boolean isLocationEnabled() {
+        return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) ||
+                locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
+    }
+
     private void openPowerSettings(Context context) {
         Intent intent = new Intent();
         intent.setAction(Settings.ACTION_IGNORE_BATTERY_OPTIMIZATION_SETTINGS);
@@ -121,9 +177,6 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
-    /*
-     TODO: Change the way the last measured values are put on the View. Observing a periodicwork doesnt work as expected
-     */
 
     public void telephonyWorkRequest() {
         Constraints constraints = new Constraints.Builder()
