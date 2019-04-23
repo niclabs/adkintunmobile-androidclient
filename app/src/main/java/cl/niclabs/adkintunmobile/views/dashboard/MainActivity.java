@@ -34,6 +34,8 @@ import java.util.concurrent.TimeUnit;
 
 import androidx.work.Constraints;
 import androidx.work.ExistingPeriodicWorkPolicy;
+import androidx.work.ExistingWorkPolicy;
+import androidx.work.OneTimeWorkRequest;
 import androidx.work.PeriodicWorkRequest;
 import androidx.work.WorkInfo;
 import androidx.work.WorkManager;
@@ -186,14 +188,14 @@ public class MainActivity extends AppCompatActivity {
                 .setRequiresDeviceIdle(false)
                 .build();
 
-        final PeriodicWorkRequest workRequest = new PeriodicWorkRequest.Builder(PeriodicMeasurementsWorker.class, 15, TimeUnit.MINUTES)
+        final OneTimeWorkRequest workRequest = new OneTimeWorkRequest.Builder(PeriodicMeasurementsWorker.class)
                 .addTag(PeriodicMeasurementsWorker.SLAVE_WORKER)
                 .setConstraints(constraints)
                 .build();
 
         final WorkManager workManager = WorkManager.getInstance();
-        workManager.enqueueUniquePeriodicWork(PeriodicMeasurementsWorker.SLAVE_WORKER,
-                ExistingPeriodicWorkPolicy.KEEP,
+        workManager.enqueueUniqueWork(PeriodicMeasurementsWorker.SLAVE_WORKER,
+                ExistingWorkPolicy.KEEP,
                 workRequest);
 
         workManager.getWorkInfosByTagLiveData(PeriodicMeasurementsWorker.SLAVE_WORKER)

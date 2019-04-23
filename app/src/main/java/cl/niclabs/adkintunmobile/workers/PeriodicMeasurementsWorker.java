@@ -73,22 +73,28 @@ public class PeriodicMeasurementsWorker extends AdkintunWorker {
     @NonNull
     @Override
     public Worker.Result doWork() {
-        Map<String, Object> data;
+        Map<String, Object> data = new HashMap<>();
+        while(data != null) {
+            // Get signal data
+            data = checkSignal();
+            // Get GPS data
+            data = getLocation(data);
+            Log.i("DATA", data.toString());
+            // Write to log
+            writeToCSV("AdkintunLogging.csv", data);
 
-        // Get signal data
-        data = checkSignal();
-
-        // Get GPS data
-        data = getLocation(data);
-        Log.i("DATA", data.toString());
-        // Write to log
-        writeToCSV("AdkintunLogging.csv", data);
-
-        for (String key : data.keySet()) {
-            updateFieldWithName(key, (String) data.get(key));
+            for (String key : data.keySet()) {
+                updateFieldWithName(key, (String) data.get(key));
+            }
+            try {
+                Thread.sleep(1000);
+            } catch(InterruptedException e) {
+                System.out.println("got interrupted!");
+            }
         }
-        Data output = new Data.Builder().putAll(data).build();
-        return Result.success(output);
+
+        //Data output = new Data.Builder().putAll(data).build();
+        return Result.success();
     }
 
     public void writeToCSV(String fileName, Map<String, Object> map) {
