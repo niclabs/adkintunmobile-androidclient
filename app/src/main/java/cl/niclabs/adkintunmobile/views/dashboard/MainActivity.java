@@ -18,15 +18,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.widget.TextView;
-
-import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.location.FusedLocationProviderClient;
-import com.google.android.gms.location.LocationCallback;
-import com.google.android.gms.location.LocationRequest;
-import com.google.android.gms.location.LocationResult;
-import com.google.android.gms.location.LocationServices;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -52,10 +44,7 @@ public class MainActivity extends AppCompatActivity {
             android.Manifest.permission.ACCESS_FINE_LOCATION,
             android.Manifest.permission.WRITE_EXTERNAL_STORAGE,
     };
-    public LocationManager locationManager;
-    public FusedLocationProviderClient client;
-    private LocationRequest locationRequest;
-    private LocationCallback locationCallback;
+    private LocationManager locationManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,16 +53,7 @@ public class MainActivity extends AppCompatActivity {
         this.context = this;
         // LOCATION
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-        client = LocationServices.getFusedLocationProviderClient(getApplicationContext());
-        locationRequest = LocationRequest.create();
-        locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
-        locationRequest.setInterval(0);
-        locationCallback = new LocationCallback();
 
-        if (ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED
-                && ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-            client.requestLocationUpdates(locationRequest, locationCallback, null);
-        }
 
         checkLocationPermissions();
         showFileSizeDialog();
@@ -85,6 +65,7 @@ public class MainActivity extends AppCompatActivity {
             disableOptimizations(getApplicationContext());
         }
     }
+
 
     public void startWork() {
         telephonyWorkRequest();

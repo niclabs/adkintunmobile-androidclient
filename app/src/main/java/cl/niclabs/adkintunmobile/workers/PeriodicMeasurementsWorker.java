@@ -5,9 +5,11 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.Location;
+import android.os.Looper;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
+import android.telecom.Call;
 import android.telephony.CellIdentityGsm;
 import android.telephony.CellIdentityLte;
 import android.telephony.CellIdentityWcdma;
@@ -21,11 +23,7 @@ import android.telephony.CellSignalStrengthWcdma;
 import android.telephony.TelephonyManager;
 import android.util.Log;
 
-import com.google.android.gms.location.FusedLocationProviderClient;
-import com.google.android.gms.location.LocationCallback;
-import com.google.android.gms.location.LocationRequest;
-import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.location.LocationResult;
 import com.opencsv.CSVWriter;
 
 import java.io.File;
@@ -40,34 +38,72 @@ import java.util.Map;
 import androidx.work.Data;
 import androidx.work.Worker;
 import androidx.work.WorkerParameters;
-import cl.niclabs.adkintunmobile.views.dashboard.MainActivity;
 
-public class PeriodicMeasurementsWorker extends AdkintunWorker {
+public class PeriodicMeasurementsWorker extends AdkintunWorker  {
 
-    private static final String TAG = PeriodicMeasurementsWorker.class.getSimpleName();
+    //private static final String TAG = PeriodicMeasurementsWorker.class.getSimpleName();
     public static final String SLAVE_WORKER = "SLAVE_WORKER";
-    public static final String LAC = "LAC";
-    public static final String CID = "CID";
-    public static final String DBM = "DBM";
-    public static final String TYPE = "TYPE";
-    public static final String MNC = "MNC";
-    public static final String MCC = "MCC";
-    public static final String TIMESTAMP = "TIMESTAMP";
-    public static final String LATITUDE = "LATITUDE";
-    public static final String LONGITUDE = "LONGITUDE";
-    public static final String ALTITUDE = "ALTITUDE";
-    public static final String ACCURACY = "ACCURACY";
-    public GPSListener locationListener;
+    private static final String LAC = "LAC";
+    private static final String CID = "CID";
+    private static final String DBM = "DBM";
+    private static final String TYPE = "TYPE";
+    private static final String MNC = "MNC";
+    private static final String MCC = "MCC";
+    private static final String TIMESTAMP = "TIMESTAMP";
+    private static final String LATITUDE = "LATITUDE";
+    private static final String LONGITUDE = "LONGITUDE";
+    private static final String ALTITUDE = "ALTITUDE";
+    private static final String ACCURACY = "ACCURACY";
+
+    private double altitude = -1;
+    private double latitude = -1;
+    private double longitude = -1;
+    private double accuracy = -1;
+    private Location lastLocation;
+
+    private LocationManager.Callback callback;
+
     private TelephonyManager telephonyManager;
-    public FusedLocationProviderClient client;
+
+    private LocationManager locationManager;
 
 
-    public PeriodicMeasurementsWorker(Context context, WorkerParameters params) {
+    public PeriodicMeasurementsWorker(final Context context, WorkerParameters params) {
         super(context, params);
         telephonyManager = (TelephonyManager) getApplicationContext().getSystemService(Context.TELEPHONY_SERVICE);
         // Location stuff must change later, this is a quick implementation
-        client = LocationServices.getFusedLocationProviderClient(getApplicationContext());
-        locationListener = new GPSListener();
+        callback = new LocationManager.Callback(){
+            @Override
+            public void onSuccess(Object o) {
+                lastLocation = (Location) o;
+                if (lastLocation != null) {
+                    altitude = lastLocation.getAltitude();
+                    latitude = lastLocation.getLatitude();
+                    longitude = lastLocation.getLongitude();
+                    accuracy = lastLocation.getAccuracy();
+                }
+            }
+
+            @Override
+            public void onLocationResult(LocationResult locationResult) {
+                Location location = locationResult.getLastLocation();
+                lastLocation = location;
+                if (lastLocation != null) {
+                    altitude = lastLocation.getAltitude();
+                    latitude = lastLocation.getLatitude();
+                    longitude = lastLocation.getLongitude();
+                    accuracy = lastLocation.getAccuracy();
+                }
+            }
+        };
+
+        Looper.prepare();
+        locationManager = new LocationManager(Looper.myLooper());
+
+        if (!locationManager.start(context, callback)) {
+            Log.i("LOCATION_MANAGER", "FAILED TO START");
+        }
+
     }
 
     @NonNull
@@ -75,6 +111,12 @@ public class PeriodicMeasurementsWorker extends AdkintunWorker {
     public Worker.Result doWork() {
         Map<String, Object> data;
 
+
+        while (lastLocation == null) {
+            locationManager.getLastLocation();
+            Log.i("LAST:", "NULL");
+        }
+        Log.i("LAST", "NOT NULL");
         // Get signal data
         data = checkSignal();
 
@@ -88,10 +130,12 @@ public class PeriodicMeasurementsWorker extends AdkintunWorker {
             updateFieldWithName(key, (String) data.get(key));
         }
         Data output = new Data.Builder().putAll(data).build();
+
+        locationManager.stop();
         return Result.success(output);
     }
 
-    public void writeToCSV(String fileName, Map<String, Object> map) {
+    private void writeToCSV(String fileName, Map<String, Object> map) {
         if (map != null) {
             try {
                 String baseDir = android.os.Environment.getExternalStorageDirectory().getAbsolutePath();
@@ -119,23 +163,28 @@ public class PeriodicMeasurementsWorker extends AdkintunWorker {
         }
     }
 
-    public Map<String, Object> getLocation(Map<String, Object> map) {
+    private Map<String, Object> getLocation(Map<String, Object> map) {
         int permissionCheck = ActivityCompat.checkSelfPermission(getApplicationContext(), android.Manifest.permission.ACCESS_FINE_LOCATION);
         if (permissionCheck != PackageManager.PERMISSION_GRANTED) {
             Log.i("Exception", "No permission ACCESS_FINE_LOCATION");
             return map;
         }
 
-        client.getLastLocation().addOnSuccessListener(locationListener);
+        locationManager.getLastLocation();
+
         if (map == null) {
-            map = locationListener.getDataHashMap();
-        } else {
-            map.putAll(locationListener.getDataHashMap());
+            map = new HashMap<>();
+
         }
+        map.put(ALTITUDE, Double.toString(altitude));
+        map.put(LATITUDE, Double.toString(latitude));
+        map.put(LONGITUDE, Double.toString(longitude));
+        map.put(ACCURACY, Double.toString(accuracy));
+
         return map;
     }
 
-    public Map<String, Object> checkSignal() {
+    private Map<String, Object> checkSignal() {
         Map<String, Object> map = new HashMap<>();
         int permissionCheck = ActivityCompat.checkSelfPermission(getApplicationContext(), android.Manifest.permission.ACCESS_COARSE_LOCATION);
         if (permissionCheck != PackageManager.PERMISSION_GRANTED) {
@@ -200,7 +249,7 @@ public class PeriodicMeasurementsWorker extends AdkintunWorker {
         return map;
     }
 
-    public void updateFieldWithName(String name, String value){
+    private void updateFieldWithName(String name, String value){
         String packageName = getApplicationContext().getPackageName();
         int resId = getApplicationContext().getResources().getIdentifier(name, "string", packageName);
         if (resId == 0) {
@@ -212,31 +261,4 @@ public class PeriodicMeasurementsWorker extends AdkintunWorker {
         editor.apply();
     }
 
-    public class GPSListener implements OnSuccessListener<Location> {
-        double altitude = -1;
-        double latitude = -1;
-        double longitude = -1;
-        double accuracy = -1;
-
-        @Override
-        public void onSuccess(Location location) {
-            if (location != null) {
-                altitude = location.getAltitude();
-                latitude = location.getLatitude();
-                longitude = location.getLongitude();
-                accuracy = location.getAccuracy();
-            }
-        }
-
-        public Map<String, Object> getDataHashMap() {
-            Map<String, Object> map = new HashMap<>();
-            map.put(ALTITUDE, Double.toString(altitude));
-            map.put(LATITUDE, Double.toString(latitude));
-            map.put(LONGITUDE, Double.toString(longitude));
-            map.put(ACCURACY, Double.toString(accuracy));
-
-            return map;
-        }
-
-    }
 }
