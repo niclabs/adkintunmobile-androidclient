@@ -96,8 +96,9 @@ public class PeriodicMeasurementsWorker extends AdkintunWorker  {
                 }
             }
         };
-
-        Looper.prepare();
+        if (Looper.myLooper() == null) {
+            Looper.prepare();   
+        }
         locationManager = new LocationManager(Looper.myLooper());
 
         if (!locationManager.start(context, callback)) {
