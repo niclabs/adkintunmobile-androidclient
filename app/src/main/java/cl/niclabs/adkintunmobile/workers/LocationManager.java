@@ -3,6 +3,7 @@ package cl.niclabs.adkintunmobile.workers;
 import android.Manifest;
 import android.content.Context;
 import android.content.pm.PackageManager;
+import android.location.Location;
 import android.os.Looper;
 import android.support.v4.content.ContextCompat;
 
@@ -24,7 +25,7 @@ public class LocationManager extends LocationCallback {
         this.looper = looper;
     }
 
-    public interface Callback extends OnSuccessListener {
+    public interface Callback extends OnSuccessListener<Location> {
         void onLocationResult(LocationResult locationResult);
     }
 
@@ -64,8 +65,8 @@ public class LocationManager extends LocationCallback {
     private LocationRequest getLocationRequest() {
         return LocationRequest.create()
                 .setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)
-                .setInterval(0)
-                .setFastestInterval(0);
+                .setInterval(4000)
+                .setFastestInterval(4000);
     }
 
 }

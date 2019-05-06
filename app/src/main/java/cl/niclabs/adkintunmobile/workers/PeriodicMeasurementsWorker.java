@@ -9,7 +9,6 @@ import android.os.Looper;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
-import android.telecom.Call;
 import android.telephony.CellIdentityGsm;
 import android.telephony.CellIdentityLte;
 import android.telephony.CellIdentityWcdma;
@@ -29,6 +28,7 @@ import com.opencsv.CSVWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.sql.Timestamp;
+import java.time.chrono.ThaiBuddhistEra;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
@@ -74,30 +74,17 @@ public class PeriodicMeasurementsWorker extends AdkintunWorker  {
         // Location stuff must change later, this is a quick implementation
         callback = new LocationManager.Callback(){
             @Override
-            public void onSuccess(Object o) {
-                lastLocation = (Location) o;
-                if (lastLocation != null) {
-                    altitude = lastLocation.getAltitude();
-                    latitude = lastLocation.getLatitude();
-                    longitude = lastLocation.getLongitude();
-                    accuracy = lastLocation.getAccuracy();
-                }
+            public void onSuccess(Location location) {
+                setLocation(location);
             }
 
             @Override
             public void onLocationResult(LocationResult locationResult) {
-                Location location = locationResult.getLastLocation();
-                lastLocation = location;
-                if (lastLocation != null) {
-                    altitude = lastLocation.getAltitude();
-                    latitude = lastLocation.getLatitude();
-                    longitude = lastLocation.getLongitude();
-                    accuracy = lastLocation.getAccuracy();
-                }
+                setLocation(locationResult.getLastLocation());
             }
         };
         if (Looper.myLooper() == null) {
-            Looper.prepare();   
+            Looper.prepare();
         }
         locationManager = new LocationManager(Looper.myLooper());
 
@@ -115,6 +102,12 @@ public class PeriodicMeasurementsWorker extends AdkintunWorker  {
 
         while (lastLocation == null) {
             locationManager.getLastLocation();
+            try {
+                Thread.sleep(3000);
+            } catch (Exception e) {
+                Log.i("EXCEPTION", e.toString());
+            }
+
             Log.i("LAST:", "NULL");
         }
         Log.i("LAST", "NOT NULL");
@@ -134,6 +127,16 @@ public class PeriodicMeasurementsWorker extends AdkintunWorker  {
 
         locationManager.stop();
         return Result.success(output);
+    }
+
+    private void setLocation(Location location) {
+        lastLocation = location;
+        if (lastLocation != null) {
+            altitude = lastLocation.getAltitude();
+            latitude = lastLocation.getLatitude();
+            longitude = lastLocation.getLongitude();
+            accuracy = lastLocation.getAccuracy();
+        }
     }
 
     private void writeToCSV(String fileName, Map<String, Object> map) {

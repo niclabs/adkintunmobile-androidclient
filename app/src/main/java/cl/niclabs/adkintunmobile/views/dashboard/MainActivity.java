@@ -86,9 +86,8 @@ public class MainActivity extends AppCompatActivity {
 
     private void showAlert() {
         final AlertDialog.Builder dialog = new AlertDialog.Builder(this);
-        dialog.setTitle("Enable Location")
-                .setMessage("Your Locations Settings is set to 'Off'.\nPlease Enable Location to " +
-                        "use this app")
+        dialog.setTitle("Acceso a servicio de ubicacion")
+                .setMessage("Por favor, enciende el GPS.")
                 .setPositiveButton("Location Settings", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface paramDialogInterface, int paramInt) {
