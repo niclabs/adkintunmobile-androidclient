@@ -1,6 +1,7 @@
 package cl.niclabs.adkintunmobile.workers;
 
 
+import android.Manifest;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
@@ -89,7 +90,7 @@ public class PeriodicMeasurementsWorker extends AdkintunWorker  {
         locationManager = new LocationManager(Looper.myLooper());
 
         if (!locationManager.start(context, callback)) {
-            Log.i("LOCATION_MANAGER", "FAILED TO START");
+            Log.e("LOCATION_MANAGER", "FAILED TO START");
         }
 
     }
@@ -97,38 +98,44 @@ public class PeriodicMeasurementsWorker extends AdkintunWorker  {
     @NonNull
     @Override
     public Worker.Result doWork() {
+        waitForLocation(10);
+
         Map<String, Object> data;
 
-
-        while (lastLocation == null) {
-            locationManager.getLastLocation();
-            try {
-                Thread.sleep(3000);
-            } catch (Exception e) {
-                Log.i("EXCEPTION", e.toString());
-            }
-
-            Log.i("LAST:", "NULL");
-        }
-        Log.i("LAST", "NOT NULL");
         // Get signal data
         data = checkSignal();
 
         // Get GPS data
         data = getLocation(data);
         Log.i("DATA", data.toString());
+
         // Write to log
         writeToCSV("AdkintunLogging.csv", data);
 
         for (String key : data.keySet()) {
             updateFieldWithName(key, (String) data.get(key));
         }
-        Data output = new Data.Builder().putAll(data).build();
 
+        // Remember to remove CallBack by using stop
         locationManager.stop();
+
+        Data output = new Data.Builder().putAll(data).build();
         return Result.success(output);
     }
 
+    // Timeout represents the seconds to be waited
+    private void waitForLocation(int timeout) {
+        int loopCount = 0;
+        while (lastLocation == null && loopCount < timeout) {
+            locationManager.getLastLocation();
+            try {
+                Thread.sleep(1000);
+            } catch (Exception e) {
+                Log.i("EXCEPTION", e.toString());
+            }
+            loopCount += 1;
+        }
+    }
     private void setLocation(Location location) {
         lastLocation = location;
         if (lastLocation != null) {
@@ -155,8 +162,10 @@ public class PeriodicMeasurementsWorker extends AdkintunWorker  {
                 } else {
                     // Create new file and put headers on it
                     writer = new CSVWriter(new FileWriter(filePath));
-                    String[] header = Arrays.copyOf(mapKeys, mapKeys.length, String[].class);
-                    writer.writeNext(header);
+                    if (mapKeys != null) {
+                        String[] header = Arrays.copyOf(mapKeys, mapKeys.length, String[].class);
+                        writer.writeNext(header);
+                    }
                 }
                 String[] data = Arrays.copyOf(mapValues, mapValues.length, String[].class);
                 writer.writeNext(data);
@@ -167,10 +176,12 @@ public class PeriodicMeasurementsWorker extends AdkintunWorker  {
         }
     }
 
+
     private Map<String, Object> getLocation(Map<String, Object> map) {
+
         int permissionCheck = ActivityCompat.checkSelfPermission(getApplicationContext(), android.Manifest.permission.ACCESS_FINE_LOCATION);
         if (permissionCheck != PackageManager.PERMISSION_GRANTED) {
-            Log.i("Exception", "No permission ACCESS_FINE_LOCATION");
+            Log.e("Exception", "No permission ACCESS_FINE_LOCATION");
             return map;
         }
 
@@ -192,7 +203,7 @@ public class PeriodicMeasurementsWorker extends AdkintunWorker  {
         Map<String, Object> map = new HashMap<>();
         int permissionCheck = ActivityCompat.checkSelfPermission(getApplicationContext(), android.Manifest.permission.ACCESS_COARSE_LOCATION);
         if (permissionCheck != PackageManager.PERMISSION_GRANTED) {
-            Log.i("Exception", "No permission ACCESS COARSE LOCATION");
+            Log.e("Exception", "No permission ACCESS COARSE LOCATION");
             return map;
         }
 
