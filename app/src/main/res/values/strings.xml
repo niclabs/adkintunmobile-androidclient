@@ -86,6 +86,7 @@
     <string name="settings_speed_test_download_size_key">download_size</string>
     <string name="settings_speed_test_download_size_title">Tamaño de archivo de bajada</string>
     <string name="settings_speed_test_upload_size_key">upload_size</string>
+    <string name="settings_speed_test_file_size_key">speet_test_file_size</string>
     <string name="settings_speed_test_upload_size_title">Tamaño de archivo de subida</string>
     <string name="settings_speed_test_server_host_key">speed_test_server_host</string>
     <string name="settings_speed_test_server_port_key">speed_test_server_port</string>

@@ -1,7 +1,6 @@
 package cl.niclabs.adkintunmobile.workers;
 
 
-import android.Manifest;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
@@ -29,7 +28,6 @@ import com.opencsv.CSVWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.sql.Timestamp;
-import java.time.chrono.ThaiBuddhistEra;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
@@ -39,10 +37,15 @@ import java.util.Map;
 import androidx.work.Data;
 import androidx.work.Worker;
 import androidx.work.WorkerParameters;
+import cl.niclabs.adkintunmobile.R;
+import cl.niclabs.adkintunmobile.utils.activemeasurements.speedtest.SpeedTest;
+import fr.bmartel.speedtest.SpeedTestReport;
+import fr.bmartel.speedtest.inter.ISpeedTestListener;
+import fr.bmartel.speedtest.model.SpeedTestError;
+import fr.bmartel.speedtest.model.SpeedTestMode;
 
 public class PeriodicMeasurementsWorker extends AdkintunWorker  {
 
-    //private static final String TAG = PeriodicMeasurementsWorker.class.getSimpleName();
     public static final String SLAVE_WORKER = "SLAVE_WORKER";
     private static final String LAC = "LAC";
     private static final String CID = "CID";
@@ -55,6 +58,12 @@ public class PeriodicMeasurementsWorker extends AdkintunWorker  {
     private static final String LONGITUDE = "LONGITUDE";
     private static final String ALTITUDE = "ALTITUDE";
     private static final String ACCURACY = "ACCURACY";
+
+    private int fileSize;
+    private String serverHost;
+    private String serverPort;
+    private SpeedTest downloadSpeedTest;
+    private SpeedTest uploadSpeedTest;
 
     private double altitude = -1;
     private double latitude = -1;
@@ -92,7 +101,9 @@ public class PeriodicMeasurementsWorker extends AdkintunWorker  {
         if (!locationManager.start(context, callback)) {
             Log.e("LOCATION_MANAGER", "FAILED TO START");
         }
-
+        // Set Speed Test
+        downloadSpeedTest = setupSpeedTest(getSpeedTest());
+        uploadSpeedTest = setupSpeedTest(getSpeedTest());
     }
 
     @NonNull
@@ -118,6 +129,9 @@ public class PeriodicMeasurementsWorker extends AdkintunWorker  {
 
         // Remember to remove CallBack by using stop
         locationManager.stop();
+
+        runSpeedTest(downloadSpeedTest, SpeedTestMode.DOWNLOAD);
+        runSpeedTest(uploadSpeedTest, SpeedTestMode.UPLOAD);
 
         Data output = new Data.Builder().putAll(data).build();
         return Result.success(output);
@@ -262,6 +276,45 @@ public class PeriodicMeasurementsWorker extends AdkintunWorker  {
         map.put(MCC, mcc);
         map.put(MNC, mnc);
         return map;
+    }
+
+    public SpeedTest getSpeedTest() {
+        Context context = getApplicationContext();
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
+        String speedTestFileSizeValue = sharedPreferences.getString(context.getString(R.string.settings_speed_test_file_size_key), "1000000");
+        serverHost = sharedPreferences.getString(context.getString(R.string.settings_speed_test_server_host_key), "http://dev.adkintunmobile.cl");
+        serverPort = sharedPreferences.getString(context.getString(R.string.settings_speed_test_server_port_key), "8080");
+        fileSize = Integer.parseInt(speedTestFileSizeValue);
+        Log.i("SpeedtestData", serverHost + " " + serverPort + " " + fileSize);
+        return new SpeedTest(serverHost, serverPort, fileSize);
+    }
+
+    public SpeedTest setupSpeedTest(SpeedTest speedtest) {
+        ISpeedTestListener listener = new ISpeedTestListener() {
+            @Override
+            public void onCompletion(final SpeedTestReport report) {
+                String mode = report.getSpeedTestMode() == SpeedTestMode.UPLOAD ? "UPLOAD" : "DOWNLOAD";
+                Log.i("SpeedTestInfo:", mode + " - " + report.getTotalPacketSize()
+                        + " - " + report.getTransferRateBit() + " - " +
+                        report.getTransferRateOctet());
+            }
+
+            @Override
+            public void onError(final SpeedTestError speedTestError, final String errorMessage) {
+                Log.e("SpeedTestError:","Error " + speedTestError + " : " + errorMessage);
+            }
+
+            @Override
+            public void onProgress(final float percent, final SpeedTestReport report) {
+                Log.i("SpeedTestProgress", report.toString());
+            }
+        };
+        speedtest.setListener(listener);
+        return speedtest;
+    }
+
+    public void runSpeedTest(SpeedTest speedTest, SpeedTestMode mode) {
+        speedTest.run(mode);
     }
 
     private void updateFieldWithName(String name, String value){
