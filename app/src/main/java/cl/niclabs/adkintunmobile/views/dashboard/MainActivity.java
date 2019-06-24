@@ -1,6 +1,5 @@
 package cl.niclabs.adkintunmobile.views.dashboard;
 
-import android.Manifest;
 import android.arch.lifecycle.Observer;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -77,7 +76,7 @@ public class MainActivity extends AppCompatActivity {
     This is needed to disable Doze and Standby Mode.
      */
 
-    // Location methods
+    // LocationManager methods
     private boolean checkLocationPermissions() {
         if(!isLocationEnabled())
             showAlert();
@@ -88,7 +87,7 @@ public class MainActivity extends AppCompatActivity {
         final AlertDialog.Builder dialog = new AlertDialog.Builder(this);
         dialog.setTitle("Acceso a servicio de ubicacion")
                 .setMessage("Por favor, enciende el GPS.")
-                .setPositiveButton("Location Settings", new DialogInterface.OnClickListener() {
+                .setPositiveButton("LocationManager Settings", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface paramDialogInterface, int paramInt) {
                         Intent myIntent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
@@ -199,7 +198,7 @@ public class MainActivity extends AppCompatActivity {
      */
     public void setTextViews() {
         String packageName = this.getPackageName();
-        String[] tags = new String[] {"TYPE", "DBM", "MCC", "MNC", "CID", "LAC", "TIMESTAMP"};
+        String[] tags = new String[] {"TYPE", "DBM", "MCC", "MNC", "CID", "LAC", "TIMESTAMP", "DOWNLOAD", "UPLOAD"};
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         String value;
         TextView view;

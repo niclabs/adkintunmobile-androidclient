@@ -15,6 +15,8 @@
     <string name="MNC">MNC</string>
     <string name="TYPE">Type</string>
     <string name="CID">cID</string>
+    <string name="UPLOAD">UPLOAD</string>
+    <string name="DOWNLOAD">DOWNLOAD</string>
 
     <!-- Titles By View -->
     <string name="view_status">Tu Estado</string>
