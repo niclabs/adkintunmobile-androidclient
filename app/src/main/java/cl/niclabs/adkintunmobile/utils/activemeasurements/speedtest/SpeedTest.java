@@ -1,6 +1,5 @@
 package cl.niclabs.adkintunmobile.utils.activemeasurements.speedtest;
 
-import android.content.Context;
 import android.util.Log;
 
 import java.math.BigDecimal;
@@ -18,7 +17,6 @@ public class SpeedTest {
 
     private static final int SOCKET_TIMEOUT = 5000;
     SpeedTestSocket speedTestSocket;
-    //private int progressPercent = -1;
     private final String host;
     private final String port;
     private int fileOctetSize;
@@ -31,7 +29,7 @@ public class SpeedTest {
 
     public SpeedTest(String host, String port, int fileOctetSize, SpeedTestMode mode) {
         speedTestSocket = new SpeedTestSocket();
-        //speedTestSocket.setSocketTimeout(SOCKET_TIMEOUT);
+        speedTestSocket.setSocketTimeout(SOCKET_TIMEOUT);
         Log.i("SPEEDTESTHOTS", host);
         this.mode = mode;
         this.host = host;

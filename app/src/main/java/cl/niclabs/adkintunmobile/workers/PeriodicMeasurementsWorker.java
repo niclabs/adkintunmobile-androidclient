@@ -12,6 +12,7 @@ import com.opencsv.CSVWriter;
 
 import java.io.File;
 import java.io.FileWriter;
+import java.net.InetAddress;
 import java.util.Arrays;
 import java.util.Map;
 
@@ -20,6 +21,7 @@ import androidx.work.Worker;
 import androidx.work.WorkerParameters;
 import cl.niclabs.adkintunmobile.R;
 import cl.niclabs.adkintunmobile.data.persistent.Measurement;
+import cl.niclabs.adkintunmobile.utils.activemeasurements.ping.Ping;
 import cl.niclabs.adkintunmobile.utils.passivemeasurements.LocationManager;
 import cl.niclabs.adkintunmobile.utils.passivemeasurements.Telephony;
 import cl.niclabs.adkintunmobile.utils.activemeasurements.speedtest.SpeedTest;
@@ -35,6 +37,11 @@ public class PeriodicMeasurementsWorker extends AdkintunWorker  {
     private SpeedTest downloadSpeedTest;
     private SpeedTest uploadSpeedTest;
     private Measurement measurement;
+    private String pingAddress;
+    private int pingTTL;
+    private int pingTimeOutMillis;
+    private int pingCount;
+    private Ping ping;
 
     private LocationManager locationManager;
 
@@ -42,6 +49,12 @@ public class PeriodicMeasurementsWorker extends AdkintunWorker  {
 
     public PeriodicMeasurementsWorker(final Context context, WorkerParameters params) {
         super(context, params);
+        pingAddress = "8.8.8.8";
+        pingTTL = 100;
+        pingTimeOutMillis = 5000;
+        pingCount = 1;
+        ping = new Ping(pingTimeOutMillis, pingTTL, pingCount);
+
         // Set up Telephony and Location Objects to get the required information
         telephony = new Telephony(context);
         locationManager = new LocationManager(getLooper(), context);
@@ -74,6 +87,16 @@ public class PeriodicMeasurementsWorker extends AdkintunWorker  {
         uploadSpeedTest.setMeasurement(measurement);
         uploadSpeedTest.run();
         measurement = uploadSpeedTest.getMeasurement();
+
+        try {
+            ping.doPing(pingAddress);
+        } catch (Exception e) {
+            Log.e("Ping Error", e.getMessage());
+        }
+
+        if (ping.getResult() != null) {
+            data.putAll(ping.getResult());
+        }
 
         measurement.save();
 

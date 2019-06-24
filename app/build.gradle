@@ -1,6 +1,8 @@
 buildscript {
     repositories {
-        maven { url 'https://maven.fabric.io/public' }
+        maven {
+            url 'https://maven.fabric.io/public'
+        }
     }
 
     dependencies {
@@ -11,7 +13,10 @@ apply plugin: 'com.android.application'
 apply plugin: 'io.fabric'
 
 repositories {
-    maven { url 'https://maven.fabric.io/public' }
+
+    maven {
+        url 'https://maven.fabric.io/public'
+    }
 }
 
 
@@ -45,7 +50,6 @@ dependencies {
 
     implementation 'com.google.android.gms:play-services-location:16.0.0'
 
-
     implementation 'com.opencsv:opencsv:4.0'
     implementation 'com.github.satyan:sugar:1.5'
     implementation fileTree(dir: 'libs', include: ['*.jar'])
@@ -66,7 +70,6 @@ dependencies {
     implementation 'com.loopj.android:android-async-http:1.4.9'
     implementation 'com.github.amlcurran.showcaseview:library:5.4.3'
     implementation 'com.github.vipulasri:timelineview:1.0.3'
-    //implementation 'com.github.akinaru:speedtest:1.23'
     implementation 'fr.bmartel:jspeedtest:1.32.1'
     implementation 'com.jjoe64:graphview:4.1.1'
     implementation 'com.journeyapps:zxing-android-embedded:3.4.0'
