@@ -12,7 +12,6 @@ import com.opencsv.CSVWriter;
 
 import java.io.File;
 import java.io.FileWriter;
-import java.net.InetAddress;
 import java.util.Arrays;
 import java.util.Map;
 
@@ -20,8 +19,8 @@ import androidx.work.Data;
 import androidx.work.Worker;
 import androidx.work.WorkerParameters;
 import cl.niclabs.adkintunmobile.R;
-import cl.niclabs.adkintunmobile.data.persistent.Measurement;
 import cl.niclabs.adkintunmobile.utils.activemeasurements.ping.Ping;
+import cl.niclabs.adkintunmobile.utils.activemeasurements.speedtest.ActiveServers;
 import cl.niclabs.adkintunmobile.utils.passivemeasurements.LocationManager;
 import cl.niclabs.adkintunmobile.utils.passivemeasurements.Telephony;
 import cl.niclabs.adkintunmobile.utils.activemeasurements.speedtest.SpeedTest;
@@ -36,7 +35,6 @@ public class PeriodicMeasurementsWorker extends AdkintunWorker  {
     private String serverPort;
     private SpeedTest downloadSpeedTest;
     private SpeedTest uploadSpeedTest;
-    private Measurement measurement;
     private String pingAddress;
     private int pingTTL;
     private int pingTimeOutMillis;
@@ -71,22 +69,11 @@ public class PeriodicMeasurementsWorker extends AdkintunWorker  {
 
         // Get signal data
         telephonyData = telephony.run();
-
-        measurement = telephony.getMeasurement();
-        locationManager.setMeasurement(measurement);
-
         locationData = locationManager.run();
-        measurement = locationManager.getMeasurement();
         data = telephonyData;
         data.putAll(locationData);
-
-        downloadSpeedTest.setMeasurement(measurement);
         downloadSpeedTest.run();
-        measurement = downloadSpeedTest.getMeasurement();
-
-        uploadSpeedTest.setMeasurement(measurement);
         uploadSpeedTest.run();
-        measurement = uploadSpeedTest.getMeasurement();
 
         try {
             ping.doPing(pingAddress);
@@ -97,8 +84,6 @@ public class PeriodicMeasurementsWorker extends AdkintunWorker  {
         if (ping.getResult() != null) {
             data.putAll(ping.getResult());
         }
-
-        measurement.save();
 
         data.put("DOWNLOAD", downloadSpeedTest.getTransferRateOctet().toString());
         data.put("UPLOAD", uploadSpeedTest.getTransferRateOctet().toString());
@@ -111,7 +96,8 @@ public class PeriodicMeasurementsWorker extends AdkintunWorker  {
             updateFieldWithName(key, (String) data.get(key));
         }
 
-
+        //ActiveServers act = new ActiveServers(getApplicationContext());
+        //act.getActiveServers();
         Data output = new Data.Builder().putAll(data).build();
         return Result.success(output);
     }

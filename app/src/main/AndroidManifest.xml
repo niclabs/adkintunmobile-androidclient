@@ -42,7 +42,7 @@
             </intent-filter>
         </activity>
 
-        <!-- Database configuration -->
+        <!-- Database configuration
         <meta-data
             android:name="VERSION"
             android:value="2" />
@@ -54,7 +54,7 @@
             android:value="adkmobile.db" />
         <meta-data
             android:name="DOMAIN_PACKAGE_NAME"
-            android:value="cl.niclabs.adkintunmobile.data.persistent" />
+            android:value="cl.niclabs.adkintunmobile.data.persistent" /> -->
 
 
         <meta-data

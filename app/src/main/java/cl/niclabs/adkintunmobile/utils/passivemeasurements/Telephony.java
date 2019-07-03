@@ -22,7 +22,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import cl.niclabs.adkintunmobile.data.persistent.Measurement;
 
 public class Telephony {
     private static final String LAC = "LAC";
@@ -35,11 +34,9 @@ public class Telephony {
     private Map<String, Object> result;
     private Context context;
     private TelephonyManager telephonyManager;
-    private Measurement measurement;
 
     public Telephony(Context ctx) {
         this.context = ctx;
-        measurement = new Measurement();
         telephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
     }
 
@@ -102,13 +99,6 @@ public class Telephony {
         Date date = new Date();
         Timestamp timestamp = new Timestamp(date.getTime());
 
-        measurement.setTimeStamp(timestamp);
-        measurement.setType(type);
-        measurement.setcID(Integer.parseInt(cid));
-        measurement.setLac(Integer.parseInt(lac));
-        measurement.setMcc(Integer.parseInt(mcc));
-        measurement.setMnc(Integer.parseInt(mnc));
-
         map.put(TIMESTAMP, timestamp.toString());
         map.put(TYPE, type);
         map.put(DBM, strength);
@@ -118,14 +108,6 @@ public class Telephony {
         map.put(MNC, mnc);
         result = map;
         return map;
-    }
-
-    public void setMeasurement(Measurement measurement) {
-        this.measurement = measurement;
-    }
-
-    public Measurement getMeasurement() {
-        return measurement;
     }
 
     public Map<String, Object> run() {

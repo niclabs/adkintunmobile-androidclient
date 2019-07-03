@@ -19,7 +19,6 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import java.util.HashMap;
 import java.util.Map;
 
-import cl.niclabs.adkintunmobile.data.persistent.Measurement;
 
 public class LocationManager extends LocationCallback {
     private static final String LATITUDE = "LATITUDE";
@@ -36,7 +35,6 @@ public class LocationManager extends LocationCallback {
     private Callback callback;
     private Looper looper;
     private Context context;
-    private Measurement measurement;
     Map<String, Object> result;
 
     public interface Callback extends OnSuccessListener<Location> {
@@ -47,7 +45,6 @@ public class LocationManager extends LocationCallback {
         super();
         this.context = ctx;
         this.looper = looper;
-        this.measurement = new Measurement();
 
         callback = new Callback(){
             @Override
@@ -148,11 +145,6 @@ public class LocationManager extends LocationCallback {
 
         }
 
-        measurement.setAltitude(altitude);
-        measurement.setLatitude(latitude);
-        measurement.setLongitude(longitude);
-        measurement.setAccuracy(accuracy);
-
         map.put(ALTITUDE, Double.toString(altitude));
         map.put(LATITUDE, Double.toString(latitude));
         map.put(LONGITUDE, Double.toString(longitude));
@@ -161,11 +153,4 @@ public class LocationManager extends LocationCallback {
         return map;
     }
 
-    public void setMeasurement(Measurement measurement) {
-        this.measurement = measurement;
-    }
-
-    public Measurement getMeasurement() {
-        return measurement;
-    }
 }

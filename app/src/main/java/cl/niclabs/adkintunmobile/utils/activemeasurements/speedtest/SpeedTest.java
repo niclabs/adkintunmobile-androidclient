@@ -23,20 +23,17 @@ public class SpeedTest {
     private ISpeedTestListener listener;
     private BigDecimal transferRateOctet ;
     private SpeedTestMode mode;
-    private Measurement measurement;
     private boolean testEnd;
 
 
     public SpeedTest(String host, String port, int fileOctetSize, SpeedTestMode mode) {
         speedTestSocket = new SpeedTestSocket();
         speedTestSocket.setSocketTimeout(SOCKET_TIMEOUT);
-        Log.i("SPEEDTESTHOTS", host);
         this.mode = mode;
         this.host = host;
         this.port = port;
         this.fileOctetSize = fileOctetSize;
         this.testEnd = false;
-        this.measurement = new Measurement();
         setListener(null);
     }
 
@@ -92,10 +89,8 @@ public class SpeedTest {
 
         if (this.mode == SpeedTestMode.UPLOAD) {
             mode = "UPLOAD";
-            measurement.setUploadRate(transferRateOctet);
         } else {
             mode = "DOWNLOAD";
-            measurement.setDownloadRate(transferRateOctet);
         }
 
         Map<String, Object> map = new HashMap<>();
@@ -107,11 +102,4 @@ public class SpeedTest {
         return transferRateOctet;
     }
 
-    public void setMeasurement(Measurement measurement) {
-        this.measurement = measurement;
-    }
-
-    public Measurement getMeasurement() {
-        return measurement;
-    }
 }

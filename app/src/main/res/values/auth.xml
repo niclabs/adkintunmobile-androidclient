@@ -5,8 +5,7 @@
     <string name="fabric_api_key">fabric_api_key</string>
     <string name="adkintun_hostname_default">adkintun_host</string>
     <string name="speed_test_server_host">http://dev.adkintunmobile.cl</string>
-    <string name="speed_test_server_port">8080</string>
-    <string name="speed_test_file_size">1000000</string>
+    <string name="speed_test_server_port">80</string>
     <string name="media_test_video_id">video_id</string>
     <string name="web_auth_url">web_auth_url</string>
 </resources>
