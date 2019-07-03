@@ -113,10 +113,10 @@ public class PeriodicMeasurementsWorker extends AdkintunWorker  {
         Context context = getApplicationContext();
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
         String speedTestFileSizeValue = sharedPreferences.getString(context.getString(R.string.settings_speed_test_file_size_key), "1000000");
-        serverHost = sharedPreferences.getString(context.getString(R.string.settings_speed_test_server_host_key), "http://dev.adkintunmobile.cl");
-        serverPort = sharedPreferences.getString(context.getString(R.string.settings_speed_test_server_port_key), "8080");
+        serverHost = context.getString(R.string.speed_test_server_host);
+        serverPort = context.getString(R.string.speed_test_server_port);
         fileSize = Integer.parseInt(speedTestFileSizeValue);
-        Log.i("SpeedtestData", serverHost + " " + serverPort + " " + fileSize);
+        //Log.i("SpeedtestData", serverHost + " " + serverPort + " " + fileSize);
         return new SpeedTest(serverHost, serverPort, fileSize, mode);
     }
 
